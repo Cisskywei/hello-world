@@ -13,6 +13,7 @@ namespace veClassRoom.Room
             public static readonly string Net_Ret_Result = "result";
             public static readonly string Net_Ret_Connector = "connector";
             public static readonly string Net_Ret_Connector_func = "connectorfunc";
+            public static readonly string Net_Ret_Scene_name = "scenename";
 
             public static readonly string Net_Ret_Token = "token";
             public static readonly string Net_Ret_Name = "name";

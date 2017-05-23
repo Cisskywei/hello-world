@@ -26,6 +26,9 @@ namespace veClassRoom.Room
         // 场景是否是继续使用的
         public bool isactive = true;
 
+        // 场景中人数
+        public int playercount = 0;  // 小组分组算法会用到
+
         // 场景中需要同步的物体
         public Dictionary<string, ObjectInScene> moveablesceneobject = new Dictionary<string, ObjectInScene>();
 
@@ -40,7 +43,7 @@ namespace veClassRoom.Room
 
         // 场景的当前模式  默认各自独立
         public Enums.ModelEnums model = Enums.ModelEnums.Separate;
-        public BaseModelClass realmodel; // 负责分发处理各个模式
+ //       public BaseModelClass realmodel; // 负责分发处理各个模式
 
         // 当前场景的权限
         public Enums.PermissionEnum permission = Enums.PermissionEnum.Group;
@@ -284,6 +287,21 @@ namespace veClassRoom.Room
         public void StopSyncClient()
         {
             _syncstate = false;
+        }
+
+        public virtual void StartSyncClient()
+        {
+            _syncstate = true;
+
+            Thread t = RoomManager.getInstance().FindThreadOfRoom(this.scenename);
+            if (t == null)
+            {
+                t = RoomManager.getInstance().ApplyThreadForRoom(this.scenename);
+            }
+            else
+            {
+                RoomManager.getInstance().StartThreadForRoom(this.scenename);
+            }
         }
 
         // *************************************************    以下是基础场景所拥有的基本函数 和客户端通信所需    ****************************************//

@@ -154,7 +154,7 @@ namespace veClassRoom.Room
             }
             createPlayer(p, token, name, uuid);
 
-            if(istartclass)
+            if(istartclass && !p.isleader)
             {
                 SceneSynchronizationPlayer(uuid);
             }
@@ -357,6 +357,16 @@ namespace veClassRoom.Room
                 return;
             }
 
+            // 先判断是否有小组
+            if(ps.group != null)
+            {
+                ps.group.Req_Object_Operate_permissions(token, objectname, uuid);
+
+                return;
+            }
+
+            // 没有小组执行以下操作
+
             if (!(checkOperateFeasible(ps) || ps.isCanOperate))
             {
                 Console.WriteLine("无权操作 : " + "token : " + token);
@@ -408,33 +418,6 @@ namespace veClassRoom.Room
 
             } while (false);
 
-            //try
-            //{
-
-            //    if(_uuid_broadcast.Count > 0)
-            //    {
-            //        _uuid_broadcast.Clear();
-            //    }
-
-            //    foreach(PlayerInScene p in sceneplaylist.Values)
-            //    {
-            //        if(p.isCanOperate)
-            //        {
-            //            _uuid_broadcast.Add(p.uuid);
-            //        }
-            //    }
-
-            //}catch
-            //{
-
-            //}
-
-            //if (_uuid_broadcast.Count > 0)
-            //{
-            //    hub.hub.gates.call_group_client(_uuid_broadcast, "cMsgConnect", "ret_operation_permissions", token, objectname, "hold", ret ? "yes" : "no");
-            //    _uuid_broadcast.Clear();
-            //}
-
             if(_uuid_of_player.Count > 0)
             {
                 hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", token, objectname, "hold", ret ? "yes" : "no");
@@ -453,6 +436,16 @@ namespace veClassRoom.Room
             {
                 return;
             }
+
+            // 先判断是否有小组
+            if (ps.group != null)
+            {
+                ps.group.Req_Object_Release_permissions(token, objectname, uuid);
+
+                return;
+            }
+
+            // 没有小组执行以下操作
 
             if (!(checkOperateFeasible(ps) || ps.isCanOperate))
             {
@@ -492,34 +485,6 @@ namespace veClassRoom.Room
 
             } while (false);
 
-            //try
-            //{
-
-            //    if (_uuid_broadcast.Count > 0)
-            //    {
-            //        _uuid_broadcast.Clear();
-            //    }
-
-            //    foreach (PlayerInScene p in sceneplaylist.Values)
-            //    {
-            //        if (p.isCanOperate)
-            //        {
-            //            _uuid_broadcast.Add(p.uuid);
-            //        }
-            //    }
-
-            //}
-            //catch
-            //{
-
-            //}
-
-            //if (_uuid_broadcast.Count > 0)
-            //{
-            //    hub.hub.gates.call_group_client(_uuid_broadcast, "cMsgConnect", "ret_operation_permissions", token, objectname, "release", ret ? "yes" : "no");
-            //    _uuid_broadcast.Clear();
-            //}
-
             if(_uuid_of_player.Count > 0)
             {
                 hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", token, objectname, "release", ret ? "yes" : "no");
@@ -538,6 +503,16 @@ namespace veClassRoom.Room
             {
                 return;
             }
+
+            // 先判断是否有小组
+            if (ps.group != null)
+            {
+                ps.group.ChangeObjectAllOnce(token, clientallonce);
+
+                return;
+            }
+
+            // 没有小组执行以下操作
 
             if (!(checkOperateEffective(ps) || ps.isCanSend))
             {
@@ -603,6 +578,37 @@ namespace veClassRoom.Room
 
             // 指令缓存
             sceneorderlist.Add(new OrderInScene(0,token,typ,commond,other));  //后期加入时间机制
+        }
+
+        public void ret_sync_group_commond(string typ, string commond, string token, string other, string uuid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                return;
+            }
+
+            PlayerInScene ps = findPlayerByToken(token);
+            if (ps == null)
+            {
+                return;
+            }
+
+            // 先判断是否有小组
+            if (ps.group != null)
+            {
+                ps.group.ret_sync_commond(typ, commond, token, other, uuid);
+
+                return;
+            }
+
+            // 没有小组执行以下操作
+
+            ret_sync_commond(typ, commond, token, other, uuid);
         }
 
         public override void SyncClient()
@@ -696,7 +702,7 @@ namespace veClassRoom.Room
                 return;
             }
 
-            if (!sceneplaylist.ContainsKey(onetoken))
+            if(!sceneplaylist.ContainsKey(onetoken))
             {
                 Console.WriteLine("服务器玩家不存在 : " + "token : " + onetoken + " sceneplaylist count : " + sceneplaylist.Count);
                 return;
@@ -773,9 +779,74 @@ namespace veClassRoom.Room
 
         ////////////////////////////////////////////////////   小组 管理相关     ///////////////////////////////////////////////////////////////////////////////////
         // 分组函数
-        private void DivideGroupByGrade()
+        private Enums.DivideGroupRules convertRuleToEnum(string rule)
         {
+            Enums.DivideGroupRules ret = Enums.DivideGroupRules.Grade;
 
+            switch(rule)
+            {
+                case "Grade":
+                    ret = Enums.DivideGroupRules.Grade;
+                    break;
+                case "Random":
+                    ret = Enums.DivideGroupRules.Random;
+                    break;
+                default:
+                    break;
+            }
+             
+            return ret;
+        }
+
+        private void divideGroupByGrade()
+        {
+            int count = sceneplaylist.Count;
+            int groupcount = count / 10;
+            int remainder = count % 10;
+            if(remainder > 0)
+            {
+                groupcount++;
+            }
+            int membercount = count / groupcount;
+            remainder = count % groupcount; // 多余的人数 插入到 前几组之中
+
+            string groupname = "group";
+            for(int i=0;i<groupcount;i++)
+            {
+                GroupInRoom gir = new GroupInRoom();
+                if(remainder > 0)
+                {
+                    gir.playercount = membercount + 1;
+                    remainder--;
+                }
+                else
+                {
+                    gir.playercount = membercount;
+                }
+                grouplist.Add(groupname + i, gir);
+            }
+
+            remainder = 0;
+            membercount = 0;
+            GroupInRoom girr = grouplist[groupname + remainder];
+            foreach (PlayerInScene ps in sceneplaylist.Values)
+            {
+                if(girr == null)
+                {
+                    break;
+                }
+
+                girr.AddMember(ps);
+                ps.group = girr;
+                membercount++;
+
+                if (membercount >= girr.playercount)
+                {
+                    remainder++;
+                    membercount = 0;
+                    girr = grouplist[groupname + remainder];
+                }
+            }
         }
 
         public void DivideGroup(string token, string rules, string uuid)
@@ -803,6 +874,59 @@ namespace veClassRoom.Room
                 return;
             }
 
+            // 按成绩分组
+            divideGroupByGrade();
+        }
+
+        /// 选择某一学生 或者某一小组
+        /// 仅限于观学模式
+        public void ChooseOneOrGroup(string token, string name, bool isgroup = false)
+        {
+            if(token == null)
+            {
+                return;
+            }
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylist[token]))
+            {
+                // 权限不够
+                Console.WriteLine("选择人物权限不够 : " + "token : " + token);
+                return;
+            }
+
+            if(isgroup)
+            {
+                if(grouplist.Count <= 0 || !grouplist.ContainsKey(name))
+                {
+                    Console.WriteLine("当前房间不存在该小组 : " + name);
+                    return;
+                }
+
+                // 组内协作 并且广播 给 所有玩家 
+                // TODO
+            }
+            else
+            {
+                // 改变一个人的权限 并且广播
+                if(!sceneplaylist.ContainsKey(name))
+                {
+                    Console.WriteLine("服务器玩家不存在 : " + "token : " + name);
+                    return;
+                }
+
+                // 学生可操作 并且广播给所有学生 但是 老师可介入
+                //TODO
+            }
         }
     }
 }

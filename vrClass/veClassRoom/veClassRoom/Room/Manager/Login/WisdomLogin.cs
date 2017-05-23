@@ -108,6 +108,7 @@ namespace veClassRoom.Room
             {
                 rr.PlayerEnterScene(token, name, uuid);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Scene_name, rr.scenename);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
             }
 

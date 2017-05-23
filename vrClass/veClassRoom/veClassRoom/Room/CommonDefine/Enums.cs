@@ -42,5 +42,12 @@ namespace veClassRoom.Room
             SynchronousMultiple = 8,   // GuidanceMode
             Collaboration = 16,   // CollaborativeModel
         }
+
+        public enum DivideGroupRules
+        {
+            None = 0,
+            Grade,
+            Random,
+        }
     }
 }

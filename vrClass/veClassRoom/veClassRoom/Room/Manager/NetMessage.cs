@@ -23,6 +23,30 @@ namespace veClassRoom.Room
         }
 
         // 房间协议
+        public void InitScenes(string roomname, Hashtable data)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.InitScenes(data);
+        }
+
+        public void BeginClass(string roomname, string token)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.BeginClass(token);
+        }
+
         public void Switch_Model(string roomname, string token, string tomodel, string uuid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
@@ -83,6 +107,18 @@ namespace veClassRoom.Room
             rr.ret_sync_commond(typ,commond,token,other,uuid);
         }
 
+        public void ret_sync_group_commond(string roomname, string typ, string commond, string token, string other, string uuid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.ret_sync_group_commond(typ, commond, token, other, uuid);
+        }
+
         public void Change_One_Model(string roomname, string token, string tomodel, string uuid, string onetoken)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
@@ -105,6 +141,18 @@ namespace veClassRoom.Room
             }
 
             rr.Change_Some_Model(token, tomodel, uuid, sometoken);
+        }
+
+        public void Divide_Group(string roomname, string token, string rules, string uuid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.DivideGroup(token, rules, uuid);
         }
     }
 }
