@@ -1,0 +1,11 @@
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.exe.config
+D:\work\Service\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.csprojResolveAssemblyReference.cache
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.exe
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.pdb
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\hub.dll
+D:\work\Service\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.exe
+D:\work\Service\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.pdb
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.Core.dll
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.dll
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.Legacy.dll
+D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\hub.pdb

@@ -1,0 +1,31 @@
+{
+    "center":{
+        "ip":"192.168.0.181",
+        "port":1234,
+        "gm_ip":"58.213.74.230",
+        "gm_port":2234
+    },
+
+    "dbproxy":{
+	"ip":"192.168.0.181",
+	"port":1235,
+	"db_ip":"139.129.96.47",
+	"db_port":27017,
+	"db_name":"test",
+	"db_collection":"objects"
+    },
+
+    "gate":{
+	"inside_ip":"192.168.0.181",
+	"inside_port":1236,
+	"outside_ip":"192.168.0.181",
+	"outside_port":3236,
+	"heartbeats":false
+    },
+
+    "lobby":{
+	"hub_name":"lobby",
+	"ip":"192.168.0.181",
+	"port":1237
+    },
+}
