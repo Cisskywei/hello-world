@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Assets\Radial Menu\Scripts\RadialMenuActive.cs" />
     <Compile Include="Assets\Radial Menu\Scripts\RaycastMask.cs" />
+    <Compile Include="Assets\Scripts\Common\Enums.cs" />
     <Compile Include="Assets\Scripts\Config.cs" />
     <Compile Include="Assets\Scripts\Container.cs" />
     <Compile Include="Assets\Scripts\EventSystem\EventDispatcher.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SendObjectOnce.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncManager.cs" />
     <Compile Include="Assets\Scripts\SyncObjectOnce.cs" />
+    <Compile Include="Assets\Scripts\UI\Data\PlayerBaseInfor.cs" />
     <Compile Include="Assets\Scripts\UI\MessageWindow.cs" />
     <Compile Include="Assets\Scripts\UI\UiDataManager.cs" />
     <Compile Include="Assets\Scripts\choseCourse.cs" />
