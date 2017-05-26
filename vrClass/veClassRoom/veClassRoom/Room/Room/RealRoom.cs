@@ -18,6 +18,9 @@ namespace veClassRoom.Room
 
         public Dictionary<string, GroupInRoom> grouplist = new Dictionary<string, GroupInRoom>();
 
+        // 场景的 初始化的数据   用于重置场景
+        private SceneData _originalscene = new SceneData();
+
         ////////////////////////////////////////////////////      场景初始化、同步、销毁等操作模块      ///////////////////////////////////////////////
 
         public override void CreateScene(string name, imodule model, bool isaddmodel = false)
@@ -29,6 +32,10 @@ namespace veClassRoom.Room
         public override void InitScenes(Hashtable data)
         {
             base.InitScenes(data);
+
+            // 初始化原始服务器数据
+            this._originalscene.InitSceneData(this.moveablesceneobject, this.sceneplaylist, this.sceneorderlist);
+
             Console.WriteLine("初始化服务器");
         }
 
@@ -716,7 +723,8 @@ namespace veClassRoom.Room
             }
 
             PlayerInScene ps = sceneplaylist[onetoken];
-            ps.ChangePlayerModel(convertModelToEnum(tomodel));
+            this.model = Utilities.getInstance().convertModelToEnum(tomodel);
+            ps.ChangePlayerModel(this.model);
 
             hub.hub.gates.call_client(ps.uuid, "cMsgConnect", "ret_change_one_model", token, tomodel);
 
@@ -750,7 +758,7 @@ namespace veClassRoom.Room
                 return;
             }
 
-            Enums.ModelEnums m = convertModelToEnum(tomodel);
+            this.model = Utilities.getInstance().convertModelToEnum(tomodel);
 
             ArrayList uuidcache = new ArrayList();
             foreach(string t in sometoken)
@@ -761,7 +769,7 @@ namespace veClassRoom.Room
                 }
 
                 PlayerInScene ps = sceneplaylist[t];
-                ps.ChangePlayerModel(m);
+                ps.ChangePlayerModel(this.model);
 
                 uuidcache.Add(ps.uuid);
             }
@@ -779,25 +787,6 @@ namespace veClassRoom.Room
 
         ////////////////////////////////////////////////////   小组 管理相关     ///////////////////////////////////////////////////////////////////////////////////
         // 分组函数
-        private Enums.DivideGroupRules convertRuleToEnum(string rule)
-        {
-            Enums.DivideGroupRules ret = Enums.DivideGroupRules.Grade;
-
-            switch(rule)
-            {
-                case "Grade":
-                    ret = Enums.DivideGroupRules.Grade;
-                    break;
-                case "Random":
-                    ret = Enums.DivideGroupRules.Random;
-                    break;
-                default:
-                    break;
-            }
-             
-            return ret;
-        }
-
         private void divideGroupByGrade()
         {
             int count = sceneplaylist.Count;
@@ -878,15 +867,22 @@ namespace veClassRoom.Room
             divideGroupByGrade();
         }
 
-        /// 选择某一学生 或者某一小组
+        /// 选择某一学生 或者某一小组 操作 全班同学观看
         /// 仅限于观学模式
-        public void ChooseOneOrGroup(string token, string name, bool isgroup = false)
+        public void ChooseOneOrGroupOperate(string token, string name, bool isgroup = false)
         {
             if(token == null)
             {
                 return;
             }
+
             if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            // 当前模式必须是   指导模式才行
+            if(this.model != Enums.ModelEnums.SynchronousMultiple)
             {
                 return;
             }
@@ -914,6 +910,19 @@ namespace veClassRoom.Room
 
                 // 组内协作 并且广播 给 所有玩家 
                 // TODO
+                // 1,改变 组内成员权限 可操作 可同步
+                GroupInRoom gir = grouplist[name];
+                if(gir == null)
+                {
+                    return;
+                }
+
+                gir.SwitchModelTo(Enums.ModelEnums.Collaboration);
+                // 2,向所选择小组注入观看成员
+                gir.InjectiveViewer(_uuid_of_player);
+
+                // 通知该小组成员 被选中
+                gir.TellPlayerBeSelected(token, name);
             }
             else
             {
@@ -926,7 +935,213 @@ namespace veClassRoom.Room
 
                 // 学生可操作 并且广播给所有学生 但是 老师可介入
                 //TODO
+                // 1,特殊改变某一学生的操作开关
+                PlayerInScene ps = sceneplaylist[name];
+                if(ps == null)
+                {
+                    return;
+                }
+
+                ps.ChangePlayerCanOperate(this.leader.permission, true);
+                ps.ChangePlayerCanSend(this.leader.permission, true);
+                ps.ChangePlayerCanReceive(this.permission, true);
+
+                // 通知学生他被选中
+                hub.hub.gates.call_client(ps.uuid, "cMsgConnect", "ret_choose_one_operate", token, name);
             }
         }
+
+        /////////////////////////////////////////   和客户端交互需要用到的 辅助函数  （私有）     //////////////////////////////////////////////////////////////////////////////
+        // TODO
+
+
+        ////////////////////////////////////////     具体和客户端的界面操作有关的 rpc函数   与UI界面 交互接口      /////////////////////////////////////////////////////////////
+
+        /// <summary>
+        /// 教学模式切换操作
+        /// </summary>
+        /// <param name="token">操作者token</param>
+        /// <param name="mode">切换的教学模式 TeachingMode 对应教学5大模式：观学模式、指导模式，自主训练、视频点播、视频直播</param>
+        /// <param name="target">对应操作类型的操作对象：个人、组、、全部、空</param>
+        public void SwitchTeachMode(string token, Int64 mode, string target = null)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylist[token]))
+            {
+                // 权限不够
+                Console.WriteLine("UI 教学模式切换操作 权限不够 : " + "token : " + token);
+                return;
+            }
+
+            Enums.TeachingMode tm = (Enums.TeachingMode)mode;
+
+            switch(tm)
+            {
+                case Enums.TeachingMode.WatchLearnModel_Sync:
+                    break;
+                case Enums.TeachingMode.WatchLearnModel_Async:
+                    break;
+                case Enums.TeachingMode.GuidanceMode_Personal:
+                    break;
+                case Enums.TeachingMode.GuidanceMode_Group:
+                    break;
+                case Enums.TeachingMode.SelfTrain_Personal:
+                    break;
+                case Enums.TeachingMode.SelfTrain_Group:
+                    break;
+                case Enums.TeachingMode.SelfTrain_All:
+                    break;
+                case Enums.TeachingMode.VideoOnDemand_General:
+                    break;
+                case Enums.TeachingMode.VideoOnDemand_Full:
+                    break;
+                case Enums.TeachingMode.VideoOnLive_General:
+                    break;
+                case Enums.TeachingMode.VideoOnLive_Full:
+                    break;
+                default:
+                    break;
+            }
+
+            // 回复客户端
+        }
+
+        /// <summary>
+        /// 老师随堂测验的操作， 记得区分 在vr课件里 还是 在 学习大厅
+        /// </summary>
+        /// <param name="token">操作者token</param>
+        /// <param name="typ">随堂测验的类型</param>
+        /// <param name="question">具体问题信息id</param>
+        /// <param name="other">额外的参数信息</param>
+        public void InClassTest(string token, Int64 typ, string question, string other = null)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylist[token]))
+            {
+                // 权限不够
+                Console.WriteLine("UI 教学模式切换操作 权限不够 : " + "token : " + token);
+                return;
+            }
+
+            //Enums.InClassTestType ctt = (Enums.InClassTestType)typ;
+
+            //switch(ctt)
+            //{
+            //    case Enums.InClassTestType.Test:
+            //        break;
+            //    case Enums.InClassTestType.Fast:
+            //        break;
+            //    case Enums.InClassTestType.Ask:
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            // 初始化 对应的 class类
+
+            // 广播 所有学生 测验题
+            if (_uuid_of_player.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retInClassTest", token, typ, question, other);
+            }
+        }
+
+        /// <summary>
+        /// 重置场景相关
+        /// </summary>
+        /// <param name="token">操作者token</param>
+        /// <param name="typ">重置对象类型：全部、组、个人</param>
+        /// <param name="target">具体重置对象信息：名字</param>
+        public void ResetScene(string token, Int64 typ, string target)
+        {
+            if(token == null)
+            {
+                return;
+            }
+
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylist[token]))
+            {
+                // 权限不够
+                Console.WriteLine("UI 教学模式切换操作 权限不够 : " + "token : " + token);
+                return;
+            }
+
+            Enums.OperatingRange or = (Enums.OperatingRange)typ;
+
+            switch(or)
+            {
+                case Enums.OperatingRange.Personal:
+                    if(target == null)
+                    {
+                        return;
+                    }
+
+                    if (!sceneplaylist.ContainsKey(target))
+                    {
+                        Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + target);
+                        return;
+                    }
+                    PlayerInScene ps = sceneplaylist[target];
+                    hub.hub.gates.call_client(ps.uuid, "cMsgConnect", "retResetScene", token);
+                    break;
+                case Enums.OperatingRange.Team:
+                    if (target == null)
+                    {
+                        return;
+                    }
+
+                    if (!grouplist.ContainsKey(target))
+                    {
+                        Console.WriteLine("UI 服务器小组不存在 : " + "token : " + target);
+                        return;
+                    }
+                    GroupInRoom gir = grouplist[target];
+                    hub.hub.gates.call_group_client(gir._uuid_of_player, "cMsgConnect", "retResetScene", token);
+                    break;
+                case Enums.OperatingRange.All:
+                    if(_uuid_of_player.Count > 0)
+                    {
+                        hub.hub.gates.call_group_client(this._uuid_of_player, "cMsgConnect", "retResetScene", token);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+        ////////////////////////////////////////     具体和学生互动有关的 rpc函数  学生点赞、举手  老师  接收答题反馈 等  /////////////////////////////////////
+
     }
 }

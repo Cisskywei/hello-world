@@ -9,3 +9,6 @@ D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.Core.dl
 D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.dll
 D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\MongoDB.Driver.Legacy.dll
 D:\work\Service\vrClass\veClassRoom\veClassRoom\bin\Debug\hub.pdb
+D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.exe.config
+D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.exe
+D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.pdb

@@ -89,10 +89,13 @@
     <Compile Include="Room\Player\ObjectInScene.cs" />
     <Compile Include="Room\Player\PlayerInScene.cs" />
     <Compile Include="Room\Room\Base\BaseRoomClass.cs" />
+    <Compile Include="Room\Room\Base\SceneData.cs" />
     <Compile Include="Room\Room\GroupInRoom.cs" />
     <Compile Include="Room\Room\RealRoom.cs" />
+    <Compile Include="Room\Statistics\ClassTest.cs" />
     <Compile Include="Room\Tools\Singleton.cs" />
     <Compile Include="Room\UserData\UserInfor.cs" />
+    <Compile Include="Room\Utility\Utilities.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\ScenesManager.cs" />
     <Compile Include="server.cs" />

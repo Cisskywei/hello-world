@@ -67,9 +67,16 @@ namespace veClassRoom.Room
                         {
                             if(token == group.leader.token)
                             {
-                                isCanSend = true;
-                                isCanOperate = true;
+                                //isCanSend = true;
+                                //isCanOperate = true;
                             }
+                        }
+
+                        // 权限大于等于老师
+                        if (this.permission >= Enums.PermissionEnum.Teacher)
+                        {
+                            isCanOperate = true;
+                            isCanSend = true;
                         }
                     }
                     break;
@@ -83,14 +90,16 @@ namespace veClassRoom.Room
                         {
                             if (token == group.leader.token)
                             {
-                                isCanSend = true;
-                                isCanOperate = true;
+                                //isCanSend = true;
+                                //isCanOperate = true;
                             }
                         }
-                        else   // 暂时没有小组  只为测试
+
+                        // 权限大于等于老师
+                        if(this.permission >= Enums.PermissionEnum.Teacher)
                         {
-                            isCanSend = true;
                             isCanOperate = true;
+                            isCanSend = true;
                         }
                     }
                     break;

@@ -282,6 +282,57 @@ namespace veClassRoom.Room
         /// <param name="tomodel"></param>
         public virtual void SwitchModelTo(Enums.ModelEnums tomodel)
         {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            bool isusecache = false;
+
+            if(_uuid_of_player.Count <= 0)
+            {
+                isusecache = true;
+            }
+
+            if (tomodel != this.model)
+            {
+                this.model = tomodel;
+
+                try
+                {
+                    if(isusecache)
+                    {
+                        if (_uuid_sync_cache.Count > 0)
+                        {
+                            _uuid_sync_cache.Clear();
+                        }
+                    }
+
+                    foreach (PlayerInScene player in sceneplaylist.Values)
+                    {
+                        player.ChangePlayerModel(this.model);
+
+                        if(isusecache)
+                        {
+                            _uuid_sync_cache.Add(player.uuid);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+
+            if (isusecache && _uuid_sync_cache.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "ret_change_one_model", this.leader.token, tomodel);
+            }
+            else if(_uuid_of_player.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_change_one_model", this.leader.token, tomodel);
+            }
         }
 
         public void StopSyncClient()
@@ -343,6 +394,11 @@ namespace veClassRoom.Room
         }
 
         // 是否能够操作物体 1,独立模式是可以自由操作的 但是不更改服务器状态 2,根据模式进行判别
+        // 1，独立模式可操作
+        // 2，观学模式 异步 可操作
+        // 3，观学模式被选中学生可操作
+        // 4，多人协同模式可操作
+        // 5，老师一直可操作
         public virtual bool checkOperateFeasible(PlayerInScene player)
         {
             bool ret = false;
@@ -354,12 +410,6 @@ namespace veClassRoom.Room
                     break;
                 }
 
-                if (this.model == Enums.ModelEnums.Separate)
-                {
-                    ret = true;
-                    break;
-                }
-
                 // 第一步 根据当前房间模式进行操作是否可行判别
                 switch (player.model)
                 {
@@ -367,6 +417,16 @@ namespace veClassRoom.Room
                         ret = true;
                         break;
                     case Enums.ModelEnums.SynchronousOne:   // 同步leader(可能是老师)  只有当前 leader 可操作
+                        if (player.isleader && player.token == this.leader.token)
+                        {
+                            ret = true;
+                        }
+                        else
+                        {
+                            ret = false;
+                        }
+                        break;
+                    case Enums.ModelEnums.SynchronousOne_Fixed: // 在观学模式下的 同步模式  不允许 学生自由走动 操作 等等
                         if (player.isleader && player.token == this.leader.token)
                         {
                             ret = true;
@@ -394,12 +454,16 @@ namespace veClassRoom.Room
                 switch (player.model)
                 {
                     case Enums.ModelEnums.Separate:
-                        ret = false;
+                        ret = true;
                         break;
                     case Enums.ModelEnums.SynchronousOne:   // 同步leader(可能是老师)  只有当前 leader 可操作
                         if (player.isleader && player.token == this.leader.token)
                         {
                             ret = true;
+                        }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
                         }
                         else
                         {
@@ -407,7 +471,7 @@ namespace veClassRoom.Room
                         }
                         break;
                     case Enums.ModelEnums.SynchronousMultiple:
-                        ret = player.isCanOperate;
+                        ret = player.isCanOperate;   // 学生是被选中的 在观学模式下被老师选中的  
                         break;
                     case Enums.ModelEnums.Collaboration:
                         ret = true;
@@ -427,7 +491,6 @@ namespace veClassRoom.Room
 
             do
             {
-
                 if (player == null)
                 {
                     break;
@@ -444,6 +507,10 @@ namespace veClassRoom.Room
                         {
                             ret = true;
                         }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
+                        }
                         else
                         {
                             ret = false;
@@ -454,10 +521,16 @@ namespace veClassRoom.Room
                         {
                             ret = true;
                         }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
+                        }
                         else
                         {
                             ret = false;
                         }
+
+                        ret = ret || player.isCanSend;   // 玩家权限 可能是被选中的
                         break;
                     case Enums.ModelEnums.Collaboration:
                         ret = true;
@@ -481,6 +554,10 @@ namespace veClassRoom.Room
                         {
                             ret = true;
                         }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
+                        }
                         else
                         {
                             ret = false;
@@ -490,6 +567,10 @@ namespace veClassRoom.Room
                         if (player.isleader && player.token == this.leader.token)
                         {
                             ret = true;
+                        }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
                         }
                         else
                         {
@@ -580,24 +661,7 @@ namespace veClassRoom.Room
 
             Console.WriteLine("切换模式成功 : " + "token : " + token + " tomodel: " + tomodel + "  开始更改玩家状态");
 
-            Enums.ModelEnums m = this.model;
-            switch (tomodel)
-            {
-                case "Separate":
-                    m = Enums.ModelEnums.Separate;
-                    break;
-                case "SynchronousOne":
-                    m = Enums.ModelEnums.SynchronousOne;
-                    break;
-                case "SynchronousMultiple":
-                    m = Enums.ModelEnums.SynchronousMultiple;
-                    break;
-                case "Collaboration":
-                    m = Enums.ModelEnums.Collaboration;
-                    break;
-                default:
-                    break;
-            }
+            Enums.ModelEnums m = Utilities.getInstance().convertModelToEnum(tomodel);
 
             if (m != this.model)
             {
@@ -929,53 +993,17 @@ namespace veClassRoom.Room
             }
         }
 
-        // 辅助功能函数
-        public Enums.ModelEnums convertModelToEnum(string modelname)
+        // 通知玩家自己被选中 作为 操作主题（观学模式）
+        public void TellPlayerBeSelected(string token, string name, ArrayList uuids = null)
         {
-            Enums.ModelEnums m = this.model;
-            switch (modelname)
+            if(uuids == null || uuids.Count <= 0)
             {
-                case "Separate":
-                    m = Enums.ModelEnums.Separate;
-                    break;
-                case "SynchronousOne":
-                    m = Enums.ModelEnums.SynchronousOne;
-                    break;
-                case "SynchronousMultiple":
-                    m = Enums.ModelEnums.SynchronousMultiple;
-                    break;
-                case "Collaboration":
-                    m = Enums.ModelEnums.Collaboration;
-                    break;
-                default:
-                    break;
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_choose_one_operate", token, name);
             }
-
-            return m;
-        }
-
-        public string convertEnumToModel(Enums.ModelEnums mudelenum)
-        {
-            string m = null;
-            switch (mudelenum)
+            else
             {
-                case Enums.ModelEnums.Separate:
-                    m = "Separate";
-                    break;
-                case Enums.ModelEnums.SynchronousOne:
-                    m = "SynchronousOne";
-                    break;
-                case Enums.ModelEnums.SynchronousMultiple:
-                    m = "SynchronousMultiple";
-                    break;
-                case Enums.ModelEnums.Collaboration:
-                    m = "Collaboration";
-                    break;
-                default:
-                    break;
+                hub.hub.gates.call_group_client(uuids, "cMsgConnect", "ret_choose_one_operate", token, name);
             }
-
-            return m;
         }
     }
 }

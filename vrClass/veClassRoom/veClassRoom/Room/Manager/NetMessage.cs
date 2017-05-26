@@ -154,5 +154,21 @@ namespace veClassRoom.Room
 
             rr.DivideGroup(token, rules, uuid);
         }
+
+        public void ChooseOneOrGroupOperate(string roomname, string token, string name, bool isgroup = false)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.ChooseOneOrGroupOperate(token, name, isgroup);
+        }
+
+
+        // 具体和客户端的界面操作有关的 rpc函数
+        //TODO
     }
 }
