@@ -1,0 +1,151 @@
+[5/22/2017 1:06:01 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:06:46 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:07:16 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:07:46 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:08:16 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:08:21 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:09:13 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:10:02 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:10:32 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:11:02 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:11:32 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:12:02 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:12:32 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:13:02 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:13:32 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:14:02 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:14:32 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:14:38 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:18:24 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:22:03 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:26:58 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:27:16 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:27:29 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:28:05 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:28:09 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:30:47 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:31:29 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:31:40 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:32:05 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 1:33:01 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:43:46 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:48:21 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:52:20 PM] [error] [common.modulemanager] [process_module_mothed]:do not have a func name:
+[5/22/2017 2:52:20 PM] [error] [common.modulemanager] [process_module_mothed]:do not have a func name:
+[5/22/2017 2:53:47 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:54:12 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:54:45 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_change_one_model System.Exception:System.Reflection.TargetParameterCountException: parameters do not match signature
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0003c] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:188 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/22/2017 2:54:45 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_change_one_model System.Exception:System.Reflection.TargetParameterCountException: parameters do not match signature
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
