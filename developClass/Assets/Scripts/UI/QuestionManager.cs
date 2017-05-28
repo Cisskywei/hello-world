@@ -38,6 +38,13 @@ public class QuestionManager {
         return questions;
     }
 
+    public QuestionInfor GetQuestionByTypId(Enums.InClassTestType typ, int id)
+    {
+        QuestionInfor question = new QuestionInfor();
+
+        return question;
+    }
+
     public QuestionInfor GetQuestionById(int id)
     {
         QuestionInfor question = new QuestionInfor();

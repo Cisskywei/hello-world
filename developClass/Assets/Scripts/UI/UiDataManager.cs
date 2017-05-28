@@ -189,4 +189,19 @@ public class UiDataManager {
 
     // 操作状态信息
     public Enums.OperatingAttribute operateattribute = Enums.OperatingAttribute.None;
+
+    // 控制变量 标记是否是 老师
+    private bool _isTecaher = false;
+    public bool IsTeacher
+    {
+        get
+        {
+            return UserInfor.getInstance().isTeacher;
+        }
+
+        set
+        {
+            _isTecaher = value;
+        }
+    }
 }

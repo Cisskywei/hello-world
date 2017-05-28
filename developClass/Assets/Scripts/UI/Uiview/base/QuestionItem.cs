@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyFrameWork;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -68,5 +69,7 @@ public class QuestionItem : MonoBehaviour {
 
         // 调用 发送 随堂测试题
         UiDataManager.getInstance().TestInClass(this._id);
+        // 通知 uimanager 显示 反馈界面
+        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Enums.InClassTestType, int>(EventId.ChooseQuestion, Enums.InClassTestType.Test, this._id);
     }
 }

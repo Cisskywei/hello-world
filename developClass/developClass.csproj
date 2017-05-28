@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\NetFram\Core\MsgModule.cs" />
     <Compile Include="Assets\Scripts\NetFram\Handler\LoginHandler.cs" />
     <Compile Include="Assets\Scripts\NetFram\Help\Singleton.cs" />
+    <Compile Include="Assets\Scripts\NetFram\Help\TimeCountDown.cs" />
     <Compile Include="Assets\Scripts\NetFram\Interface\interfaceF.cs" />
     <Compile Include="Assets\Scripts\NetFram\NetConfig.cs" />
     <Compile Include="Assets\Scripts\NetFram\NetWrap\NetBaseBehaviour.cs" />

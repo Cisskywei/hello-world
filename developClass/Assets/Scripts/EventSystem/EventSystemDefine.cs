@@ -49,5 +49,8 @@ namespace TinyFrameWork
         DoubtFeedBack,       // 学生疑问反馈
         TestFeedBack,   // 随堂测试反馈
         ResetScene,
+
+        // 细节 界面相关
+        ChooseQuestion,   // 选择了某个问题
     }
 }

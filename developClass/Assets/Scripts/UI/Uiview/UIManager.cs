@@ -6,6 +6,23 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
 
+    private bool _isTeacher = false; // 标记是否是老师 用于控制界面的显示 隐藏
+    public bool IsTeacher
+    {
+        get
+        {
+            return _isTeacher;
+        }
+
+        set
+        {
+            _isTeacher = value;
+
+            InitUIByDuty();
+        }
+    }
+
+    ///    ui 界面预设
     // 小组信息界面
     public GroupListUI groups;
     // 成员信息界面
@@ -16,10 +33,22 @@ public class UIManager : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	//// Update is called once per frame
+	//void Update () {
 		
-	}
+	//}
+
+    private void InitUIByDuty()
+    {
+        if(_isTeacher)
+        {
+            // 显示老师相关界面
+        }
+        else
+        {
+            // 显示学生相关界面
+        }
+    }
 
     void OnEnable()
     {
@@ -38,6 +67,7 @@ public class UIManager : MonoBehaviour {
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.InClassTestType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
     }
 
     /// <summary>
@@ -46,6 +76,7 @@ public class UIManager : MonoBehaviour {
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.InClassTestType,int>(EventId.ChooseQuestion, this.ChooseQuestion);
     }
 
     // 监听函数
@@ -83,6 +114,47 @@ public class UIManager : MonoBehaviour {
             default:
                 break;
         }
+    }
+
+    // 选择了某个试题对应的弹出相应界面
+    public void ChooseQuestion(Enums.InClassTestType typ, int questionid)
+    {
+        switch(typ)
+        {
+            case Enums.InClassTestType.Test:
+                //测试反馈
+                break;
+            case Enums.InClassTestType.Ask:
+                // 学生选择界面
+                break;
+            case Enums.InClassTestType.Fast:
+                // 抢答学生界面
+                break;
+            default:
+                break;
+        }
+    }
+
+    //接收学生点赞 举手
+    public void ReceiveLike()
+    {
+        // TODO
+    }
+
+    public void ReceiveDoubt()
+    {
+        // TODO
+    }
+
+    // 学生点赞 举手
+    public void SendLike()
+    {
+        // TODO
+    }
+
+    public void SendDoubt()
+    {
+        // TODO
     }
 
     // 中间的按钮模块
