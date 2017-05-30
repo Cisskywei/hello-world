@@ -963,8 +963,10 @@ namespace veClassRoom.Room
         /// <param name="token">操作者token</param>
         /// <param name="mode">切换的教学模式 TeachingMode 对应教学5大模式：观学模式、指导模式，自主训练、视频点播、视频直播</param>
         /// <param name="target">对应操作类型的操作对象：个人、组、、全部、空</param>
-        public void SwitchTeachMode(string token, Int64 mode, string target = null)
+        public void SwitchTeachMode(string token, Int64 mode, Int64 isgroup, string target = null)
         {
+            Console.WriteLine("客户端切换模式 UI " + "token" + token + "mode" + mode + "target" + target);
+
             if (this.leader == null || this.leader.uuid == null)
             {
                 return;
@@ -1014,6 +1016,10 @@ namespace veClassRoom.Room
             }
 
             // 回复客户端
+            if (_uuid_of_player.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retSwitchTeachMode", token, mode, target);
+            }
         }
 
         /// <summary>
@@ -1023,7 +1029,7 @@ namespace veClassRoom.Room
         /// <param name="typ">随堂测验的类型</param>
         /// <param name="question">具体问题信息id</param>
         /// <param name="other">额外的参数信息</param>
-        public void InClassTest(string token, Int64 typ, string question, string other = null)
+        public void InClassTest(string token, Int64 typ, Int64 questionid, string other = null)
         {
             if (this.leader == null || this.leader.uuid == null)
             {
@@ -1062,7 +1068,7 @@ namespace veClassRoom.Room
             // 广播 所有学生 测验题
             if (_uuid_of_player.Count > 0)
             {
-                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retInClassTest", token, typ, question, other);
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retInClassTest", token, typ, questionid, other);
             }
         }
 
@@ -1142,6 +1148,55 @@ namespace veClassRoom.Room
 
 
         ////////////////////////////////////////     具体和学生互动有关的 rpc函数  学生点赞、举手  老师  接收答题反馈 等  /////////////////////////////////////
+        // 学生答题反馈
+        public void AnswerQuestion(string token, Int64 questionid, Int64 optionid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerQuestion", token, questionid, optionid);
+        }
+        // 点赞
+        public void SendLikeToTeacher(string token)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retSendLike", token);
+        }
+
+        // 举手
+        public void SendDoubtToTeacher(string token)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retSendDoubt", token);
+        }
 
     }
 }

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerIcon : MonoBehaviour {
 
     public Text nameTxt;
-    public Text duty;
-    public Image icon;
+    public Text dutyTxt;
+    public Image iconImg;
 
     private string _name;
     private string _duty;
@@ -31,10 +31,15 @@ public class PlayerIcon : MonoBehaviour {
         this._iconid = icon;
 
         this.nameTxt.text = name;
-        this.duty.text = "(" + duty + ")";
+        this.dutyTxt.text = "(" + duty + ")";
 
         // 设置图片
         //TODO
+
+        // 设置位置 防止位置改变
+        Vector3 p = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+        p.z = 0;
+        gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
     public void ChooseSelf(Toggle go)

@@ -170,5 +170,77 @@ namespace veClassRoom.Room
 
         // 具体和客户端的界面操作有关的 rpc函数
         //TODO
+        // 切换模式
+        public void SwitchTeachMode(string roomname, string token, Int64 mode, Int64 isgroup, string target = null)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.SwitchTeachMode(token,mode, isgroup,target);
+        }
+        // 重置场景
+        public void ResetScene(string roomname, string token, Int64 typ, string target)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.ResetScene(token, typ, target);
+        }
+        // 随堂测试
+        public void InClassTest(string roomname, string token, Int64 typ, Int64 questionid, string other = null)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.InClassTest(token, typ, questionid, other);
+        }
+        // 随堂测试学生回答
+        public void AnswerQuestion(string roomname, string token, Int64 questionid, Int64 optionid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.AnswerQuestion(token, questionid, optionid);
+        }
+        // 点赞
+        public void SendLikeToTeacher(string roomname, string token)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.SendLikeToTeacher(token);
+        }
+        // 举手
+        public void SendDoubtToTeacher(string roomname, string token)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.SendDoubtToTeacher(token);
+        }
     }
 }

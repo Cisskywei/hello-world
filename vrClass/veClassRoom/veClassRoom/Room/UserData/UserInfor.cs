@@ -15,6 +15,9 @@ namespace veClassRoom.Room
         public bool islogin = false;
         public bool isleader = false;
 
+        // 所在教室的名字  如果是老师 则从服务器获取
+        public string roomname = "llll";
+
         // 课程列表
         public ArrayList GetCourseList()
         {

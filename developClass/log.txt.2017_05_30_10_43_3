@@ -1,0 +1,165 @@
+[5/22/2017 2:57:00 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 3:20:49 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 3:29:22 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 3:30:51 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 3:51:04 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 4:23:24 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/22/2017 4:28:08 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:50:05 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:50:41 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:52:28 PM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:52:56 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:54:04 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:57:32 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:57:50 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/23/2017 2:59:53 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 3:10:58 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/23/2017 3:14:34 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 9:12:36 AM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/30/2017 9:20:33 AM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/30/2017 9:31:46 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 9:57:36 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 9:59:01 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:32:08 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:35:12 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:37:39 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:40:10 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:40:39 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:41:13 AM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at login.ret_msg (System.Collections.Hashtable msg) [0x000d9] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:79 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 

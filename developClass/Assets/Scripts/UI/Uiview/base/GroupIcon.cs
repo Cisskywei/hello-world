@@ -27,6 +27,11 @@ public class GroupIcon : MonoBehaviour {
         this.num = num;
 
         namenum.text = name + "(" + num.ToString() + "人" + ")";
+
+        // 设置位置 防止位置改变
+        Vector3 p = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+        p.z = 0;
+        gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
     public void ChooseSelf(Toggle go)

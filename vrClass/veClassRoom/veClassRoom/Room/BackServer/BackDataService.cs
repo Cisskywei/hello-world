@@ -28,5 +28,17 @@ namespace veClassRoom.Room
         {
             return null;
         }
+
+        public Hashtable GetUserTokenNameList(string token)
+        {
+            Hashtable h = new Hashtable();
+            string t = "token";
+            for (int i = 0; i < 10; i++)
+            {
+                h.Add(t+i,t+i);
+            }
+
+            return h;
+        }
     }
 }

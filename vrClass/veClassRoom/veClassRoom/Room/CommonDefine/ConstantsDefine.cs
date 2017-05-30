@@ -21,6 +21,8 @@ namespace veClassRoom.Room
 
             public static readonly string Net_Course = "course";
             public static readonly string Net_Course_List = "courselist";
+
+            public static readonly string Net_Player_List = "playerlist";
         }
 
     }

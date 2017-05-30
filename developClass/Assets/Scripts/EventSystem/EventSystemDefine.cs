@@ -42,11 +42,13 @@ namespace TinyFrameWork
 
         //界面与界面数据通信相关
         SwitchMode,
+        SwitchModeFeedBack,   // 界面切换结果返回
         ChoosePerson,    // 选择个人
         ChooseGroup,    // 选择小组
         RefreshState,   //更新教学状态 教学模式、出勤率、点赞率
         TipMessage,     // 上课过程中的通知消息
         DoubtFeedBack,       // 学生疑问反馈
+        LikeFeedBack,       // 学生疑问反馈
         TestFeedBack,   // 随堂测试反馈
         ResetScene,
 

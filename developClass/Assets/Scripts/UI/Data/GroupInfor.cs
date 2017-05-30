@@ -11,7 +11,7 @@ public class GroupInfor : PlayerBaseInfor
 
     }
 
-    public GroupInfor(string name, Enums.SexEnum sex, Enums.DutyEnum duty)
+    public GroupInfor(string name, Enums.SexEnum sex = Enums.SexEnum.None, Enums.DutyEnum duty = Enums.DutyEnum.None)
     {
         this.name = name;
         this.sex = sex;
@@ -41,7 +41,17 @@ public class GroupInfor : PlayerBaseInfor
         EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.ChooseGroup, this.token);
     }
 
-    public string token; // 用于服务器识别
     public Dictionary<string, PlayerInfor> members = new Dictionary<string, PlayerInfor>();
-    public int count;
+    private int _count;
+    public int count
+    {
+        get
+        {
+            return members.Count;
+        }
+        set
+        {
+            _count = value;
+        }
+    }
 }

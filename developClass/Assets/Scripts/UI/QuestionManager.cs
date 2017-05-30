@@ -11,17 +11,30 @@ public class QuestionManager {
         return Singleton<QuestionManager>.getInstance();
     }
 
+    private List<QuestionInfor> questions = new List<QuestionInfor>();
+
+    // 题目信息 只为测试
+    public void initQuestionInfor()
+    {
+        string[] option = new string[4] { "aaaa","bbbb","cccc","dddd"};
+        for (int i=0;i<10;i++)
+        {
+            QuestionInfor q = new QuestionInfor("kkkkkkkkkk", Enums.QuestionType.SingleChoice, Enums.InClassTestType.Test, i, option);
+            questions.Add(q);
+        }
+    }
+
     // 获取题目信息
     public List<QuestionInfor> GetQuestionList()
     {
-        List<QuestionInfor> questions = new List<QuestionInfor>();
+   //     List<QuestionInfor> questions = new List<QuestionInfor>();
 
         return questions;
     }
 
     public List<QuestionInfor> GetQuestionList(Enums.InClassTestType typ)
     {
-        List<QuestionInfor> questions = new List<QuestionInfor>();
+  //      List<QuestionInfor> questions = new List<QuestionInfor>();
 
         switch (typ)
         {
@@ -40,7 +53,18 @@ public class QuestionManager {
 
     public QuestionInfor GetQuestionByTypId(Enums.InClassTestType typ, int id)
     {
-        QuestionInfor question = new QuestionInfor();
+        //QuestionInfor question = new QuestionInfor();
+        QuestionInfor question = null;
+
+        foreach (QuestionInfor q in questions)
+        {
+            if(q.category != typ || q._id != id)
+            {
+                continue;
+            }
+
+            question = q;
+        }
 
         return question;
     }

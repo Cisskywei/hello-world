@@ -1,0 +1,6 @@
+[5/30/2017 3:10:49 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 

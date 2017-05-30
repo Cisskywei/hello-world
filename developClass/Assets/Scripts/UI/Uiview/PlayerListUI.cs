@@ -56,7 +56,7 @@ public class PlayerListUI : uibase {
     }
 
     // 提供外部调用显示接口
-    public void ShowSelf(string groupname)
+    public void ShowSelf(string groupname = null)
     {
         InitUI(groupname);
 
@@ -84,7 +84,7 @@ public class PlayerListUI : uibase {
         }
     }
 
-    public void InitUI(string groupname)
+    public void InitUI(string groupname = null)
     {
         if(_isall)
         {
@@ -142,8 +142,12 @@ public class PlayerListUI : uibase {
         }
     }
 
-    public void InitGroupList(string groupname)
+    public void InitGroupList(string groupname = null)
     {
+        if(groupname == null)
+        {
+            groupname = "lll";
+        }
         // 获取小组信息
         playerlist = UiDataManager.getInstance().GetGroupMemeber(groupname);
 
@@ -266,6 +270,7 @@ public class PlayerListUI : uibase {
     public void Yes()
     {
         UiDataManager.getInstance().ChoosePerson(this._name);
+        HideSelf();
     }
 
     public void No()

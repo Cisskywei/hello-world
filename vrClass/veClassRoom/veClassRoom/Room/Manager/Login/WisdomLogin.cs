@@ -55,6 +55,11 @@ namespace veClassRoom.Room
                 // 学生的课程列表
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Course_List, playerinfor.GetCourseList());
 
+                if (isleader)
+                {
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Player_List, BackDataService.getInstance().GetUserTokenNameList(playerinfor.roomname));
+                }
+
                 // 只为测试
                 h.Add("isteacher", isleader);
             }

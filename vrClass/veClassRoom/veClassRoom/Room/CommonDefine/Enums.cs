@@ -89,10 +89,9 @@ namespace veClassRoom.Room
         /// </summary>
         public enum OperatingRange
         {
-            None = 0,
-            Personal,
+            All = 0,
             Team,
-            All,
+            Personal,
         }
     }
 }

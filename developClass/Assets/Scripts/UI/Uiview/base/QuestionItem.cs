@@ -31,6 +31,11 @@ public class QuestionItem : MonoBehaviour {
 
         qtyp.text = QuestionManager.ConvertQuestionType(typ);
         ShowContent();
+
+        // 设置位置 防止位置改变
+        Vector3 p = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+        p.z = 0;
+        gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
     public void InitQuestion(QuestionInfor q)
@@ -41,6 +46,11 @@ public class QuestionItem : MonoBehaviour {
 
         qtyp.text = QuestionManager.ConvertQuestionType(this.typ);
         ShowContent();
+
+        // 设置位置 防止位置改变
+        Vector3 p = gameObject.GetComponent<RectTransform>().anchoredPosition3D;
+        p.z = 0;
+        gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
     public void ShowContent()

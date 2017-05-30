@@ -70,13 +70,23 @@ public class login : MonoBehaviour , msg_req_ret
             UserInfor.getInstance().UserName = name;
             UserInfor.getInstance().UserUuid = uuid;
 
-            UserInfor.getInstance().isleader = isleader;
+            // 获取学生列表
+            if (isleader)
+            {
+                Hashtable playerlist = msg["playerlist"] as Hashtable;
+                UiDataManager.getInstance().InitGroupPlayer(playerlist);
+            }
+
+            // 只为测试
+            QuestionManager.getInstance().initQuestionInfor();
 
             ArrayList courselist = msg["courselist"] as ArrayList;
-            Debug.Log(courselist[0]);
+
+            UserInfor.getInstance().isleader = isleader;
+            UserInfor.getInstance().isTeacher = isleader;
 
             // 进入房间
-            if(er != null)
+            if (er != null)
             {
                 er.enterCourse((string)courselist[0]);
             }

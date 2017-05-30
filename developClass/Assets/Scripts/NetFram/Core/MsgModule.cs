@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TinyFrameWork;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -470,6 +471,97 @@ namespace ko.NetFram
         {
             Debug.Log("ret_change_one_model " + token + " model " + tomodel);
             UserInfor.getInstance().ChangePlayerModel(tomodel);
+        }
+
+        // 登陆获取学生列表信息
+
+        // 具体的 和ui 相关的 向服务器发送消息的接口
+        // 模式切换
+        public void reqSwitchTeachMode(Enums.TeachingMode mode, bool isgroup, string target)
+        {
+            if(target == null)
+            {
+                target = "all";
+            }
+            // 调用 hub 层
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "SwitchTeachMode", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken, (Int64)mode, isgroup ?1:0, target);
+        }
+
+        public void retSwitchTeachMode(string token, Int64 mode, string target)
+        {
+            Debug.Log(token + mode + target);
+            // 更新 客户端状态信息
+            // TODO
+            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string, Enums.TeachingMode, string>(EventId.SwitchModeFeedBack, token, (Enums.TeachingMode)mode,target);
+        }
+        //重置场景
+        public void reqResetScene(Enums.ResetSceneType typ, string target)
+        {
+            if (target == null)
+            {
+                target = "all";
+            }
+            // 调用 hub 层
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "ResetScene", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken, (Int64)typ, target);
+        }
+
+        public void retResetScene(string token)
+        {
+            Debug.Log(token + " 重置场景返回");
+        }
+
+        // 随堂测试
+        public void reqInClassTest(Enums.InClassTestType typ, Int64 question, string other = null)
+        {
+            if(other == null)
+            {
+                other = "n";
+            }
+
+            // 调用 hub 层
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "InClassTest", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken, (Int64)typ, question, other);
+        }
+
+        public void retInClassTest(string token, Int64 typ, Int64 question, string other = null)
+        {
+            Debug.Log("测试题目返回");
+
+            // 学生端要做相应的处理
+        }
+
+        // 学生回答题目 包括选择 判断 简答
+        public void reqAnswerQuestion(int questionid, int optionid)
+        {
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "AnswerQuestion", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken, (Int64)questionid, (Int64)optionid);
+        }
+
+        public void retAnswerQuestion(string token, Int64 questionid, Int64 optionid)
+        {
+            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string, int, int>(EventId.TestFeedBack, token, (int)questionid, (int)optionid);
+        }
+
+        // 学生点赞 和 举手
+        public void reqSendLike()
+        {
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "SendLikeToTeacher", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken);
+        }
+
+        public void reqSendDoubt()
+        {
+            MainThreadClient._client.call_hub("lobby", UserInfor.getInstance().RoomConnecter, "SendDoubtToTeacher", UserInfor.getInstance().RoomName, UserInfor.getInstance().UserToken);
+        }
+
+        // 点赞和举手 只有老师能收得到
+        public void retSendLike(string token)
+        {
+            Debug.Log("点赞返回" + token);
+            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.LikeFeedBack,token);
+        }
+
+        public void retSendDoubt(string token)
+        {
+            Debug.Log("疑问返回" + token);
+            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.DoubtFeedBack, token);
         }
     }
 }

@@ -10,6 +10,8 @@ public class TestInClassUI : uibase {
 
     public List<QuestionInfor> questionlist;
 
+    private bool _isInitQuestion = false;  // 标记是否已经初始化题目
+
     // Use this for initialization
     void Start () {
 		
@@ -22,6 +24,8 @@ public class TestInClassUI : uibase {
 
     public void ShowSelf()
     {
+        InitQuestionItem();
+
         if (!gameObject.activeSelf)
         {
             gameObject.SetActive(true);
@@ -38,8 +42,18 @@ public class TestInClassUI : uibase {
 
     public void InitQuestionItem()
     {
+        if(_isInitQuestion)
+        {
+            return;
+        }
+
         // 获取试题信息
         questionlist = QuestionManager.getInstance().GetQuestionList(Enums.InClassTestType.Test);
+
+        if(questionlist == null || questionlist.Count <= 0)
+        {
+            return;
+        }
 
         int count = 0;
         int tip = 0;
@@ -86,5 +100,7 @@ public class TestInClassUI : uibase {
                 }
             }
         }
+
+        _isInitQuestion = true;
     }
 }

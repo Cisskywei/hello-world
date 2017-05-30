@@ -135,6 +135,7 @@ public class GroupListUI : uibase {
     public void Yes()
     {
         UiDataManager.getInstance().ChooseGroup(this._name);
+        HideSelf();
     }
 
     public void No()

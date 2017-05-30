@@ -92,6 +92,9 @@ public class choseCourse : MonoBehaviour , msg_req_ret
 
             UserInfor.getInstance().RoomConnecter = modelname;
             UserInfor.getInstance().RoomName = scenename;
+
+            // 显示界面 
+            UIManager.getInstance().ShowSelf();
         }
         else
         {

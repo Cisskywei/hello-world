@@ -153,19 +153,19 @@ public class TestFeedBackUI : uibase {
     // 注册事件监听函数
     public void RegisterEventListener()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.TestFeedBack, this.TestFeedBack);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<string, int, int>(EventId.TestFeedBack, this.TestFeedBack);
     }
 
     // 取消注册事件监听函数
     public void UnRegisterEventListener()
     {
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.TestFeedBack, this.TestFeedBack);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<string, int, int>(EventId.TestFeedBack, this.TestFeedBack);
     }
 
-    public void TestFeedBack(int option)
+    public void TestFeedBack(string token, int questionid, int optionid)
     {
         // 答题返回
-        if(option == correctoption)
+        if(optionid == correctoption)
         {
             // 答题正确
             _correct++;
@@ -180,10 +180,10 @@ public class TestFeedBackUI : uibase {
         }
         _takepart++;
         _nottakepart = _online - _takepart;
-        _option[option]++;
+        _option[optionid]++;
 
         takepart.text = _takepart.ToString();
         nottakepart.text = _nottakepart.ToString();
-        this.option[option].text = _option[option].ToString();
+        this.option[optionid].text = _option[optionid].ToString();
     }
 }

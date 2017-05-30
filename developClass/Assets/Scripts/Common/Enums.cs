@@ -91,4 +91,11 @@ public class Enums {
         MultipleChoice,
         ShortAnswer,
     }
+
+    public enum ResetSceneType
+    {
+        All = 0,
+        Group,
+        Student,
+    }
 }

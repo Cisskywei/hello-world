@@ -1,0 +1,119 @@
+[5/30/2017 10:43:03 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:43:43 AM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:44:13 AM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:44:43 AM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:45:13 AM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:45:28 AM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:45:30 AM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at login.ret_msg (System.Collections.Hashtable msg) [0x000d9] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:79 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:45:47 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:47:15 AM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at login.ret_msg (System.Collections.Hashtable msg) [0x00120] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:86 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:47:19 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 10:58:31 AM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 12:19:46 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidCastException: Cannot cast from source type to destination type.
+  at UiDataManager.InitGroupPlayer (System.Collections.Hashtable players) [0x00037] in D:\work\vrClass\Sync\developClass\Assets\Scripts\UI\UiDataManager.cs:25 
+  at login.ret_msg (System.Collections.Hashtable msg) [0x000de] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:79 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/30/2017 12:21:03 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidCastException: Cannot cast from source type to destination type.
+  at UiDataManager.InitGroupPlayer (System.Collections.Hashtable players) [0x00047] in D:\work\vrClass\Sync\developClass\Assets\Scripts\UI\UiDataManager.cs:26 
+  at login.ret_msg (System.Collections.Hashtable msg) [0x000de] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:79 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/30/2017 12:22:31 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_msg System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidCastException: Cannot cast from source type to destination type.
+  at UiDataManager.InitGroupPlayer (System.Collections.Hashtable players) [0x00037] in D:\work\vrClass\Sync\developClass\Assets\Scripts\UI\UiDataManager.cs:25 
+  at login.ret_msg (System.Collections.Hashtable msg) [0x000de] in D:\work\vrClass\Sync\developClass\Assets\Scripts\login.cs:79 
+  at ko.NetFram.MsgModule.ret_msg (System.Collections.Hashtable msg) [0x00014] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:68 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/30/2017 1:25:53 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 1:26:09 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/30/2017 1:26:29 PM] [error] [common.modulemanager] [process_module_mothed]:do not have a func name:
+[5/30/2017 1:28:22 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/30/2017 1:31:37 PM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/30/2017 1:38:36 PM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/30/2017 2:12:18 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 

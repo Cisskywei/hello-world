@@ -1,0 +1,103 @@
+[5/17/2017 4:58:44 PM] [error] [service.channel] [senddata]:System.Exception:System.ObjectDisposedException: The object was used after being disposed.
+  at System.Net.Sockets.Socket.Send (System.Byte[] buf) [0x00000] in <filename unknown>:0 
+  at service.channel.senddata (System.Byte[] data) [0x00000] in <filename unknown>:0 
+[5/17/2017 4:58:45 PM] [error] [service.connectnetworkservice] [connect]:System.Net.Sockets.SocketException:System.Net.Sockets.SocketException: 由于目标计算机积极拒绝，无法连接。
+
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP, Boolean requireSocketPolicy) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x00000] in <filename unknown>:0 
+  at service.connectnetworkservice.connect (System.String ip, Int16 port) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:00:55 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:29:27 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:32:37 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:34:13 PM] [error] [service.channel] [onRead]:System.Exception:System.Net.Sockets.SocketException: 远程主机强迫关闭了一个现有的连接。
+
+  at System.Net.Sockets.Socket+SocketAsyncResult.CheckIfThrowDelayedException () [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult asyncResult, System.Net.Sockets.SocketError& errorCode) [0x00000] in <filename unknown>:0 
+  at System.Net.Sockets.Socket.EndReceive (IAsyncResult result) [0x00000] in <filename unknown>:0 
+  at service.channel.onRead (IAsyncResult ar) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:01 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> UnityEngine.MissingComponentException: There is no 'Rigidbody' attached to the "Cube" game object, but a script is trying to access it.
+You probably need to add a Rigidbody to the game object "Cube". Or your script needs to check if the component is attached before using it.
+  at (wrapper managed-to-native) UnityEngine.Rigidbody:set_useGravity (bool)
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x001ec] in D:\work\vrClass\Sync\developClass\Assets\Scripts\unityWrap\SyncObject.cs:336 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00082] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:551 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:05 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> UnityEngine.MissingComponentException: There is no 'Rigidbody' attached to the "Cube" game object, but a script is trying to access it.
+You probably need to add a Rigidbody to the game object "Cube". Or your script needs to check if the component is attached before using it.
+  at (wrapper managed-to-native) UnityEngine.Rigidbody:set_useGravity (bool)
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x00164] in D:\work\vrClass\Sync\developClass\Assets\Scripts\unityWrap\SyncObject.cs:316 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00082] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:551 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:09 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:14 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:25 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.NullReferenceException: Object reference not set to an instance of an object
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00000] in <filename unknown>:0 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x00000] in <filename unknown>:0 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in <filename unknown>:0 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:40 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> UnityEngine.MissingComponentException: There is no 'Rigidbody' attached to the "Cube" game object, but a script is trying to access it.
+You probably need to add a Rigidbody to the game object "Cube". Or your script needs to check if the component is attached before using it.
+  at (wrapper managed-to-native) UnityEngine.Rigidbody:set_useGravity (bool)
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x001ec] in D:\work\vrClass\Sync\developClass\Assets\Scripts\unityWrap\SyncObject.cs:336 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00082] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:551 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 
+[5/17/2017 5:37:55 PM] [error] [common.modulemanager] [process_module_mothed]:call rpc error, function name:ret_operation_permissions System.Exception:System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> UnityEngine.MissingComponentException: There is no 'Rigidbody' attached to the "Cube" game object, but a script is trying to access it.
+You probably need to add a Rigidbody to the game object "Cube". Or your script needs to check if the component is attached before using it.
+  at (wrapper managed-to-native) UnityEngine.Rigidbody:set_useGravity (bool)
+  at ko.NetFram.SyncObject.listen_operation_result (System.String token, System.String typ, System.String result) [0x00164] in D:\work\vrClass\Sync\developClass\Assets\Scripts\unityWrap\SyncObject.cs:316 
+  at ko.NetFram.MsgModule.ret_operation_permissions (System.String token, System.String objectname, System.String typ, System.String result) [0x00082] in D:\work\vrClass\Sync\developClass\Assets\Scripts\NetFram\Core\MsgModule.cs:551 
+  at (wrapper managed-to-native) System.Reflection.MonoMethod:InternalInvoke (object,object[],System.Exception&)
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000d0] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222 
+  --- End of inner exception stack trace ---
+  at System.Reflection.MonoMethod.Invoke (System.Object obj, BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x000eb] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:232 
+  at System.Reflection.MethodBase.Invoke (System.Object obj, System.Object[] parameters) [0x00000] in /Users/builduser/buildslave/mono/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115 
+  at common.modulemanager.process_module_mothed (System.String module_name, System.String func_name, System.Collections.ArrayList argvs) [0x00000] in <filename unknown>:0 

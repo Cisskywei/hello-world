@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBaseInfor {
 
     public string name;
+    public string token;
     public Enums.SexEnum sex = Enums.SexEnum.None;
     public Enums.DutyEnum duty = Enums.DutyEnum.None;
 }
