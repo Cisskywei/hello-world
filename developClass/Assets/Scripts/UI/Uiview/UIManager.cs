@@ -23,13 +23,35 @@ public class UIManager : MonoBehaviour {
     }
 
     ///    ui 界面预设
+    // 消息界面
+    public MessageWindow msg;
+    // 答题选择界面
+    public GameObject classtest;
+    // 重置场景
+    public GameObject resetscene;
+    // 学生端重置场景    自主训练模式 下可以使用
+    public GameObject resetscene2;
+    // 返回大厅按钮
+    public GameObject back;
     // 小组信息界面
     public GroupListUI groups;
     // 成员信息界面
     public PlayerListUI players;
+    // 测试问题
+    public TestInClassUI question;
+    //测试问题反馈
+    public TestFeedBackUI questionback;
+    // 抢答
+    public FastInClassUI fastquestion;
+    // 当前状态界面
+    public GameObject stateinfor;
+    // 模式切换界面
+    public SwitchModeUI mode;
+    // 有疑问的图标
+    public GameObject flashing;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
@@ -43,6 +65,35 @@ public class UIManager : MonoBehaviour {
         if(_isTeacher)
         {
             // 显示老师相关界面
+            if(msg != null)
+            {
+                msg.gameObject.SetActive(true);
+            }
+
+            if(classtest!=null)
+            {
+                classtest.SetActive(true);
+            }
+
+            if (resetscene != null)
+            {
+                resetscene.SetActive(true);
+            }
+
+            if(back!=null)
+            {
+                back.SetActive(true);
+            }
+
+            if(stateinfor!=null)
+            {
+                stateinfor.SetActive(true);
+            }
+
+            if(mode!=null)
+            {
+                mode.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -144,6 +195,11 @@ public class UIManager : MonoBehaviour {
     public void ReceiveDoubt()
     {
         // TODO
+        // 显示有疑问图标
+        if(flashing!=null && !flashing.activeSelf)
+        {
+            flashing.SetActive(true);
+        }
     }
 
     // 学生点赞 举手
@@ -159,19 +215,28 @@ public class UIManager : MonoBehaviour {
 
     // 中间的按钮模块
     // 测试按钮
-    public void TestBtn()
+    public void TestBtn(Toggle go)
     {
-
+        if(!go.isOn)
+        {
+            return;
+        }
     }
     // 抢答按钮
-    public void FastBtn()
+    public void FastBtn(Toggle go)
     {
-
+        if (!go.isOn)
+        {
+            return;
+        }
     }
     //提问按钮
-    public void AskBtn()
+    public void AskBtn(Toggle go)
     {
-
+        if (!go.isOn)
+        {
+            return;
+        }
     }
     //返回大厅
     public void BackLobby()

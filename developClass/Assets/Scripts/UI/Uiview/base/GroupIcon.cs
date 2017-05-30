@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyFrameWork;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class GroupIcon : MonoBehaviour {
 
     public Text namenum;
 
-    private string name;
+    private string _name;
     private int num;
 
 	//// Use this for initialization
@@ -22,9 +23,19 @@ public class GroupIcon : MonoBehaviour {
 
     public void Init(string name, int num)
     {
-        this.name = name;
+        this._name = name;
         this.num = num;
 
         namenum.text = name + "(" + num.ToString() + "人" + ")";
+    }
+
+    public void ChooseSelf(Toggle go)
+    {
+        if(!go.isOn)
+        {
+            return;
+        }
+
+        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.ChooseGroup, this._name);
     }
 }

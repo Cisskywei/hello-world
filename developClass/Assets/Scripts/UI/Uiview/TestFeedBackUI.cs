@@ -131,17 +131,11 @@ public class TestFeedBackUI : uibase {
         {
             if(i == rightid)
             {
-                if(!optionimage[i].activeSelf)
-                {
-                    optionimage[i].SetActive(true);
-                }
+                optionimage[i].GetComponent<Image>().enabled = true;
             }
             else
             {
-                if (optionimage[i].activeSelf)
-                {
-                    optionimage[i].SetActive(false);
-                }
+                optionimage[i].GetComponent<Image>().enabled = false;
             }
         }
     }

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TinyFrameWork;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerIcon : MonoBehaviour {
 
-    public Text name;
+    public Text nameTxt;
     public Text duty;
     public Image icon;
 
@@ -29,10 +30,20 @@ public class PlayerIcon : MonoBehaviour {
         this._duty = duty;
         this._iconid = icon;
 
-        this.name.text = name;
+        this.nameTxt.text = name;
         this.duty.text = "(" + duty + ")";
 
         // 设置图片
         //TODO
+    }
+
+    public void ChooseSelf(Toggle go)
+    {
+        if(!go.isOn)
+        {
+            return;
+        }
+
+        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.ChoosePerson, this._name);
     }
 }
