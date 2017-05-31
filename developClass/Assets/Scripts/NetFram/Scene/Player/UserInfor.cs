@@ -207,6 +207,104 @@ public class UserInfor {
         this.model = tomodel;
     }
 
+    public void ChangePlayerModel(string teacher, Enums.TeachingMode tomodel, string target)
+    {
+        string token = UserInfor.getInstance().UserToken;
+        bool isself = false;
+        switch (tomodel)
+        {
+            case Enums.TeachingMode.WatchLearnModel_Sync:
+                isself = (token == target || token == teacher) || false;
+                isCanReceive = true;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.WatchLearnModel_Async:
+                isself = (token == target || token == teacher) || false;
+                isCanReceive = true;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.GuidanceMode_Personal:
+                isself = (token == target || token == teacher) || false;
+                isCanReceive = isself;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.GuidanceMode_Group:
+                isself = (groupname == target || token == teacher) || false;
+                isCanReceive = isself;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.SelfTrain_Personal:
+                isself = (token == target || token == teacher) || false;
+                isCanReceive = true;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.SelfTrain_Group:
+                isself = (groupname == target || token == teacher) || false;
+                isCanReceive = isself;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.SelfTrain_All:
+                isself = true;
+                isCanReceive = isself;
+                isCanSend = isself;
+                isCanOperate = isself;
+                break;
+            case Enums.TeachingMode.VideoOnDemand_General:
+            case Enums.TeachingMode.VideoOnDemand_Full:
+            case Enums.TeachingMode.VideoOnLive_General:
+            case Enums.TeachingMode.VideoOnLive_Full:
+                break;
+            default:
+                break;
+        }
+        //switch (tomodel)
+        //{
+        //    case Enums.TeachingMode.None:
+                
+        //        break;
+        //    case SceneConfig.ModelEnums.Separate:
+        //        isCanReceive = false;
+        //        isCanSend = false;
+        //        isCanOperate = true;
+        //        break;
+        //    case SceneConfig.ModelEnums.SynchronousOne:
+        //        isCanReceive = true;
+        //        isCanSend = false;
+        //        isCanOperate = false;
+        //        if (isleader)
+        //        {
+        //            isCanSend = true;
+        //            isCanOperate = true;
+        //        }
+        //        break;
+        //    case SceneConfig.ModelEnums.SynchronousMultiple:
+        //        isCanReceive = true;
+        //        isCanSend = false;
+        //        isCanOperate = false;
+        //        if (isleader)
+        //        {
+        //            isCanSend = true;
+        //            isCanOperate = true;
+        //        }
+        //        break;
+        //    case SceneConfig.ModelEnums.Collaboration:
+        //        isCanReceive = true;
+        //        isCanSend = true;
+        //        isCanOperate = true;
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+  //      this.model = tomodel;
+    }
+
     private SceneConfig.ModelEnums convertModelToEnum(string modelname)
     {
         SceneConfig.ModelEnums m = this.model;

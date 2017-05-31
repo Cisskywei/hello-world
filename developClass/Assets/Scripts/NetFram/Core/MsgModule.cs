@@ -492,6 +492,7 @@ namespace ko.NetFram
             Debug.Log(token + mode + target);
             // 更新 客户端状态信息
             // TODO
+            UserInfor.getInstance().ChangePlayerModel(token, (Enums.TeachingMode)mode, target);
             EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string, Enums.TeachingMode, string>(EventId.SwitchModeFeedBack, token, (Enums.TeachingMode)mode,target);
         }
         //重置场景

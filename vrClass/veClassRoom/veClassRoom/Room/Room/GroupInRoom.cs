@@ -59,6 +59,16 @@ namespace veClassRoom.Room
             }
         }
 
+        public bool HasMember(string token)
+        {
+            if(teammembers == null || teammembers.Count <= 0)
+            {
+                return false;
+            }
+
+            return teammembers.ContainsKey(token);
+        }
+
         /// <summary>
         /// 外部注入观看者 需要同步同步数据
         /// </summary>
@@ -81,6 +91,33 @@ namespace veClassRoom.Room
                     _viewer.Add(uuid);
                 }
             }catch
+            {
+
+            }
+        }
+
+        public void InjectiveViewer(string viewer)
+        {
+            if (viewer == null)
+            {
+                return;
+            }
+
+            try
+            {
+                if (_uuid_of_player.Contains(viewer))
+                {
+                    return;
+                }
+
+                if (_viewer.Contains(viewer))
+                {
+                    return;
+                }
+
+                _viewer.Add(viewer);
+            }
+            catch
             {
 
             }

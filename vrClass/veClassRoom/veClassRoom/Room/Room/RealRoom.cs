@@ -990,18 +990,133 @@ namespace veClassRoom.Room
             switch(tm)
             {
                 case Enums.TeachingMode.WatchLearnModel_Sync:
-                    break;
+                   // break;
                 case Enums.TeachingMode.WatchLearnModel_Async:
+                    this.model = Enums.ModelEnums.SynchronousOne;
+                    try
+                    {
+                        foreach (PlayerInScene player in sceneplaylist.Values)
+                        {
+                            player.ChangePlayerModel(this.model);
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                     break;
                 case Enums.TeachingMode.GuidanceMode_Personal:
+                    if(target == null)
+                    {
+                        break;
+                    }
+                    if(!sceneplaylist.ContainsKey(target))
+                    {
+                        Console.WriteLine("GuidanceMode_Personal UI 服务器玩家不存在 : " + "target : " + target);
+                        return;
+                    }
+                    this.model = Enums.ModelEnums.SynchronousMultiple;
+                    try
+                    {
+                        foreach (PlayerInScene player in sceneplaylist.Values)
+                        {
+                            player.ChangePlayerModel(this.model);
+                            if (player.token == target)
+                            {
+                                player.ChangePlayerCanSend(this.leader.permission, true);
+                                player.ChangePlayerCanReceive(this.leader.permission, true);
+                                player.ChangePlayerCanOperate(this.leader.permission, true);
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                     break;
                 case Enums.TeachingMode.GuidanceMode_Group:
+                    if (target == null)
+                    {
+                        break;
+                    }
+                    if (grouplist.Count <= 0 || !grouplist.ContainsKey(target))
+                    {
+                        Console.WriteLine("GuidanceMode_Personal UI 服务器玩家不存在 : " + "target : " + target);
+                        return;
+                    }
+                    this.model = Enums.ModelEnums.SynchronousMultiple;
+                    GroupInRoom gir = grouplist[target];
+                    try
+                    {
+                        foreach (PlayerInScene player in sceneplaylist.Values)
+                        {
+                            if(!gir.HasMember(player.token))
+                            {
+                                player.ChangePlayerModel(this.model);
+                                gir.InjectiveViewer(player.token);
+                            }
+                            else
+                            {
+                                player.ChangePlayerModel(Enums.ModelEnums.Collaboration);
+                                player.ChangePlayerCanSend(this.leader.permission, true);
+                                player.ChangePlayerCanReceive(this.leader.permission, true);
+                                player.ChangePlayerCanOperate(this.leader.permission, true);
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
                     break;
                 case Enums.TeachingMode.SelfTrain_Personal:
+                    if (target == null)
+                    {
+                        break;
+                    }
+                    if (!sceneplaylist.ContainsKey(target))
+                    {
+                        Console.WriteLine("SelfTrain_Personal UI 服务器玩家不存在 : " + "target : " + target);
+                        return;
+                    }
+                    this.model = Enums.ModelEnums.Collaboration;
+                    PlayerInScene pl = sceneplaylist[target];
+                    try
+                    {
+                        pl.ChangePlayerModel(this.model);
+                        pl.ChangePlayerCanSend(this.leader.permission, true);
+                        pl.ChangePlayerCanReceive(this.leader.permission, true);
+                        pl.ChangePlayerCanOperate(this.leader.permission, true);
+                    }
+                    catch
+                    {
+
+                    }
                     break;
                 case Enums.TeachingMode.SelfTrain_Group:
+                    if (target == null)
+                    {
+                        break;
+                    }
+                    if (grouplist.Count <= 0 || !grouplist.ContainsKey(target))
+                    {
+                        Console.WriteLine("GuidanceMode_Personal UI 服务器玩家不存在 : " + "target : " + target);
+                        return;
+                    }
+                    this.model = Enums.ModelEnums.Collaboration;
+                    GroupInRoom gir2 = grouplist[target];
+                    try
+                    {
+                        gir2.Switch_Model(token, Utilities.getInstance().convertEnumToModel(this.model), this.leader.uuid);
+                    }
+                    catch
+                    {
+
+                    }
                     break;
                 case Enums.TeachingMode.SelfTrain_All:
+                    this.model = Enums.ModelEnums.Collaboration;
+                    this.Switch_Model(token, Utilities.getInstance().convertEnumToModel(this.model), this.leader.uuid);
                     break;
                 case Enums.TeachingMode.VideoOnDemand_General:
                     break;
