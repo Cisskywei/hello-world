@@ -33,7 +33,7 @@ namespace veClassRoom.Room
 
             //只为测试
             bool isleader = false;
-            if (name.Contains("teacher"))
+            if (token.Contains("teacher"))
             {
                 isleader = true;
             }

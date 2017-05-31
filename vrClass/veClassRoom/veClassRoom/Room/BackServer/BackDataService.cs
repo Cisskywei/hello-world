@@ -32,11 +32,8 @@ namespace veClassRoom.Room
         public Hashtable GetUserTokenNameList(string token)
         {
             Hashtable h = new Hashtable();
-            string t = "token";
-            for (int i = 0; i < 10; i++)
-            {
-                h.Add(t+i,t+i);
-            }
+            h.Add("student1", "若雨");
+            h.Add("student2", "寒露");
 
             return h;
         }

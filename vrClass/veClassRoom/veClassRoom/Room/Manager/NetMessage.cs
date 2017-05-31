@@ -95,6 +95,18 @@ namespace veClassRoom.Room
             rr.ChangeObjectAllOnce(token, clientallonce);
         }
 
+        public void ChangePlayerAllOnce(string roomname, string token, Hashtable clientallonce)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.ChangePlayerAllOnce(token, clientallonce);
+        }
+
         public void ret_sync_commond(string roomname, string typ, string commond, string token, string other, string uuid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);

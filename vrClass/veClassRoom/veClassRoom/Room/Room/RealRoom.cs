@@ -155,7 +155,7 @@ namespace veClassRoom.Room
 
             // 跳过服务器验证 只为测试
             UserInfor p = new UserInfor();
-            if (name.Contains("teacher"))
+            if (token.Contains("teacher"))
             {
                 p.isleader = true;
             }
@@ -206,6 +206,7 @@ namespace veClassRoom.Room
                 {
                     so.locker = null;
                     so.locked = false;
+                    so.lockpermission = 0;
                 }
             }
         }
@@ -499,6 +500,63 @@ namespace veClassRoom.Room
         }
 
         public override void ChangeObjectAllOnce(string token, Hashtable clientallonce)
+        {
+            if (clientallonce == null || clientallonce.Count <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene ps = findPlayerByToken(token);
+            if (ps == null)
+            {
+                return;
+            }
+
+            // 先判断是否有小组
+            if (ps.group != null)
+            {
+                ps.group.ChangeObjectAllOnce(token, clientallonce);
+
+                return;
+            }
+
+            // 没有小组执行以下操作
+
+            if (!(checkOperateEffective(ps) || ps.isCanSend))
+            {
+                Console.WriteLine("无权操作 : " + "token : " + token);
+                return;
+            }
+
+            do
+            {
+                foreach (DictionaryEntry de in clientallonce)
+                {
+                    if (!moveablesceneobject.ContainsKey((string)de.Key))
+                    {
+                        // 服务器不包含该物体
+                        continue;
+                    }
+
+                    var o = moveablesceneobject[(string)de.Key];
+
+                    if (!o.locked || o.locker == null)
+                    {
+                        continue;
+                    }
+
+                    if (!(o.locker == token || o.lockpermission < ps.permission))
+                    {
+                        continue;
+                    }
+
+                    o.Conversion((Hashtable)de.Value);
+                }
+
+            } while (false);
+        }
+
+        public override void ChangePlayerAllOnce(string token, Hashtable clientallonce)
         {
             if (clientallonce == null || clientallonce.Count <= 0)
             {
@@ -1006,7 +1064,7 @@ namespace veClassRoom.Room
                     }
                     break;
                 case Enums.TeachingMode.GuidanceMode_Personal:
-                    if(target == null)
+                    if (target == null)
                     {
                         break;
                     }
@@ -1115,8 +1173,7 @@ namespace veClassRoom.Room
                     }
                     break;
                 case Enums.TeachingMode.SelfTrain_All:
-                    this.model = Enums.ModelEnums.Collaboration;
-                    this.Switch_Model(token, Utilities.getInstance().convertEnumToModel(this.model), this.leader.uuid);
+                    this.Switch_Model(token, Utilities.getInstance().convertEnumToModel(Enums.ModelEnums.Collaboration), this.leader.uuid);
                     break;
                 case Enums.TeachingMode.VideoOnDemand_General:
                     break;

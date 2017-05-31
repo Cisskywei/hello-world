@@ -28,5 +28,12 @@ namespace veClassRoom.Room
             public bool useGravity;
             public bool isKinematic;
         }
+
+        public struct sTransform
+        {
+            public sVector3 pos;
+            public sVector4 rot;
+            public sVector3 scal;
+        }
     }
 }

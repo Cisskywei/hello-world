@@ -411,7 +411,7 @@ namespace veClassRoom.Room
                 }
 
                 // 第一步 根据当前房间模式进行操作是否可行判别
-                switch (player.model)
+                switch (this.model)
                 {
                     case Enums.ModelEnums.Separate:
                         ret = true;
@@ -859,6 +859,31 @@ namespace veClassRoom.Room
 
                     o.Conversion((Hashtable)de.Value);
                 }
+
+            } while (false);
+        }
+
+        public virtual void ChangePlayerAllOnce(string token, Hashtable clientallonce)
+        {
+            if (clientallonce == null || clientallonce.Count <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene ps = findPlayerByToken(token);
+            if (ps == null)
+            {
+                return;
+            }
+
+            if(!sceneplaylist.ContainsKey(token))
+            {
+                return;
+            }
+
+            do
+            {
+                sceneplaylist[token].Conversion(clientallonce);
 
             } while (false);
         }
