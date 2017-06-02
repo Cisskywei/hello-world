@@ -88,6 +88,10 @@ namespace veClassRoom
             WisdomLogin _login = new WisdomLogin();
             //        Login _login = new Login();
             hub.hub.modules.add_module(WisdomLogin.selfmodelname, _login);
+
+            Login _login2 = new Login();
+            hub.hub.modules.add_module(Login._selfmodelname, _login2);
+
         }
 
         public static void init_manage()
