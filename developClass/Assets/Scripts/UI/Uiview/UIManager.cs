@@ -286,6 +286,87 @@ public class UIManager : MonoBehaviour {
     {
         // TODO
         Debug.Log("模式切换 开始更改 界面显示 状态" + token + " -- " + mode + " --- " + target);
+
+        string modeTxt = string.Empty;
+        string who = string.Empty;
+        PlayerInfor pi = null;
+        GroupInfor gi = null;
+
+        // 判断弹出对应界面
+        switch (mode)
+        {
+            case Enums.TeachingMode.WatchLearnModel_Sync:
+                modeTxt = "观学模式-同步";
+                break;
+            case Enums.TeachingMode.WatchLearnModel_Async:
+                modeTxt = "观学模式-异步";
+                break;
+            case Enums.TeachingMode.GuidanceMode_Personal:
+                pi = UiDataManager.getInstance().GetPlayerByToken(target);
+                if(pi != null)
+                {
+                    who = pi.name;
+                }
+                modeTxt = "指导模式-指导人 (" + who + ")";
+                break;
+            case Enums.TeachingMode.GuidanceMode_Group:
+                gi = UiDataManager.getInstance().GetGroupByToken(target);
+                if (gi != null)
+                {
+                    who = gi.name;
+                }
+                modeTxt = "指导模式-指导组 (" + who + ")";
+                break;
+            case Enums.TeachingMode.SelfTrain_Personal:
+                pi = UiDataManager.getInstance().GetPlayerByToken(target);
+                if (pi != null)
+                {
+                    who = pi.name;
+                }
+                modeTxt = "自主训练模式-独立 (" + who + ")";
+                break;
+            case Enums.TeachingMode.SelfTrain_Group:
+                gi = UiDataManager.getInstance().GetGroupByToken(target);
+                if (gi != null)
+                {
+                    who = gi.name;
+                }
+                modeTxt = "自主训练模式-小组 (" + who + ")";
+                break;
+            case Enums.TeachingMode.SelfTrain_All:
+                gi = UiDataManager.getInstance().GetGroupByToken(target);
+                if (gi != null)
+                {
+                    who = gi.name;
+                }
+                modeTxt = "自主训练模式-全部";
+                break;
+            case Enums.TeachingMode.VideoOnDemand_General:
+                modeTxt = "视频点播-普通";
+                break;
+            case Enums.TeachingMode.VideoOnDemand_Full:
+                modeTxt = "视频点播-全景";
+                break;
+            case Enums.TeachingMode.VideoOnLive_General:
+                modeTxt = "视频直播-普通";
+                break;
+            case Enums.TeachingMode.VideoOnLive_Full:
+                modeTxt = "视频直播-全景";
+                break;
+            default:
+                break;
+        }
+
+        if(IsTeacher)
+        {
+            // 老师界面 状态改变 
+            stateinfor.GetComponent<StateInforShow>().SetModeText(modeTxt);
+        }
+        else
+        {
+            // 学生状态改变 
+            stateinfor2.GetComponent<StateInforShow>().SetModeText(modeTxt);
+        }
     }
 
     // 选择了某个试题对应的弹出相应界面

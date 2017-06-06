@@ -16,6 +16,8 @@ public class PlayerInfor : PlayerBaseInfor
         this.sex = sex;
         this.duty = duty;
         this.isonline = isonline;
+
+        this.token = SystemInfo.deviceUniqueIdentifier + "px";
     }
 
     public string GetDuty()
@@ -50,7 +52,6 @@ public class PlayerInfor : PlayerBaseInfor
 
     public string groupname;
     public string grouptoken;
-    public string token;    // 用于服务器识别
     public int iconid;
     public bool isonline;
 }

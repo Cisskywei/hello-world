@@ -122,7 +122,7 @@ public class SceneObject : MonoBehaviour {
             {
                 _allchangeself.Add("frametime", Time.time);
             }
-            SyncObjectOnce.getInstance().AddObject(gameObject.name, _allchangeself);
+            SendObjectOnce.getInstance().AddObject(gameObject.name, _allchangeself);
         }
     }
 
@@ -199,6 +199,10 @@ public class SceneObject : MonoBehaviour {
     {
         if (UserInfor.getInstance().UserToken != token)
         {
+            if(sos.isCanSend && UserInfor.getInstance().isTeacher)
+            {
+                return;
+            }
             sos.isCanOperate = false;
             sos.isCanReceive = true;
             sos.isCanSend = false;

@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace veClassRoom.Room
 {
@@ -40,6 +39,7 @@ namespace veClassRoom.Room
             //设置代理UserAgent和超时
             //request.UserAgent = userAgent;
             //request.Timeout = timeout;
+
             if (cookies != null)
             {
                 request.CookieContainer = new CookieContainer();
@@ -70,7 +70,7 @@ namespace veClassRoom.Room
 
             //设置代理UserAgent和超时
             //request.UserAgent = userAgent;
-            //request.Timeout = timeout; 
+            //request.Timeout = timeout;
 
             if (cookies != null)
             {
@@ -94,7 +94,8 @@ namespace veClassRoom.Room
                         i++;
                     }
                 }
-                byte[] data = Encoding.ASCII.GetBytes(buffer.ToString());
+                //byte[] data = Encoding.ASCII.GetBytes(buffer.ToString());
+                byte[] data = Encoding.UTF8.GetBytes(buffer.ToString());
                 using (Stream stream = request.GetRequestStream())
                 {
                     stream.Write(data, 0, data.Length);

@@ -1,0 +1,251 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace veClassRoom.Room
+{
+    /// <summary>
+    /// 负责处理与后台服务器的交互
+    /// </summary>
+    class BackDataService
+    {
+        public static BackDataService getInstance()
+        {
+            return Singleton<BackDataService>.getInstance();
+        }
+
+        public UserInfor CheckUser(string token, params Object[] p)
+        {
+            // 只为测试
+            UserInfor ret = new UserInfor();
+            return ret;
+        }
+
+        public Hashtable GetUserList(string token, params Object[] p)
+        {
+            return null;
+        }
+
+        public Hashtable GetUserTokenNameList(string token)
+        {
+            Hashtable h = new Hashtable();
+            h.Add("student1", "若雨");
+            h.Add("student2", "寒露");
+
+            return h;
+        }
+
+        // 和后台服务器的接口
+
+        private bool CheckGetPostResult(string jsondata, out string errormsg)
+        {
+            bool ret = false;
+            errormsg = string.Empty;
+
+            do
+            {
+                if (jsondata == null)
+                {
+                    break;
+                }
+
+                BackDataType.MessageRetHead retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.MessageRetHead>(jsondata);
+
+                if(Convert.ToInt64(retdata.code) > 0)
+                {
+                    ret = false;
+                    errormsg = retdata.message;
+                }
+                else
+                {
+                    ret = true;
+                }
+
+            } while (false);
+
+            return ret;
+        }
+
+        // 登陆验证 即获取token等信息
+        // login 返回数据 {"message":"登录成功","code":0,"type":"","data":{"id":"5","name":"lixin","access_token":"uWBpifKV2D9p6UlHpXhrkf3zP_1X1MPc"}}
+        private readonly string url_login = "http://www.hdmooc.com:5557/api-v1/login.html";
+        public BackDataType.PlayerLoginRetData CheckPlayerLogin(string username = "lixin", string password = "1")
+        {
+            IDictionary<string, string> parameters = new Dictionary<string, string>();
+            parameters.Add("username", username);
+            parameters.Add("password", password);
+            HttpWebResponse hr = HttpHelper.getInstance().CreatePostHttpResponse(url_login, parameters, 100, null, null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if (!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("登陆验证错误 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.PlayerLoginRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.PlayerLoginRetData>(retjson);
+
+            Console.WriteLine(retdata.data.access_token);
+            return retdata;
+        }
+
+        // 获取学生基本信息
+        private readonly string url_getplayerbaseinfor = "http://www.hdmooc.com:5557/api-v1/user.html?access-token=";
+        public BackDataType.PlayerBaseInforRetData GetPlayerBaseInfor(string accesstoken)
+        {
+            if(accesstoken == null)
+            {
+                return null;
+            }
+
+            string url = url_getplayerbaseinfor + accesstoken;
+
+            HttpWebResponse hr = HttpHelper.getInstance().CreateGetHttpResponse(url, 100, null, null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if (!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("获取学生基本信息 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.PlayerBaseInforRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.PlayerBaseInforRetData>(retjson);
+
+            return retdata;
+        }
+
+        // 获取学生VR课程列表
+        private readonly string url_student_courses = "http://www.hdmooc.com:5557/api-v1/course/study.html?access-token={0}&mode=vr";
+        public BackDataType.CourseListRetData GetStudentCourseList(string accesstoken)
+        {
+            if(accesstoken == null)
+            {
+                return null;
+            }
+
+            string url = string.Format(url_student_courses, accesstoken);
+
+            HttpWebResponse hr = HttpHelper.getInstance().CreateGetHttpResponse(url,100,null,null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if (!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("获取学生VR课程列表 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.CourseListRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.CourseListRetData>(retjson);
+
+            return retdata;
+        }
+        // 获取老师创建课程列表
+        private readonly string url_teacher_courses = "http://www.hdmooc.com:5557/api-v1/course/teacher.html?access-token=";
+        private readonly string course_mode = "&mode=";
+        public BackDataType.CourseListRetData GetTeacherCourseList(string accesstoken, string coursemode = "vr")
+        {
+            if(accesstoken == null)
+            {
+                return null;
+            }
+
+            string url = url_teacher_courses + accesstoken;
+            if(coursemode != null)
+            {
+                url += course_mode + coursemode;
+            }
+
+            Console.WriteLine("获取老师创建课程列表 url : " + url);
+
+            HttpWebResponse hr = HttpHelper.getInstance().CreateGetHttpResponse(url, 100, null, null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            Console.WriteLine("获取老师创建课程列表 retjson : " + retjson);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if (!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("获取老师创建课程列表 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.CourseListRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.CourseListRetData>(retjson);
+
+            return retdata;
+        }
+        //获取某个课程下有哪些学生
+        private readonly string url_course_student = "http://www.hdmooc.com:5557/api-v1/course/students.html?access-token={0}&id={1}";
+        public BackDataType.CourseInforRetData GetCourseStudentList(string accesstoken, string classid)
+        {
+            if(accesstoken == null)
+            {
+                return null;
+            }
+
+            string url = string.Format(url_course_student, accesstoken, classid);
+
+            Console.WriteLine("获取某个课程下有哪些学生 url : " + url);
+
+            HttpWebResponse hr = HttpHelper.getInstance().CreateGetHttpResponse(url, 100, null, null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            Console.WriteLine("获取某个课程下有哪些学生 retjson : " + retjson);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if(!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("获取某个课程下有哪些学生 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.CourseInforRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.CourseInforRetData>(retjson);
+
+            return retdata;
+        }
+        // 获取课程题目数据
+        private readonly string url_question_get = "http://www.hdmooc.com:5557/api-v1/question/course.html?access-token={0}&id=xxx";
+        public BackDataType.QuestionInforRetData GetCourseQuestionList(string accesstoken)
+        {
+            if (accesstoken == null)
+            {
+                return null;
+            }
+
+            string url = string.Format(url_question_get, accesstoken);
+
+            HttpWebResponse hr = HttpHelper.getInstance().CreateGetHttpResponse(url, 100, null, null);
+
+            string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+            // 检测返回结果
+            string errormsg = string.Empty;
+            if (!CheckGetPostResult(retjson, out errormsg))
+            {
+                Console.WriteLine("获取课程题目数据 : " + errormsg);
+                return null;
+            }
+
+            BackDataType.QuestionInforRetData retdata = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.QuestionInforRetData>(retjson);
+
+            Console.WriteLine("获取课程题目数据 : " + retdata.data[0].options);
+
+            return retdata;
+        }
+    }
+}

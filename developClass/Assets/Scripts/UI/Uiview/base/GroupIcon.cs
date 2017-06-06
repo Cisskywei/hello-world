@@ -34,6 +34,30 @@ public class GroupIcon : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
+    public void Init(string name, int num, ToggleGroup tog)
+    {
+        this.Init(name, num);
+        SetToggleGroup(tog);
+    }
+
+    public void SetToggleGroup(ToggleGroup tog)
+    {
+        if(tog == null)
+        {
+            return;
+        }
+
+        try
+        {
+            Transform go = transform.GetChild(0);
+            Toggle to = go.GetComponent<Toggle>();
+            to.group = tog;
+        }catch
+        {
+
+        }
+    }
+
     public void ChooseSelf(Toggle go)
     {
         if(!go.isOn)

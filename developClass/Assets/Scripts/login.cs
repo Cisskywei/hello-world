@@ -12,7 +12,7 @@ public class login : MonoBehaviour , msg_req_ret
 
     private void Awake()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener(EventId.ConnectedHub, this.connectedhub);
+    //    EventDispatcher.GetInstance().MainEventManager.AddEventListener(EventId.ConnectedHub, this.connectedhub);
     }
 
     // Use this for initialization
@@ -39,8 +39,10 @@ public class login : MonoBehaviour , msg_req_ret
 
         if(isstudent)
         {
-            name = "pp";
-            token = token + "px";
+            name = "token1";
+            token = "token1";
+            //name = "pp";
+            //token = token + "px";
         }
 
         MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", token, name, "cMsgConnect", "ret_msg");

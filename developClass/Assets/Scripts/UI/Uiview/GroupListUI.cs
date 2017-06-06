@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TinyFrameWork;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 选择小组界面
@@ -85,14 +86,16 @@ public class GroupListUI : uibase {
             count = grouplistpanel.childCount;
         }
 
-        foreach(GroupInfor g in grouplist.Values)
+        ToggleGroup tog = grouplistpanel.GetComponent<ToggleGroup>();
+
+        foreach (GroupInfor g in grouplist.Values)
         {
             if(tip < count)
             {
                 Transform icon = grouplistpanel.GetChild(tip);
                 if(icon)
                 {
-                    icon.GetComponent<GroupIcon>().Init(g.name, g.count);
+                    icon.GetComponent<GroupIcon>().Init(g.name, g.count, tog);
                     if(!icon.gameObject.activeSelf)
                     {
                         icon.gameObject.SetActive(true);
@@ -101,7 +104,13 @@ public class GroupListUI : uibase {
             }
             else
             {
-                generateGroupIcon(g.name, g.count);
+                if (iconPrafab == null)
+                {
+                    return;
+                }
+
+                GameObject icon = GameObject.Instantiate(iconPrafab, grouplistpanel);
+                icon.GetComponent<GroupIcon>().Init(g.name, g.count, tog);
             }
             tip++;
         }
@@ -117,18 +126,6 @@ public class GroupListUI : uibase {
                 }
             }
         }
-    }
-
-    // 生成小组 icon
-    private void generateGroupIcon(string name, int num)
-    {
-        if(iconPrafab == null)
-        {
-            return;
-        }
-
-        GameObject icon = GameObject.Instantiate(iconPrafab,grouplistpanel);
-        icon.GetComponent<GroupIcon>().Init(name, num);
     }
 
     // 确认返回

@@ -42,6 +42,41 @@ public class PlayerIcon : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
+    public void Init(string name, string duty, int icon, ToggleGroup tog)
+    {
+        Init(name, duty, icon);
+        SetToggleGroup(tog);
+    }
+
+    public void SetToggleGroup(ToggleGroup tog)
+    {
+        if (tog == null)
+        {
+            return;
+        }
+
+        try
+        {
+            if(iconImg == null)
+            {
+                Transform go = transform.GetChild(0);
+                iconImg = go.GetComponent<Image>();
+                Toggle to = go.GetComponent<Toggle>();
+                to.group = tog;
+            }
+            else
+            {
+                Toggle to2 = iconImg.gameObject.GetComponent<Toggle>();
+                to2.group = tog;
+            }
+            
+        }
+        catch
+        {
+
+        }
+    }
+
     public void ChooseSelf(Toggle go)
     {
         if(!go.isOn)

@@ -84,6 +84,23 @@ public class UiDataManager {
         return groupname;
     }
 
+    // 获取指定小组
+    public GroupInfor GetGroupByToken(string token)
+    {
+        GroupInfor p = null;
+
+        try
+        {
+            p = grouplist[token];
+        }
+        catch
+        {
+
+        }
+
+        return p;
+    }
+
     // 获取小组成员信息
     public Dictionary<string, PlayerInfor> GetGroupMemeber(string groupname)
     {
@@ -99,6 +116,22 @@ public class UiDataManager {
         }
 
         return grouplist[groupname].members;
+    }
+
+    // 获取指定成员
+    public PlayerInfor GetPlayerByToken(string token)
+    {
+        PlayerInfor p = null;
+
+        try
+        {
+            p = playerlist[token];
+        }catch
+        {
+
+        }
+
+        return p;
     }
 
     // 获取所有成员列表

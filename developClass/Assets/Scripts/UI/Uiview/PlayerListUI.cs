@@ -108,6 +108,8 @@ public class PlayerListUI : uibase {
             count = playerlistpanel.childCount;
         }
 
+        ToggleGroup tog = playerlistpanel.GetComponent<ToggleGroup>();
+
         foreach (PlayerInfor g in playerlist.Values)
         {
             if (tip < count)
@@ -115,7 +117,7 @@ public class PlayerListUI : uibase {
                 Transform icon = playerlistpanel.GetChild(tip);
                 if (icon)
                 {
-                    icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid);
+                    icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid, tog);
                     if (!icon.gameObject.activeSelf)
                     {
                         icon.gameObject.SetActive(true);
@@ -124,7 +126,13 @@ public class PlayerListUI : uibase {
             }
             else
             {
-                generateGroupIcon(g.name, g.GetDuty(), g.iconid);
+                if (iconPrafab == null)
+                {
+                    return;
+                }
+
+                GameObject icon = GameObject.Instantiate(iconPrafab, playerlistpanel);
+                icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid, tog);
             }
             tip++;
         }
@@ -151,12 +159,19 @@ public class PlayerListUI : uibase {
         // 获取小组信息
         playerlist = UiDataManager.getInstance().GetGroupMemeber(groupname);
 
+        if(playerlist == null)
+        {
+            return;
+        }
+
         int count = 0;
         int tip = 0;
         if (playerlistpanel != null)
         {
             count = playerlistpanel.childCount;
         }
+
+        ToggleGroup tog = playerlistpanel.GetComponent<ToggleGroup>();
 
         foreach (PlayerInfor g in playerlist.Values)
         {
@@ -165,7 +180,7 @@ public class PlayerListUI : uibase {
                 Transform icon = playerlistpanel.GetChild(tip);
                 if (icon)
                 {
-                    icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid);
+                    icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid,tog);
                     if (!icon.gameObject.activeSelf)
                     {
                         icon.gameObject.SetActive(true);
@@ -174,7 +189,13 @@ public class PlayerListUI : uibase {
             }
             else
             {
-                generateGroupIcon(g.name, g.GetDuty(), g.iconid);
+                if (iconPrafab == null)
+                {
+                    return;
+                }
+
+                GameObject icon = GameObject.Instantiate(iconPrafab, playerlistpanel);
+                icon.GetComponent<PlayerIcon>().Init(g.name, g.GetDuty(), g.iconid,tog);
             }
             tip++;
         }
@@ -190,18 +211,6 @@ public class PlayerListUI : uibase {
                 }
             }
         }
-    }
-
-    // 生成小组 icon
-    private void generateGroupIcon(string name, string duty, int iconid)
-    {
-        if (iconPrafab == null)
-        {
-            return;
-        }
-
-        GameObject icon = GameObject.Instantiate(iconPrafab, playerlistpanel);
-        icon.GetComponent<PlayerIcon>().Init(name, duty, iconid);
     }
 
     // 切换组

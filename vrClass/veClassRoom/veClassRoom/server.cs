@@ -18,6 +18,10 @@ namespace veClassRoom
                 return;
             }
 
+            //// 测试
+            //BackDataService.getInstance().CheckPlayerLogin("lixin", "1", server.loginback);
+            //BackDataService.getInstance().CheckPlayerLogin("红色诺言", "123456", server.loginback, server.loginbackf);
+
             hub.hub _hub = new hub.hub(args);
 
             add_necessary_model();
@@ -116,5 +120,40 @@ namespace veClassRoom
         public static RoomManager rooms;
 
         //        public static playermng players;
+
+        // 测试
+        public static void ons(BackDataType.QuestionInforRetData v, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons 获取课程题目数据 : " + "tag : " + tag + " -- " + v.data[0].options);
+        }
+
+        public static void onsTeacherCour(BackDataType.CourseListRetData v, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons 老师获取课程数据 : " + "tag : " + tag + " -- " + v.data[0].cover);
+
+            BackDataService.getInstance().GetCourseStudentList(token, v.data[0].course_id, server.onsStudentList, server.loginbackf);
+        }
+
+        public static void onsStudentList(BackDataType.CourseInforRetData v, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons 老师获取课程学生列表数据 : " + "tag : " + tag + " -- " + v.data.cover);
+        }
+
+        public static string token;
+        public static void loginback(BackDataType.PlayerLoginRetData v, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons 登陆 token : " + "tag : " + tag + " -- " + v.data.access_token);
+
+            token = v.data.access_token;
+
+            BackDataService.getInstance().GetTeacherCourseList(v.data.access_token, "expe", server.onsTeacherCour, server.loginbackf);
+
+            BackDataService.getInstance().GetCourseQuestionList(v.data.access_token, server.ons, server.loginbackf);
+        }
+
+        public static void loginbackf(BackDataType.MessageRetHead msg, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons loginbackf : " + "tag : " + tag + " -- " + msg.message);
+        }
     }
 }

@@ -104,15 +104,18 @@
     <Compile Include="Assets\Scripts\NetFram\NetWrap\NetBaseBehaviour.cs" />
     <Compile Include="Assets\Scripts\NetFram\NetWrap\NetMainLoop.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\CollectionObject.cs" />
+    <Compile Include="Assets\Scripts\NetFram\Scene\Login\DefaultLogin.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Player\SceneObject.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Player\SceneObjectServer.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Player\ScenePlayer.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Player\UserInfor.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\SceneConfig.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\CommondRecive.cs" />
+    <Compile Include="Assets\Scripts\NetFram\Scene\Sync\PlayerShowManager.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\ReciveObjectOnce.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SendObjectOnce.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncManager.cs" />
+    <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncPlayer.cs" />
     <Compile Include="Assets\Scripts\SyncObjectOnce.cs" />
     <Compile Include="Assets\Scripts\UI\Data\GroupInfor.cs" />
     <Compile Include="Assets\Scripts\UI\Data\PlayerBaseInfor.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Assets\Scripts\UI\Uiview\FastInClassUI.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\GroupListUI.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\PlayerListUI.cs" />
+    <Compile Include="Assets\Scripts\UI\Uiview\StateInforShow.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\SwitchModeUI.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\TestFeedBackUI.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\TestInClassUI.cs" />

@@ -1,0 +1,149 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace veClassRoom.Room
+{
+    /// <summary>
+    /// 后台返回json数据的直接解析类型
+    /// </summary>
+    class BackDataType
+    {
+        // 网络返回基本数据
+        public class MessageRetHead
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            //public Object data { get; set; }
+        }
+
+        // {"message":"登录成功","code":0,"type":"","data":{"id":"5","name":"lixin","access_token":"uWBpifKV2D9p6UlHpXhrkf3zP_1X1MPc"}}
+        public class PlayerLoginRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public Data data { get; set; }
+            public class Data
+            {
+                public string id { get; set; }
+                public string name { get; set; }
+                public string access_token { get; set; }
+            }
+        }
+
+        public class PlayerBaseInforRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public Data data { get; set; }
+            public class Data
+            {
+                public string user_id { get; set; }
+                public string user_name { get; set; }
+                public string telephone { get; set; }
+                public string email { get; set; }
+                public string sex { get; set; } // male 男 female 女
+                public string avatar { get; set; } // 头像
+                public string reg_time { get; set; } // 注册时间
+                public string last_login_time { get; set; } // 最后登录时间
+            }
+        }
+
+        public class CourseListRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public Data[] data { get; set; }
+            public class Data
+            {
+                public string course_id { get; set; }
+                public string mode { get; set; }
+                public string course_name { get; set; }
+                public string course_teacher { get; set; }
+                public string cover { get; set; } // 封面图
+            }
+        }
+
+        public class StudentInfor
+        {
+            //学生的用户ID、头像、用户名、学生姓名
+            public string user_id { get; set; }
+            public string avatar { get; set; }
+            public string user_name { get; set; }
+            public string student_name { get; set; }
+            public Classes classes { get; set; }
+            public College college { get; set; }
+            public School school { get; set; }
+
+            //班级资料，字段分别是ID、名称、代码、入学年月（格式是：yyyy-mm）
+            public class Classes
+            {
+                public string class_id { get; set; }
+                public string name { get; set; }
+                public string symbol { get; set; }
+                public string level { get; set; }
+            }
+            //学生所属院（系），字段是ID和名称
+            public class College
+            {
+                public string college_id { get; set; }
+                public string name { get; set; }
+            }
+            //学生所属学校
+            public class School
+            {
+                public string school_id { get; set; }
+                public string name { get; set; }
+            }
+        }
+        
+        public class CourseInforRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public CourseInfor data { get; set; }
+
+            public class CourseInfor
+            {
+                public string course_id { get; set; }
+                public string mode { get; set; }
+                public string course_name { get; set; }
+                public string course_teacher { get; set; }
+                public string school { get; set; }
+                public string background { get; set; }
+                public string introduce { get; set; }
+                public string target { get; set; }
+                public string cover { get; set; }
+                public string video { get; set; }
+
+                public StudentInfor[] students { get; set; }
+            }
+        }
+
+        // 题目数据
+        public class QuestionInforRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public QuestionInfor[] data { get; set; }
+
+            public class QuestionInfor
+            {
+                public string question_id { get; set; }
+                public string type { get; set; }
+                public string stem { get; set; }
+                public string options { get; set; }
+                public string answer { get; set; }
+                public string explanation { get; set; }
+            }
+        }
+    }
+}

@@ -12,6 +12,11 @@ namespace veClassRoom.Room
     /// </summary>
     class UserInfor
     {
+        // 登陆返回数据
+        public string id;
+        public string name;
+        public string access_token;
+
         public bool islogin = false;
         public bool isleader = false;
 

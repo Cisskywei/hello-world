@@ -736,5 +736,32 @@ namespace veClassRoom
             }
         }
 
+
+        //只为推题测试
+        public void QuestionTest(Int64 questionid)
+        {
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "QuestionTest", questionid);
+        }
+
+        public void FastQuestionTest()
+        {
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "FastQuestionTest");
+        }
+
+        public void ChangeModeState(Int64 modeid)
+        {
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ChangeModeState", modeid);
+        }
+
+        public void AnswerQuestion(Int64 optionid)
+        {
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "AnswerQuestion", optionid);
+        }
+
+        public void ShowWhiteBoard(Int64 openclose)
+        {
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ShowWhiteBoard", openclose);
+        }
+
     }
 }

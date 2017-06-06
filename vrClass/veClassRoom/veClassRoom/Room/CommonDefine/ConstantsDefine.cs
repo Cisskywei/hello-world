@@ -15,6 +15,7 @@ namespace veClassRoom.Room
             public static readonly string Net_Ret_Connector_func = "connectorfunc";
             public static readonly string Net_Ret_Scene_name = "scenename";
 
+            public static readonly string Net_Ret_Id = "id";
             public static readonly string Net_Ret_Token = "token";
             public static readonly string Net_Ret_Name = "name";
             public static readonly string Net_Ret_Uuid = "uuid";
@@ -23,6 +24,9 @@ namespace veClassRoom.Room
             public static readonly string Net_Course_List = "courselist";
 
             public static readonly string Net_Player_List = "playerlist";
+
+            //
+            public static readonly string Net_Ret_ErrorMsg = "errormsg";
         }
 
     }

@@ -245,6 +245,37 @@ namespace ko.NetFram
 
         }
 
+        public void req_player_change_once(Hashtable msg, string token = null, string contactmodule = null, string contactfunc = null)
+        {
+            if (token == null)
+            {
+                token = UserInfor.getInstance().UserToken;
+            }
+
+            if (token == null)
+            {
+                return;
+            }
+
+            if (contactmodule == null)
+            {
+                contactmodule = UserInfor.getInstance().RoomConnecter;
+            }
+
+            if (contactmodule == null)
+            {
+                return;
+            }
+
+            if (contactfunc == null)
+            {
+                contactfunc = "ChangePlayerAllOnce";
+            }
+
+            MainThreadClient._client.call_hub("lobby", contactmodule, contactfunc, UserInfor.getInstance().RoomName, token, msg);
+
+        }
+
         // 操作物体锁请求
         public void req_operation_permission(string token, string objectname, string uuid, string contactmodule = null, string contactfunc = null)
         {
