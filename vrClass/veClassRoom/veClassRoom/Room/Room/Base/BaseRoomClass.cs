@@ -17,6 +17,9 @@ namespace veClassRoom.Room
         // 场景名称 亦作为module名字
         public string scenename;
 
+        // 场景名称 亦作为场景唯一索引
+        public Int64 sceneid;
+
         // 场景是否开始  即课程是否开始
         public bool istartclass = false;
 
@@ -34,6 +37,7 @@ namespace veClassRoom.Room
 
         // 场景中的玩家列表
         public Dictionary<string, PlayerInScene> sceneplaylist = new Dictionary<string, PlayerInScene>();
+        public Dictionary<Int64, PlayerInScene> sceneplaylistbyid = new Dictionary<Int64, PlayerInScene>();
 
         // 场景中的玩家uuid列表
         public ArrayList _uuid_of_player = new ArrayList();

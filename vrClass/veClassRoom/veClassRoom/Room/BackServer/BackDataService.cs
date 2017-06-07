@@ -166,7 +166,7 @@ namespace veClassRoom.Room
         }
         //获取某个课程下有哪些学生
         private readonly string url_course_student = "http://www.hdmooc.com:5557/api-v1/course/students.html?access-token={0}&id={1}";
-        public void GetCourseStudentList(string accesstoken, string classid, DataRetCallBackSucceed<BackDataType.CourseInforRetData> onSucceed = null, DataRetCallBackFailure onFailure = null)
+        public void GetCourseStudentList(string accesstoken, string classid, DataRetCallBackSucceed<BackDataType.CourseInforRetData> onSucceed = null, DataRetCallBackFailure onFailure = null, string tag = null)
         {
             if(accesstoken == null)
             {
@@ -178,7 +178,12 @@ namespace veClassRoom.Room
             AsyncGetJsonData<BackDataType.CourseInforRetData> agjd = new AsyncGetJsonData<BackDataType.CourseInforRetData>();
             agjd.onSucceed = onSucceed;
             agjd.onFailure = onFailure;
-            agjd.GetJsonData(url, accesstoken);
+
+            if(tag == null)
+            {
+                tag = accesstoken;
+            }
+            agjd.GetJsonData(url, tag);
 
         }
         // 获取课程题目数据
@@ -270,6 +275,8 @@ namespace veClassRoom.Room
 
                 string retjson = HttpHelper.getInstance().GetResponseString(hr);
 
+                Console.WriteLine("\n" + retjson + "\n  000000000000000000000000000000000 ");
+
                 // 检测返回结果
                 BackDataType.MessageRetHead msghead = null;
                 bool ret = false;
@@ -300,7 +307,9 @@ namespace veClassRoom.Room
 
                 T retdata = JsonDataHelp.getInstance().JsonDeserialize<T>(retjson);
 
-                if(onSucceed != null)
+                Console.WriteLine("\n" + "ooooookkkkkk" + "\n  11111111111111 ");
+
+                if (onSucceed != null)
                 {
                     onSucceed.Invoke(retdata,tag);
                 }

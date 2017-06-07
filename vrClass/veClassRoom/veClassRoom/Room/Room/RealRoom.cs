@@ -29,11 +29,18 @@ namespace veClassRoom.Room
             this.model = Enums.ModelEnums.SynchronousOne;
         }
 
-        public void EnterLobby(string token, string uuid)
+        public void CreateScene(Int64 id)
         {
+            this.sceneid = id;
 
+            this.isinitclass = false;
+            this.model = Enums.ModelEnums.SynchronousOne;
         }
 
+        /// <summary>
+        /// 老师打开vr课件才会有的初始化场景
+        /// </summary>
+        /// <param name="data"></param>
         public override void InitScenes(Hashtable data)
         {
             base.InitScenes(data);
@@ -152,6 +159,7 @@ namespace veClassRoom.Room
 
         ////////////////////////////////////////////////////      玩家登陆进入房间、离开、玩家创建等操作模块      ///////////////////////////////////////////////
 
+        // 进入智慧教室
         public string PlayerEnterScene(UserInfor user)
         {
             //       CheckPlayerInfor(token, name, uuid);
@@ -217,10 +225,11 @@ namespace veClassRoom.Room
                 return;
             }
 
-            if (playerinfor.islogin)
+            if (playerinfor.isentercourse)
             {
-                // 重复登陆
+                // 重复进入房间
                 // TODO
+                //进行场景指令同步
 
                 return;
             }
@@ -243,22 +252,13 @@ namespace veClassRoom.Room
                 // 登陆者是学生
             }
 
-            // 只为测试
-     //       this.leader = player;
-
-            // 通知客户端显示登陆信息
-            string msg = playerinfor.user_name + "登陆进入房间";
-            TellClientMsg(this._uuid_of_player, msg);
-
-            Console.WriteLine("通知其他玩家用户进入房间 : " + "msg : " + msg + " 当前玩家数: " + this._uuid_of_player.Count);
-
-            string token = playerinfor.access_token;
+            Int64 id = playerinfor.selfid;
             string uuid = playerinfor.uuid;
-            if (this.sceneplaylist.ContainsKey(token))
+            if (this.sceneplaylistbyid.ContainsKey(id))
             {
                 // 重复登陆  可能是掉线重登
                 //TODO
-                PlayerInScene p = this.sceneplaylist[token];
+                PlayerInScene p = this.sceneplaylistbyid[id];
                 if (_uuid_of_player.Contains(p.uuid))
                 {
                     _uuid_of_player.Remove(p.uuid);
@@ -266,17 +266,23 @@ namespace veClassRoom.Room
 
                 _uuid_of_player.Add(uuid);
 
-                this.sceneplaylist[token] = player;
+                this.sceneplaylistbyid[id] = player;
             }
             else
             {
-                this.sceneplaylist.Add(token, player);
+                this.sceneplaylistbyid.Add(id, player);
 
                 if (!_uuid_of_player.Contains(uuid))
                 {
                     _uuid_of_player.Add(uuid);
                 }
             }
+
+            // 通知客户端 玩家进入 教学大厅
+
+            //// 通知客户端显示登陆信息
+            //string msg = playerinfor.user_name + "登陆进入房间";
+            //TellClientMsg(this._uuid_of_player, msg);
         }
 
         ////////////////////////////////////////////////////      玩家登陆进入房间、离开、玩家创建等操作模块   End   ///////////////////////////////////////////////

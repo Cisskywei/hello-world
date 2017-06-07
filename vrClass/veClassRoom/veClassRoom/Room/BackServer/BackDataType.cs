@@ -100,6 +100,7 @@ namespace veClassRoom.Room
             public string avatar { get; set; }
             public string user_name { get; set; }
             public string student_name { get; set; }
+            public string sex { get; set; }
             public Classes classes { get; set; }
             public College college { get; set; }
             public School school { get; set; }
@@ -174,6 +175,108 @@ namespace veClassRoom.Room
 
         }
 
+        public static Hashtable StudentInfor_Serialize(StudentInfor data)
+        {
+            Hashtable h = new Hashtable();
+
+            if(data.user_id != null)
+            {
+                h.Add("user_id", data.user_id);
+            }
+
+            if(data.avatar != null)
+            {
+                h.Add("avatar", data.avatar);
+            }
+
+            if(data.user_name != null)
+            {
+                h.Add("user_name", data.user_name);
+            }
+
+            if(data.student_name != null)
+            {
+                h.Add("student_name", data.student_name);
+            }
+
+            if(data.sex != null)
+            {
+                h.Add("sex", data.sex);
+            }
+
+            if(data.college != null)
+            {
+                Hashtable co = new Hashtable();
+
+                if (data.college.college_id != null)
+                {
+                    co.Add("college_id", data.college.college_id);
+                }
+
+                if (data.college.name != null)
+                {
+                    co.Add("name", data.college.name);
+                }
+
+                if (co.Count > 0)
+                {
+                    h.Add("college", co);
+                }
+            }
+
+            if(data.school != null)
+            {
+                Hashtable sc = new Hashtable();
+
+                if (data.school.school_id != null)
+                {
+                    sc.Add("school_id", data.school.school_id);
+                }
+
+                if (data.school.name != null)
+                {
+                    sc.Add("name", data.school.name);
+                }
+
+                if (sc.Count > 0)
+                {
+                    h.Add("school", sc);
+                }
+            }
+            
+            if(data.classes != null)
+            {
+                Hashtable cl = new Hashtable();
+
+                if (data.classes.class_id != null)
+                {
+                    cl.Add("class_id", data.classes.class_id);
+                }
+
+                if (data.classes.name != null)
+                {
+                    cl.Add("name", data.classes.name);
+                }
+
+                if (data.classes.symbol != null)
+                {
+                    cl.Add("symbol", data.classes.symbol);
+                }
+
+                if (data.classes.level != null)
+                {
+                    cl.Add("level", data.classes.level);
+                }
+
+                if (cl.Count > 0)
+                {
+                    h.Add("classes", cl);
+                }
+            }
+
+            return h;
+        }
+
         public static Hashtable CourseListRetData_Serialize(CourseListRetData data)
         {
             Hashtable h = new Hashtable();
@@ -191,6 +294,31 @@ namespace veClassRoom.Room
             }
 
             return h;
+        }
+
+        public static Hashtable CourseInforRetData_Serialize(CourseInforRetData data)
+        {
+            Hashtable hh = new Hashtable();
+            hh.Add("course_id", data.data.course_id);
+            hh.Add("mode", data.data.mode);
+            hh.Add("course_name", data.data.course_name);
+            hh.Add("course_teacher", data.data.course_teacher);
+            hh.Add("school", data.data.school);
+
+            StudentInfor[] s = data.data.students;
+            Hashtable hhh = new Hashtable();
+            for(int i=0;i<s.Length;i++)
+            {
+                Hashtable h = StudentInfor_Serialize((StudentInfor)s[i]);
+                if(h!= null)
+                {
+                    hhh.Add(s[i].user_id, h);
+                }
+            }
+
+            hh.Add("students", hhh);
+
+            return hh;
         }
     }
 }

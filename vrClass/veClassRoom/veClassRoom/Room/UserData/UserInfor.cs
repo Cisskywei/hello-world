@@ -18,6 +18,8 @@ namespace veClassRoom.Room
         public string id;
         public string name;
         public string access_token;
+        // 延伸字段
+        public Int64 selfid;
         // 获取基本信息返回数据
         public string user_id { get; set; }
         public string user_name { get; set; }
@@ -37,6 +39,8 @@ namespace veClassRoom.Room
             this.id = login.data.id;
             this.name = login.data.name;
             this.access_token = login.data.access_token;
+
+            selfid = Convert.ToInt64(this.id);
         }
 
         public void InitBaseInforRetData(BackDataType.PlayerBaseInforRetData baseinfor)
@@ -63,6 +67,7 @@ namespace veClassRoom.Room
         }
 
         public bool islogin = false;
+        public bool isentercourse = false;
         public bool isleader = false;
 
         // 所在教室的名字  如果是老师 则从服务器获取

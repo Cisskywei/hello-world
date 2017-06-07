@@ -61,7 +61,7 @@ namespace veClassRoom.Room
                 }
 
                 RealRoom s = new RealRoom();
-                s.CreateScene(null, s);
+                s.CreateScene(id);
                 allscenesbyid.Add(id, s);
 
                 ret = s;

@@ -277,11 +277,13 @@ namespace veClassRoom.Room
         {
             RealRoom rr = RoomManager.getInstance().CreateRoomById(courseid);
 
-            Hashtable h = new Hashtable();
-
             if (rr == null)
             {
+                Hashtable h = new Hashtable();
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, "创建房间失败");
+
+                hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
             }
             else
             {
@@ -290,16 +292,29 @@ namespace veClassRoom.Room
                     return;
                 }
 
-                rr.PlayerEnterScene(allplayerlogin[userid]);
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, courseid.ToString());
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
-            }
+                UserInfor user = allplayerlogin[userid];
+                rr.PlayerEnterScene(user);
+                
+                // 如果是老师 要返回给老师 当前课程的学生列表信息
+                if(user.identity == "teacher")
+                {
+                    // 老师 返回学生列表数据
+                    BackDataService.getInstance().GetCourseStudentList(user.access_token, courseid.ToString(), Student_List_Succeed,Student_List_Failure, userid.ToString());
+                }
+                else
+                {
+                    // 学生这直接返回
+                    Hashtable h = new Hashtable();
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, rr.sceneid.ToString());
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
 
-            hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+                    hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+                }
+            }
         }
 
-        public void Enter_Course_Succeed(BackDataType.CourseListRetData v, string tag)
+        public void Student_List_Succeed(BackDataType.CourseInforRetData v, string tag)
         {
             if (tag == null)
             {
@@ -308,10 +323,24 @@ namespace veClassRoom.Room
 
             try
             {
-                Hashtable h = BackDataType.CourseListRetData_Serialize(v);
+                Int64 id = Convert.ToInt64(tag);
+                if (!allplayerlogin.ContainsKey(id))
+                {
+                    return;
+                }
+
+                UserInfor user = allplayerlogin[id];
+
+                Hashtable h = BackDataType.CourseInforRetData_Serialize(v);
                 if (h != null)
                 {
-                    hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                    Console.WriteLine("Student_List_Succeed : " + "h != null:" + h.Count);
+
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, v.data.course_id);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
+
+                    hub.hub.gates.call_client(user.uuid, "cMsgConnect", "ret_msg", h);
                 }
 
             }
@@ -321,7 +350,7 @@ namespace veClassRoom.Room
             }
         }
 
-        public void Enter_Course_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        public void Student_List_Failure(BackDataType.MessageRetHead errormsg, string tag)
         {
             if (tag == null)
             {
@@ -330,9 +359,19 @@ namespace veClassRoom.Room
 
             try
             {
-                Hashtable h = new Hashtable();
+                Int64 id = Convert.ToInt64(tag);
+                if (!allplayerlogin.ContainsKey(id))
+                {
+                    return;
+                }
 
-                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                UserInfor user = allplayerlogin[id];
+
+                Hashtable h = new Hashtable();
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
+
+                hub.hub.gates.call_client(user.uuid, "cMsgConnect", "ret_msg", h);
             }
             catch
             {

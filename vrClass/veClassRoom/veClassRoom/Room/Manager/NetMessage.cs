@@ -23,19 +23,6 @@ namespace veClassRoom.Room
         }
 
         // 房间协议
-        public void EnterLobby(string roomname, string token, string uuid)
-        {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
-
-            if (rr == null)
-            {
-                return;
-            }
-
-            rr.EnterLobby(token, uuid);
-        }
-
-        // 房间协议
         public void InitScenes(string roomname, Hashtable data)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
