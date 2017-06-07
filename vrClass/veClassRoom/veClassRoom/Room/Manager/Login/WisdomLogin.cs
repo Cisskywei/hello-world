@@ -11,7 +11,8 @@ namespace veClassRoom.Room
     class WisdomLogin : imodule
     {
         public static string selfmodelname = "WisdomLogin";
-        public static Dictionary<string, string> _name_uuid_cache = new Dictionary<string, string>(); // name 和 uuid 配对表
+
+        public static Dictionary<Int64, UserInfor> allplayerlogin = new Dictionary<Int64, UserInfor>();
 
         public void player_login(string password, string name, string modelname, string callbackname)
         {
@@ -27,63 +28,8 @@ namespace veClassRoom.Room
                 callbackname = "ret_msg";
             }
 
-            try
-            {
-                if (_name_uuid_cache.ContainsKey(name))
-                {
-                    _name_uuid_cache[name] = client_uuid;
-                }
-                else
-                {
-                    _name_uuid_cache.Add(name, client_uuid);
-                }
-            }
-            catch
-            {
+            BackDataService.getInstance().CheckUser(name, password, this.Login_Succeed, this.Login_Failure, client_uuid);
 
-            }
-
-            //Console.WriteLine("用户登陆 : " + " name:" + name + " token:" + token + " uuid:" + client_uuid);
-
-            //向服务器验证获取信息列表  基础的是学生的课程列表!!!
-            //UserInfor playerinfor = BackDataService.getInstance().CheckUser(token, name);
-
-            BackDataService.getInstance().CheckUser(name, password, this.Login_Succeed, this.Login_Failure);
-
-            ////只为测试
-            //bool isleader = false;
-            //if (token.Contains("teacher"))
-            //{
-            //    isleader = true;
-            //}
-
-            //Hashtable h = new Hashtable();
-            //if (playerinfor == null)
-            //{
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Token, token);
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, name);
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, client_uuid);
-            //}
-            //else
-            //{
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Token, token);
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, name);
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, client_uuid);
-            //    // 学生的课程列表
-            //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Course_List, playerinfor.GetCourseList());
-
-            //    if (isleader)
-            //    {
-            //        h.Add(ConstantsDefine.HashTableKeyEnum.Net_Player_List, BackDataService.getInstance().GetUserTokenNameList(playerinfor.roomname));
-            //    }
-
-            //    // 只为测试
-            //    h.Add("isteacher", isleader);
-            //}
-
-            //hub.hub.gates.call_client(client_uuid, modelname, callbackname, h);
         }
 
         public void Login_Succeed(BackDataType.PlayerLoginRetData v, string tag)
@@ -95,19 +41,21 @@ namespace veClassRoom.Room
 
             try
             {
-                if (!_name_uuid_cache.ContainsKey(tag))
+                UserInfor user = new UserInfor();
+                user.InitLoginRetData(v);
+                user.uuid = tag;
+
+                Int64 id = Convert.ToInt64(user.id);
+                if (allplayerlogin.ContainsKey(id))
                 {
-                    return;
+                    allplayerlogin[id] = user;
+                }
+                else
+                {
+                    allplayerlogin.Add(id, user);
                 }
 
-                string uuid = _name_uuid_cache[tag];
-                Hashtable h = new Hashtable();
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Token, v.data.access_token);
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, v.data.name);
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, uuid);
-
-                hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+                player_base_infor(v.data.access_token, tag);
             }
             catch
             {
@@ -124,17 +72,11 @@ namespace veClassRoom.Room
 
             try
             {
-                if (!_name_uuid_cache.ContainsKey(tag))
-                {
-                    return;
-                }
-
-                string uuid = _name_uuid_cache[tag];
                 Hashtable h = new Hashtable();
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
 
-                hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
             }
             catch
             {
@@ -142,7 +84,67 @@ namespace veClassRoom.Room
             }
         }
 
-        public void player_exit(string token, string name, string uuid, string roomname = null, string modelname = null, string callbackname = null)
+        // 获取用户基本信息
+        public void player_base_infor(string token, string uuid)
+        {
+            BackDataService.getInstance().GetPlayerBaseInfor(token, player_base_infor_Succeed, player_base_infor_Failure, uuid);
+        }
+
+        public void player_base_infor_Succeed(BackDataType.PlayerBaseInforRetData v, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Int64 id = Convert.ToInt64(v.data.user_id);
+                if (!allplayerlogin.ContainsKey(id))
+                {
+                    return;
+                }
+
+                UserInfor user = null;
+                allplayerlogin[id].InitBaseInforRetData(v);
+                user = allplayerlogin[id];
+
+                Hashtable h = new Hashtable();
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Token, user.access_token);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, user.name);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, user.uuid);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Id, user.id);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, user.identity);
+
+                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+            }
+            catch
+            {}
+        }
+
+        public void player_base_infor_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Hashtable h = new Hashtable();
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
+
+                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void player_exit(string token, string uuid, Int64 userid, Int64 roomid, string modelname = null, string callbackname = null)
         {
             if (modelname == null)
             {
@@ -154,21 +156,24 @@ namespace veClassRoom.Room
                 callbackname = "ret_msg";
             }
 
-            Console.WriteLine("用户退出 : " + "name:" + name + " token:" + token + " uuid:" + uuid);
+            Console.WriteLine("用户退出 : " + " token:" + token + " uuid:" + uuid);
 
-            if (roomname != null)
+            // 退出场景
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr != null)
             {
-                // 退出场景
-                RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
-
-                if(rr!=null)
-                {
-                    rr.PlayerLeaveScene(token, name, uuid);
-                }
+                rr.PlayerLeaveScene(token, uuid);
             }
 
             //向服务器发送用户的个人数据
             // TODO
+
+            // 登陆列表移除
+            if(allplayerlogin.ContainsKey(userid))
+            {
+                allplayerlogin.Remove(userid);
+            }
         }
 
         // 玩家进入房间
@@ -186,7 +191,7 @@ namespace veClassRoom.Room
             }
             else
             {
-                rr.PlayerEnterScene(token, name, uuid);
+   //             rr.PlayerEnterScene(token, name, uuid);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Scene_name, rr.scenename);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
@@ -204,6 +209,135 @@ namespace veClassRoom.Room
 
             hub.hub.gates.call_client(uuid, modelname, callbackname, h);
 
+        }
+
+        public void EnterLobby(string token,string uuid, Int64 duty)
+        {
+            switch(duty)
+            {
+                case 1:
+                    // 获取学生课程
+                    BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, uuid);
+                    break;
+                case 2:
+                    // 获取老师课程
+                    BackDataService.getInstance().GetTeacherCourseList(token, "vr", Enter_Lobby_Succeed, Enter_Lobby_Failure, uuid);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void Enter_Lobby_Succeed(BackDataType.CourseListRetData v, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Hashtable h = BackDataType.CourseListRetData_Serialize(v);
+                if(h!=null)
+                {
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                    hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                }
+                                
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void Enter_Lobby_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Hashtable h = new Hashtable();
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
+
+                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+            }
+            catch
+            {
+
+            }
+        }
+
+        // 进入课程 创建房间 老师信息 学生信息等
+        public void EnterCourse(Int64 userid, string uuid, Int64 courseid)
+        {
+            RealRoom rr = RoomManager.getInstance().CreateRoomById(courseid);
+
+            Hashtable h = new Hashtable();
+
+            if (rr == null)
+            {
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+            }
+            else
+            {
+                if(!allplayerlogin.ContainsKey(userid))
+                {
+                    return;
+                }
+
+                rr.PlayerEnterScene(allplayerlogin[userid]);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, courseid.ToString());
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
+            }
+
+            hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+        }
+
+        public void Enter_Course_Succeed(BackDataType.CourseListRetData v, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Hashtable h = BackDataType.CourseListRetData_Serialize(v);
+                if (h != null)
+                {
+                    hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                }
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void Enter_Course_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Hashtable h = new Hashtable();
+
+                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+            }
+            catch
+            {
+
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace veClassRoom
 
             //// 测试
             //BackDataService.getInstance().CheckPlayerLogin("lixin", "1", server.loginback);
-            //BackDataService.getInstance().CheckPlayerLogin("红色诺言", "123456", server.loginback, server.loginbackf);
+    //        BackDataService.getInstance().CheckPlayerLogin("红色诺言", "123456", server.loginback, server.loginbackf);
 
             hub.hub _hub = new hub.hub(args);
 
@@ -146,6 +146,8 @@ namespace veClassRoom
 
             token = v.data.access_token;
 
+            BackDataService.getInstance().GetPlayerBaseInfor(v.data.access_token, server.onsinfor);
+
             BackDataService.getInstance().GetTeacherCourseList(v.data.access_token, "expe", server.onsTeacherCour, server.loginbackf);
 
             BackDataService.getInstance().GetCourseQuestionList(v.data.access_token, server.ons, server.loginbackf);
@@ -155,5 +157,21 @@ namespace veClassRoom
         {
             Console.WriteLine(" Thread ons loginbackf : " + "tag : " + tag + " -- " + msg.message);
         }
+
+        public static void onsinfor(BackDataType.PlayerBaseInforRetData v, string tag = "xx")
+        {
+            Console.WriteLine(" Thread ons 获取用户基本信息数据 : " + "tag : " + tag + " -- " + v.data.user_name);
+
+            if(v.data.teacher != null)
+            {
+                Console.WriteLine(" Thread ons 老师 : " + v.data.teacher.teacher_number);
+            }
+
+            if (v.data.student != null)
+            {
+                Console.WriteLine(" Thread ons 学生 : " + v.data.student.student_number);
+            }
+        }
+
     }
 }

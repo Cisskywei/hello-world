@@ -27,20 +27,21 @@ namespace veClassRoom.Room
         public Structs.sTransform head;
         private Hashtable handhead = null;// new Hashtable();
 
+      
+
         public PlayerInScene(UserInfor playerinfor)
         {
-            // 根据平台数据初始化自己
-            //if (handhead.Count <= 0)
-            //{
-            //    initHandHead();
-            //}
-        }
+            if(playerinfor == null)
+            {
+                return;
+            }
 
-        public PlayerInScene(UserInfor playerinfor, string token, string name, string uuid):base(token,name,uuid)
-        {
             // 根据平台数据初始化自己
+            this.token = playerinfor.access_token;
+            this.name = playerinfor.user_name;
+            this.uuid = playerinfor.uuid;
 
-            this.isleader = playerinfor.isleader;
+            this.isleader = playerinfor.identity == "teacher";
 
             if(playerinfor.isleader)
             {
@@ -50,11 +51,6 @@ namespace veClassRoom.Room
             {
                 this.permission = Enums.PermissionEnum.Student;
             }
-
-            //if(handhead.Count <= 0)
-            //{
-            //    initHandHead();
-            //}
 
         }
 

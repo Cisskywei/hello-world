@@ -23,6 +23,19 @@ namespace veClassRoom.Room
         }
 
         // 房间协议
+        public void EnterLobby(string roomname, string token, string uuid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.EnterLobby(token, uuid);
+        }
+
+        // 房间协议
         public void InitScenes(string roomname, Hashtable data)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
@@ -230,6 +243,18 @@ namespace veClassRoom.Room
 
             rr.AnswerQuestion(token, questionid, optionid);
         }
+        // 随堂测试学生抢答
+        public void AnswerFastQuestion(string roomname, string token, Int64 questionid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.AnswerFastQuestion(token, questionid);
+        }
         // 点赞
         public void SendLikeToTeacher(string roomname, string token)
         {
@@ -253,6 +278,18 @@ namespace veClassRoom.Room
             }
 
             rr.SendDoubtToTeacher(token);
+        }
+        //老师推送电子白板  0 是关 1是开
+        public void SwitchWhiteBoard(string roomname, string token, Int64 openclose)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.SwitchWhiteBoard(token, openclose);
         }
     }
 }

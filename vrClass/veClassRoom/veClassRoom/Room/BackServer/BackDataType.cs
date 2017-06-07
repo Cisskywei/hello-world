@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -51,6 +52,28 @@ namespace veClassRoom.Room
                 public string avatar { get; set; } // 头像
                 public string reg_time { get; set; } // 注册时间
                 public string last_login_time { get; set; } // 最后登录时间
+                public TeacherInfor teacher { get; set; }
+                public StudentInfor student { get; set; }
+            }
+
+            public class TeacherInfor
+            {
+                public string teacher_id { get; set; }
+                public string school_id { get; set; }
+                public string college_id { get; set; }
+                public string name { get; set; }
+                public string teacher_number { get; set; }
+                public string rank { get; set; }
+            }
+
+            public class StudentInfor
+            {
+                public string student_id { get; set; }
+                public string school_id { get; set; }
+                public string college_id { get; set; }
+                public string class_id { get; set; }
+                public string name { get; set; }
+                public string student_number { get; set; }
             }
         }
 
@@ -144,6 +167,30 @@ namespace veClassRoom.Room
                 public string answer { get; set; }
                 public string explanation { get; set; }
             }
+        }
+
+        public void CourseListRetData_Deserialize()
+        {
+
+        }
+
+        public static Hashtable CourseListRetData_Serialize(CourseListRetData data)
+        {
+            Hashtable h = new Hashtable();
+
+            for(int i=0;i<data.data.Length;i++)
+            {
+                Hashtable hh = new Hashtable();
+                hh.Add("course_id", data.data[i].course_id);
+                hh.Add("mode", data.data[i].mode);
+                hh.Add("course_name", data.data[i].course_name);
+                hh.Add("course_teacher", data.data[i].course_teacher);
+                hh.Add("cover", data.data[i].cover);
+
+                h.Add(i.ToString(), hh);
+            }
+
+            return h;
         }
     }
 }

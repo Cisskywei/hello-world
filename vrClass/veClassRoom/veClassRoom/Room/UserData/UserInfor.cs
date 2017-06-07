@@ -12,10 +12,55 @@ namespace veClassRoom.Room
     /// </summary>
     class UserInfor
     {
+        // 网络连接相关
+        public string uuid;
         // 登陆返回数据
         public string id;
         public string name;
         public string access_token;
+        // 获取基本信息返回数据
+        public string user_id { get; set; }
+        public string user_name { get; set; }
+        public string telephone { get; set; }
+        public string email { get; set; }
+        public string sex { get; set; } // male 男 female 女
+        public string avatar { get; set; } // 头像
+        public string reg_time { get; set; } // 注册时间
+        public string last_login_time { get; set; } // 最后登录时间
+        public BackDataType.PlayerBaseInforRetData.TeacherInfor teacher = null;
+        public BackDataType.PlayerBaseInforRetData.StudentInfor student = null;
+        // 延伸字段
+        public string identity = string.Empty;
+
+        public void InitLoginRetData(BackDataType.PlayerLoginRetData login)
+        {
+            this.id = login.data.id;
+            this.name = login.data.name;
+            this.access_token = login.data.access_token;
+        }
+
+        public void InitBaseInforRetData(BackDataType.PlayerBaseInforRetData baseinfor)
+        {
+            this.user_id = baseinfor.data.user_id;
+            this.user_name = baseinfor.data.user_name;
+            this.telephone = baseinfor.data.telephone;
+            this.email = baseinfor.data.email;
+            this.sex = baseinfor.data.sex;
+            this.avatar = baseinfor.data.avatar;
+            this.reg_time = baseinfor.data.reg_time;
+            this.last_login_time = baseinfor.data.last_login_time;
+            this.teacher = baseinfor.data.teacher;
+            this.student = baseinfor.data.student;
+
+            if(this.teacher != null)
+            {
+                identity = "teacher";
+            }
+            else if(this.student != null)
+            {
+                identity = "student";
+            }
+        }
 
         public bool islogin = false;
         public bool isleader = false;

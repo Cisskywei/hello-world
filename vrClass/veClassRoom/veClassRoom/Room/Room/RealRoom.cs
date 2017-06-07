@@ -29,6 +29,11 @@ namespace veClassRoom.Room
             this.model = Enums.ModelEnums.SynchronousOne;
         }
 
+        public void EnterLobby(string token, string uuid)
+        {
+
+        }
+
         public override void InitScenes(Hashtable data)
         {
             base.InitScenes(data);
@@ -127,7 +132,7 @@ namespace veClassRoom.Room
                 return;
             }
 
-            createPlayer(playerinfor, token, name, uuid);
+            createPlayer(playerinfor);
         }
 
         private void CheckPlayerInforLocal(string token, string name, string uuid)
@@ -139,7 +144,7 @@ namespace veClassRoom.Room
 
             UserInfor playerinfor = userlist[token] as UserInfor;
 
-            createPlayer(playerinfor, token, name, uuid);
+            createPlayer(playerinfor);
         }
 
         ////////////////////////////////////////////////////      向后台服务器获取玩家信息、验证登陆、反馈数据等操作模块  End    ///////////////////////////////////////////////
@@ -147,29 +152,23 @@ namespace veClassRoom.Room
 
         ////////////////////////////////////////////////////      玩家登陆进入房间、离开、玩家创建等操作模块      ///////////////////////////////////////////////
 
-        public string PlayerEnterScene(string token, string name, string uuid)
+        public string PlayerEnterScene(UserInfor user)
         {
-            Console.WriteLine("用户真正进入房间 : " + "name:" + name + " token:" + token + " uuid:" + uuid + " roomname:" + scenename);
             //       CheckPlayerInfor(token, name, uuid);
             //CheckPlayerInforLocal(token, name, uuid);
 
             // 跳过服务器验证 只为测试
-            UserInfor p = new UserInfor();
-            if (token.Contains("teacher"))
-            {
-                p.isleader = true;
-            }
-            createPlayer(p, token, name, uuid);
+            createPlayer(user);
 
-            if(istartclass && !p.isleader)
+            if(istartclass && (user.identity != "teacher"))
             {
-                SceneSynchronizationPlayer(uuid);
+                SceneSynchronizationPlayer(user.uuid);
             }
 
             return this.scenename;
         }
 
-        public void PlayerLeaveScene(string token, string name, string uuid)
+        public void PlayerLeaveScene(string token, string uuid)
         {
             if (sceneplaylist.ContainsKey(token))
             {
@@ -211,7 +210,7 @@ namespace veClassRoom.Room
             }
         }
 
-        private void createPlayer(UserInfor playerinfor, string token, string name, string uuid)
+        private void createPlayer(UserInfor playerinfor)
         {
             if(playerinfor == null)
             {
@@ -226,7 +225,7 @@ namespace veClassRoom.Room
                 return;
             }
 
-            PlayerInScene player = new PlayerInScene(playerinfor,token,name,uuid);
+            PlayerInScene player = new PlayerInScene(playerinfor);
 
             // 切换玩家自身模式
             if(player!=null)
@@ -248,15 +247,15 @@ namespace veClassRoom.Room
      //       this.leader = player;
 
             // 通知客户端显示登陆信息
-            string msg = name + "登陆进入房间";
+            string msg = playerinfor.user_name + "登陆进入房间";
             TellClientMsg(this._uuid_of_player, msg);
 
             Console.WriteLine("通知其他玩家用户进入房间 : " + "msg : " + msg + " 当前玩家数: " + this._uuid_of_player.Count);
 
+            string token = playerinfor.access_token;
+            string uuid = playerinfor.uuid;
             if (this.sceneplaylist.ContainsKey(token))
             {
-                Console.WriteLine("用户重复登陆进入房间 : " + "name:" + name + " token:" + token + " uuid:" + uuid + " roomname:" + scenename);
-
                 // 重复登陆  可能是掉线重登
                 //TODO
                 PlayerInScene p = this.sceneplaylist[token];
@@ -1336,6 +1335,22 @@ namespace veClassRoom.Room
 
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerQuestion", token, questionid, optionid);
         }
+        // 学生抢答反馈
+        public void AnswerFastQuestion(string token, Int64 questionid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerFastQuestion", token, questionid);
+        }
         // 点赞
         public void SendLikeToTeacher(string token)
         {
@@ -1368,6 +1383,23 @@ namespace veClassRoom.Room
             }
 
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retSendDoubt", token);
+        }
+
+        // 推送电子白板
+        public void SwitchWhiteBoard(string token, Int64 openclose)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            {
+                Console.WriteLine("UI 服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                return;
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retWhiteBoard", token, openclose);
         }
 
     }

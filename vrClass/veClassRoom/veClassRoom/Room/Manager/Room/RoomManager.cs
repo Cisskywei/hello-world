@@ -15,6 +15,7 @@ namespace veClassRoom.Room
         }
 
         private Dictionary<string, RealRoom> allscenes = new Dictionary<string, RealRoom>();
+        private Dictionary<Int64, RealRoom> allscenesbyid = new Dictionary<Int64, RealRoom>();
 
         private Dictionary<string, Thread> scenesthread = new Dictionary<string, Thread>();
 
@@ -39,6 +40,29 @@ namespace veClassRoom.Room
                 RealRoom s = new RealRoom();
                 s.CreateScene(name,s);
                 allscenes.Add(name, s);
+
+                ret = s;
+
+            } while (false);
+
+            return ret;
+        }
+
+        public RealRoom CreateRoomById(Int64 id)
+        {
+            RealRoom ret = null;
+
+            do
+            {
+                if (allscenesbyid.ContainsKey(id))
+                {
+                    ret = allscenesbyid[id];
+                    break;
+                }
+
+                RealRoom s = new RealRoom();
+                s.CreateScene(null, s);
+                allscenesbyid.Add(id, s);
 
                 ret = s;
 
@@ -170,6 +194,18 @@ namespace veClassRoom.Room
             if (allscenes.ContainsKey(name))
             {
                 s = allscenes[name];
+            }
+
+            return s;
+        }
+
+        public RealRoom FindRoomById(Int64 id)
+        {
+            RealRoom s = null;
+
+            if (allscenesbyid.ContainsKey(id))
+            {
+                s = allscenesbyid[id];
             }
 
             return s;
