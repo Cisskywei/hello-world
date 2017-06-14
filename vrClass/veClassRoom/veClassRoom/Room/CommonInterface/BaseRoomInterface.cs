@@ -15,6 +15,6 @@ namespace veClassRoom.Room
 
         void ret_sync_commond(string typ, string commond, Int64 userid, string objectname, string uuid);
 
-        void SyncClient();
+        void SyncClient(Int64 tick);
     }
 }

@@ -106,17 +106,8 @@ namespace veClassRoom.Room
             }
             // 进行一次场景同步
             SceneSynchronizationAll();
-            Thread t = RoomManager.getInstance().FindThreadOfRoomById(this.sceneid);
-            if (t == null)
-            {
-                t = RoomManager.getInstance().ApplyThreadForRoomById(this.sceneid);
-            }
 
-            if (t != null)
-            {
-                if (t.ThreadState == ThreadState.Unstarted)
-                    t.Start();
-            }
+            StartSyncClient();
 
             istartclass = true;
 
@@ -199,9 +190,10 @@ namespace veClassRoom.Room
             return this.scenename;
         }
 
-        public void PlayerLeaveScene(int userid, string uuid)
+        public void PlayerLeaveScene(Int64 id, string uuid)
         {
             PlayerInScene ps = null;
+            int userid = (int)id;
             if (sceneplaylistbyid.ContainsKey(userid))
             {
                 ps = sceneplaylistbyid[userid];
@@ -537,68 +529,6 @@ namespace veClassRoom.Room
             }
         }
 
-        public override void ChangeObjectAllOnce(Int64 userid, Hashtable clientallonce)
-        {
-            int id = (int)userid;
-
-            Console.WriteLine("ChangeObjectAllOnce uuid " + id + clientallonce.Count);
-
-            if (clientallonce == null || clientallonce.Count <= 0)
-            {
-                return;
-            }
-
-            PlayerInScene ps = findPlayerById(id);
-            if (ps == null)
-            {
-                return;
-            }
-
-            // 先判断是否有小组
-            if (ps.group != null)
-            {
-                ps.group.ChangeObjectAllOnce(id, clientallonce);
-
-                return;
-            }
-
-            // 没有小组执行以下操作
-
-            if (!(checkOperateEffective(ps) || ps.isCanSend))
-            {
-                return;
-            }
-
-            do
-            {
-                string token = ps.token;
-
-                foreach (DictionaryEntry de in clientallonce)
-                {
-                    if (!moveablesceneobject.ContainsKey((string)de.Key))
-                    {
-                        // 服务器不包含该物体
-                        continue;
-                    }
-
-                    var o = moveablesceneobject[(string)de.Key];
-
-                    if (!o.locked || o.locker == null)
-                    {
-                        continue;
-                    }
-
-                    if (!(o.locker == token || o.lockpermission < ps.permission))
-                    {
-                        continue;
-                    }
-
-                    o.Conversion((Hashtable)de.Value);
-                }
-
-            } while (false);
-        }
-
         public override void ret_sync_commond(string typ, string commond, Int64 id, string other, string uuid)
         {
             if (this.leader == null || this.leader.uuid == null)
@@ -631,6 +561,54 @@ namespace veClassRoom.Room
 
             // 指令缓存
             sceneorderlist.Add(new OrderInScene(0, userid, typ,commond,other));  //后期加入时间机制
+        }
+
+        public override void ChangeClientAllOnce(Int64 userid, Hashtable clientallonce)
+        {
+            if (clientallonce == null || clientallonce.Count <= 0)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            PlayerInScene ps = findPlayerById(id);
+            if (ps == null)
+            {
+                return;
+            }
+
+            if(checkIsInGroup())
+            {
+                if(ps.group != null)
+                {
+                    ps.group.ChangeClientAllOnce(userid, clientallonce);
+                    return;
+                }
+            }
+
+            if (!(checkOperateEffective(ps) || ps.isCanSend || ps.isbechoosed))
+            {
+                Console.WriteLine("无权操作 : " + "token : " + userid);
+                return;
+            }
+
+            do
+            {
+                Hashtable player = (Hashtable)clientallonce["player"];
+                Hashtable objects = (Hashtable)clientallonce["objects"];
+
+                if (player != null && player.Count > 0)
+                {
+                    sceneplaylistbyid[id].InitPlayerHeadHand(player);
+                }
+
+                if (objects != null && objects.Count > 0)
+                {
+                    ChangeObjectAllOnce(id, objects);
+                }
+
+            } while (false);
         }
 
         public void ret_sync_group_commond(string typ, string commond, Int64 id, string other, string uuid)
@@ -666,79 +644,79 @@ namespace veClassRoom.Room
             ret_sync_commond(typ, commond, userid, other, uuid);
         }
 
-        public override void SyncClient()
+        public override void SyncClient(Int64 tick)
         {
             Hashtable msgObject = new Hashtable();
             Hashtable msgPlayer = new Hashtable();
-            while (_syncstate)
+            // 同步数据
+            foreach (ObjectInScene so in moveablesceneobject.Values)
             {
-                // 同步数据
-                foreach (ObjectInScene so in moveablesceneobject.Values)
+                if (!so.changeorno)
                 {
-                    if (!so.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgObject.Add(so.name, so.Serialize());
+                    continue;
                 }
-
-                foreach (PlayerInScene sp in sceneplaylistbyid.Values)
-                {
-                    if (!sp.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgPlayer.Add(sp.name, sp.Serialize());
-                }
-
-                // 同步指令
-                //TODO
 
                 // 同步客户端
-                if (msgPlayer.Count > 0 || msgObject.Count > 0)
+                msgObject.Add(so.name, so.Serialize());
+            }
+
+            foreach (PlayerInScene sp in sceneplaylistbyid.Values)
+            {
+                if (!sp.changeorno)
                 {
-                    try
-                    {
+                    continue;
+                }
 
-                        if (_uuid_sync_cache.Count > 0)
-                        {
-                            _uuid_sync_cache.Clear();
-                        }
+                // 同步客户端
+                msgPlayer.Add(sp.name, sp.Serialize());
+            }
 
-                        foreach (PlayerInScene p in sceneplaylistbyid.Values)
-                        {
-                            if (p.isCanReceive)
-                            {
-                                Console.WriteLine("同步客户端名字 : " + p.name);
-                                _uuid_sync_cache.Add(p.uuid);
-                            }
-                        }
+            // 同步指令
+            //TODO
 
-                    }
-                    catch
-                    {
-
-                    }
+            // 同步客户端
+            if (msgPlayer.Count > 0 || msgObject.Count > 0)
+            {
+                try
+                {
 
                     if (_uuid_sync_cache.Count > 0)
                     {
-                        hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
-
-                        Console.WriteLine("同步客户端数据 _uuid_sync_cache : " + _uuid_sync_cache.Count);
-
                         _uuid_sync_cache.Clear();
                     }
+
+                    foreach (PlayerInScene p in sceneplaylistbyid.Values)
+                    {
+                        if (p.isCanReceive)
+                        {
+                            Console.WriteLine("同步客户端名字 : " + p.name);
+                            _uuid_sync_cache.Add(p.uuid);
+                        }
+                    }
+
+                }
+                catch
+                {
+
                 }
 
-                // 同步之后清除
-                msgObject.Clear();
-                msgPlayer.Clear();
+                if (_uuid_sync_cache.Count > 0)
+                {
+                    hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
 
-                Thread.Sleep(16);
+                    Console.WriteLine("同步客户端数据 _uuid_sync_cache : " + _uuid_sync_cache.Count);
+
+                    _uuid_sync_cache.Clear();
+                }
+            }
+
+            // 同步之后清除
+            msgObject.Clear();
+            msgPlayer.Clear();
+
+            if (_syncstate)
+            {
+                hub.hub.timer.addticktime(400, SyncClient);
             }
         }
 
@@ -1096,14 +1074,12 @@ namespace veClassRoom.Room
 
             if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
             {
-                Console.WriteLine("UI 服务器玩家不存在 : " + " sceneplaylist count : " + sceneplaylistbyid.Count);
                 return;
             }
 
             if (!checkLeaderFeasible(sceneplaylistbyid[id]))
             {
                 // 权限不够
-                Console.WriteLine("UI 教学模式切换操作 权限不够 : " + "userid : " + userid);
                 return;
             }
 
@@ -1169,7 +1145,7 @@ namespace veClassRoom.Room
                     }
                     if (grouplist.Count <= 0 || !grouplist.ContainsKey(target))
                     {
-                        Console.WriteLine("GuidanceMode_Personal UI 服务器玩家不存在 : " + "target : " + target);
+                        Console.WriteLine("GuidanceMode_Personal UI 服务器分组不存在 : " + "小组名字 : " + target);
                         return;
                     }
                     this.model = tm;
@@ -1178,10 +1154,11 @@ namespace veClassRoom.Room
                     {
                         foreach (PlayerInScene player in sceneplaylistbyid.Values)
                         {
-                            if(!gir.HasMember(player.token))
+                            if(!gir.HasMember(player.selfid))
                             {
                                 player.ChangePlayerModel(this.model);
-                                gir.InjectiveViewer(player.token);
+                                player.isbechoosed = false;
+     //                           gir.InjectiveViewer(player.token);
                             }
                             else
                             {
@@ -1189,6 +1166,7 @@ namespace veClassRoom.Room
                                 player.ChangePlayerCanSend(this.leader.permission, true);
                                 player.ChangePlayerCanReceive(this.leader.permission, true);
                                 player.ChangePlayerCanOperate(this.leader.permission, true);
+                                player.isbechoosed = true;
                             }
                         }
                     }
@@ -1198,16 +1176,6 @@ namespace veClassRoom.Room
                     }
                     break;
                 case Enums.TeachingMode.SelfTrain_Personal:
-                    if (target == null)
-                    {
-                        break;
-                    }
-                    int tuserid = (int)(userid);
-                    if (!sceneplaylistbyid.ContainsKey(tuserid))
-                    {
-                        Console.WriteLine("SelfTrain_Personal UI 服务器玩家不存在 : " + "target : " + target);
-                        return;
-                    }
                     this.model = tm;
                     try
                     {
@@ -1221,13 +1189,18 @@ namespace veClassRoom.Room
 
                     }
                     break;
-                case Enums.TeachingMode.SelfTrain_Group:
+                case Enums.TeachingMode.SelfTrain_Group:   // 开启小组内部同步模式 初始化小组场景数据
                     this.model = tm;
                     try
                     {
                         foreach (PlayerInScene player in sceneplaylistbyid.Values)
                         {
                             player.ChangePlayerModel(this.model);
+                        }
+
+                        foreach(GroupInRoom g in grouplist.Values)
+                        {
+                            g.StartSyncClient();
                         }
                     }
                     catch

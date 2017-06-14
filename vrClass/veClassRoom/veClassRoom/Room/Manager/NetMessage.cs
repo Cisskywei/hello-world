@@ -156,7 +156,7 @@ namespace veClassRoom.Room
             rr.ret_sync_group_commond(typ, commond, id, other, uuid);
         }
 
-        public void Change_One_Model(Int64 roomid, Int64 userid, string tomodel, string uuid, Int64 oneid)
+        public void Change_One_Model(Int64 roomid, Int64 userid, Int64 tomodel, string uuid, Int64 oneid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
@@ -168,7 +168,7 @@ namespace veClassRoom.Room
             rr.Change_One_Model(userid, tomodel, uuid, oneid);
         }
 
-        public void Change_Some_Model(Int64 roomid, Int64 userid, string tomodel, ArrayList someid)
+        public void Change_Some_Model(Int64 roomid, Int64 userid, Int64 tomodel, ArrayList someid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 

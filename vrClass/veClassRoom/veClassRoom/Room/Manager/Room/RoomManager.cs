@@ -39,7 +39,7 @@ namespace veClassRoom.Room
                 }
 
                 RealRoom s = new RealRoom();
-                s.CreateScene(name,s);
+                s.CreateScene(name);
                 allscenes.Add(name, s);
 
                 ret = s;
@@ -62,7 +62,8 @@ namespace veClassRoom.Room
                 }
 
                 RealRoom s = new RealRoom();
-                s.CreateScene(id);
+                int roomid = (int)id;
+                s.CreateScene(roomid);
                 allscenesbyid.Add(id, s);
 
                 ret = s;
@@ -70,197 +71,6 @@ namespace veClassRoom.Room
             } while (false);
 
             return ret;
-        }
-
-        public Thread ApplyThreadForRoom(string name, bool istart = true)
-        {
-            Thread t = null;
-
-            do
-            {
-                if (!allscenes.ContainsKey(name))
-                {
-                    break;
-                }
-
-                if(scenesthread.ContainsKey(name))
-                {
-                    t = scenesthread[name];
-                    try
-                    {
-                        if (istart && t.ThreadState == ThreadState.Unstarted)
-                        {
-                            t.Start();
-                        }
-                    }catch
-                    {
-
-                    }
-
-                    break;
-                }
-
-                RealRoom s = allscenes[name];
-
-                Thread th = new Thread(s.SyncClient);
-                scenesthread.Add(name, th);
-
-                if(istart)
-                {
-                    th.Start();
-                }
-
-                t = th;
-
-            } while (false);
-
-            return t;
-        }
-
-        public Thread ApplyThreadForRoomById(Int64 id, bool istart = true)
-        {
-            Thread t = null;
-
-            do
-            {
-                if (!allscenesbyid.ContainsKey(id))
-                {
-                    break;
-                }
-
-                if (scenesthreadbyid.ContainsKey(id))
-                {
-                    t = scenesthreadbyid[id];
-                    try
-                    {
-                        if (istart && t.ThreadState == ThreadState.Unstarted)
-                        {
-                            t.Start();
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-
-                    break;
-                }
-
-                RealRoom s = allscenesbyid[id];
-
-                Thread th = new Thread(s.SyncClient);
-                scenesthreadbyid.Add(id, th);
-
-                if (istart)
-                {
-                    th.Start();
-                }
-
-                t = th;
-
-            } while (false);
-
-            return t;
-        }
-
-        public Thread StartThreadForRoom(string name)
-        {
-            Thread t = null;
-
-            do
-            {
-                if (!allscenes.ContainsKey(name))
-                {
-                    break;
-                }
-
-                if (scenesthread.ContainsKey(name))
-                {
-                    t = scenesthread[name];
-                    try
-                    {
-                        if (t.ThreadState == ThreadState.Unstarted || t.ThreadState == ThreadState.Stopped || t.ThreadState == ThreadState.Aborted)
-                        {
-                            t.Start();
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-
-                    break;
-                }
-
-            } while (false);
-
-            return t;
-        }
-
-        public Thread StartThreadForRoomById(Int64 id)
-        {
-            Thread t = null;
-
-            do
-            {
-                if (!allscenesbyid.ContainsKey(id))
-                {
-                    break;
-                }
-
-                if (scenesthreadbyid.ContainsKey(id))
-                {
-                    t = scenesthreadbyid[id];
-                    try
-                    {
-                        if (t.ThreadState == ThreadState.Unstarted || t.ThreadState == ThreadState.Stopped || t.ThreadState == ThreadState.Aborted)
-                        {
-                            t.Start();
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-
-                    break;
-                }
-
-            } while (false);
-
-            return t;
-        }
-
-        public Thread FindThreadOfRoom(string name)
-        {
-            Thread t = null;
-
-            try
-            {
-                t = scenesthread[name];
-            }
-            catch
-            {
-
-            }
-
-            return t;
-        }
-
-        public Thread FindThreadOfRoomById(Int64 id)
-        {
-            Thread t = null;
-
-            try
-            {
-                t = scenesthreadbyid[id];
-            }
-            catch
-            {
-
-            }
-
-            return t;
         }
 
         public void DeleteRoomByName(string name)
@@ -271,7 +81,6 @@ namespace veClassRoom.Room
                 if(rr != null)
                 {
                     rr.ClearScene();
-      //              server.clear_Hub_Model(rr.scenename, rr);
                 }
                 allscenes.Remove(name);
                 scenesthread.Remove(name);

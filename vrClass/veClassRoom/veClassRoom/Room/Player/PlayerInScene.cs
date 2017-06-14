@@ -15,7 +15,7 @@ namespace veClassRoom.Room
 
         public bool isleader;  //如果为true 则相应等级需要提升
         public bool isbechoosed; // 指导模式下标记是否被选中的学生
-        public Int64 selfid;
+        public int selfid;
 
         // 根据模式控制收发状态
         public bool isCanReceive = false;
@@ -43,8 +43,6 @@ namespace veClassRoom.Room
             this.selfid = playerinfor.selfid;
 
             this.isleader = playerinfor.identity == "teacher";
-
-            Console.WriteLine(this.isleader + "是否是老师" + this.name);
 
             if(this.isleader)
             {

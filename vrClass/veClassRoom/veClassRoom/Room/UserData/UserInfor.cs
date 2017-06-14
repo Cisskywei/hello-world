@@ -40,7 +40,7 @@ namespace veClassRoom.Room
             this.name = login.data.name;
             this.access_token = login.data.access_token;
 
-            selfid = Convert.ToInt64(this.id);
+            selfid = Convert.ToInt32(this.id);
         }
 
         public void InitBaseInforRetData(BackDataType.PlayerBaseInforRetData baseinfor)

@@ -122,15 +122,6 @@ namespace veClassRoom.Room
         }
 
         /// <summary>
-        /// 关闭场景
-        /// </summary>
-        /// <param name="name"></param>
-        public virtual void CloseScenesByName(string name = null)
-        {
-
-        }
-
-        /// <summary>
         /// 同步所有玩家场景
         /// </summary>
         public virtual void SceneSynchronizationAll()
@@ -199,10 +190,6 @@ namespace veClassRoom.Room
             {
                 hub.hub.gates.call_client(uuid, "cMsgConnect", "SyncClientAndCommond", msgObject, msgPlayer, msgOrder);
             }
-        }
-
-        public virtual void sceneDataConvert()
-        {
         }
 
         /// <summary>
@@ -327,6 +314,7 @@ namespace veClassRoom.Room
         {
             _syncstate = true;
             // 时间服务同步
+            hub.hub.timer.addticktime(400, SyncClient);
         }
 
         // *************************************************    以下是基础场景所拥有的基本函数 和客户端通信所需    ****************************************//
@@ -879,8 +867,15 @@ namespace veClassRoom.Room
 
             int id = (int)userid;
 
-            if (!sceneplaylistbyid.ContainsKey(id))
+            PlayerInScene ps = findPlayerById(id);
+            if (ps == null)
             {
+                return;
+            }
+
+            if (!(checkOperateEffective(ps) || ps.isCanSend || ps.isbechoosed))
+            {
+                Console.WriteLine("无权操作 : " + "token : " + userid);
                 return;
             }
 
@@ -938,76 +933,76 @@ namespace veClassRoom.Room
 
         // 单独线程定时同步客户端数据
         public bool _syncstate = true;
-        public virtual void SyncClient()
+        public virtual void SyncClient(long tick)
         {
             Hashtable msgObject = new Hashtable();
             Hashtable msgPlayer = new Hashtable();
-            while (_syncstate)
+            // 同步数据
+            foreach (ObjectInScene so in moveablesceneobject.Values)
             {
-                // 同步数据
-                foreach (ObjectInScene so in moveablesceneobject.Values)
+                if (!so.changeorno)
                 {
-                    if (!so.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgObject.Add(so.name, so.Serialize());
+                    continue;
                 }
-
-                foreach (PlayerInScene sp in sceneplaylistbyid.Values)
-                {
-                    if (!sp.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgPlayer.Add(sp.selfid.ToString(), sp.Serialize());
-                }
-
-                // 同步指令
-                //TODO
 
                 // 同步客户端
-                if (msgPlayer.Count > 0 || msgObject.Count > 0)
+                msgObject.Add(so.name, so.Serialize());
+            }
+
+            foreach (PlayerInScene sp in sceneplaylistbyid.Values)
+            {
+                if (!sp.changeorno)
                 {
-                    try
-                    {
+                    continue;
+                }
 
-                        if (_uuid_sync_cache.Count > 0)
-                        {
-                            _uuid_sync_cache.Clear();
-                        }
+                // 同步客户端
+                msgPlayer.Add(sp.selfid.ToString(), sp.Serialize());
+            }
 
-                        foreach (PlayerInScene p in sceneplaylistbyid.Values)
-                        {
-                            if (p.isCanReceive)
-                            {
-                                _uuid_sync_cache.Add(p.uuid);
-                            }
-                        }
+            // 同步指令
+            //TODO
 
-                    }
-                    catch
-                    {
-
-                    }
+            // 同步客户端
+            if (msgPlayer.Count > 0 || msgObject.Count > 0)
+            {
+                try
+                {
 
                     if (_uuid_sync_cache.Count > 0)
                     {
-                        hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
                         _uuid_sync_cache.Clear();
-
                     }
+
+                    foreach (PlayerInScene p in sceneplaylistbyid.Values)
+                    {
+                        if (p.isCanReceive)
+                        {
+                            _uuid_sync_cache.Add(p.uuid);
+                        }
+                    }
+
+                }
+                catch
+                {
+
                 }
 
-                // 同步之后清除
-                msgObject.Clear();
-                msgPlayer.Clear();
+                if (_uuid_sync_cache.Count > 0)
+                {
+                    hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
+                    _uuid_sync_cache.Clear();
 
-                Thread.Sleep(16);
+                }
+            }
+
+            // 同步之后清除
+            msgObject.Clear();
+            msgPlayer.Clear();
+
+            if (_syncstate)
+            {
+                hub.hub.timer.addticktime(400, SyncClient);
             }
         }
 

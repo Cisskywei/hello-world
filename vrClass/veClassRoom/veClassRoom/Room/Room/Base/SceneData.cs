@@ -15,7 +15,7 @@ namespace veClassRoom.Room
         public Dictionary<string, ObjectInScene> moveablesceneobject = new Dictionary<string, ObjectInScene>();
 
         // 场景中的玩家列表
-        public Dictionary<string, PlayerInScene> sceneplaylist = new Dictionary<string, PlayerInScene>();
+        public Dictionary<int, PlayerInScene> sceneplaylist = new Dictionary<int, PlayerInScene>();
 
         //场景中的指令
         public List<OrderInScene> sceneorderlist = new List<OrderInScene>();
@@ -34,7 +34,7 @@ namespace veClassRoom.Room
                 moveablesceneobject.Add(os.Key, os.Value);
             }
 
-            foreach (KeyValuePair<string, PlayerInScene> ps in p)
+            foreach (KeyValuePair<int, PlayerInScene> ps in p)
             {
                 sceneplaylist.Add(ps.Key, ps.Value);
             }

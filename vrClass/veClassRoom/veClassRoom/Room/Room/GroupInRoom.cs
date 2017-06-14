@@ -10,7 +10,7 @@ namespace veClassRoom.Room
 {
     class GroupInRoom : BaseRoomClass
     {
-        public Dictionary<string, PlayerInScene> teammembers;
+        public Dictionary<int, PlayerInScene> teammembers;
 
         public ArrayList _viewer;   // 观看者
 
@@ -18,17 +18,17 @@ namespace veClassRoom.Room
 
         public GroupInRoom(string name = "group")
         {
-            if(teammembers == null)
+            if (teammembers == null)
             {
-                teammembers = new Dictionary<string, PlayerInScene>();
+                teammembers = new Dictionary<int, PlayerInScene>();
             }
 
             this.name = name;
         }
 
-        public GroupInRoom(Dictionary<string,PlayerInScene> members)
+        public GroupInRoom(Dictionary<int, PlayerInScene> members)
         {
-            if(members == null || members.Count <= 0)
+            if (members == null || members.Count <= 0)
             {
                 return;
             }
@@ -37,40 +37,54 @@ namespace veClassRoom.Room
 
             if (teammembers == null)
             {
-                teammembers = new Dictionary<string, PlayerInScene>();
+                teammembers = new Dictionary<int, PlayerInScene>();
             }
+        }
+
+        // 初始化场景数据
+        public void InitSceneData(Dictionary<string, ObjectInScene> objects, Dictionary<int, PlayerInScene> players)
+        {
+            if (objects == null || objects.Count <= 0 || players == null || players.Count <= 0)
+            {
+                return;
+            }
+
+            this.moveablesceneobject = objects;
+            this.sceneplaylistbyid = players;
         }
 
         public void AddMember(PlayerInScene p)
         {
-            if(p == null)
+            if (p == null)
             {
                 return;
             }
 
             try
             {
-                if(teammembers.ContainsKey(p.token))
+                if (teammembers.ContainsKey(p.selfid))
                 {
-                    teammembers[p.token] = p;
-                }else
-                {
-                    teammembers.Add(p.token, p);
+                    teammembers[p.selfid] = p;
                 }
-            }catch
+                else
+                {
+                    teammembers.Add(p.selfid, p);
+                }
+            }
+            catch
             {
 
             }
         }
 
-        public bool HasMember(string token)
+        public bool HasMember(int useid)
         {
-            if(teammembers == null || teammembers.Count <= 0)
+            if (teammembers == null || teammembers.Count <= 0)
             {
                 return false;
             }
 
-            return teammembers.ContainsKey(token);
+            return teammembers.ContainsKey(useid);
         }
 
         /// <summary>
@@ -78,7 +92,7 @@ namespace veClassRoom.Room
         /// </summary>
         public void InjectiveViewer(ArrayList viewer)
         {
-            if(viewer == null || viewer.Count <= 0)
+            if (viewer == null || viewer.Count <= 0)
             {
                 return;
             }
@@ -94,7 +108,8 @@ namespace veClassRoom.Room
 
                     _viewer.Add(uuid);
                 }
-            }catch
+            }
+            catch
             {
 
             }
@@ -124,88 +139,6 @@ namespace veClassRoom.Room
             catch
             {
 
-            }
-        }
-
-        // 覆盖父类方法
-        public override void SyncClient()
-        {
-            Hashtable msgObject = new Hashtable();
-            Hashtable msgPlayer = new Hashtable();
-            while (_syncstate)
-            {
-                // 同步数据
-                foreach (ObjectInScene so in moveablesceneobject.Values)
-                {
-                    if (!so.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgObject.Add(so.name, so.Serialize());
-                }
-
-                foreach (PlayerInScene sp in sceneplaylistbyid.Values)
-                {
-                    if (!sp.changeorno)
-                    {
-                        continue;
-                    }
-
-                    // 同步客户端
-                    msgPlayer.Add(sp.name, sp.Serialize());
-                }
-
-                // 同步指令
-                //TODO
-
-                // 同步客户端
-                if (msgPlayer.Count > 0 || msgObject.Count > 0)
-                {
-                    try
-                    {
-
-                        if (_uuid_sync_cache.Count > 0)
-                        {
-                            _uuid_sync_cache.Clear();
-                        }
-
-                        foreach (PlayerInScene p in sceneplaylistbyid.Values)
-                        {
-                            if (p.isCanReceive)
-                            {
-                                _uuid_sync_cache.Add(p.uuid);
-                            }
-                        }
-
-                        // 加入观看者
-                        if(_viewer!=null&&_viewer.Count>0)
-                        {
-                            foreach(string uuid in _viewer)
-                            {
-                                _uuid_sync_cache.Add(uuid);
-                            }
-                        }
-
-                    }
-                    catch
-                    {
-
-                    }
-
-                    if (_uuid_sync_cache.Count > 0)
-                    {
-                        hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
-                        _uuid_sync_cache.Clear();
-                    }
-                }
-
-                // 同步之后清除
-                msgObject.Clear();
-                msgPlayer.Clear();
-
-                Thread.Sleep(16);
             }
         }
     }

@@ -12,9 +12,9 @@ namespace veClassRoom.Room
         public int name;
         public int commondid;
 
-        public string token;
         public string typ;
         public string commond;
+        public int userid;
         public string other;
 
         // 序列化的信息
@@ -23,22 +23,22 @@ namespace veClassRoom.Room
         public BaseSceneOrder()
         {
             serializedata.Add("commondid", commondid);
-            serializedata.Add("token", token);
+            serializedata.Add("userid", userid);
             serializedata.Add("typ", typ);
             serializedata.Add("commond", commond);
             serializedata.Add("other", other);
         }
 
-        public BaseSceneOrder(int commondid, string token, string typ, string commond, string other)
+        public BaseSceneOrder(int commondid, int userid, string typ, string commond, string other)
         {
             this.commondid = commondid;
-            this.token = token;
+            this.userid = userid;
             this.typ = typ;
             this.commond = commond;
             this.other = other;
 
             serializedata.Add("commondid", commondid);
-            serializedata.Add("token", token);
+            serializedata.Add("userid", userid);
             serializedata.Add("typ", typ);
             serializedata.Add("commond", commond);
             serializedata.Add("other", other);
@@ -47,7 +47,7 @@ namespace veClassRoom.Room
         public virtual Hashtable Serialize()
         {
             serializedata["commondid"] = commondid;
-            serializedata["token"] = token;
+            serializedata["userid"] = userid;
             serializedata["typ"] = typ;
             serializedata["commond"] = commond;
             serializedata["other"] = other;
@@ -63,7 +63,7 @@ namespace veClassRoom.Room
             }
 
             commondid = (int)serializedata["commondid"];
-            token = (string)serializedata["token"];
+            userid = (int)serializedata["userid"];
             typ = (string)serializedata["typ"];
             commond = (string)serializedata["commond"];
             other = (string)serializedata["other"];
