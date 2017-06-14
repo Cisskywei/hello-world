@@ -36,26 +36,26 @@ namespace veClassRoom.Room
             return ret;
         }
 
-        public Enums.ModelEnums convertModelToEnum(string modelname)
+        public Enums.TeachingMode convertModelToEnum(string modelname)
         {
-            Enums.ModelEnums m = Enums.ModelEnums.None;
+            Enums.TeachingMode m = Enums.TeachingMode.None;
             switch (modelname)
             {
-                case "Separate":
-                    m = Enums.ModelEnums.Separate;
-                    break;
-                case "SynchronousOne":
-                    m = Enums.ModelEnums.SynchronousOne;
-                    break;
-                case "SynchronousOne_Fixed":
-                    m = Enums.ModelEnums.SynchronousOne_Fixed;
-                    break;
-                case "SynchronousMultiple":
-                    m = Enums.ModelEnums.SynchronousMultiple;
-                    break;
-                case "Collaboration":
-                    m = Enums.ModelEnums.Collaboration;
-                    break;
+                //case "Separate":
+                //    m = Enums.TeachingMode.Separate;
+                //    break;
+                //case "SynchronousOne":
+                //    m = Enums.ModelEnums.SynchronousOne;
+                //    break;
+                //case "SynchronousOne_Fixed":
+                //    m = Enums.ModelEnums.SynchronousOne_Fixed;
+                //    break;
+                //case "SynchronousMultiple":
+                //    m = Enums.ModelEnums.SynchronousMultiple;
+                //    break;
+                //case "Collaboration":
+                //    m = Enums.ModelEnums.Collaboration;
+                //    break;
                 default:
                     break;
             }

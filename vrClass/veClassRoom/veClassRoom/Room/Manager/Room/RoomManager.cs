@@ -18,6 +18,7 @@ namespace veClassRoom.Room
         private Dictionary<Int64, RealRoom> allscenesbyid = new Dictionary<Int64, RealRoom>();
 
         private Dictionary<string, Thread> scenesthread = new Dictionary<string, Thread>();
+        private Dictionary<Int64, Thread> scenesthreadbyid = new Dictionary<Int64, Thread>();
 
         ~RoomManager()
         {
@@ -102,9 +103,55 @@ namespace veClassRoom.Room
                 RealRoom s = allscenes[name];
 
                 Thread th = new Thread(s.SyncClient);
-                scenesthread.Add(name, t);
+                scenesthread.Add(name, th);
 
                 if(istart)
+                {
+                    th.Start();
+                }
+
+                t = th;
+
+            } while (false);
+
+            return t;
+        }
+
+        public Thread ApplyThreadForRoomById(Int64 id, bool istart = true)
+        {
+            Thread t = null;
+
+            do
+            {
+                if (!allscenesbyid.ContainsKey(id))
+                {
+                    break;
+                }
+
+                if (scenesthreadbyid.ContainsKey(id))
+                {
+                    t = scenesthreadbyid[id];
+                    try
+                    {
+                        if (istart && t.ThreadState == ThreadState.Unstarted)
+                        {
+                            t.Start();
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    break;
+                }
+
+                RealRoom s = allscenesbyid[id];
+
+                Thread th = new Thread(s.SyncClient);
+                scenesthreadbyid.Add(id, th);
+
+                if (istart)
                 {
                     th.Start();
                 }
@@ -150,6 +197,40 @@ namespace veClassRoom.Room
             return t;
         }
 
+        public Thread StartThreadForRoomById(Int64 id)
+        {
+            Thread t = null;
+
+            do
+            {
+                if (!allscenesbyid.ContainsKey(id))
+                {
+                    break;
+                }
+
+                if (scenesthreadbyid.ContainsKey(id))
+                {
+                    t = scenesthreadbyid[id];
+                    try
+                    {
+                        if (t.ThreadState == ThreadState.Unstarted || t.ThreadState == ThreadState.Stopped || t.ThreadState == ThreadState.Aborted)
+                        {
+                            t.Start();
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+
+                    break;
+                }
+
+            } while (false);
+
+            return t;
+        }
+
         public Thread FindThreadOfRoom(string name)
         {
             Thread t = null;
@@ -157,6 +238,22 @@ namespace veClassRoom.Room
             try
             {
                 t = scenesthread[name];
+            }
+            catch
+            {
+
+            }
+
+            return t;
+        }
+
+        public Thread FindThreadOfRoomById(Int64 id)
+        {
+            Thread t = null;
+
+            try
+            {
+                t = scenesthreadbyid[id];
             }
             catch
             {
@@ -185,6 +282,26 @@ namespace veClassRoom.Room
             }
 
             Console.WriteLine("RoomManager 清除房间 : " + name);
+        }
+
+        public void DeleteRoomByNameById(Int64 id)
+        {
+            try
+            {
+                RealRoom rr = allscenesbyid[id];
+                if (rr != null)
+                {
+                    rr.ClearScene();
+                }
+                allscenesbyid.Remove(id);
+                scenesthreadbyid.Remove(id);
+            }
+            catch
+            {
+
+            }
+
+            Console.WriteLine("RoomManager 清除房间 : " + id);
         }
 
         public RealRoom FindRoomByName(string name)
@@ -221,6 +338,13 @@ namespace veClassRoom.Room
                 }
                 allscenes.Clear();
                 scenesthread.Clear();
+
+                foreach (RealRoom rr in allscenesbyid.Values)
+                {
+                    rr.StopSyncClient();
+                }
+                allscenesbyid.Clear();
+                scenesthreadbyid.Clear();
             }
             catch
             {

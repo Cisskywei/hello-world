@@ -11,6 +11,8 @@ namespace veClassRoom.Room
         public class HashTableKeyEnum
         {
             public static readonly string Net_Ret_Result = "result";
+            public static readonly string Net_Ret_RootUrl = "rooturl";
+            public static readonly string Net_Ret_JsonData = "jsondata";
             public static readonly string Net_Ret_Connector = "connector";
             public static readonly string Net_Ret_Connector_func = "connectorfunc";
             public static readonly string Net_Ret_Scene_name = "scenename";

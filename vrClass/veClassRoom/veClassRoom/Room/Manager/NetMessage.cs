@@ -23,9 +23,9 @@ namespace veClassRoom.Room
         }
 
         // 房间协议
-        public void InitScenes(string roomname, Hashtable data)
+        public void InitScenes(Int64 roomid, Hashtable data)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
@@ -35,16 +35,29 @@ namespace veClassRoom.Room
             rr.InitScenes(data);
         }
 
-        public void BeginClass(string roomname, string token)
+        // 玩家在场景里初始化自己三维信息
+        public void PlayerInitSelf3DInfor(Int64 roomid, Int64 userid, Hashtable infor)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.BeginClass(token);
+            rr.PlayerInitSelf3DInfor(userid,infor);
+        }
+
+        public void BeginClass(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.BeginClass(userid);
         }
 
         public void Switch_Model(string roomname, string token, string tomodel, string uuid)
@@ -56,10 +69,34 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.Switch_Model(token, tomodel, uuid);
+     //       rr.Switch_Model(token, tomodel, uuid);
         }
 
-        public void Req_Object_Operate_permissions(string roomname, string token, string objectname, string uuid)
+        public void Req_Object_Operate_permissions(Int64 roomid, Int64 userid, string objectname, string uuid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.Req_Object_Operate_permissions(userid, objectname, uuid);
+        }
+
+        public void Req_Object_Release_permissions(Int64 roomid, Int64 userid, string objectname, string uuid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.Req_Object_Release_permissions(userid, objectname, uuid);
+        }
+
+        public void ChangeObjectAllOnce(string roomname, Int64 userid, Hashtable clientallonce)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
 
@@ -68,10 +105,10 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.Req_Object_Operate_permissions(token, objectname, uuid);
+            rr.ChangeObjectAllOnce(userid, clientallonce);
         }
 
-        public void Req_Object_Release_permissions(string roomname, string token, string objectname, string uuid)
+        public void ChangePlayerAllOnce(string roomname, Int64 userid, Hashtable clientallonce)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
 
@@ -80,10 +117,22 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.Req_Object_Release_permissions(token, objectname, uuid);
+            rr.ChangePlayerAllOnce(userid, clientallonce);
         }
 
-        public void ChangeObjectAllOnce(string roomname, string token, Hashtable clientallonce)
+        public void ChangeClientAllOnce(Int64 roomid, Int64 userid, Hashtable clientallonce)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.ChangeClientAllOnce(userid, clientallonce);
+        }
+
+        public void ret_sync_commond(string roomname, string typ, string commond, Int64 id, string other, string uuid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
 
@@ -92,10 +141,10 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.ChangeObjectAllOnce(token, clientallonce);
+            rr.ret_sync_commond(typ,commond,id,other,uuid);
         }
 
-        public void ChangePlayerAllOnce(string roomname, string token, Hashtable clientallonce)
+        public void ret_sync_group_commond(string roomname, string typ, string commond, Int64 id, string other, string uuid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
 
@@ -104,179 +153,179 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.ChangePlayerAllOnce(token, clientallonce);
+            rr.ret_sync_group_commond(typ, commond, id, other, uuid);
         }
 
-        public void ret_sync_commond(string roomname, string typ, string commond, string token, string other, string uuid)
+        public void Change_One_Model(Int64 roomid, Int64 userid, string tomodel, string uuid, Int64 oneid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.ret_sync_commond(typ,commond,token,other,uuid);
+            rr.Change_One_Model(userid, tomodel, uuid, oneid);
         }
 
-        public void ret_sync_group_commond(string roomname, string typ, string commond, string token, string other, string uuid)
+        public void Change_Some_Model(Int64 roomid, Int64 userid, string tomodel, ArrayList someid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.ret_sync_group_commond(typ, commond, token, other, uuid);
+            rr.Change_Some_Model(userid, tomodel, someid);
         }
 
-        public void Change_One_Model(string roomname, string token, string tomodel, string uuid, string onetoken)
+        public void Divide_Group(Int64 roomid, Int64 userid, string rules)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.Change_One_Model(token, tomodel, uuid, onetoken);
+            rr.DivideGroup(userid, rules);
         }
 
-        public void Change_Some_Model(string roomname, string token, string tomodel, string uuid, ArrayList sometoken)
+        public void ChooseOneOrGroupOperate(Int64 roomid, Int64 userid, string name, bool isgroup = false)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.Change_Some_Model(token, tomodel, uuid, sometoken);
-        }
-
-        public void Divide_Group(string roomname, string token, string rules, string uuid)
-        {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
-
-            if (rr == null)
-            {
-                return;
-            }
-
-            rr.DivideGroup(token, rules, uuid);
-        }
-
-        public void ChooseOneOrGroupOperate(string roomname, string token, string name, bool isgroup = false)
-        {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
-
-            if (rr == null)
-            {
-                return;
-            }
-
-            rr.ChooseOneOrGroupOperate(token, name, isgroup);
+            rr.ChooseOneOrGroupOperate(userid, name, isgroup);
         }
 
 
         // 具体和客户端的界面操作有关的 rpc函数
         //TODO
         // 切换模式
-        public void SwitchTeachMode(string roomname, string token, Int64 mode, Int64 isgroup, string target = null)
+        public void SwitchTeachMode(Int64 roomid, Int64 userid, Int64 mode, Int64 isgroup, string target = null)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.SwitchTeachMode(token,mode, isgroup,target);
+            rr.SwitchTeachMode(userid, mode, isgroup,target);
         }
         // 重置场景
-        public void ResetScene(string roomname, string token, Int64 typ, string target)
+        public void ResetScene(Int64 roomid, Int64 userid, Int64 typ, string target)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.ResetScene(token, typ, target);
+            rr.ResetScene(userid, typ, target);
+        }
+        // 获取课程题目数据
+        public void AcquireQuestionList(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.AcquireQuestionList(userid);
         }
         // 随堂测试
-        public void InClassTest(string roomname, string token, Int64 typ, Int64 questionid, string other = null)
+        public void InClassTest(Int64 roomid, Int64 userid, Int64 typ, Int64 questionid, string other = null)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.InClassTest(token, typ, questionid, other);
+            rr.InClassTest(userid, typ, questionid, other);
         }
         // 随堂测试学生回答
-        public void AnswerQuestion(string roomname, string token, Int64 questionid, Int64 optionid)
+        public void AnswerQuestion(Int64 roomid, Int64 userid, Int64 questionid, Int64 optionid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.AnswerQuestion(token, questionid, optionid);
+            rr.AnswerQuestion(userid, questionid, optionid);
         }
         // 随堂测试学生抢答
-        public void AnswerFastQuestion(string roomname, string token, Int64 questionid)
+        public void AnswerFastQuestion(Int64 roomid, Int64 userid, Int64 questionid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.AnswerFastQuestion(token, questionid);
+            rr.AnswerFastQuestion(userid, questionid);
         }
         // 点赞
-        public void SendLikeToTeacher(string roomname, string token)
+        public void SendLikeToTeacher(Int64 roomid, Int64 userid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.SendLikeToTeacher(token);
+            rr.SendLikeToTeacher(userid);
         }
         // 举手
-        public void SendDoubtToTeacher(string roomname, string token)
+        public void SendDoubtToTeacher(Int64 roomid, Int64 userid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.SendDoubtToTeacher(token);
+            rr.SendDoubtToTeacher(userid);
         }
         //老师推送电子白板  0 是关 1是开
-        public void SwitchWhiteBoard(string roomname, string token, Int64 openclose)
+        public void SwitchWhiteBoard(Int64 roomid, Int64 userid, Int64 openclose)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
             if (rr == null)
             {
                 return;
             }
 
-            rr.SwitchWhiteBoard(token, openclose);
+            rr.SwitchWhiteBoard(userid, openclose);
+        }
+        //返回大厅
+        public void BackToLobby(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.BackToLobby(userid);
         }
     }
 }

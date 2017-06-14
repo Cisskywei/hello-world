@@ -22,7 +22,7 @@ namespace veClassRoom.Room
 
         private bool _isinit = false;
 
-        public void InitSceneData(Dictionary<string, ObjectInScene> o, Dictionary<string, PlayerInScene> p, List<OrderInScene> c)
+        public void InitSceneData(Dictionary<string, ObjectInScene> o, Dictionary<int, PlayerInScene> p, List<OrderInScene> c)
         {
             if(_isinit)
             {

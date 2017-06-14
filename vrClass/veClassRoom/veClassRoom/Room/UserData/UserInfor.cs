@@ -19,7 +19,7 @@ namespace veClassRoom.Room
         public string name;
         public string access_token;
         // 延伸字段
-        public Int64 selfid;
+        public int selfid;
         // 获取基本信息返回数据
         public string user_id { get; set; }
         public string user_name { get; set; }
@@ -60,7 +60,8 @@ namespace veClassRoom.Room
             {
                 identity = "teacher";
             }
-            else if(this.student != null)
+
+            if(this.student != null)
             {
                 identity = "student";
             }

@@ -10,10 +10,12 @@ namespace veClassRoom.Room
     class PlayerInScene : BaseScenePlayer
     {
         public Enums.PermissionEnum permission = Enums.PermissionEnum.Student;
-        public Enums.ModelEnums model = Enums.ModelEnums.Separate;
+        public Enums.TeachingMode model = Enums.TeachingMode.WatchLearnModel_Sync;
         public GroupInRoom group;
 
         public bool isleader;  //如果为true 则相应等级需要提升
+        public bool isbechoosed; // 指导模式下标记是否被选中的学生
+        public Int64 selfid;
 
         // 根据模式控制收发状态
         public bool isCanReceive = false;
@@ -27,8 +29,6 @@ namespace veClassRoom.Room
         public Structs.sTransform head;
         private Hashtable handhead = null;// new Hashtable();
 
-      
-
         public PlayerInScene(UserInfor playerinfor)
         {
             if(playerinfor == null)
@@ -40,10 +40,13 @@ namespace veClassRoom.Room
             this.token = playerinfor.access_token;
             this.name = playerinfor.user_name;
             this.uuid = playerinfor.uuid;
+            this.selfid = playerinfor.selfid;
 
             this.isleader = playerinfor.identity == "teacher";
 
-            if(playerinfor.isleader)
+            Console.WriteLine(this.isleader + "是否是老师" + this.name);
+
+            if(this.isleader)
             {
                 this.permission = Enums.PermissionEnum.Teacher;
             }
@@ -55,21 +58,22 @@ namespace veClassRoom.Room
         }
 
         // 接收自身模式改变  默认情况的收、发、操作权限
-        public void ChangePlayerModel(Enums.ModelEnums tomodel)
+        public void ChangePlayerModel(Enums.TeachingMode tomodel)
         {
             switch(tomodel)
             {
-                case Enums.ModelEnums.None:
+                case Enums.TeachingMode.WatchLearnModel_Async:
+                case Enums.TeachingMode.WatchLearnModel_Sync:
                     isCanReceive = false;
                     isCanSend = false;
                     isCanOperate = false;
                     break;
-                case Enums.ModelEnums.Separate:
+                case Enums.TeachingMode.GuidanceMode_Personal:
                     isCanReceive = false;
                     isCanSend = false;
-                    isCanOperate = true;
+                    isCanOperate = false;
                     break;
-                case Enums.ModelEnums.SynchronousOne:
+                case Enums.TeachingMode.GuidanceMode_Group:
                     isCanReceive = true;
                     isCanSend = false;
                     isCanOperate = false;
@@ -92,30 +96,34 @@ namespace veClassRoom.Room
                         }
                     }
                     break;
-                case Enums.ModelEnums.SynchronousMultiple:
-                    isCanReceive = true;
-                    isCanSend = false;
-                    isCanOperate = false;
-                    if (isleader)
-                    {
-                        if (group != null && group.leader != null)
-                        {
-                            if (token == group.leader.token)
-                            {
-                                //isCanSend = true;
-                                //isCanOperate = true;
-                            }
-                        }
+                //case Enums.TeachingMode.SelfTrain_Personal:
+                //case Enums.TeachingMode.SelfTrain_Group:
+                //case Enums.TeachingMode.:
+                //    isCanReceive = true;
+                //    isCanSend = false;
+                //    isCanOperate = false;
+                //    if (isleader)
+                //    {
+                //        if (group != null && group.leader != null)
+                //        {
+                //            if (token == group.leader.token)
+                //            {
+                //                //isCanSend = true;
+                //                //isCanOperate = true;
+                //            }
+                //        }
 
-                        // 权限大于等于老师
-                        if(this.permission >= Enums.PermissionEnum.Teacher)
-                        {
-                            isCanOperate = true;
-                            isCanSend = true;
-                        }
-                    }
-                    break;
-                case Enums.ModelEnums.Collaboration:
+                //        // 权限大于等于老师
+                //        if(this.permission >= Enums.PermissionEnum.Teacher)
+                //        {
+                //            isCanOperate = true;
+                //            isCanSend = true;
+                //        }
+                //    }
+                //    break;
+                case Enums.TeachingMode.SelfTrain_Personal:
+                case Enums.TeachingMode.SelfTrain_Group:
+                case Enums.TeachingMode.SelfTrain_All:
                     isCanReceive = true;
                     isCanSend = true;
                     isCanOperate = true;
@@ -254,10 +262,26 @@ namespace veClassRoom.Room
             this.permission = permission;
         }
 
+
+        // 玩家3维数据初始化 头 左手 右手
+        public void InitPlayerHeadHand(Hashtable data)
+        {
+            if(data == null)
+            {
+                return;
+            }
+
+            this.handhead = data;
+
+            changeorno = true;
+        }
+
         public override Hashtable Serialize()
         {
             // 序列化头部手的数据
- //           this.serializeHandHead();
+            //           this.serializeHandHead();
+
+            changeorno = false;
 
             return this.handhead;
         }
@@ -266,6 +290,8 @@ namespace veClassRoom.Room
         {
             //           this.conversionHandHead(t);
             this.handhead = t;
+
+            changeorno = true;
         }
 
         private void initHandHead()

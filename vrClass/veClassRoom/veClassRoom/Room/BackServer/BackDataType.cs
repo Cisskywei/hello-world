@@ -170,11 +170,6 @@ namespace veClassRoom.Room
             }
         }
 
-        public void CourseListRetData_Deserialize()
-        {
-
-        }
-
         public static Hashtable StudentInfor_Serialize(StudentInfor data)
         {
             Hashtable h = new Hashtable();
@@ -319,6 +314,23 @@ namespace veClassRoom.Room
             hh.Add("students", hhh);
 
             return hh;
+        }
+
+        // 对象拷贝
+        public static void CopyValue(object origin, object target)
+        {
+            System.Reflection.PropertyInfo[] properties = (target.GetType()).GetProperties();
+            System.Reflection.FieldInfo[] fields = (origin.GetType()).GetFields();
+            for (int i = 0; i < fields.Length; i++)
+            {
+                for (int j = 0; j < properties.Length; j++)
+                {
+                    if (fields[i].Name == properties[j].Name && properties[j].CanWrite)
+                    {
+                        properties[j].SetValue(target, fields[i].GetValue(origin), null);
+                    }
+                }
+            }
         }
     }
 }

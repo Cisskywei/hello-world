@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room\BackServer\BackDataService.cs" />
     <Compile Include="Room\BackServer\BackDataType.cs" />
+    <Compile Include="Room\BackServer\BackServerConfig.cs" />
     <Compile Include="Room\BackServer\HttpHelper.cs" />
     <Compile Include="Room\BackServer\JsonDataHelp.cs" />
     <Compile Include="Room\CommonDefine\ConstantsDefine.cs" />

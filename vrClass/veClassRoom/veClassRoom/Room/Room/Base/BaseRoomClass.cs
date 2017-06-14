@@ -36,8 +36,7 @@ namespace veClassRoom.Room
         public Dictionary<string, ObjectInScene> moveablesceneobject = new Dictionary<string, ObjectInScene>();
 
         // 场景中的玩家列表
-        public Dictionary<string, PlayerInScene> sceneplaylist = new Dictionary<string, PlayerInScene>();
-        public Dictionary<Int64, PlayerInScene> sceneplaylistbyid = new Dictionary<Int64, PlayerInScene>();
+        public Dictionary<int, PlayerInScene> sceneplaylistbyid = new Dictionary<int, PlayerInScene>();
 
         // 场景中的玩家uuid列表
         public ArrayList _uuid_of_player = new ArrayList();
@@ -46,7 +45,7 @@ namespace veClassRoom.Room
         public List<OrderInScene> sceneorderlist = new List<OrderInScene>();
 
         // 场景的当前模式  默认各自独立
-        public Enums.ModelEnums model = Enums.ModelEnums.Separate;
+        public Enums.TeachingMode model = Enums.TeachingMode.WatchLearnModel_Sync;
  //       public BaseModelClass realmodel; // 负责分发处理各个模式
 
         // 当前场景的权限
@@ -57,8 +56,6 @@ namespace veClassRoom.Room
 
         // 收发数据uuidlist 缓存列表
         public ArrayList _uuid_sync_cache = new ArrayList();
-        //private ArrayList _uuid_commond_cache = new ArrayList();
-        //private ArrayList _uuid_operate_cache = new ArrayList();
 
         ~BaseRoomClass()
         {
@@ -73,7 +70,7 @@ namespace veClassRoom.Room
 
                 StopSyncClient();
                 moveablesceneobject.Clear();
-                sceneplaylist.Clear();
+                sceneplaylistbyid.Clear();
                 sceneorderlist.Clear();
             }
             catch
@@ -86,20 +83,10 @@ namespace veClassRoom.Room
         /// 创建场景
         /// </summary>
         /// <param name="name"></param>
-        public virtual void CreateScene(string name, imodule model, bool isaddmodel = false)
+        public virtual void CreateScene(string name)
         {
             this.scenename = name;
             this.isinitclass = false;
-
-            if(isaddmodel)
-            {
-                if(model == null)
-                {
-                    model = this;
-                }
-
-                server.add_Hub_Model(this.scenename, model);
-            }
         }
 
         /// <summary>
@@ -108,12 +95,6 @@ namespace veClassRoom.Room
         /// <param name="data"></param>
         public virtual void InitScenes(Hashtable data)
         {
-            if (isinitclass)
-            {
-                Console.WriteLine("服务器场景数据已经初始化 无需重复初始化");
-                return;
-            }
-
             Console.WriteLine("初始化服务器场景数据" + data.Count);
 
             if (data.Count <= 0)
@@ -136,8 +117,6 @@ namespace veClassRoom.Room
                     moveablesceneobject.Add(s.name, s);
                 }
             }
-
-            isinitclass = true;
 
             Console.WriteLine("初始化服务器场景数据完毕");
         }
@@ -167,7 +146,7 @@ namespace veClassRoom.Room
                 msgObject.Add(so.name, so.Serialize());
             }
 
-            foreach (PlayerInScene sp in sceneplaylist.Values)
+            foreach (PlayerInScene sp in sceneplaylistbyid.Values)
             {
                 // 同步客户端
                 msgPlayer.Add(sp.name, sp.Serialize());
@@ -203,7 +182,7 @@ namespace veClassRoom.Room
                 msgObject.Add(so.name, so.Serialize());
             }
 
-            foreach (PlayerInScene sp in sceneplaylist.Values)
+            foreach (PlayerInScene sp in sceneplaylistbyid.Values)
             {
                 // 同步客户端
                 msgPlayer.Add(sp.name, sp.Serialize());
@@ -230,19 +209,19 @@ namespace veClassRoom.Room
         /// 验证token与所在房间的权限 是否满足操作房间的权限
         /// </summary>
         /// <param name="token"></param>
-        public virtual Enums.PermissionVerifyStatus VerifyPermission(string token)
+        public virtual Enums.PermissionVerifyStatus VerifyPermission(int userid)
         {
             Enums.PermissionVerifyStatus ret = Enums.PermissionVerifyStatus.None;
 
             do
             {
-                if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+                if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(userid))
                 {
                     ret = Enums.PermissionVerifyStatus.None;
                     break;
                 }
 
-                PlayerInScene pis = sceneplaylist[token];
+                PlayerInScene pis = sceneplaylistbyid[userid];
 
                 if (pis.permission < this.permission)
                 {
@@ -274,17 +253,17 @@ namespace veClassRoom.Room
         /// <param name="token"></param>
         /// <param name="param"></param>
         /// <param name="model"></param>
-        public virtual Enums.PermissionVerifyStatus InterveneOperate<T>(string token, T param, Enums.ModelEnums model = Enums.ModelEnums.None)
+        public virtual Enums.PermissionVerifyStatus InterveneOperate<T>(int userid, T param, Enums.ModelEnums model = Enums.ModelEnums.None)
         {
             // 权限验证
-            return VerifyPermission(token);
+            return VerifyPermission(userid);
         }
 
         /// <summary>
         /// 切换模式
         /// </summary>
         /// <param name="tomodel"></param>
-        public virtual void SwitchModelTo(Enums.ModelEnums tomodel)
+        public virtual void SwitchModelTo(Enums.TeachingMode tomodel)
         {
             if (this.leader == null || this.leader.uuid == null)
             {
@@ -312,7 +291,7 @@ namespace veClassRoom.Room
                         }
                     }
 
-                    foreach (PlayerInScene player in sceneplaylist.Values)
+                    foreach (PlayerInScene player in sceneplaylistbyid.Values)
                     {
                         player.ChangePlayerModel(this.model);
 
@@ -347,16 +326,7 @@ namespace veClassRoom.Room
         public virtual void StartSyncClient()
         {
             _syncstate = true;
-
-            Thread t = RoomManager.getInstance().FindThreadOfRoom(this.scenename);
-            if (t == null)
-            {
-                t = RoomManager.getInstance().ApplyThreadForRoom(this.scenename);
-            }
-            else
-            {
-                RoomManager.getInstance().StartThreadForRoom(this.scenename);
-            }
+            // 时间服务同步
         }
 
         // *************************************************    以下是基础场景所拥有的基本函数 和客户端通信所需    ****************************************//
@@ -371,21 +341,27 @@ namespace veClassRoom.Room
             {
                 if (player == null)
                 {
+                    Console.WriteLine("player == null");
                     break;
                 }
 
                 if (!player.isleader)
                 {
+                    Console.WriteLine("!player.isleader" + player.isleader);
+
                     break;
                 }
 
                 if (player.permission < this.permission)
                 {
+                    Console.WriteLine(this.permission + "player.permission < this.permission" + player.permission);
+
                     // 权限不够
                     break;
                 }
                 else if (player.permission == this.permission && player.token != this.leader.token)
                 {
+                    Console.WriteLine("player.permission == this.permission && player.token != this.leader.token" + player.token);
                     // 同一小组级别不可互相操作
                     break;
                 }
@@ -417,11 +393,11 @@ namespace veClassRoom.Room
                 // 第一步 根据当前房间模式进行操作是否可行判别
                 switch (this.model)
                 {
-                    case Enums.ModelEnums.Separate:
-                        ret = true;
-                        break;
-                    case Enums.ModelEnums.SynchronousOne:   // 同步leader(可能是老师)  只有当前 leader 可操作
-                        if (player.isleader && player.token == this.leader.token)
+                    case Enums.TeachingMode.WatchLearnModel_Sync:
+                       // ret = true;
+                        //break;
+                    case Enums.TeachingMode.WatchLearnModel_Async:   // 同步leader(可能是老师)  只有当前 leader 可操作
+                        if (player.isleader && player.selfid == this.leader.selfid)
                         {
                             ret = true;
                         }
@@ -430,8 +406,12 @@ namespace veClassRoom.Room
                             ret = false;
                         }
                         break;
-                    case Enums.ModelEnums.SynchronousOne_Fixed: // 在观学模式下的 同步模式  不允许 学生自由走动 操作 等等
-                        if (player.isleader && player.token == this.leader.token)
+                    case Enums.TeachingMode.GuidanceMode_Personal:
+                        if (player.isleader && player.selfid == this.leader.selfid)
+                        {
+                            ret = true;
+                        }
+                        else if (player.isbechoosed)
                         {
                             ret = true;
                         }
@@ -440,10 +420,23 @@ namespace veClassRoom.Room
                             ret = false;
                         }
                         break;
-                    case Enums.ModelEnums.SynchronousMultiple:
-                        ret = true;
+                    case Enums.TeachingMode.GuidanceMode_Group:
+                        if (player.isleader && player.selfid == this.leader.selfid)
+                        {
+                            ret = true;
+                        }
+                        else if (player.isbechoosed)
+                        {
+                            ret = true;
+                        }
+                        else
+                        {
+                            ret = false;
+                        }
                         break;
-                    case Enums.ModelEnums.Collaboration:
+                    case Enums.TeachingMode.SelfTrain_Personal:
+                    case Enums.TeachingMode.SelfTrain_Group:
+                    case Enums.TeachingMode.SelfTrain_All:
                         ret = true;
                         break;
                     default:
@@ -457,29 +450,6 @@ namespace veClassRoom.Room
             {
                 switch (player.model)
                 {
-                    case Enums.ModelEnums.Separate:
-                        ret = true;
-                        break;
-                    case Enums.ModelEnums.SynchronousOne:   // 同步leader(可能是老师)  只有当前 leader 可操作
-                        if (player.isleader && player.token == this.leader.token)
-                        {
-                            ret = true;
-                        }
-                        else if (player.permission > this.leader.permission)
-                        {
-                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
-                        }
-                        else
-                        {
-                            ret = false;
-                        }
-                        break;
-                    case Enums.ModelEnums.SynchronousMultiple:
-                        ret = player.isCanOperate;   // 学生是被选中的 在观学模式下被老师选中的  
-                        break;
-                    case Enums.ModelEnums.Collaboration:
-                        ret = true;
-                        break;
                     default:
                         break;
                 }
@@ -503,11 +473,9 @@ namespace veClassRoom.Room
                 // 第一步 根据当前房间模式进行操作是否有效判别
                 switch (this.model)
                 {
-                    case Enums.ModelEnums.Separate:
-                        ret = false;
-                        break;
-                    case Enums.ModelEnums.SynchronousOne:
-                        if (player.isleader && player.token == this.leader.token)
+                    case Enums.TeachingMode.WatchLearnModel_Sync:
+                    case Enums.TeachingMode.WatchLearnModel_Async:
+                        if (player.isleader && player.selfid == this.leader.selfid)
                         {
                             ret = true;
                         }
@@ -520,14 +488,18 @@ namespace veClassRoom.Room
                             ret = false;
                         }
                         break;
-                    case Enums.ModelEnums.SynchronousMultiple:
-                        if (player.isleader && player.token == this.leader.token)
+                    case Enums.TeachingMode.GuidanceMode_Personal:
+                        if (player.isleader && player.selfid == this.leader.selfid)
                         {
                             ret = true;
                         }
                         else if (player.permission > this.leader.permission)
                         {
                             ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
+                        }
+                        else if (player.isbechoosed)
+                        {
+                            ret = true;
                         }
                         else
                         {
@@ -536,7 +508,28 @@ namespace veClassRoom.Room
 
                         ret = ret || player.isCanSend;   // 玩家权限 可能是被选中的
                         break;
-                    case Enums.ModelEnums.Collaboration:
+                    case Enums.TeachingMode.GuidanceMode_Group:
+                        if (player.isleader && player.selfid == this.leader.selfid)
+                        {
+                            ret = true;
+                        }
+                        else if (player.permission > this.leader.permission)
+                        {
+                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
+                        }
+                        else if (player.isbechoosed)
+                        {
+                            ret = true;
+                        }
+                        else
+                        {
+                            ret = false;
+                        }
+                        ret = ret || player.isCanSend;   // 玩家权限 可能是被选中的
+                        break;
+                    case Enums.TeachingMode.SelfTrain_Personal:
+                    case Enums.TeachingMode.SelfTrain_Group:
+                    case Enums.TeachingMode.SelfTrain_All:
                         ret = true;
                         break;
                     default:
@@ -550,43 +543,8 @@ namespace veClassRoom.Room
             {
                 switch (player.model)
                 {
-                    case Enums.ModelEnums.Separate:
-                        ret = false;
-                        break;
-                    case Enums.ModelEnums.SynchronousOne:
-                        if (player.isleader && player.token == this.leader.token)
-                        {
-                            ret = true;
-                        }
-                        else if (player.permission > this.leader.permission)
-                        {
-                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
-                        }
-                        else
-                        {
-                            ret = false;
-                        }
-                        break;
-                    case Enums.ModelEnums.SynchronousMultiple:
-                        if (player.isleader && player.token == this.leader.token)
-                        {
-                            ret = true;
-                        }
-                        else if (player.permission > this.leader.permission)
-                        {
-                            ret = true;                        // 玩家权限 可能被提升 大于 房间leader 即可操作
-                        }
-                        else
-                        {
-                            ret = false;
-                        }
-                        ret = (ret || player.isCanSend);
-                        break;
-                    case Enums.ModelEnums.Collaboration:
-                        ret = player.isCanSend;
-                        break;
                     default:
-                        ret = false;                         // 其他情况不允许玩家操作修改当前服务器数据
+                        ret = true;                         // 其他情况不允许玩家操作修改当前服务器数据
                         break;
                 }
             }
@@ -608,10 +566,7 @@ namespace veClassRoom.Room
 
                 switch (this.model)
                 {
-                    case Enums.ModelEnums.None:
-                        ret = false;
-                        break;
-                    case Enums.ModelEnums.Separate:
+                    case Enums.TeachingMode.SelfTrain_Personal:
                         ret = false;
                         break;
                     default:
@@ -624,48 +579,62 @@ namespace veClassRoom.Room
             return ret;
         }
 
-        ///                          以上函数是模式切换、以及玩家随意模式的核心        模式切换受权限级别控制                          /////////////////////////////
-
-        // 根据token获取玩家
-        public virtual PlayerInScene findPlayerByToken(string token)
+        // 判断是否是组内操作
+        public bool checkIsInGroup()
         {
-            if (token == null)
+            bool ret = false;
+            switch(this.model)
             {
-                return null;
+                case Enums.TeachingMode.SelfTrain_Group:
+                    ret = true;
+                    break;
+                case Enums.TeachingMode.GuidanceMode_Group:
+                    ret = true;
+                    break;
+                default:
+                    ret = false;
+                    break;
             }
 
-            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
-            {
-                Console.WriteLine("服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
-                return null;
-            }
-
-            return sceneplaylist[token];
+            return ret;
         }
 
-        public virtual void Switch_Model(string token, string tomodel, string uuid)
+        ///                          以上函数是模式切换、以及玩家随意模式的核心        模式切换受权限级别控制                          /////////////////////////////
+
+        // 根据userid获取玩家
+        public virtual PlayerInScene findPlayerById(int id)
+        {
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return null;
+            }
+
+            return sceneplaylistbyid[id];
+        }
+
+        public virtual void Switch_Model(int userid, Int64 tomodel, string uuid)
         {
             if (this.leader == null || this.leader.uuid == null)
             {
                 return;
             }
 
-            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(userid))
             {
-                Console.WriteLine("服务器玩家不存在 : " + "token : " + token + " sceneplaylist count : " + sceneplaylist.Count);
+                Console.WriteLine("服务器玩家不存在 : " + " sceneplaylist count : " + sceneplaylistbyid.Count);
                 return;
             }
 
-            if (!checkLeaderFeasible(sceneplaylist[token]))
+            if (!checkLeaderFeasible(sceneplaylistbyid[userid]))
             {
                 // 权限不够
-                Console.WriteLine("切换模式权限不够 : " + "token : " + token + " tomodel: " + tomodel);
+                Console.WriteLine("切换模式权限不够 : " + " tomodel: " + tomodel);
                 return;
             }
 
-            Console.WriteLine("切换模式成功 : " + "token : " + token + " tomodel: " + tomodel + "  开始更改玩家状态");
+            Console.WriteLine("切换模式成功 : " + " tomodel: " + tomodel + "  开始更改玩家状态");
 
-            Enums.ModelEnums m = Utilities.getInstance().convertModelToEnum(tomodel);
+            Enums.TeachingMode m = (Enums.TeachingMode)(tomodel);
 
             if (m != this.model)
             {
@@ -673,7 +642,7 @@ namespace veClassRoom.Room
 
                 try
                 {
-                    foreach (PlayerInScene player in sceneplaylist.Values)
+                    foreach (PlayerInScene player in sceneplaylistbyid.Values)
                     {
                         player.ChangePlayerModel(this.model);
                     }
@@ -685,30 +654,27 @@ namespace veClassRoom.Room
 
             }
 
-            if (_uuid_of_player.Count > 0)
-            {
-                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_change_one_model", token, tomodel);
-            }
+            //if (_uuid_of_player.Count > 0)
+            //{
+            //    hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_change_one_model", userid, tomodel);
+            //}
 
             Console.WriteLine("更改了当前房间所有玩家模式成功 " + " tomodel: " + tomodel);
         }
 
-        public virtual void Req_Object_Operate_permissions(string token, string objectname, string uuid)
+        public virtual void Req_Object_Operate_permissions(Int64 id, string objectname, string uuid)
         {
+            int userid = (int)id;
+
             if (this.leader == null || this.leader.uuid == null)
             {
-                return;
+                Console.WriteLine("小组长暂时不存在");
+   //             return;
             }
 
-            PlayerInScene ps = findPlayerByToken(token);
+            PlayerInScene ps = findPlayerById(userid);
             if (ps == null)
             {
-                return;
-            }
-
-            if (!(checkOperateFeasible(ps) || ps.isCanOperate))
-            {
-                Console.WriteLine("无权操作 : " + "token : " + token);
                 return;
             }
 
@@ -717,30 +683,38 @@ namespace veClassRoom.Room
 
             do
             {
+                if (!(checkOperateFeasible(ps) || ps.isCanOperate))
+                {
+                    Console.WriteLine("Req_Object_Operate_permissions 无权操作 : " + "token : " + userid);
+                    break;
+                }
+
                 if (!moveablesceneobject.ContainsKey(objectname))
                 {
-                    Console.WriteLine("token : " + token + "请求操作物体" + objectname + "失败 因为服务器不存在该物体");
+                    Console.WriteLine("token : " + userid + "请求操作物体" + objectname + "失败 因为服务器不存在该物体");
                     break;
                 }
 
                 ObjectInScene o = moveablesceneobject[objectname];
                 if (o.locked)
                 {
-                    if (o.locker == token)
+                    if (o.locker == ps.token)
                     {
-                        Console.WriteLine("token : " + token + "重复请求操作物体" + objectname);
+                        Console.WriteLine("token : " + ps.token + "重复请求操作物体" + objectname);
                         break;
                     }
 
                     if (o.lockpermission < ps.permission)
                     {
-                        o.locker = token;
+                        o.locker = ps.token;
                         o.locked = true;
                         o.lockpermission = ps.permission;
 
+                        o.physical.useGravity = false;
+
                         ret = true;
 
-                        Console.WriteLine("token : " + token + "权限较高夺取了 token  " + o.locker + " 的物体 " + objectname);
+                        Console.WriteLine("token : " + ps.token + "权限较高夺取了 token  " + o.locker + " 的物体 " + objectname);
                         break;
                     }
 
@@ -748,9 +722,11 @@ namespace veClassRoom.Room
                 }
                 else
                 {
-                    o.locker = token;
+                    o.locker = ps.token;
                     o.locked = true;
                     o.lockpermission = ps.permission;
+
+                    o.physical.useGravity = false;
 
                     ret = true;
                 }
@@ -759,26 +735,22 @@ namespace veClassRoom.Room
 
             if (_uuid_of_player.Count > 0)
             {
-                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", token, objectname, "hold", ret ? "yes" : "no");
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", userid, objectname, "hold", ret ? "yes" : "no");
             }
         }
 
-        public virtual void Req_Object_Release_permissions(string token, string objectname, string uuid)
+        public virtual void Req_Object_Release_permissions(Int64 id, string objectname, string uuid)
         {
+            int userid = (int)id;
+
             if (this.leader == null || this.leader.uuid == null)
             {
                 return;
             }
 
-            PlayerInScene ps = findPlayerByToken(token);
+            PlayerInScene ps = findPlayerById(userid);
             if (ps == null)
             {
-                return;
-            }
-
-            if (!(checkOperateFeasible(ps) || ps.isCanOperate))
-            {
-                Console.WriteLine("无权操作 : " + "token : " + token);
                 return;
             }
 
@@ -786,21 +758,27 @@ namespace veClassRoom.Room
             bool ret = false;
             do
             {
+                if (!(checkOperateFeasible(ps) || ps.isCanOperate))
+                {
+                    Console.WriteLine("Req_Object_Release_permissions 无权操作 : " + "token : " + userid);
+                    break;
+                }
+
                 if (!moveablesceneobject.ContainsKey(objectname))
                 {
-                    Console.WriteLine("token : " + token + "请求释放物体" + objectname + "操作权限失败 因为服务器不存在该物体");
+                    Console.WriteLine("token : " + userid + "请求释放物体" + objectname + "操作权限失败 因为服务器不存在该物体");
                     break;
                 }
 
                 ObjectInScene o = moveablesceneobject[objectname];
                 if (!o.locked)
                 {
-                    Console.WriteLine("token : " + token + "请求释放物体" + objectname + "操作权限失败 因为服务器该物体锁已被释放");
+                    Console.WriteLine("token : " + userid + "请求释放物体" + objectname + "操作权限失败 因为服务器该物体锁已被释放");
                     break;
                 }
-                else if (o.locker != token)
+                else if (o.locker != ps.token)
                 {
-                    Console.WriteLine("token : " + token + "请求释放物体" + objectname + "操作权限失败 因为服务器该物体被 token : " + o.locker + "锁住");
+                    Console.WriteLine("token : " + ps.token + "请求释放物体" + objectname + "操作权限失败 因为服务器该物体被 token : " + o.locker + "锁住");
                     break;
                 }
                 else
@@ -809,6 +787,8 @@ namespace veClassRoom.Room
                     o.locked = false;
                     o.lockpermission = Enums.PermissionEnum.None;
 
+                    o.physical.useGravity = true;
+
                     ret = true;
                 }
 
@@ -816,18 +796,20 @@ namespace veClassRoom.Room
 
             if (_uuid_of_player.Count > 0)
             {
-                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", token, objectname, "release", ret ? "yes" : "no");
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_operation_permissions", userid, objectname, "release", ret ? "yes" : "no");
             }
         }
 
-        public virtual void ChangeObjectAllOnce(string token, Hashtable clientallonce)
+        public virtual void ChangeObjectAllOnce(Int64 id, Hashtable clientallonce)
         {
             if (clientallonce == null || clientallonce.Count <= 0)
             {
                 return;
             }
 
-            PlayerInScene ps = findPlayerByToken(token);
+            int userid = (int)id;
+
+            PlayerInScene ps = findPlayerById(userid);
             if (ps == null)
             {
                 return;
@@ -835,7 +817,7 @@ namespace veClassRoom.Room
 
             if (!(checkOperateEffective(ps) || ps.isCanSend))
             {
-                Console.WriteLine("无权操作 : " + "token : " + token);
+                Console.WriteLine("无权操作 : " + "token : " + userid);
                 return;
             }
 
@@ -856,7 +838,7 @@ namespace veClassRoom.Room
                         continue;
                     }
 
-                    if (!(o.locker == token || o.lockpermission < ps.permission))
+                    if (!(o.locker == ps.token || o.lockpermission < ps.permission))
                     {
                         continue;
                     }
@@ -867,39 +849,69 @@ namespace veClassRoom.Room
             } while (false);
         }
 
-        public virtual void ChangePlayerAllOnce(string token, Hashtable clientallonce)
+        public virtual void ChangePlayerAllOnce(Int64 userid, Hashtable clientallonce)
         {
             if (clientallonce == null || clientallonce.Count <= 0)
             {
                 return;
             }
 
-            PlayerInScene ps = findPlayerByToken(token);
-            if (ps == null)
-            {
-                return;
-            }
+            int id = (int)userid;
 
-            if(!sceneplaylist.ContainsKey(token))
+            if (!sceneplaylistbyid.ContainsKey(id))
             {
                 return;
             }
 
             do
             {
-                sceneplaylist[token].Conversion(clientallonce);
+                sceneplaylistbyid[id].Conversion(clientallonce);
 
             } while (false);
         }
 
-        public virtual void ret_sync_commond(string typ, string commond, string token, string other, string uuid)
+        public virtual void ChangeClientAllOnce(Int64 userid, Hashtable clientallonce)
+        {
+            if (clientallonce == null || clientallonce.Count <= 0)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (!sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            do
+            {
+                Hashtable player = (Hashtable)clientallonce["player"];
+                Hashtable objects = (Hashtable)clientallonce["objects"];
+
+                if(player != null && player.Count > 0)
+                {
+                    sceneplaylistbyid[id].InitPlayerHeadHand(player);
+                }
+
+                if (objects != null && objects.Count > 0)
+                {
+                    ChangeObjectAllOnce(id, objects);
+                }
+
+            } while (false);
+        }
+
+        public virtual void ret_sync_commond(string typ, string commond, Int64 userid, string other, string uuid)
         {
             if (this.leader == null || this.leader.uuid == null)
             {
                 return;
             }
 
-            if (sceneplaylist.Count <= 0 || !sceneplaylist.ContainsKey(token))
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
             {
                 return;
             }
@@ -912,7 +924,7 @@ namespace veClassRoom.Room
             try
             {
                 _uuid_of_player.Remove(uuid);
-                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_sync_commond", typ, commond, token, other);
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_sync_commond", typ, commond, id, other);
                 _uuid_of_player.Add(uuid);
             }
             catch
@@ -921,7 +933,7 @@ namespace veClassRoom.Room
             }
 
             // 指令缓存
-            sceneorderlist.Add(new OrderInScene(0, token, typ, commond, other));  //后期加入时间机制
+            sceneorderlist.Add(new OrderInScene(0, id, typ, commond, other));  //后期加入时间机制
         }
 
         // 单独线程定时同步客户端数据
@@ -944,7 +956,7 @@ namespace veClassRoom.Room
                     msgObject.Add(so.name, so.Serialize());
                 }
 
-                foreach (PlayerInScene sp in sceneplaylist.Values)
+                foreach (PlayerInScene sp in sceneplaylistbyid.Values)
                 {
                     if (!sp.changeorno)
                     {
@@ -952,7 +964,7 @@ namespace veClassRoom.Room
                     }
 
                     // 同步客户端
-                    msgPlayer.Add(sp.name, sp.Serialize());
+                    msgPlayer.Add(sp.selfid.ToString(), sp.Serialize());
                 }
 
                 // 同步指令
@@ -969,7 +981,7 @@ namespace veClassRoom.Room
                             _uuid_sync_cache.Clear();
                         }
 
-                        foreach (PlayerInScene p in sceneplaylist.Values)
+                        foreach (PlayerInScene p in sceneplaylistbyid.Values)
                         {
                             if (p.isCanReceive)
                             {
@@ -988,7 +1000,6 @@ namespace veClassRoom.Room
                         hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
                         _uuid_sync_cache.Clear();
 
-                        //Console.WriteLine("同步客户端了哟");
                     }
                 }
 

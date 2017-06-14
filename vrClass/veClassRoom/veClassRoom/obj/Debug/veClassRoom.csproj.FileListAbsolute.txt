@@ -14,5 +14,4 @@ D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoo
 D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.pdb
 D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.exe
 D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\bin\Debug\veClassRoom.pdb
-D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\bin\Debug\hub.pdb
 D:\work\gitfile\hello-world\vrClass\veClassRoom\veClassRoom\obj\Debug\veClassRoom.csprojResolveAssemblyReference.cache

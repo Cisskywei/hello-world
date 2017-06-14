@@ -9,17 +9,12 @@ namespace veClassRoom.Room
 {
     interface BaseRoomInterface
     {
-        void Req_Object_Operate_permissions(string token, string objectname, string uuid);
+        void Req_Object_Operate_permissions(Int64 userid, string objectname, string uuid);
 
-        void Req_Object_Release_permissions(string token, string objectname, string uuid);
+        void Req_Object_Release_permissions(Int64 userid, string objectname, string uuid);
 
-        void ret_sync_commond(string typ, string commond, string name, string objectname, string uuid);
-
-        void ChangeObjectAllOnce(string token, Hashtable clientallonce);
+        void ret_sync_commond(string typ, string commond, Int64 userid, string objectname, string uuid);
 
         void SyncClient();
-
-        // 切换操作
-        void SwitchModelTo(Enums.ModelEnums tomodel);
     }
 }

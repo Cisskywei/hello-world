@@ -14,12 +14,16 @@ namespace veClassRoom.Room
 
         public ArrayList _viewer;   // 观看者
 
-        public GroupInRoom()
+        public string name;
+
+        public GroupInRoom(string name = "group")
         {
             if(teammembers == null)
             {
                 teammembers = new Dictionary<string, PlayerInScene>();
             }
+
+            this.name = name;
         }
 
         public GroupInRoom(Dictionary<string,PlayerInScene> members)
@@ -142,7 +146,7 @@ namespace veClassRoom.Room
                     msgObject.Add(so.name, so.Serialize());
                 }
 
-                foreach (PlayerInScene sp in sceneplaylist.Values)
+                foreach (PlayerInScene sp in sceneplaylistbyid.Values)
                 {
                     if (!sp.changeorno)
                     {
@@ -167,7 +171,7 @@ namespace veClassRoom.Room
                             _uuid_sync_cache.Clear();
                         }
 
-                        foreach (PlayerInScene p in sceneplaylist.Values)
+                        foreach (PlayerInScene p in sceneplaylistbyid.Values)
                         {
                             if (p.isCanReceive)
                             {

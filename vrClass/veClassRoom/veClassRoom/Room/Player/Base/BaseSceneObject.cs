@@ -33,6 +33,7 @@ namespace veClassRoom.Room
             position = new Structs.sVector3();
             rotation = new Structs.sVector4();
             scale = new Structs.sVector3();
+            physical = new Structs.sPhysicalProperty();
 
             locker = null;
             locked = false;
@@ -161,6 +162,8 @@ namespace veClassRoom.Room
 
         public virtual void Conversion(Hashtable t)
         {
+            Console.WriteLine("改变物体: " + t.Count);
+
             if (t == null || t.Count <= 0)
             {
                 return;

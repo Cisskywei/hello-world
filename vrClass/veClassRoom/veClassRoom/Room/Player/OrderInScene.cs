@@ -8,7 +8,7 @@ namespace veClassRoom.Room
 {
     class OrderInScene : BaseSceneOrder
     {
-        public OrderInScene(int commondid, string token, string typ, string commond, string other):base(commondid,token,typ,commond,other)
+        public OrderInScene(int commondid, int userid, string typ, string commond, string other):base(commondid,token,typ,commond,other)
         {
         }
     }
