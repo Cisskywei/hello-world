@@ -178,6 +178,16 @@ namespace veClassRoom.Room
             // 跳过服务器验证 只为测试
             createPlayer(user);
 
+            // 只为测试
+            for(int i=0; i<10; i++)
+            {
+                UserInfor ui = new UserInfor();
+                ui.selfid = i + 100;
+                ui.access_token = "token" + i;
+                ui.user_name = "name" + i;
+                createPlayer(ui);
+            }
+
             if(istartclass && (user.identity != "teacher"))
             {
                 SceneSynchronizationPlayer(user.uuid);
@@ -288,12 +298,16 @@ namespace veClassRoom.Room
                 // 重复登陆  可能是掉线重登
                 //TODO
                 PlayerInScene p = this.sceneplaylistbyid[id];
-                if (_uuid_of_player.Contains(p.uuid))
-                {
-                    _uuid_of_player.Remove(p.uuid);
-                }
 
-                _uuid_of_player.Add(uuid);
+                if(p.uuid != null)
+                {
+                    if (_uuid_of_player.Contains(p.uuid))
+                    {
+                        _uuid_of_player.Remove(p.uuid);
+                    }
+
+                    _uuid_of_player.Add(uuid);
+                }
 
                 this.sceneplaylistbyid[id] = player;
 
@@ -303,9 +317,12 @@ namespace veClassRoom.Room
             {
                 this.sceneplaylistbyid.Add(id, player);
 
-                if (!_uuid_of_player.Contains(uuid))
+                if(uuid != null)
                 {
-                    _uuid_of_player.Add(uuid);
+                    if (!_uuid_of_player.Contains(uuid))
+                    {
+                        _uuid_of_player.Add(uuid);
+                    }
                 }
             }
             Console.WriteLine("当前玩家 id : " + id);
@@ -1266,6 +1283,21 @@ namespace veClassRoom.Room
             if (_uuid_of_player.Count > 0)
             {
                 hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retSwitchTeachMode", userid, mode, target);
+            }
+
+            // 打印输出 学生模式
+            Console.WriteLine("服务器当前模式   --------------------   : " + this.model);
+            foreach (PlayerInScene pls in sceneplaylistbyid.Values)
+            {
+                Console.WriteLine(pls.selfid + "当前模式" + pls.model);
+                if(pls.group != null)
+                {
+                    Console.WriteLine(pls.selfid + "所在小组" + pls.group.name);
+                }
+                Console.WriteLine(pls.selfid + "isCanOperate" + pls.isCanOperate);
+                Console.WriteLine(pls.selfid + "isCanReceive" + pls.isCanReceive);
+                Console.WriteLine(pls.selfid + "isCanSend" + pls.isCanSend);
+                Console.WriteLine("\n");
             }
         }
 

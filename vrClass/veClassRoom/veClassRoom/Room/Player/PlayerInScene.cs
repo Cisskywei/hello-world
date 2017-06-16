@@ -14,7 +14,26 @@ namespace veClassRoom.Room
         public GroupInRoom group;
 
         public bool isleader;  //如果为true 则相应等级需要提升
-        public bool isbechoosed; // 指导模式下标记是否被选中的学生
+        private bool _isbechoosed; // 指导模式下标记是否被选中的学生
+        public bool isbechoosed
+        {
+            get
+            {
+                return _isbechoosed;
+            }
+
+            set
+            {
+                if(value)
+                {
+                    isCanOperate = true;
+                    isCanSend = true;
+                    isCanReceive = true;
+                }
+
+                _isbechoosed = value;
+            }
+        }
         public int selfid;
 
         // 根据模式控制收发状态
@@ -62,14 +81,21 @@ namespace veClassRoom.Room
             {
                 case Enums.TeachingMode.WatchLearnModel_Async:
                 case Enums.TeachingMode.WatchLearnModel_Sync:
-                    isCanReceive = false;
-                    isCanSend = false;
-                    isCanOperate = false;
+                    isCanReceive = true;
+                    if (isleader)
+                    {
+                        // 权限大于等于老师
+                        if (this.permission >= Enums.PermissionEnum.Teacher)
+                        {
+                            isCanOperate = true;
+                            isCanSend = true;
+                        }
+                    }
                     break;
                 case Enums.TeachingMode.GuidanceMode_Personal:
-                    isCanReceive = false;
+                    isCanReceive = true;
                     isCanSend = false;
-                    isCanOperate = false;
+                    isCanOperate = true;
                     break;
                 case Enums.TeachingMode.GuidanceMode_Group:
                     isCanReceive = true;
@@ -94,31 +120,6 @@ namespace veClassRoom.Room
                         }
                     }
                     break;
-                //case Enums.TeachingMode.SelfTrain_Personal:
-                //case Enums.TeachingMode.SelfTrain_Group:
-                //case Enums.TeachingMode.:
-                //    isCanReceive = true;
-                //    isCanSend = false;
-                //    isCanOperate = false;
-                //    if (isleader)
-                //    {
-                //        if (group != null && group.leader != null)
-                //        {
-                //            if (token == group.leader.token)
-                //            {
-                //                //isCanSend = true;
-                //                //isCanOperate = true;
-                //            }
-                //        }
-
-                //        // 权限大于等于老师
-                //        if(this.permission >= Enums.PermissionEnum.Teacher)
-                //        {
-                //            isCanOperate = true;
-                //            isCanSend = true;
-                //        }
-                //    }
-                //    break;
                 case Enums.TeachingMode.SelfTrain_Personal:
                 case Enums.TeachingMode.SelfTrain_Group:
                 case Enums.TeachingMode.SelfTrain_All:
