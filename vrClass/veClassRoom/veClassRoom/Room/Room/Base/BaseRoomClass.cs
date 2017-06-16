@@ -700,6 +700,8 @@ namespace veClassRoom.Room
 
                         o.physical.useGravity = false;
 
+                        o.changeorno = true;
+
                         ret = true;
 
                         Console.WriteLine("token : " + ps.token + "权限较高夺取了 token  " + o.locker + " 的物体 " + objectname);
@@ -715,6 +717,8 @@ namespace veClassRoom.Room
                     o.lockpermission = ps.permission;
 
                     o.physical.useGravity = false;
+
+                    o.changeorno = true;
 
                     ret = true;
                 }
@@ -733,7 +737,7 @@ namespace veClassRoom.Room
 
             if (this.leader == null || this.leader.uuid == null)
             {
-                return;
+    //            return;
             }
 
             PlayerInScene ps = findPlayerById(userid);
@@ -776,6 +780,8 @@ namespace veClassRoom.Room
                     o.lockpermission = Enums.PermissionEnum.None;
 
                     o.physical.useGravity = true;
+
+                    o.changeorno = true;
 
                     ret = true;
                 }

@@ -327,5 +327,17 @@ namespace veClassRoom.Room
 
             rr.BackToLobby(userid);
         }
+        // 获取在线学生列表
+        public void GetOnlinePlayers(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.GetOnlinePlayers(userid);
+        }
     }
 }

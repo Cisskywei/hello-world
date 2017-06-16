@@ -15,6 +15,7 @@ namespace veClassRoom.Room
         public ArrayList _viewer;   // 观看者
 
         public string name;
+        public int id;
 
         public GroupInRoom(string name = "group")
         {
@@ -42,15 +43,19 @@ namespace veClassRoom.Room
         }
 
         // 初始化场景数据
-        public void InitSceneData(Dictionary<string, ObjectInScene> objects, Dictionary<int, PlayerInScene> players)
+        public void InitSceneData(Dictionary<string, ObjectInScene> objects, Dictionary<int, PlayerInScene> players = null)
         {
-            if (objects == null || objects.Count <= 0 || players == null || players.Count <= 0)
+            if (objects == null || objects.Count <= 0)
             {
                 return;
             }
 
             this.moveablesceneobject = objects;
-            this.sceneplaylistbyid = players;
+
+            if ( !(players == null || players.Count <= 0))
+            {
+                this.sceneplaylistbyid = players;
+            }
         }
 
         public void AddMember(PlayerInScene p)

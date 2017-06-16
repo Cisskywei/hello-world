@@ -65,6 +65,7 @@ namespace veClassRoom.Room
             this.sceneplaylistbyid[userid].InitPlayerHeadHand(infor);
         }
 
+        // 限于场景课件的开始
         public void BeginClass(Int64 id)
         {
             int userid = (int)id;
@@ -112,11 +113,6 @@ namespace veClassRoom.Room
             istartclass = true;
 
             Console.WriteLine("开始上课  并且启动同步线程： " + userid);
-        }
-
-        public override void SceneSynchronizationAll()
-        {
-            base.SceneSynchronizationAll();
         }
 
         ////////////////////////////////////////////////////      场景初始化、同步、销毁等操作模块   End   ///////////////////////////////////////////////
@@ -187,6 +183,12 @@ namespace veClassRoom.Room
                 SceneSynchronizationPlayer(user.uuid);
             }
 
+            // 告诉老师 学生上线
+            if(this.leader != null)
+            {
+                hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retOnlinePlayer", (Int64)(user.selfid));
+            }
+
             return this.scenename;
         }
 
@@ -236,6 +238,8 @@ namespace veClassRoom.Room
                         so.lockpermission = 0;
 
                         so.physical.useGravity = true;
+
+                        so.changeorno = true;
                     }
                 }
             }
@@ -384,12 +388,17 @@ namespace veClassRoom.Room
                 return;
             }
 
-            // 先判断是否有小组
-            if(ps.group != null)
+            // 先判断是否是小组模式
+            if(checkIsInGroup())
             {
-                ps.group.Req_Object_Operate_permissions(userid, objectname, uuid);
+                Console.WriteLine("是小组内操作");
+                //先判断是否有小组
+                if (ps.group != null)
+                {
+                    ps.group.Req_Object_Operate_permissions(userid, objectname, uuid);
 
-                return;
+                    return;
+                }
             }
 
             // 没有小组执行以下操作
@@ -428,6 +437,8 @@ namespace veClassRoom.Room
 
                         o.physical.useGravity = false;
 
+                        o.changeorno = true;
+
                         ret = true;
 
                         Console.WriteLine("token : " + ps.token + "权限较高夺取了 token  " + o.locker + " 的物体 " + objectname);
@@ -444,6 +455,8 @@ namespace veClassRoom.Room
 
                     o.physical.useGravity = false;
 
+                    o.changeorno = true;
+
                     ret = true;
                 }
 
@@ -459,8 +472,6 @@ namespace veClassRoom.Room
         {
             int userid = (int)id;
 
-            Console.WriteLine("Req_Object_Release_permissions uuid " + uuid + objectname);
-
             if (this.leader == null || this.leader.uuid == null)
             {
                 return;
@@ -472,12 +483,17 @@ namespace veClassRoom.Room
                 return;
             }
 
-            // 先判断是否有小组
-            if (ps.group != null)
+            // 先判断是否是小组模式
+            if (checkIsInGroup())
             {
-                ps.group.Req_Object_Release_permissions(userid, objectname, uuid);
+                Console.WriteLine("是小组内操作");
+                // 先判断是否有小组
+                if (ps.group != null)
+                {
+                    ps.group.Req_Object_Release_permissions(userid, objectname, uuid);
 
-                return;
+                    return;
+                }
             }
 
             // 没有小组执行以下操作
@@ -517,6 +533,8 @@ namespace veClassRoom.Room
 
                     // 设置重力
                     o.physical.useGravity = true;
+
+                    o.changeorno = true;
 
                     ret = true;
                 }
@@ -1200,6 +1218,7 @@ namespace veClassRoom.Room
 
                         foreach(GroupInRoom g in grouplist.Values)
                         {
+                            g.InitSceneData(this.moveablesceneobject, this.sceneplaylistbyid);
                             g.StartSyncClient();
                         }
                     }
@@ -1234,6 +1253,15 @@ namespace veClassRoom.Room
                     break;
             }
 
+            if(!(this.model == Enums.TeachingMode.GuidanceMode_Group || this.model == Enums.TeachingMode.SelfTrain_Group))
+            {
+                foreach (GroupInRoom g in grouplist.Values)
+                {
+                    g.StopSyncClient();
+                    // 进行场景数据同步和老师的一样
+                }
+            }
+
             // 回复客户端
             if (_uuid_of_player.Count > 0)
             {
@@ -1260,14 +1288,27 @@ namespace veClassRoom.Room
             {
                 // 权限不够
                 Console.WriteLine("UI 获取题目列表 权限不够 : " + "userid : " + userid);
+
+                if (this.questionjsondata != null)
+                {
+                    hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retAcquireQuestionList", id, this.questionjsondata);
+                }
+
                 return;
             }
 
-            BackDataService.getInstance().GetCourseQuestionList(sceneplaylistbyid[id].token, Question_List_Succeed, Question_List_Failure, userid.ToString());
-
-            
+            if(this.questionjsondata != null)
+            {
+                hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retAcquireQuestionList", id, this.questionjsondata);
+            }
+            else
+            {
+                BackDataService.getInstance().GetCourseQuestionList(sceneplaylistbyid[id].token, Question_List_Succeed, Question_List_Failure, userid.ToString());
+            }
         }
 
+        // 暂存题目数据
+        private string questionjsondata = null;
         public void Question_List_Succeed(BackDataType.QuestionInforRetData v, string jsondata, string tag, string url)
         {
             if (tag == null)
@@ -1286,12 +1327,18 @@ namespace veClassRoom.Room
                 PlayerInScene user = sceneplaylistbyid[id];
 
                 // 转换编码格式
-                jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
 
-                // 广播 所有学生 测验题信息
-                if (_uuid_of_player.Count > 0)
+                if(jsondata != null)
                 {
-                    hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retAcquireQuestionList", id, jsondata);
+                    jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
+
+                    this.questionjsondata = jsondata;
+
+                    // 广播 所有学生 测验题信息
+                    if (_uuid_of_player.Count > 0)
+                    {
+                        hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retAcquireQuestionList", id, jsondata);
+                    }
                 }
             }
             catch
@@ -1367,6 +1414,16 @@ namespace veClassRoom.Room
             //}
 
             // 初始化 对应的 class类
+
+            // 只为测试抢答
+            if(typ == 2)
+            {
+                isfastquestionbegin = 1;
+            }
+            else
+            {
+                isfastquestionbegin = 0;
+            }
 
             // 广播 所有学生 测验题
             if (_uuid_of_player.Count > 0)
@@ -1466,9 +1523,15 @@ namespace veClassRoom.Room
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerQuestion", userid, questionid, optionid);
         }
         // 学生抢答反馈
+        private int isfastquestionbegin = 0;
         public void AnswerFastQuestion(Int64 userid, Int64 questionid)
         {
             if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            if(userid == this.leader.selfid)
             {
                 return;
             }
@@ -1480,7 +1543,20 @@ namespace veClassRoom.Room
                 return;
             }
 
+            if(isfastquestionbegin == 2)
+            {
+                Console.WriteLine("已经有人抢到题目了");
+                return;
+            }
+            
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerFastQuestion", userid, questionid);
+            hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retAnswerFastQuestion", userid, questionid);
+
+            if (isfastquestionbegin == 1)
+            {
+                // 开始抢答
+                isfastquestionbegin = 2;
+            }
         }
         // 点赞
         public void SendLikeToTeacher(Int64 userid)
@@ -1540,6 +1616,41 @@ namespace veClassRoom.Room
         public void BackToLobby(Int64 userid)
         {
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retBackToLobby", userid);
+        }
+
+        // 获取在线学生列表
+        public void GetOnlinePlayers(Int64 userid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                return;
+            }
+
+            ArrayList players = new ArrayList();
+            foreach(PlayerInScene p in this.sceneplaylistbyid.Values)
+            {
+                if(p.selfid == this.leader.selfid)
+                {
+                    continue;
+                }
+
+                players.Add((Int64)p.selfid);
+            }
+
+            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retOnlinePlayers", players);
         }
 
     }

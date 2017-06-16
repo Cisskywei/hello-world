@@ -278,6 +278,20 @@ namespace veClassRoom
         {
             this.scenename = name;
             server.add_Hub_Model(this.scenename, this);
+
+            startSync();
+        }
+
+        public void startSync()
+        {
+            this._syncstate = true;
+
+            hub.hub.timer.addticktime(400, SyncClient);
+        }
+
+        public void stopSync()
+        {
+            this._syncstate = false;
         }
 
         /// <summary>
@@ -318,6 +332,12 @@ namespace veClassRoom
     //        istartclass = true;
 
             Console.WriteLine("初始化服务器场景数据完毕");
+
+            if(!_syncstate)
+            {
+                Console.WriteLine("开启服务器场景数据同步");
+                startSync();
+            }
         }
 
         /// <summary>
@@ -504,6 +524,11 @@ namespace veClassRoom
                     so.locker = null;
                     so.locked = false;
                 }
+            }
+
+            if(sceneplaylist.Count <= 0)
+            {
+                stopSync();
             }
 
             Console.WriteLine("token : " + token + "玩家离开场景 " + scenename);
@@ -733,6 +758,49 @@ namespace veClassRoom
                 msgPlayer.Clear();
 
                 Thread.Sleep(16);
+            }
+        }
+
+        public void SyncClient(long tick)
+        {
+            Hashtable msgObject = new Hashtable();
+            Hashtable msgPlayer = new Hashtable();
+            // 同步数据
+            foreach (SceneObject so in moveablesceneobject.Values)
+            {
+                if (!so.changeorno)
+                {
+                    continue;
+                }
+
+                // 同步客户端
+                msgObject.Add(so.name, so.Serialize());
+            }
+
+            foreach (ScenePlayer sp in sceneplaylist.Values)
+            {
+                if (!sp.changeorno)
+                {
+                    continue;
+                }
+
+                // 同步客户端
+                msgPlayer.Add(sp.name, sp.Serialize());
+            }
+
+            // 同步客户端
+            if (msgPlayer.Count > 0 || msgObject.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
+            }
+
+            // 同步之后清除
+            msgObject.Clear();
+            msgPlayer.Clear();
+
+            if(_syncstate)
+            {
+                hub.hub.timer.addticktime(400, SyncClient);
             }
         }
 

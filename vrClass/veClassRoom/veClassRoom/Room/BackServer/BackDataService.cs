@@ -292,6 +292,11 @@ namespace veClassRoom.Room
                 bool ret = false;
                 do
                 {
+                    if(retjson == null)
+                    {
+                        break;
+                    }
+
                     msghead = JsonDataHelp.getInstance().JsonDeserialize<BackDataType.MessageRetHead>(retjson);
 
                     if (Convert.ToInt64(msghead.code) > 0)

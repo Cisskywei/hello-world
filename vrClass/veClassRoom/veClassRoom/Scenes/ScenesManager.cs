@@ -36,7 +36,7 @@ namespace veClassRoom
                 allscenes.Add(name, s);
 
                 Thread t = new Thread(s.SyncClient);
-                t.Start();
+      //          t.Start();
                 scenesthread.Add(name, t);
 
                 ret = true;
