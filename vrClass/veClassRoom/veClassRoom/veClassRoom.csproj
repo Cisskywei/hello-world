@@ -95,6 +95,7 @@
     <Compile Include="Room\Player\PlayerInScene.cs" />
     <Compile Include="Room\Room\Base\BaseRoomClass.cs" />
     <Compile Include="Room\Room\Base\SceneData.cs" />
+    <Compile Include="Room\Room\Data\ClassData.cs" />
     <Compile Include="Room\Room\GroupInRoom.cs" />
     <Compile Include="Room\Room\RealRoom.cs" />
     <Compile Include="Room\Statistics\ClassTest.cs" />

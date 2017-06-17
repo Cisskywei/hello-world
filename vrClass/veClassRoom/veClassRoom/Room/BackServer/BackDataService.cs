@@ -252,8 +252,9 @@ namespace veClassRoom.Room
                 this.typ = typ;
                 this.tag = tag;
 
-                recive = new Thread(reciveFunc);
-                recive.Start();
+                reciveFunc();
+    //            recive = new Thread(reciveFunc);
+    //            recive.Start();
             }
 
             private void reciveFunc()

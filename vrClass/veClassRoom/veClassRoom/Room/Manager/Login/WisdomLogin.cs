@@ -254,11 +254,15 @@ namespace veClassRoom.Room
                 if(h!=null)
                 {
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
-                    if(url != null)
+                    //if(url != null)
+                    //{
+                    //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, url);
+                    //}
+
+                    if(jsondata != null)
                     {
-                        h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, url);
+                        h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
                     }
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
 
                     hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
                 }
@@ -312,7 +316,7 @@ namespace veClassRoom.Room
                 }
 
                 UserInfor user = allplayerlogin[userid];
-                rr.PlayerEnterScene(user);
+                user.roomid = rr.PlayerEnterScene(user);
                 
                 // 如果是老师 要返回给老师 当前课程的学生列表信息
                 if(user.identity == "teacher")
@@ -351,7 +355,12 @@ namespace veClassRoom.Room
                 UserInfor user = allplayerlogin[id];
 
                 // 初始化服务器端 课程详细信息数据
-                //TODO
+                Int64 roomid = (Int64)user.roomid;
+                RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+                if(rr != null)
+                {
+                    rr.classinfor.InitAllStudents(v);
+                }
 
                 // 转换编码格式
                 jsondata = JsonDataHelp.getInstance().EncodeBase64(null,jsondata);
