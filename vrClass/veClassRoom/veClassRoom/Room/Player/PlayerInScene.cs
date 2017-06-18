@@ -130,7 +130,7 @@ namespace veClassRoom.Room
                 case Enums.TeachingMode.GuidanceMode_Personal:
                     isCanReceive = true;
                     isCanSend = false;
-                    isCanOperate = true;
+                    isCanOperate = false;
                     break;
                 case Enums.TeachingMode.GuidanceMode_Group:
                     isCanReceive = true;
@@ -156,6 +156,10 @@ namespace veClassRoom.Room
                     }
                     break;
                 case Enums.TeachingMode.SelfTrain_Personal:
+                    isCanReceive = false;
+                    isCanSend = false;
+                    isCanOperate = true;
+                    break;
                 case Enums.TeachingMode.SelfTrain_Group:
                 case Enums.TeachingMode.SelfTrain_All:
                     isCanReceive = true;

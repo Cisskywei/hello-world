@@ -10,8 +10,6 @@ namespace veClassRoom.Room
 {
     class GroupInRoom : BaseRoomClass
     {
-        public Dictionary<int, PlayerInScene> teammembers;
-
         public ArrayList _viewer;   // 观看者
 
         public string name;
@@ -19,9 +17,10 @@ namespace veClassRoom.Room
 
         public GroupInRoom(string name = "group")
         {
-            if (teammembers == null)
+            
+            if (sceneplaylistbyid == null)
             {
-                teammembers = new Dictionary<int, PlayerInScene>();
+                sceneplaylistbyid = new Dictionary<int, PlayerInScene>();
             }
 
             this.name = name;
@@ -34,11 +33,11 @@ namespace veClassRoom.Room
                 return;
             }
 
-            teammembers = members;
+            sceneplaylistbyid = members;
 
-            if (teammembers == null)
+            if (sceneplaylistbyid == null)
             {
-                teammembers = new Dictionary<int, PlayerInScene>();
+                sceneplaylistbyid = new Dictionary<int, PlayerInScene>();
             }
         }
 
@@ -67,13 +66,13 @@ namespace veClassRoom.Room
 
             try
             {
-                if (teammembers.ContainsKey(p.selfid))
+                if (sceneplaylistbyid.ContainsKey(p.selfid))
                 {
-                    teammembers[p.selfid] = p;
+                    sceneplaylistbyid[p.selfid] = p;
                 }
                 else
                 {
-                    teammembers.Add(p.selfid, p);
+                    sceneplaylistbyid.Add(p.selfid, p);
                 }
             }
             catch
@@ -84,12 +83,12 @@ namespace veClassRoom.Room
 
         public bool HasMember(int useid)
         {
-            if (teammembers == null || teammembers.Count <= 0)
+            if (sceneplaylistbyid == null || sceneplaylistbyid.Count <= 0)
             {
                 return false;
             }
 
-            return teammembers.ContainsKey(useid);
+            return sceneplaylistbyid.ContainsKey(useid);
         }
 
         /// <summary>

@@ -100,7 +100,7 @@ namespace veClassRoom.Room
                 RealRoom rr = allscenesbyid[id];
                 if (rr != null)
                 {
-                    rr.ClearScene();
+                    rr.ResetClassRoom();
                 }
                 allscenesbyid.Remove(id);
                 scenesthreadbyid.Remove(id);

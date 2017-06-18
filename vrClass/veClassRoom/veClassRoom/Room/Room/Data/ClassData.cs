@@ -76,5 +76,10 @@ namespace veClassRoom.Room
 
             return null;
         }
+
+        public void ClearClassData()
+        {
+            allstudents.Clear();
+        }
     }
 }

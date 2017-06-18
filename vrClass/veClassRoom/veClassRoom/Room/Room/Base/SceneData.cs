@@ -46,5 +46,13 @@ namespace veClassRoom.Room
 
             _isinit = true;
         }
+
+        public void ClearSceneData()
+        {
+            moveablesceneobject.Clear();
+            sceneplaylist.Clear();
+            sceneorderlist.Clear();
+            _isinit = false;
+        }
     }
 }

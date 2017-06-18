@@ -67,11 +67,16 @@ namespace veClassRoom.Room
             try
             {
                 isinitclass = false;
+                istartclass = false;
+                isactive = false;
+                model = Enums.TeachingMode.WatchLearnModel_Sync;
+                permission = Enums.PermissionEnum.Group;
 
                 StopSyncClient();
                 moveablesceneobject.Clear();
                 sceneplaylistbyid.Clear();
                 sceneorderlist.Clear();
+                _uuid_sync_cache.Clear();
             }
             catch
             {
@@ -458,6 +463,11 @@ namespace veClassRoom.Room
                     break;
                 }
 
+                if(this.leader == null)
+                {
+                    break;
+                }
+
                 // 第一步 根据当前房间模式进行操作是否有效判别
                 switch (this.model)
                 {
@@ -574,9 +584,6 @@ namespace veClassRoom.Room
             switch(this.model)
             {
                 case Enums.TeachingMode.SelfTrain_Group:
-                    ret = true;
-                    break;
-                case Enums.TeachingMode.GuidanceMode_Group:
                     ret = true;
                     break;
                 default:
@@ -982,7 +989,7 @@ namespace veClassRoom.Room
 
                     foreach (PlayerInScene p in sceneplaylistbyid.Values)
                     {
-                        if (p.isCanReceive)
+                        if (p.isCanReceive && p.uuid != null)
                         {
                             _uuid_sync_cache.Add(p.uuid);
                         }

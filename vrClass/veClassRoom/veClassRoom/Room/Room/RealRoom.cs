@@ -54,6 +54,15 @@ namespace veClassRoom.Room
             Console.WriteLine("初始化服务器");
         }
 
+        // 离开房间后的重置
+        public void ResetClassRoom()
+        {
+            ClearScene();
+            grouplist.Clear();
+            _originalscene.ClearSceneData();
+            classinfor.ClearClassData();
+        }
+
         public void PlayerInitSelf3DInfor(Int64 id, Hashtable infor)
         {
             int userid = (int)id;
@@ -175,6 +184,7 @@ namespace veClassRoom.Room
             {
                 UserInfor ui = new UserInfor();
                 ui.selfid = i + 100;
+                ui.user_id = (i + 100).ToString();
                 ui.access_token = "token" + i;
                 ui.user_name = "name" + i;
                 createPlayer(ui);
@@ -683,10 +693,10 @@ namespace veClassRoom.Room
             ret_sync_commond(typ, commond, userid, other, uuid);
         }
 
+        Hashtable msgObject = new Hashtable();
+        Hashtable msgPlayer = new Hashtable();
         public override void SyncClient(Int64 tick)
         {
-            Hashtable msgObject = new Hashtable();
-            Hashtable msgPlayer = new Hashtable();
             // 同步数据
             foreach (ObjectInScene so in moveablesceneobject.Values)
             {
@@ -707,7 +717,7 @@ namespace veClassRoom.Room
                 }
 
                 // 同步客户端
-                msgPlayer.Add(sp.name, sp.Serialize());
+                msgPlayer.Add(sp.selfid, sp.Serialize());
             }
 
             // 同步指令
@@ -726,9 +736,8 @@ namespace veClassRoom.Room
 
                     foreach (PlayerInScene p in sceneplaylistbyid.Values)
                     {
-                        if (p.isCanReceive)
+                        if (p.isCanReceive && p.uuid != null)
                         {
-                            Console.WriteLine("同步客户端名字 : " + p.name);
                             _uuid_sync_cache.Add(p.uuid);
                         }
                     }
@@ -755,7 +764,7 @@ namespace veClassRoom.Room
 
             if (_syncstate)
             {
-                hub.hub.timer.addticktime(400, SyncClient);
+                hub.hub.timer.addticktime(1000, SyncClient);
             }
         }
 
@@ -849,57 +858,6 @@ namespace veClassRoom.Room
 
         ////////////////////////////////////////////////////   小组 管理相关     ///////////////////////////////////////////////////////////////////////////////////
         // 分组函数
-        private void divideGroupByGrade()
-        {
-            //int count = sceneplaylistbyid.Count;
-            //int groupcount = count / 10;
-            //int remainder = count % 10;
-            //if(remainder > 0)
-            //{
-            //    groupcount++;
-            //}
-            //int membercount = count / groupcount;
-            //remainder = count % groupcount; // 多余的人数 插入到 前几组之中
-
-            //string groupname = "group";
-            //for(int i=0;i<groupcount;i++)
-            //{
-            //    GroupInRoom gir = new GroupInRoom();
-            //    if(remainder > 0)
-            //    {
-            //        gir.playercount = membercount + 1;
-            //        remainder--;
-            //    }
-            //    else
-            //    {
-            //        gir.playercount = membercount;
-            //    }
-            //    grouplist.Add(groupname + i, gir);
-            //}
-
-            //remainder = 0;
-            //membercount = 0;
-            //GroupInRoom girr = grouplist[groupname + remainder];
-            //foreach (PlayerInScene ps in sceneplaylistbyid.Values)
-            //{
-            //    if(girr == null)
-            //    {
-            //        break;
-            //    }
-
-            //    girr.AddMember(ps);
-            //    ps.group = girr;
-            //    membercount++;
-
-            //    if (membercount >= girr.playercount)
-            //    {
-            //        remainder++;
-            //        membercount = 0;
-            //        girr = grouplist[groupname + remainder];
-            //    }
-            //}
-        }
-
         private Hashtable divideGroupOnAverage()
         {
             if(classinfor == null || classinfor.courseinfor == null)
@@ -917,7 +875,6 @@ namespace veClassRoom.Room
             Hashtable players = new Hashtable();
 
             int count = students.Count;
-
             // 10人以下分组算法
             int groupcount = count / 10 + 1;
             int membercount = count / groupcount;
@@ -926,7 +883,7 @@ namespace veClassRoom.Room
             string groupname = "组";
 
             int cgroup = 0;
-            int cmember = 0;
+            int cmember = 1;
             GroupInRoom girr = new GroupInRoom(groupname + (cgroup + 1));
             foreach (PlayerInScene ps in sceneplaylistbyid.Values)
             {
@@ -949,6 +906,8 @@ namespace veClassRoom.Room
                         grouplist.Add(cgroup, girr);
                         cgroup++;
                         girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                        cmember = 1;
                     }
 
                     leftmember--;
@@ -958,6 +917,8 @@ namespace veClassRoom.Room
                     grouplist.Add(cgroup, girr);
                     cgroup++;
                     girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                    cmember = 1;
                 }
             }
 
@@ -965,7 +926,13 @@ namespace veClassRoom.Room
             foreach (UserInfor uu in students.Values)
             {
                 id = Convert.ToInt32(uu.user_id);
-                if(sceneplaylistbyid.ContainsKey(id))
+
+                if(id == this.leader.selfid)
+                {
+                    continue;
+                }
+
+                if (sceneplaylistbyid.ContainsKey(id))
                 {
                     UserInfor u = classinfor.FindUserInforById(id);
                     PlayerInScene ps = sceneplaylistbyid[id];
@@ -974,6 +941,7 @@ namespace veClassRoom.Room
                         u.groupid = ps.groupid;
                         u.groupname = ps.groupname;
                     }
+
                     continue;
                 }
 
@@ -990,6 +958,8 @@ namespace veClassRoom.Room
                         grouplist.Add(cgroup, girr);
                         cgroup++;
                         girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                        cmember = 1;
                     }
 
                     leftmember--;
@@ -999,7 +969,14 @@ namespace veClassRoom.Room
                     grouplist.Add(cgroup, girr);
                     cgroup++;
                     girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                    cmember = 1;
                 }
+            }
+
+            if(!grouplist.ContainsKey(cgroup))
+            {
+                grouplist.Add(cgroup, girr);
             }
 
             // 测试输出
