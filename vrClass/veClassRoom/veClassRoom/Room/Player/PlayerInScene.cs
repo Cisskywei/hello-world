@@ -12,6 +12,9 @@ namespace veClassRoom.Room
         public Enums.PermissionEnum permission = Enums.PermissionEnum.Student;
         public Enums.TeachingMode model = Enums.TeachingMode.WatchLearnModel_Sync;
         public GroupInRoom group;
+        public int roomid;
+        public int groupid = -1;
+        public string groupname;
 
         public bool isleader;  //如果为true 则相应等级需要提升
         private bool _isbechoosed; // 指导模式下标记是否被选中的学生
@@ -60,6 +63,8 @@ namespace veClassRoom.Room
             this.name = playerinfor.user_name;
             this.uuid = playerinfor.uuid;
             this.selfid = playerinfor.selfid;
+            this.groupid = playerinfor.groupid;
+            this.groupname = playerinfor.groupname;
 
             this.isleader = playerinfor.identity == "teacher";
 
@@ -71,6 +76,36 @@ namespace veClassRoom.Room
             {
                 this.permission = Enums.PermissionEnum.Student;
             }
+
+        }
+
+        public PlayerInScene(UserInfor playerinfor, int roomid)
+        {
+            if (playerinfor == null)
+            {
+                return;
+            }
+
+            // 根据平台数据初始化自己
+            this.token = playerinfor.access_token;
+            this.name = playerinfor.user_name;
+            this.uuid = playerinfor.uuid;
+            this.selfid = playerinfor.selfid;
+            this.groupid = playerinfor.groupid;
+            this.groupname = playerinfor.groupname;
+
+            this.isleader = playerinfor.identity == "teacher";
+
+            if (this.isleader)
+            {
+                this.permission = Enums.PermissionEnum.Teacher;
+            }
+            else
+            {
+                this.permission = Enums.PermissionEnum.Student;
+            }
+
+            this.roomid = roomid;
 
         }
 

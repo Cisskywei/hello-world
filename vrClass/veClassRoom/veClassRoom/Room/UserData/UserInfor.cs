@@ -34,6 +34,8 @@ namespace veClassRoom.Room
         // 延伸字段
         public string identity = string.Empty;
 
+        public string studentname = string.Empty;
+
         public void InitLoginRetData(BackDataType.PlayerLoginRetData login)
         {
             this.id = login.data.id;
@@ -67,12 +69,25 @@ namespace veClassRoom.Room
             }
         }
 
+        public void InitByStudentInfor(BackDataType.StudentInfor studentinfor)
+        {
+            this.user_id = studentinfor.user_id;
+            this.user_name = studentinfor.user_name;
+            this.sex = studentinfor.sex;
+            this.studentname = studentinfor.student_name;
+
+            identity = "student";
+        }
+
         public bool islogin = false;
         public bool isentercourse = false;
         public bool isleader = false;
 
         // 所在教室的名字  如果是老师 则从服务器获取
         public string roomname = "llll";
+        public int roomid;
+        public string groupname;
+        public int groupid;
 
         // 课程列表
         public ArrayList GetCourseList()

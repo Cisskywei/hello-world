@@ -18,7 +18,7 @@ namespace veClassRoom.Room
         public string scenename;
 
         // 场景名称 亦作为场景唯一索引
-        public Int64 sceneid;
+        public int sceneid;
 
         // 场景是否开始  即课程是否开始
         public bool istartclass = false;
