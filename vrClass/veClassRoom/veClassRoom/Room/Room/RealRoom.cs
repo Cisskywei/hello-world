@@ -752,7 +752,7 @@ namespace veClassRoom.Room
                 {
                     hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
 
-                    Console.WriteLine("同步客户端数据 _uuid_sync_cache : " + _uuid_sync_cache.Count);
+                    Console.WriteLine("同步客户端数据 _uuid_sync_cache : " + tick);
 
                     _uuid_sync_cache.Clear();
                 }
@@ -764,7 +764,7 @@ namespace veClassRoom.Room
 
             if (_syncstate)
             {
-                hub.hub.timer.addticktime(1000, SyncClient);
+                hub.hub.timer.addticktime(400, SyncClient);
             }
         }
 
@@ -884,7 +884,15 @@ namespace veClassRoom.Room
 
             int cgroup = 0;
             int cmember = 1;
-            GroupInRoom girr = new GroupInRoom(groupname + (cgroup + 1));
+            GroupInRoom girr = null;
+            if (grouplist.ContainsKey(cgroup))
+            {
+                girr = grouplist[cgroup];
+            }
+            else
+            {
+                girr = new GroupInRoom(groupname + (cgroup + 1));
+            }
             foreach (PlayerInScene ps in sceneplaylistbyid.Values)
             {
                 if (ps.selfid == this.leader.selfid)
@@ -903,9 +911,24 @@ namespace veClassRoom.Room
                 {
                     if (cmember > membercount + 1)
                     {
-                        grouplist.Add(cgroup, girr);
+                        if(grouplist.ContainsKey(cgroup))
+                        {
+                            grouplist[cgroup] = girr;
+                        }
+                        else
+                        {
+                            grouplist.Add(cgroup, girr);
+                        }
                         cgroup++;
-                        girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                        if (grouplist.ContainsKey(cgroup))
+                        {
+                            girr = grouplist[cgroup];
+                        }
+                        else
+                        {
+                            girr = new GroupInRoom(groupname + (cgroup + 1));
+                        }
 
                         cmember = 1;
                     }
@@ -914,9 +937,24 @@ namespace veClassRoom.Room
                 }
                 else if(cmember > membercount)
                 {
-                    grouplist.Add(cgroup, girr);
+                    if (grouplist.ContainsKey(cgroup))
+                    {
+                        grouplist[cgroup] = girr;
+                    }
+                    else
+                    {
+                        grouplist.Add(cgroup, girr);
+                    }
                     cgroup++;
-                    girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                    if (grouplist.ContainsKey(cgroup))
+                    {
+                        girr = grouplist[cgroup];
+                    }
+                    else
+                    {
+                        girr = new GroupInRoom(groupname + (cgroup + 1));
+                    }
 
                     cmember = 1;
                 }
@@ -955,9 +993,25 @@ namespace veClassRoom.Room
                 {
                     if (cmember > membercount + 1)
                     {
-                        grouplist.Add(cgroup, girr);
+                        if (grouplist.ContainsKey(cgroup))
+                        {
+                            grouplist[cgroup] = girr;
+                        }
+                        else
+                        {
+                            grouplist.Add(cgroup, girr);
+                        }
+
                         cgroup++;
-                        girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                        if (grouplist.ContainsKey(cgroup))
+                        {
+                            girr = grouplist[cgroup];
+                        }
+                        else
+                        {
+                            girr = new GroupInRoom(groupname + (cgroup + 1));
+                        }
 
                         cmember = 1;
                     }
@@ -966,9 +1020,25 @@ namespace veClassRoom.Room
                 }
                 else if (cmember > membercount)
                 {
-                    grouplist.Add(cgroup, girr);
+                    if (grouplist.ContainsKey(cgroup))
+                    {
+                        grouplist[cgroup] = girr;
+                    }
+                    else
+                    {
+                        grouplist.Add(cgroup, girr);
+                    }
+
                     cgroup++;
-                    girr = new GroupInRoom(groupname + (cgroup + 1));
+
+                    if (grouplist.ContainsKey(cgroup))
+                    {
+                        girr = grouplist[cgroup];
+                    }
+                    else
+                    {
+                        girr = new GroupInRoom(groupname + (cgroup + 1));
+                    }
 
                     cmember = 1;
                 }
@@ -1011,7 +1081,7 @@ namespace veClassRoom.Room
             Hashtable players = divideGroupOnAverage();
             if(this.leader != null)
             {
-                hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retDivideGroup", userid, players);
+                hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retDivideGroup", id, players);
             }
         }
 
