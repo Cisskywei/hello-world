@@ -1486,6 +1486,89 @@ namespace veClassRoom.Room
             }
         }
 
+        // 获取课程资料列表
+        public void AcquireMaterialItemList(Int64 userid, Int64 courseid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                Console.WriteLine("UI 获取题目列表 权限不够 : " + "userid : " + userid);
+
+                return;
+            }
+
+            BackDataService.getInstance().GetCourseMaterialList(sceneplaylistbyid[id].token, (int)courseid, Material_List_Succeed, Material_List_Failure, userid.ToString());
+        }
+
+        // 暂存题目数据
+        public void Material_List_Succeed(BackDataType.MaterialItemInforRetData v, string jsondata, string tag, string url)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!sceneplaylistbyid.ContainsKey(id))
+                {
+                    return;
+                }
+
+                PlayerInScene user = sceneplaylistbyid[id];
+
+                // 转换编码格式
+                if (jsondata != null)
+                {
+                    jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
+
+                    hub.hub.gates.call_client(user.uuid, "cMsgConnect", "retMaterialItemList", (Int64)id, jsondata);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void Material_List_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!sceneplaylistbyid.ContainsKey(id))
+                {
+                    return;
+                }
+
+                PlayerInScene user = sceneplaylistbyid[id];
+
+                hub.hub.gates.call_client(user.uuid, "cMsgConnect", "retMaterialItemList", (Int64)id, "null");
+            }
+            catch
+            {
+
+            }
+        }
+
         /// <summary>
         /// 老师随堂测验的操作， 记得区分 在vr课件里 还是 在 学习大厅
         /// </summary>

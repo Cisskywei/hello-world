@@ -243,6 +243,18 @@ namespace veClassRoom.Room
 
             rr.AcquireQuestionList(userid);
         }
+        // 获取课程资料列表
+        public void AcquireMaterialItemList(Int64 roomid, Int64 userid, Int64 courseid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.AcquireMaterialItemList(userid, courseid);
+        }
         // 随堂测试
         public void InClassTest(Int64 roomid, Int64 userid, Int64 typ, Int64 questionid, string other = null)
         {

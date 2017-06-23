@@ -170,6 +170,31 @@ namespace veClassRoom.Room
             }
         }
 
+        // 课程资料信息
+        public class MaterialItemInfor
+        {
+            public string file_id { get; set; }
+            public string user_id { get; set; }
+            public string folder_id { get; set; }
+            public string type { get; set; }
+            public string file_name { get; set; }
+            public string file_path { get; set; }
+            public string size { get; set; }
+            public string extend { get; set; }
+            public string package { get; set; }
+            public string create_time { get; set; }
+            public string update_time { get; set; }
+            public string converted { get; set; }
+        }
+
+        public class MaterialItemInforRetData
+        {
+            public string message { get; set; }
+            public string code { get; set; }
+            public string type { get; set; }
+            public MaterialItemInfor[] data { get; set; }
+        }
+
         public static Hashtable StudentInfor_Serialize(StudentInfor data)
         {
             Hashtable h = new Hashtable();

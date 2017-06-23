@@ -208,16 +208,39 @@ namespace veClassRoom.Room
             agjd.GetJsonData(url, tag);
 
         }
-        
+        // 获取课程资料列表
+        private readonly string url_material_get = BackServerConfig.HD_Url + "/api-v1/course/materials.html?access-token={0}&id={1}";
+        public void GetCourseMaterialList(string accesstoken, int courseid = -1, DataRetCallBackSucceed<BackDataType.MaterialItemInforRetData> onSucceed = null, DataRetCallBackFailure onFailure = null, string tag = null)
+        {
+            if (accesstoken == null || courseid < 0)
+            {
+                return;
+            }
+
+            string url = string.Format(url_material_get, accesstoken, courseid);
+
+            AsyncGetJsonData<BackDataType.MaterialItemInforRetData> agjd = new AsyncGetJsonData<BackDataType.MaterialItemInforRetData>();
+            agjd.onSucceed = onSucceed;
+            agjd.onFailure = onFailure;
+
+            if (tag == null)
+            {
+                tag = accesstoken;
+            }
+
+            agjd.GetJsonData(url, tag);
+
+        }
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            /// <summary>
-            /// 解析成功返回
-            /// </summary>
-            /// <typeparam name="T">解析的目标对象</typeparam>
-            /// <param name="data">解析后的目标对象数据</param>
-            /// <param name="jsondata">原始json数据</param>
-            /// <param name="tag">调用者标记</param>
+        /// <summary>
+        /// 解析成功返回
+        /// </summary>
+        /// <typeparam name="T">解析的目标对象</typeparam>
+        /// <param name="data">解析后的目标对象数据</param>
+        /// <param name="jsondata">原始json数据</param>
+        /// <param name="tag">调用者标记</param>
         public delegate void DataRetCallBackSucceed<T>(T data, string jsondata, string tag = null, string url = null);
         public delegate void DataRetCallBackFailure(BackDataType.MessageRetHead msg, string tag = null);
 
