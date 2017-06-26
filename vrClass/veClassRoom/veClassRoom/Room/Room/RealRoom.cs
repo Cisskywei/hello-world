@@ -1813,7 +1813,7 @@ namespace veClassRoom.Room
         // 返回大厅
         public void BackToLobby(Int64 userid)
         {
-            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retBackToLobby", userid);
+            hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retBackToLobby", userid);
         }
 
         // 获取在线学生列表
@@ -1849,6 +1849,91 @@ namespace veClassRoom.Room
             }
 
             hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retOnlinePlayers", players);
+        }
+
+        // 老师推送课程资料
+        public void PushCourseDataOne(Int64 userid, string filename, string fileurl)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                return;
+            }
+
+            string uuid = sceneplaylistbyid[id].uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for(int i=0;i<_uuid_of_player.Count;i++)
+            {
+                if((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retDownLoadFileOne", userid, filename, fileurl);
+
+            _uuid_sync_cache.Clear();
+
+        }
+
+        public void PushCourseDataAll(Int64 userid, Hashtable files)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                return;
+            }
+
+            string uuid = sceneplaylistbyid[id].uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retDownLoadFileAll", userid, files);
+
+            _uuid_sync_cache.Clear();
+
         }
 
     }

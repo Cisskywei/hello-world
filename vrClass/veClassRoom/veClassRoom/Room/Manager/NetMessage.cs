@@ -351,5 +351,29 @@ namespace veClassRoom.Room
 
             rr.GetOnlinePlayers(userid);
         }
+        // 推送课程资料
+        public void PushCourseDataOne(Int64 roomid, Int64 userid, string filename, string fileurl)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.PushCourseDataOne(userid, filename, fileurl);
+        }
+
+        public void PushCourseDataAll(Int64 roomid, Int64 userid, Hashtable files)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.PushCourseDataAll(userid, files);
+        }
     }
 }
