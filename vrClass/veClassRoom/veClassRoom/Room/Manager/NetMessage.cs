@@ -352,7 +352,7 @@ namespace veClassRoom.Room
             rr.GetOnlinePlayers(userid);
         }
         // 推送课程资料
-        public void PushCourseDataOne(Int64 roomid, Int64 userid, string filename, string fileurl)
+        public void PushCourseDataOne(Int64 roomid, Int64 userid, string filename, string fileurl, string filetyp, Int64 fileid)
         {
             RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
 
@@ -361,7 +361,7 @@ namespace veClassRoom.Room
                 return;
             }
 
-            rr.PushCourseDataOne(userid, filename, fileurl);
+            rr.PushCourseDataOne(userid, filename, fileurl, filetyp, fileid);
         }
 
         public void PushCourseDataAll(Int64 roomid, Int64 userid, Hashtable files)
@@ -374,6 +374,30 @@ namespace veClassRoom.Room
             }
 
             rr.PushCourseDataAll(userid, files);
+        }
+
+        public void OpenContent(Int64 roomid, Int64 userid, Int64 fileid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.OpenContent(userid, fileid);
+        }
+
+        public void EndFastQuestion(Int64 roomid, Int64 userid, Int64 targetid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.EndFastQuestion(userid, targetid);
         }
     }
 }

@@ -1746,15 +1746,24 @@ namespace veClassRoom.Room
                 Console.WriteLine("已经有人抢到题目了");
                 return;
             }
-            
-            hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retAnswerFastQuestion", userid, questionid);
-            hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retAnswerFastQuestion", userid, questionid);
+
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            _uuid_sync_cache.Add(this.leader.uuid);
+            _uuid_sync_cache.Add(sceneplaylistbyid[id].uuid);
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retAnswerFastQuestion", userid, questionid, this.leader.name);
 
             if (isfastquestionbegin == 1)
             {
                 // 开始抢答
                 isfastquestionbegin = 2;
             }
+
+            _uuid_sync_cache.Clear();
         }
         // 点赞
         public void SendLikeToTeacher(Int64 userid)
@@ -1852,7 +1861,7 @@ namespace veClassRoom.Room
         }
 
         // 老师推送课程资料
-        public void PushCourseDataOne(Int64 userid, string filename, string fileurl)
+        public void PushCourseDataOne(Int64 userid, string filename, string fileurl, string filetyp, Int64 fileid)
         {
             if (this.leader == null || this.leader.uuid == null)
             {
@@ -1888,7 +1897,7 @@ namespace veClassRoom.Room
                 _uuid_sync_cache.Add(_uuid_of_player[i]);
             }
 
-            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retDownLoadFileOne", userid, filename, fileurl);
+            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retDownLoadFileOne", userid, filename, fileurl, filetyp, fileid);
 
             _uuid_sync_cache.Clear();
 
@@ -1934,6 +1943,79 @@ namespace veClassRoom.Room
 
             _uuid_sync_cache.Clear();
 
+        }
+
+        public void OpenContent(Int64 userid, Int64 fileid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                return;
+            }
+
+            string uuid = sceneplaylistbyid[id].uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retOpenContent", userid, fileid);
+
+            _uuid_sync_cache.Clear();
+        }
+
+        public void EndFastQuestion(Int64 userid, Int64 targetid)
+        {
+            if (this.leader == null || this.leader.uuid == null)
+            {
+                return;
+            }
+
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            if (!checkLeaderFeasible(sceneplaylistbyid[id]))
+            {
+                // 权限不够
+                return;
+            }
+
+            int target = (int)targetid;
+
+            if (!sceneplaylistbyid.ContainsKey(target))
+            {
+                return;
+            }
+
+            string uuid = sceneplaylistbyid[target].uuid;
+
+            hub.hub.gates.call_client(uuid, "cMsgConnect", "retEndFastQuestion", userid);
         }
 
     }

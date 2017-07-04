@@ -23,6 +23,7 @@ namespace veClassRoom.Room
             public static readonly string Net_Ret_Name = "name";
             public static readonly string Net_Ret_Uuid = "uuid";
             public static readonly string Net_Ret_Duty = "duty";
+            public static readonly string Net_Ret_Avatar = "avatar";
 
             public static readonly string Net_Course = "course";
             public static readonly string Net_Course_List = "courselist";

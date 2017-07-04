@@ -297,7 +297,7 @@ namespace veClassRoom.Room
                     case GetPost.Post:
                         if(parameters != null)
                         {
-                            hr = HttpHelper.getInstance().CreatePostHttpResponse(url, parameters, 300, null, null);
+                            hr = HttpHelper.getInstance().CreatePostHttpResponse(url, parameters, 100, null, null);
                         }
                         break;
                     default:
@@ -310,6 +310,8 @@ namespace veClassRoom.Room
                 }
 
                 string retjson = HttpHelper.getInstance().GetResponseString(hr);
+
+                Console.WriteLine("\n" + retjson);
 
                 // 检测返回结果
                 BackDataType.MessageRetHead msghead = null;

@@ -30,6 +30,8 @@ namespace veClassRoom.Room
                 callbackname = "ret_msg";
             }
 
+            Console.WriteLine("login" + name + password);
+
             BackDataService.getInstance().CheckUser(name, password, this.Login_Succeed, this.Login_Failure, client_uuid);
 
         }
@@ -118,6 +120,7 @@ namespace veClassRoom.Room
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, user.uuid);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Id, user.id);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, user.identity);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Avatar, user.avatar);
 
                 hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
             }
