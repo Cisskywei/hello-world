@@ -219,6 +219,8 @@ namespace veClassRoom.Room
 
             string url = string.Format(url_material_get, accesstoken, courseid);
 
+            Console.WriteLine(url);
+
             AsyncGetJsonData<BackDataType.MaterialItemInforRetData> agjd = new AsyncGetJsonData<BackDataType.MaterialItemInforRetData>();
             agjd.onSucceed = onSucceed;
             agjd.onFailure = onFailure;

@@ -399,5 +399,29 @@ namespace veClassRoom.Room
 
             rr.EndFastQuestion(userid, targetid);
         }
+
+        public void VideoCtrl(Int64 roomid, Int64 userid, Int64 type, Int64 value)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.VideoCtrl(userid, type, value);
+        }
+
+        public void PPtCtrl(Int64 roomid, Int64 userid, Int64 type, Int64 value)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.PPtCtrl(userid, type, value);
+        }
     }
 }
