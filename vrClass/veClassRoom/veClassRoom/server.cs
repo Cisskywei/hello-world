@@ -75,7 +75,7 @@ namespace veClassRoom
         public static void clear_Hub_Model(string modelname, imodule model)
         {
             Console.WriteLine("从Hub移除model ：" + modelname);
-            hub.hub.modules.remove_module(modelname);
+  //          hub.hub.modules.remove_module(modelname);
         }
 
         /// <summary>

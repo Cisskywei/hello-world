@@ -32,7 +32,25 @@ namespace veClassRoom.Room
 
             Console.WriteLine("login" + name + password);
 
-            BackDataService.getInstance().CheckUser(name, password, this.Login_Succeed, this.Login_Failure, client_uuid);
+            // 判断是否重复登陆
+            bool isrelogin = false;
+            foreach(UserInfor u in allplayerlogin.Values)
+            {
+                if(u.name == name)
+                {
+                    Console.WriteLine("用户重复登陆 " + name + password + client_uuid);
+                    isrelogin = true;
+                    u.uuid = client_uuid;
+                    // 重复登陆
+                    hub.hub.gates.call_client(client_uuid, "cMsgConnect", "ret_reLogin", client_uuid);
+                    break;
+                }
+            }
+
+            if(!isrelogin)
+            {
+                BackDataService.getInstance().CheckUser(name, password, this.Login_Succeed, this.Login_Failure, client_uuid);
+            }
 
         }
 
@@ -149,7 +167,7 @@ namespace veClassRoom.Room
             }
         }
 
-        public void player_exit(string uuid, Int64 userid, Int64 roomid, string modelname = null, string callbackname = null)
+        public void player_exit(string uuid, Int64 userid, Int64 roomid, string modelname, string callbackname)
         {
             if (modelname == null)
             {
@@ -319,10 +337,17 @@ namespace veClassRoom.Room
                 }
 
                 UserInfor user = allplayerlogin[userid];
-                user.roomid = rr.PlayerEnterScene(user);
-                
+                int ret = rr.PlayerEnterScene(user);
+                if(ret == -1)
+                {
+                    // 重复进入房间
+                    return;
+                }
+
+                user.roomid = ret;
+
                 // 如果是老师 要返回给老师 当前课程的学生列表信息
-                if(user.identity == "teacher")
+                if (user.identity == "teacher")
                 {
                     // 老师 返回学生列表数据
                     BackDataService.getInstance().GetCourseStudentList(user.access_token, courseid.ToString(), Student_List_Succeed,Student_List_Failure, userid.ToString());

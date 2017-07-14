@@ -177,18 +177,7 @@ namespace veClassRoom.Room
             //CheckPlayerInforLocal(token, name, uuid);
 
             // 跳过服务器验证 只为测试
-            createPlayer(user);
-
-            // 只为测试
-            for(int i=0; i<10; i++)
-            {
-                UserInfor ui = new UserInfor();
-                ui.selfid = i + 100;
-                ui.user_id = (i + 100).ToString();
-                ui.access_token = "token" + i;
-                ui.user_name = "name" + i;
-                createPlayer(ui);
-            }
+            bool ret = createPlayer(user);
 
             if(istartclass && (user.identity != "teacher"))
             {
@@ -201,7 +190,7 @@ namespace veClassRoom.Room
                 hub.hub.gates.call_client(this.leader.uuid, "cMsgConnect", "retOnlinePlayer", (Int64)(user.selfid));
             }
 
-            return this.sceneid;
+            return ret?this.sceneid:-1;
         }
 
         public void PlayerLeaveScene(Int64 id, string uuid)
@@ -257,11 +246,11 @@ namespace veClassRoom.Room
             }
         }
 
-        private void createPlayer(UserInfor playerinfor)
+        private bool createPlayer(UserInfor playerinfor)
         {
             if(playerinfor == null)
             {
-                return;
+                return false;
             }
 
             if (playerinfor.isentercourse)
@@ -270,7 +259,7 @@ namespace veClassRoom.Room
                 // TODO
                 //进行场景指令同步
 
-                return;
+                return false;
             }
 
             playerinfor.islogin = true;
@@ -341,6 +330,8 @@ namespace veClassRoom.Room
             }
             Console.WriteLine("当前玩家 id : " + id);
             Console.WriteLine("当前玩家数 : " + sceneplaylistbyid.Count + " _uuid_of_player " + _uuid_of_player.Count);
+
+            return true;
 
             // 通知客户端 玩家进入 教学大厅
 

@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="hub, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\abelkhan-0.4\abelkhan-0.4\bin\hub.dll</HintPath>
+      <HintPath>..\..\..\..\..\Service\InternateFram\myuse\abelkhan\bin\hub.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\..\bin(3)\MongoDB.Bson.dll</HintPath>
@@ -113,7 +113,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
