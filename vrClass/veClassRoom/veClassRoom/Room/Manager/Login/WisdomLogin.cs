@@ -64,7 +64,7 @@ namespace veClassRoom.Room
             try
             {
                 UserInfor user = new UserInfor();
-                user.InitLoginRetData(v);
+                user.InitLoginRetData(v, jsondata);
                 user.uuid = tag;
 
                 Int64 id = Convert.ToInt64(user.id);
@@ -106,6 +106,35 @@ namespace veClassRoom.Room
             }
         }
 
+        // 用户从大厅进入课件 课件请求进入教室
+        public void player_login_courseware(string password, string name)
+        {
+            var client_uuid = hub.hub.gates.current_client_uuid;
+
+            // 判断是否重复登陆
+            foreach (UserInfor u in allplayerlogin.Values)
+            {
+                if (u.name == name)
+                {
+                    u.uuid = client_uuid;
+                    Int64 id = Convert.ToInt64(u.user_id);
+                    if (!StartupExeManager.getInstance().CheckPerson((int)id))
+                    {
+                        break;
+                    }
+
+                    int roomid = u.roomid;
+                    RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+                    if(rr != null)
+                    {
+                        rr.player_login_courseware(id, client_uuid);
+                    }
+                    // 重复登陆
+                    break;
+                }
+            }
+        }
+
         // 获取用户基本信息
         public void player_base_infor(string token, string uuid)
         {
@@ -128,7 +157,7 @@ namespace veClassRoom.Room
                 }
 
                 UserInfor user = null;
-                allplayerlogin[id].InitBaseInforRetData(v);
+                allplayerlogin[id].InitBaseInforRetData(v, jsondata);
                 user = allplayerlogin[id];
 
                 Hashtable h = new Hashtable();
@@ -180,6 +209,14 @@ namespace veClassRoom.Room
             }
 
             Console.WriteLine("用户退出 : " + " uuid:" + uuid);
+
+            int id = (int)userid;
+            if (StartupExeManager.getInstance().CheckPerson((int)id))
+            {
+                // 启动课件的退出 不移除玩家 和 房间
+                Console.WriteLine("启动课件的退出 不移除玩家 和 房间" + userid);
+                return;
+            }
 
             // 退出场景
             RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
@@ -234,21 +271,21 @@ namespace veClassRoom.Room
 
         }
 
-        public void EnterLobby(string token,string uuid, Int64 duty)
+        public void EnterLobby(string token,Int64 userid, Int64 duty)
         {
             switch(duty)
             {
                 case 1:
                     // 获取学生课程
-                    BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, uuid);
+                    BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, userid.ToString());
                     break;
                 case 2:
                     // 获取老师课程
-                    BackDataService.getInstance().GetTeacherCourseList(token, "expe", Enter_Lobby_Succeed, Enter_Lobby_Failure, uuid);
+                    BackDataService.getInstance().GetTeacherCourseList(token, "expe", Enter_Lobby_Succeed, Enter_Lobby_Failure, userid.ToString());
                     break;
                 default:
                     // 获取学生课程
-                    BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, uuid);
+                    BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, userid.ToString());
                     break;
             }
         }
@@ -262,6 +299,14 @@ namespace veClassRoom.Room
 
             try
             {
+                Int64 id = Convert.ToInt64(tag);
+                if (!allplayerlogin.ContainsKey(id))
+                {
+                    return;
+                }
+
+                allplayerlogin[id].InitCourseListRetData(v, jsondata);
+
                 // 初始化 服务器端的 课程列表数据
                 //TODO
 
@@ -275,12 +320,8 @@ namespace veClassRoom.Room
                 if(h!=null)
                 {
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
-                    //if(url != null)
-                    //{
-                    //    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, url);
-                    //}
 
-                    if(jsondata != null)
+                    if (jsondata != null)
                     {
                         h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
                     }
@@ -387,7 +428,7 @@ namespace veClassRoom.Room
                 RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
                 if(rr != null)
                 {
-                    rr.classinfor.InitAllStudents(v);
+                    rr.classinfor.InitAllStudents(v, jsondata);
                 }
 
                 // 转换编码格式

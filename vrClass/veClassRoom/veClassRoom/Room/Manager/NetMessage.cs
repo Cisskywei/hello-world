@@ -423,5 +423,32 @@ namespace veClassRoom.Room
 
             rr.PPtCtrl(userid, type, value);
         }
+
+        // 大厅启动vr课件相关
+        // 请求进入课件
+        public void player_enter_courseware(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.player_enter_courseware(userid);
+        }
+
+        // 请求返回大厅
+        public void player_back_lobby(Int64 roomid, Int64 userid)
+        {
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
+
+            if (rr == null)
+            {
+                return;
+            }
+
+            rr.player_back_lobby(userid);
+        }
     }
 }

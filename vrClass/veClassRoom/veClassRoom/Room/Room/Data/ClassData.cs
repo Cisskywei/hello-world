@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,13 @@ namespace veClassRoom.Room
         public BackDataType.CourseInforRetData.CourseInfor courseinfor;
         public Dictionary<int, UserInfor> allstudents = new Dictionary<int, UserInfor>();
 
-        public void InitAllStudents(BackDataType.CourseInforRetData course)
+        // 原始jsondata数据
+        public string _courseinfor = string.Empty;
+        public string _questioninfor = string.Empty;
+        public string _materiallist = string.Empty;
+        private ArrayList _materialpushlist = new ArrayList();
+
+        public void InitAllStudents(BackDataType.CourseInforRetData course, string jsondata = null)
         {
             if(course == null)
             {
@@ -42,6 +49,11 @@ namespace veClassRoom.Room
                     u.InitByStudentInfor(courseinfor.students[i]);
                     allstudents.Add(id, u);
                 }
+            }
+
+            if(jsondata != null)
+            {
+                _courseinfor = jsondata;
             }
         }
 
@@ -77,9 +89,47 @@ namespace veClassRoom.Room
             return null;
         }
 
+        // 题目数据推送相关
+        public void AddMaterialPushed(int fileid)
+        {
+            if(_materialpushlist == null)
+            {
+                _materialpushlist = new ArrayList();
+            }
+
+            if(!_materialpushlist.Contains(fileid))
+            {
+                _materialpushlist.Add(fileid);
+            }
+        }
+
+        public void RemoveMaterialPushed(int fileid)
+        {
+            if (_materialpushlist == null || _materialpushlist.Count <= 0)
+            {
+                return;
+            }
+
+            if (_materialpushlist.Contains(fileid))
+            {
+                _materialpushlist.Remove(fileid);
+            }
+        }
+
+        public bool IsHaveMaterialPushed(int fileid)
+        {
+            if (_materialpushlist == null || _materialpushlist.Count <= 0)
+            {
+                return false;
+            }
+
+            return _materialpushlist.Contains(fileid);
+        }
+
         public void ClearClassData()
         {
             allstudents.Clear();
+            _materialpushlist.Clear();
         }
     }
 }

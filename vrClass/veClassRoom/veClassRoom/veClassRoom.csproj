@@ -87,6 +87,7 @@
     <Compile Include="Room\Model\IndependentMode.cs" />
     <Compile Include="Room\Model\ModelManager.cs" />
     <Compile Include="Room\Model\WatchAndLearnModel.cs" />
+    <Compile Include="Room\OpenCourseWave\StartupExeManager.cs" />
     <Compile Include="Room\Player\Base\BaseSceneObject.cs" />
     <Compile Include="Room\Player\Base\BaseSceneOrder.cs" />
     <Compile Include="Room\Player\Base\BaseScenePlayer.cs" />

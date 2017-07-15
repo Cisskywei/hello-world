@@ -36,16 +36,26 @@ namespace veClassRoom.Room
 
         public string studentname = string.Empty;
 
-        public void InitLoginRetData(BackDataType.PlayerLoginRetData login)
+        // 后台服务器返回数据jsondata 保存
+        public string _login_json = string.Empty;
+        public string _baseinfor_json = string.Empty;
+        public string _studentinfor_json = string.Empty;
+
+        public void InitLoginRetData(BackDataType.PlayerLoginRetData login, string jsondata = null)
         {
             this.id = login.data.id;
             this.name = login.data.name;
             this.access_token = login.data.access_token;
 
             selfid = Convert.ToInt32(this.id);
+
+            if(jsondata != null)
+            {
+                _login_json = jsondata;
+            }
         }
 
-        public void InitBaseInforRetData(BackDataType.PlayerBaseInforRetData baseinfor)
+        public void InitBaseInforRetData(BackDataType.PlayerBaseInforRetData baseinfor, string jsondata = null)
         {
             this.user_id = baseinfor.data.user_id;
             this.user_name = baseinfor.data.user_name;
@@ -67,9 +77,14 @@ namespace veClassRoom.Room
             {
                 identity = "student";
             }
+
+            if (jsondata != null)
+            {
+                _baseinfor_json = jsondata;
+            }
         }
 
-        public void InitByStudentInfor(BackDataType.StudentInfor studentinfor)
+        public void InitByStudentInfor(BackDataType.StudentInfor studentinfor, string jsondata = null)
         {
             this.user_id = studentinfor.user_id;
             this.user_name = studentinfor.user_name;
@@ -77,6 +92,16 @@ namespace veClassRoom.Room
             this.studentname = studentinfor.student_name;
 
             identity = "student";
+
+            if (jsondata != null)
+            {
+                _studentinfor_json = jsondata;
+            }
+        }
+
+        public void InitCourseListRetData(BackDataType.CourseListRetData studentinfor, string jsondata = null)
+        {
+
         }
 
         public bool islogin = false;
@@ -85,7 +110,7 @@ namespace veClassRoom.Room
 
         // 所在教室的名字  如果是老师 则从服务器获取
         public string roomname = "llll";
-        public int roomid;
+        public int roomid = -1;
         public string groupname;
         public int groupid;
 

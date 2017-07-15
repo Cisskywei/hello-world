@@ -32,6 +32,14 @@ namespace veClassRoom.Room
 
             //
             public static readonly string Net_Ret_ErrorMsg = "errormsg";
+
+            // 用户启动课件避免重复登陆相关
+            public static readonly string Net_Ret_LoginData = "login";
+            public static readonly string Net_Ret_BaseInfor = "baseinfor";
+            public static readonly string Net_Ret_StudentInfor = "studentinfor";
+            public static readonly string Net_Ret_CourseInfor = "courseinfor";
+            public static readonly string Net_Ret_QuestionInfor = "questioninfor";
+            public static readonly string Net_Ret_MaterialList = "materiallist";
         }
 
     }

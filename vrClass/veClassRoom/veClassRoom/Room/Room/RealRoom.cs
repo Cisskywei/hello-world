@@ -1438,6 +1438,7 @@ namespace veClassRoom.Room
                     jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
 
                     this.questionjsondata = jsondata;
+                    classinfor._questioninfor = jsondata;
 
                     // 广播 所有学生 测验题信息
                     if (_uuid_of_player.Count > 0)
@@ -1525,6 +1526,8 @@ namespace veClassRoom.Room
                 if (jsondata != null)
                 {
                     jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
+
+                    classinfor._materiallist = jsondata;
 
                     hub.hub.gates.call_client(user.uuid, "cMsgConnect", "retMaterialItemList", (Int64)id, jsondata);
                 }
@@ -1892,6 +1895,9 @@ namespace veClassRoom.Room
                 return;
             }
 
+            // 保存推送记录
+            classinfor.AddMaterialPushed((int)fileid);
+
             string uuid = sceneplaylistbyid[id].uuid;
             if (_uuid_sync_cache.Count > 0)
             {
@@ -1933,6 +1939,9 @@ namespace veClassRoom.Room
                 // 权限不够
                 return;
             }
+
+            // 保存推送全部资料记录
+            //classinfor.AddMaterialPushed((int)fileid);
 
             string uuid = sceneplaylistbyid[id].uuid;
             if (_uuid_sync_cache.Count > 0)
@@ -2113,5 +2122,78 @@ namespace veClassRoom.Room
             _uuid_sync_cache.Clear();
         }
 
+        ////////////// 启动课件保存的服务器数据 //////////////////////////////////
+
+        // 从大厅进入课件
+        public void player_login_courseware(Int64 userid, string uuid)
+        {
+            //修改新的uuid
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            StartupExeManager.getInstance().RemovePerson(id);
+
+            Hashtable h = new Hashtable();
+
+            PlayerInScene pis = sceneplaylistbyid[id];
+            pis.uuid = uuid;
+            if(pis.isleader)
+            {
+                //老师
+                UserInfor t = classinfor.FindUserInforById(pis.selfid);
+                if(t != null)
+                {
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, t._login_json);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, t._baseinfor_json);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_CourseInfor, classinfor._courseinfor);
+                }
+            }
+            else
+            {
+                //学生
+                UserInfor t = classinfor.FindUserInforById(pis.selfid);
+                if (t != null)
+                {
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, t._login_json);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, t._baseinfor_json);
+                }
+            }
+
+            hub.hub.gates.call_client(uuid, "cMsgConnect", "retPlayerLoginCourseware", h);
+        }
+
+        // 请求进入课件
+        public void player_enter_courseware(Int64 userid)
+        {
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            StartupExeManager.getInstance().AddPerson(id);
+
+            hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retPlayerEnterCourseware",1);
+        }
+
+        // 请求返回大厅
+        public void player_back_lobby(Int64 userid)
+        {
+            int id = (int)userid;
+
+            if (sceneplaylistbyid.Count <= 0 || !sceneplaylistbyid.ContainsKey(id))
+            {
+                return;
+            }
+
+            StartupExeManager.getInstance().AddPerson(id);
+
+            hub.hub.gates.call_client(sceneplaylistbyid[id].uuid, "cMsgConnect", "retPlayerBackLobby", 1);
+        }
     }
 }
