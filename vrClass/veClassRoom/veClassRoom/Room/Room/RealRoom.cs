@@ -591,6 +591,7 @@ namespace veClassRoom.Room
             try
             {
                 _uuid_of_player.Remove(uuid);
+                Console.WriteLine("指令同步 777    " + _uuid_of_player.Count);
                 hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "ret_sync_commond", typ, commond, userid, other);
                 _uuid_of_player.Add(uuid);
             }
@@ -755,7 +756,7 @@ namespace veClassRoom.Room
 
             if (_syncstate)
             {
-                hub.hub.timer.addticktime(400, SyncClient);
+                hub.hub.timer.addticktime(200, SyncClient);
             }
         }
 
@@ -1825,7 +1826,7 @@ namespace veClassRoom.Room
                     continue;
                 }
 
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
+                _uuid_sync_cache.Add((string)_uuid_of_player[i]);
             }
 
             hub.hub.gates.call_group_client(_uuid_sync_cache, "cMsgConnect", "retWhiteBoard", userid, openclose);
@@ -2140,16 +2141,28 @@ namespace veClassRoom.Room
             Hashtable h = new Hashtable();
 
             PlayerInScene pis = sceneplaylistbyid[id];
+            if(_uuid_of_player.Contains(pis.uuid))
+            {
+                _uuid_of_player.Remove(pis.uuid);
+            }
             pis.uuid = uuid;
-            if(pis.isleader)
+            _uuid_of_player.Add(uuid);
+            if (pis.isleader)
             {
                 //老师
                 UserInfor t = classinfor.FindUserInforById(pis.selfid);
                 if(t != null)
                 {
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, t._login_json);
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, t._baseinfor_json);
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_CourseInfor, classinfor._courseinfor);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, uuid);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, "teacher");
+
+                    Console.WriteLine(t._baseinfor_json);
+
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, JsonDataHelp.getInstance().EncodeBase64(null, t._login_json));
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, JsonDataHelp.getInstance().EncodeBase64(null, t._baseinfor_json));
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_CourseInfor, JsonDataHelp.getInstance().EncodeBase64(null, classinfor._courseinfor));
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_MaterialList, classinfor._materiallist);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_QuestionInfor, classinfor._questioninfor);
                 }
             }
             else
@@ -2158,8 +2171,13 @@ namespace veClassRoom.Room
                 UserInfor t = classinfor.FindUserInforById(pis.selfid);
                 if (t != null)
                 {
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, t._login_json);
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, t._baseinfor_json);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, uuid);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, "student");
+
+                    Console.WriteLine(t._baseinfor_json);
+
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_LoginData, JsonDataHelp.getInstance().EncodeBase64(null, t._login_json));
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_BaseInfor, JsonDataHelp.getInstance().EncodeBase64(null, t._baseinfor_json));
                 }
             }
 

@@ -30,7 +30,12 @@ namespace veClassRoom.Room
 
             courseinfor = course.data;
 
-            if(courseinfor == null || courseinfor.students == null || courseinfor.students.Length <= 0)
+            if (jsondata != null)
+            {
+                _courseinfor = jsondata;
+            }
+
+            if (courseinfor == null || courseinfor.students == null || courseinfor.students.Length <= 0)
             {
                 return;
             }
@@ -49,11 +54,6 @@ namespace veClassRoom.Room
                     u.InitByStudentInfor(courseinfor.students[i]);
                     allstudents.Add(id, u);
                 }
-            }
-
-            if(jsondata != null)
-            {
-                _courseinfor = jsondata;
             }
         }
 

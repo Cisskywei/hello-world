@@ -132,21 +132,23 @@ namespace veClassRoom.Room
             rr.ChangeClientAllOnce(userid, clientallonce);
         }
 
-        public void ret_sync_commond(string roomname, string typ, string commond, Int64 id, string other, string uuid)
+        public void ret_sync_commond(Int64 roomname, string typ, string commond, Int64 id, string other, string uuid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
-
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomname);
+            Console.WriteLine("\n************************空************************ roomname : " + roomname + "\n");
             if (rr == null)
             {
                 return;
             }
 
+            Console.WriteLine("\n************************************************************ roomname : " + roomname + "\n");
+
             rr.ret_sync_commond(typ,commond,id,other,uuid);
         }
 
-        public void ret_sync_group_commond(string roomname, string typ, string commond, Int64 id, string other, string uuid)
+        public void ret_sync_group_commond(Int64 roomname, string typ, string commond, Int64 id, string other, string uuid)
         {
-            RealRoom rr = RoomManager.getInstance().FindRoomByName(roomname);
+            RealRoom rr = RoomManager.getInstance().FindRoomById(roomname);
 
             if (rr == null)
             {

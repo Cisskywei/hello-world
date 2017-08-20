@@ -215,7 +215,7 @@ namespace veClassRoom.Room
             {
                 // 启动课件的退出 不移除玩家 和 房间
                 Console.WriteLine("启动课件的退出 不移除玩家 和 房间" + userid);
-                return;
+     //           return;
             }
 
             // 退出场景
@@ -326,7 +326,7 @@ namespace veClassRoom.Room
                         h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
                     }
 
-                    hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                    hub.hub.gates.call_client(allplayerlogin[id].uuid, "cMsgConnect", "ret_msg", h);
                 }
                                 
             }
@@ -345,11 +345,17 @@ namespace veClassRoom.Room
 
             try
             {
+                Int64 id = Convert.ToInt64(tag);
+                if (!allplayerlogin.ContainsKey(id))
+                {
+                    return;
+                }
+
                 Hashtable h = new Hashtable();
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
 
-                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                hub.hub.gates.call_client(allplayerlogin[id].uuid, "cMsgConnect", "ret_msg", h);
             }
             catch
             {
@@ -395,6 +401,12 @@ namespace veClassRoom.Room
                 }
                 else
                 {
+                    // 登陆列表移除
+                    if (allplayerlogin.ContainsKey(userid))
+                    {
+                        allplayerlogin.Remove(userid);
+                    }
+
                     // 学生这直接返回
                     Hashtable h = new Hashtable();
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
@@ -443,6 +455,12 @@ namespace veClassRoom.Room
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, v.data.course_id);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetMessage.selfmodelname);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
+
+                // 登陆列表移除
+                if (allplayerlogin.ContainsKey(id))
+                {
+                    allplayerlogin.Remove(id);
+                }
 
                 hub.hub.gates.call_client(user.uuid, "cMsgConnect", "ret_msg", h);
             }
