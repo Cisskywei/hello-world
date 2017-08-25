@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using veClassRoom.Market;
 using veClassRoom.Room;
 
 namespace veClassRoom
@@ -92,6 +93,8 @@ namespace veClassRoom
             Login _login2 = new Login();
             hub.hub.modules.add_module(Login._selfmodelname, _login2);
 
+            MarketMsg market = new MarketMsg();
+            hub.hub.modules.add_module(MarketMsg.selfmodelname, market);
         }
 
         public static void init_manage()
