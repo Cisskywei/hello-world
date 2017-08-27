@@ -151,13 +151,14 @@ namespace WisdomClassroom.ClassRoom
                 {
                     foreach (DictionaryEntry de in objects)
                     {
-                        if (!t.CheckIsHaveObject((int)(de.Key)))
+                        int idkey = Convert.ToInt32(de.Key);
+                        if (!t.CheckIsHaveObject(idkey))
                         {
                             // 服务器不包含该物体
                             continue;
                         }
 
-                        t.ChangeObjectData((int)(de.Key), (Hashtable)de.Value);
+                        t.ChangeObjectData(idkey, (Hashtable)de.Value);
                     }
                 }
 

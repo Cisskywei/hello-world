@@ -14,27 +14,27 @@ namespace WisdomClassroom.ClassRoom
         }
 
         // ****************************************   对model 所属者提供的调用接口   ********************************************//
-        public virtual void CheckOperationHold<T>(Int64 userid, Int64 objecid, T extrainfor, Object[] param)
+        public virtual void CheckOperationHold<T>(Int64 userid, Int64 objecid, T extrainfor, params Object[] args)
         {
 
         }
 
-        public virtual void CheckOperationRelease<T>(Int64 userid, Int64 objecid, T extrainfor, Object[] param)
+        public virtual void CheckOperationRelease<T>(Int64 userid, Int64 objecid, T extrainfor, params Object[] args)
         {
 
         }
 
-        public virtual void CheckSyncCommond<T>(Int64 userid, string typ, string commond, T extrainfor, Object[] param = null)
+        public virtual void CheckSyncCommond<T>(Int64 userid, string typ, string commond, T extrainfor, params Object[] args)
         {
 
         }
 
-        public virtual void CheckChangeObjectAllOnce<T>(Int64 userid, Hashtable clientallonce, T extrainfor, Object[] param)
+        public virtual void CheckChangeObjectAllOnce<T>(Int64 userid, Hashtable clientallonce, T extrainfor, params Object[] args)
         {
 
         }
 
-        public virtual void CheckSyncClient<T>(T extrainfor, Object[] param)
+        public virtual void CheckSyncClient<T>(T extrainfor, params Object[] args)
         {
 
         }

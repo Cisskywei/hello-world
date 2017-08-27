@@ -219,13 +219,14 @@ namespace WisdomClassroom.ClassRoom
 
                     foreach (DictionaryEntry de in objects)
                     {
-                        if (!allobjects.ContainsKey((int)(de.Key)))
+                        int idkey = Convert.ToInt32(de.Key);
+                        if (!allobjects.ContainsKey(idkey))
                         {
                             // 服务器不包含该物体
                             continue;
                         }
 
-                        var o = allobjects[(int)de.Key];
+                        var o = allobjects[idkey];
 
                         if (o.locker < 0 || o.locker != teacher.selfid)
                         {
@@ -253,12 +254,12 @@ namespace WisdomClassroom.ClassRoom
                 }
 
                 // 同步客户端
-                msgObject.Add(so.selfid, so.Get3DInfor());
+                msgObject.Add(so.selfid.ToString(), so.Get3DInfor());
             }
 
             if(teacher._ischange)
             {
-                msgPlayer.Add(teacher.selfid, teacher.Get3DInfor());
+                msgPlayer.Add(teacher.selfid.ToString(), teacher.Get3DInfor());
             }
 
             // 同步客户端

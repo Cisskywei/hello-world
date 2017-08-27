@@ -12,9 +12,9 @@ namespace WisdomClassroom.ClassRoom
         public int selfid = -1;
 
         //教室信息
-        public CourseData courseinfor;
+        public CourseData courseinfor = new CourseData();
         // 课件场景原始信息
-        public SceneData originscene;
+        public SceneData originscene = new SceneData();
 
         public PlayerInScene teacher;
         public Dictionary<int, PlayerInScene> allstudents = new Dictionary<int, PlayerInScene>();
@@ -172,16 +172,13 @@ namespace WisdomClassroom.ClassRoom
                 _model = new BaseModel[7];
             }
 
-            if(_model.Length <= 0)
-            {
-                _model[0] = new WatchLearnModelSync();
-                _model[1] = new WatchLearnModelAsync();
-                _model[2] = new GuidanceModePersonal();
-                _model[3] = new GuidanceModeGroup();
-                _model[4] = new SelfTrainPersonal();
-                _model[5] = new SelfTrainGroup();
-                _model[6] = new SelfTrainAll();
-            }
+            _model[0] = new WatchLearnModelSync();
+            _model[1] = new WatchLearnModelAsync();
+            _model[2] = new GuidanceModePersonal();
+            _model[3] = new GuidanceModeGroup();
+            _model[4] = new SelfTrainPersonal();
+            _model[5] = new SelfTrainGroup();
+            _model[6] = new SelfTrainAll();
 
             _modelindex = 0;
         }
@@ -191,5 +188,60 @@ namespace WisdomClassroom.ClassRoom
         //{
 
         //}
+
+        // 测试
+        // 测试
+        public void InitScene(Hashtable data)
+        {
+
+            Console.WriteLine("初始化服务器场景数据 InitModel" + data.Count);
+
+            InitModel();
+
+            Console.WriteLine("初始化服务器场景数据" + data.Count);
+
+            foreach (DictionaryEntry de in data)
+            {
+                int id = Convert.ToInt32(de.Key);
+                if (allobjects.ContainsKey(id))
+                {
+                    allobjects[id].Change3DInfor((Hashtable)de.Value);
+                }
+                else
+                {
+                    ObjectInScene s = new ObjectInScene();
+                    s.selfid = id;
+                    s.Change3DInfor((Hashtable)de.Value);
+                    allobjects.Add(s.selfid, s);
+                }
+            }
+
+            Console.WriteLine("初始化服务器场景数据完毕");
+        }
+
+        public void ChangeModel(int modelid)
+        {
+            _modelindex = modelid;
+
+            Console.WriteLine("切换教学模式" + modelid);
+        }
+
+        public void Hold(int userid, int ibjectid)
+        {
+            Console.WriteLine("Hold");
+            _model[_modelindex].CheckOperationHold<string>(userid, ibjectid, string.Empty);
+        }
+
+        public void Release(int userid, int ibjectid)
+        {
+            Console.WriteLine("Release");
+            _model[_modelindex].CheckOperationRelease<string>(userid, ibjectid, string.Empty);
+        }
+
+        public void Sync(int userid,Hashtable data)
+        {
+            Console.WriteLine("同步场景数据" + data.Count);
+            _model[_modelindex].CheckChangeObjectAllOnce<string>(userid, data, string.Empty);
+        }
     }
 }

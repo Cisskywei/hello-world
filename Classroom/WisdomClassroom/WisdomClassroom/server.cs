@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using WisdomClassroom.ClassRoom;
 
 namespace WisdomClassroom
 {
@@ -66,6 +67,9 @@ namespace WisdomClassroom
         /// </summary>
         private static void add_necessary_model()
         {
+            NetworkMessage net = new NetworkMessage();
+            add_Hub_Model(NetworkMessage.selfmodelname, net);
+
             Console.WriteLine("添加基础且必须的model至Hub");
         }
 
