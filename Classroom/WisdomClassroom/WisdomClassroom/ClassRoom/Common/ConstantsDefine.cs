@@ -17,6 +17,7 @@ namespace WisdomClassroom.ClassRoom
             public static readonly string Net_Ret_Connector_func = "connectorfunc";
             public static readonly string Net_Ret_Scene_name = "scenename";
             public static readonly string Net_Ret_Class_id = "classid";
+            public static readonly string Net_Ret_Teacher_model = "model";
 
             public static readonly string Net_Ret_Id = "id";
             public static readonly string Net_Ret_Token = "token";

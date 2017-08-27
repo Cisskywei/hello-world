@@ -8,8 +8,6 @@ namespace WisdomClassroom.ClassRoom
 {
     class UserInfor
     {
-        // 网络连接相关
-        public string uuid;
         // 登陆返回数据
         public string id;
         public string name;
@@ -100,6 +98,12 @@ namespace WisdomClassroom.ClassRoom
 
         }
 
+        // 网络连接相关
+        public string uuid;
+
         public int roomid = -1;
+        public int groupid = -1;
+        public bool islogin = false;
+        public bool isenterlobby = false;
     }
 }

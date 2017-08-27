@@ -326,6 +326,7 @@ namespace WisdomClassroom.ClassRoom
                     Hashtable h = new Hashtable();
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, rr.selfid.ToString());
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, rr._modeltype.ToString());
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
 
                     hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);

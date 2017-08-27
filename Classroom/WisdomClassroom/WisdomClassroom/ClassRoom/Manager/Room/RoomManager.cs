@@ -34,8 +34,8 @@ namespace WisdomClassroom.ClassRoom
                 }
 
                 ClassRoom s = new ClassRoom();
-                //int roomid = (int)id;
-                //s.CreateScene(roomid);
+                int roomid = (int)id;
+                s.selfid = roomid;
                 allscenesbyid.Add(id, s);
 
                 ret = s;

@@ -55,11 +55,26 @@
     <Compile Include="ClassRoom\Common\ConstantsDefine.cs" />
     <Compile Include="ClassRoom\Common\Enums.cs" />
     <Compile Include="ClassRoom\Common\Structs.cs" />
+    <Compile Include="ClassRoom\Data\Course\CourseData.cs" />
+    <Compile Include="ClassRoom\Data\Scene\SceneData.cs" />
     <Compile Include="ClassRoom\Data\User\UserInfor.cs" />
     <Compile Include="ClassRoom\Manager\Login\Login.cs" />
     <Compile Include="ClassRoom\Manager\Room\RoomManager.cs" />
+    <Compile Include="ClassRoom\Mode\Base\BaseModel.cs" />
+    <Compile Include="ClassRoom\Mode\GuidanceModeGroup.cs" />
+    <Compile Include="ClassRoom\Mode\GuidanceModePersonal.cs" />
+    <Compile Include="ClassRoom\Mode\SelfTrainAll.cs" />
+    <Compile Include="ClassRoom\Mode\SelfTrainGroup.cs" />
+    <Compile Include="ClassRoom\Mode\SelfTrainPersonal.cs" />
+    <Compile Include="ClassRoom\Mode\WatchLearnModelAsync.cs" />
+    <Compile Include="ClassRoom\Mode\WatchLearnModelSync.cs" />
     <Compile Include="ClassRoom\Network\NetworkMessage.cs" />
+    <Compile Include="ClassRoom\Object\CommandInScene.cs" />
+    <Compile Include="ClassRoom\Object\ObjectInScene.cs" />
+    <Compile Include="ClassRoom\Object\PlayerInScene.cs" />
     <Compile Include="ClassRoom\Room\ClassRoom.cs" />
+    <Compile Include="ClassRoom\Room\Team.cs" />
+    <Compile Include="ClassRoom\Scene\Scene.cs" />
     <Compile Include="ClassRoom\Utility\Singleton.cs" />
     <Compile Include="server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,8 +83,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClassRoom\Mode\" />
-    <Folder Include="ClassRoom\Object\" />
+    <Folder Include="ClassRoom\Manager\Object\" />
     <Folder Include="Market\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

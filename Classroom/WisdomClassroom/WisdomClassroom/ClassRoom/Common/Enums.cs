@@ -20,6 +20,13 @@ namespace WisdomClassroom.ClassRoom
             Max = 16,
         }
 
+        public enum CharacterStatus
+        {
+            None = 0,
+            Ordinary,
+            Chosen,
+        }
+
         public enum PermissionVerifyStatus
         {
             None = 0,

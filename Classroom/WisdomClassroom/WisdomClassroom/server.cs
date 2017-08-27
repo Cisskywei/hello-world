@@ -12,6 +12,11 @@ namespace WisdomClassroom
     {
         static void Main(string[] args)
         {
+            //测试
+            args = new string[] { "D:\\programs\\baiduyun\\download\\myuse\\myuse\\abelkhan\\bin\\hello_world_config.txt", "lobby" };
+
+            Console.WriteLine("args ：" + args.Length);
+
             if (args.Length <= 0)
             {
                 return;
