@@ -14,6 +14,19 @@ namespace WisdomClassroom.ClassRoom
 
         private ArrayList _uuid_of_player = new ArrayList();
 
+        public override void InitModel(params object[] args)
+        {
+            if(args == null || args.Length <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene t = (PlayerInScene)args[0];
+            ArrayList u = (ArrayList)args[1];
+            Dictionary<int, ObjectInScene> a = (Dictionary<int, ObjectInScene>)args[2];
+            InitModel(t, u, a);
+        }
+
         public void InitModel(PlayerInScene t, ArrayList uuids, Dictionary<int, ObjectInScene> all)
         {
             if(allobjects.Count <= 0)
@@ -237,6 +250,8 @@ namespace WisdomClassroom.ClassRoom
                     }
                 }
 
+                Console.WriteLine("客户端一次性修改服务器数据 " + allobjects.Count);
+
             } while (false);
         }
 
@@ -268,6 +283,8 @@ namespace WisdomClassroom.ClassRoom
                 if (_uuid_of_player.Count > 0)
                 {
                     hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
+
+                    Console.WriteLine("同步客户端 " + msgObject.Count);
                 }
             }
 
@@ -298,6 +315,8 @@ namespace WisdomClassroom.ClassRoom
         {
             _syncstate = true;
             SyncClient(0);
+
+            Console.WriteLine("开始启动同步 ");
         }
 
         public override void StopSynclient()

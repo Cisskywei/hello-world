@@ -59,6 +59,12 @@ namespace WisdomClassroom.ClassRoom
                 }
             }
 
+            // 测试
+            if(player.selfid == 1)
+            {
+                player.permission = Enums.PermissionEnum.Teacher;
+            }
+
             if (player.permission == Enums.PermissionEnum.Teacher)
             {
                 // 登陆者是老师
@@ -181,13 +187,9 @@ namespace WisdomClassroom.ClassRoom
             _model[6] = new SelfTrainAll();
 
             _modelindex = 0;
+            _model[0].InitModel(new Object[] { teacher, _uuid_of_player, allobjects });
+            _model[0].StartSynclient();
         }
-
-        // 小组操作相关辅助函数
-        //private Team findteam(int userid)
-        //{
-
-        //}
 
         // 测试
         // 测试

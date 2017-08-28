@@ -14,7 +14,7 @@ namespace WisdomClassroom
         static void Main(string[] args)
         {
             //测试
-            args = new string[] { "D:\\programs\\baiduyun\\download\\myuse\\myuse\\abelkhan\\bin\\hello_world_config.txt", "lobby" };
+            args = new string[] { "C:\\Users\\Administrator\\Desktop\\server\\my_test_config.txt", "lobby" };
 
             Console.WriteLine("args ：" + args.Length);
 
