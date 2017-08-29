@@ -16,6 +16,9 @@ namespace veClassRoom.Market
 
         private static int _leader = -1;
 
+        private static Dictionary<Int64, ArrayList> _leaderstudent = new Dictionary<long, ArrayList>();
+        private static ArrayList _uuidstudents = new ArrayList();
+
         public void login(Int64 name, Int64 isleader)
         {
             var client_uuid = hub.hub.gates.current_client_uuid;
@@ -36,6 +39,24 @@ namespace veClassRoom.Market
             {
                 // 是 leader
                 _leader = (int)name;
+            }
+            else
+            {
+                if(isleader == 2)
+                {
+                    if (!_uuidstudents.Contains(client_uuid))
+                    {
+                        _uuidstudents.Add(client_uuid);
+                    }
+                    _leaderstudent.Add((int)name, _uuidstudents);
+                }
+                else if(isleader == 4)
+                {
+                    if(!_uuidstudents.Contains(client_uuid))
+                    {
+                        _uuidstudents.Add(client_uuid);
+                    }
+                }
             }
 
             Console.WriteLine(client_uuid + " -- " + allplayerlogin.Count);
@@ -104,6 +125,7 @@ namespace veClassRoom.Market
                     allplayerlogin.Remove(userid);
                 }
             }
+
         }
     }
 }

@@ -15,6 +15,20 @@ namespace WisdomClassroom.ClassRoom
     {
         public static string selfmodelname = "vrClass";
 
+        // 指令消息接口
+        public void Command(Int64 roomid, Int64 userid, ArrayList msg)
+        {
+            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
+
+            if (cr == null)
+            {
+                Console.WriteLine("cr == null --- Command");
+                return;
+            }
+
+            cr.Command(userid, msg);
+        }
+
         // 测试
         public void Enter(Int64 roomid, Int64 userid)
         {

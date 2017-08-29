@@ -191,6 +191,14 @@ namespace WisdomClassroom.ClassRoom
             _model[0].StartSynclient();
         }
 
+        // 指令操作
+        public void Command(Int64 userid, ArrayList msg)
+        {
+            // 指令可能只是在大厅操作
+
+            // 可能是在vr课件内部使用
+        }
+
         // 测试
         // 测试
         public void InitScene(Hashtable data)

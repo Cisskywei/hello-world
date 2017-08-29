@@ -39,6 +39,12 @@ namespace WisdomClassroom.ClassRoom
 
         }
 
+        // 统一指令分发
+        public virtual void Commond(Int64 userid, ArrayList msg)
+        {
+
+        }
+
         // 玩家离开
         public virtual void PlayerLeave(int userid)
         {
