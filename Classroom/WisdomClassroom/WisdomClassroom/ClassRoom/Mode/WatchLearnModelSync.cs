@@ -91,6 +91,7 @@ namespace WisdomClassroom.ClassRoom
                 {
                     o.locker = teacher.selfid;
                     ret = true;
+                    Console.WriteLine("token : " + teacher.selfid + "请求操作物体成功" + oid);
                 }
                 else
                 {
@@ -145,6 +146,7 @@ namespace WisdomClassroom.ClassRoom
                 if (o.locker < 0)
                 {
                     ret = false;
+                    Console.WriteLine("token : " + teacher.selfid + "重复请求释放物体" + oid);
                 }
                 else
                 {
@@ -154,7 +156,7 @@ namespace WisdomClassroom.ClassRoom
 
                         ret = true;
 
-                        Console.WriteLine("token : " + teacher.selfid + "重复请求释放物体" + oid);
+                        Console.WriteLine("token : " + teacher.selfid + "请求释放物体成功" + oid);
                     }
                     else
                     {
@@ -313,6 +315,12 @@ namespace WisdomClassroom.ClassRoom
 
         public override void StartSynclient()
         {
+            if(_syncstate)
+            {
+                Console.WriteLine("同步已经开启 ");
+                return;
+            }
+
             _syncstate = true;
             SyncClient(0);
 

@@ -16,11 +16,13 @@ namespace WisdomClassroom.ClassRoom
 
         public static Dictionary<int, UserInfor> allplayerlogin = new Dictionary<int, UserInfor>();
 
-        public void player_login(string password, string name)
+        public void player_login(string name, string password)
         {
             var client_uuid = hub.hub.gates.current_client_uuid;
 
             Console.WriteLine("login" + name + password);
+
+            Console.WriteLine("allplayerlogin count " + allplayerlogin.Count);
 
             // 判断是否重复登陆
             bool isrelogin = false;
@@ -32,7 +34,7 @@ namespace WisdomClassroom.ClassRoom
                     isrelogin = true;
                     u.uuid = client_uuid;
                     // 重复登陆
-                    hub.hub.gates.call_client(client_uuid, "cMsgConnect", "ret_reLogin", client_uuid);
+                    hub.hub.gates.call_client(client_uuid, NetConfig.client_module_name, NetConfig.reLogin_func, client_uuid);
                     break;
                 }
             }
@@ -88,41 +90,12 @@ namespace WisdomClassroom.ClassRoom
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, errormsg.message);
 
-                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                hub.hub.gates.call_client(tag, NetConfig.client_module_name, NetConfig.Error_func, h);
             }
             catch
             {
 
             }
-        }
-
-        // 用户从大厅进入课件 课件请求进入教室
-        public void player_login_courseware(string password, string name)
-        {
-          //  var client_uuid = hub.hub.gates.current_client_uuid;
-
-            //// 判断是否重复登陆
-            //foreach (UserInfor u in allplayerlogin.Values)
-            //{
-            //    if (u.name == name)
-            //    {
-            //        u.uuid = client_uuid;
-            //        Int64 id = Convert.ToInt64(u.user_id);
-            //        if (!StartupExeManager.getInstance().CheckPerson((int)id))
-            //        {
-            //            break;
-            //        }
-
-            //        int roomid = u.roomid;
-            //        RealRoom rr = RoomManager.getInstance().FindRoomById(roomid);
-            //        if (rr != null)
-            //        {
-            //            rr.player_login_courseware(id, client_uuid);
-            //        }
-            //        // 重复登陆
-            //        break;
-            //    }
-            //}
         }
 
         // 获取用户基本信息
@@ -159,7 +132,7 @@ namespace WisdomClassroom.ClassRoom
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, user.identity);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Avatar, user.avatar);
 
-                hub.hub.gates.call_client(tag, "cMsgConnect", "ret_msg", h);
+                hub.hub.gates.call_client(tag, NetConfig.client_module_name, NetConfig.Login_func, h);
             }
             catch
             { }
@@ -188,6 +161,7 @@ namespace WisdomClassroom.ClassRoom
 
         public void EnterLobby(string token, Int64 userid, Int64 duty)
         {
+            Console.WriteLine("EnterLobby " + token + userid + duty);
             switch (duty)
             {
                 case 1:
@@ -241,7 +215,7 @@ namespace WisdomClassroom.ClassRoom
                         h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
                     }
 
-                    hub.hub.gates.call_client(allplayerlogin[id].uuid, "cMsgConnect", "ret_msg", h);
+                    hub.hub.gates.call_client(allplayerlogin[id].uuid, NetConfig.client_module_name, NetConfig.Enter_Lab_func, h);
                 }
 
             }
@@ -329,7 +303,7 @@ namespace WisdomClassroom.ClassRoom
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, rr._modeltype.ToString());
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
 
-                    hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+                    hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Enter_Course_func, h);
                 }
             }
         }
@@ -356,7 +330,7 @@ namespace WisdomClassroom.ClassRoom
                 ClassRoom rr = RoomManager.getInstance().FindRoomById(roomid);
                 if (rr != null)
                 {
-         //           rr.classinfor.InitAllStudents(v, jsondata);
+                    rr.courseinfor.InitAllStudents(v, jsondata);
                 }
 
                 // 转换编码格式
@@ -378,7 +352,7 @@ namespace WisdomClassroom.ClassRoom
                     allplayerlogin.Remove(id);
                 }
 
-                hub.hub.gates.call_client(user.uuid, "cMsgConnect", "ret_msg", h);
+                hub.hub.gates.call_client(user.uuid, NetConfig.client_module_name, NetConfig.Enter_Course_func, h);
             }
             catch
             {
@@ -415,17 +389,9 @@ namespace WisdomClassroom.ClassRoom
             }
         }
 
-        public void player_exit(Int64 userid, Int64 roomid)
+        public void player_exit(Int64 roomid, Int64 userid)
         {
-            Console.WriteLine("用户退出 : " + " uuid:");
-
-            //int id = (int)userid;
-            //if (StartupExeManager.getInstance().CheckPerson((int)id))
-            //{
-            //    // 启动课件的退出 不移除玩家 和 房间
-            //    Console.WriteLine("启动课件的退出 不移除玩家 和 房间" + userid);
-            //    //           return;
-            //}
+            Console.WriteLine("用户退出 : " + " uuid:" + userid);
 
             // 退出场景
             ClassRoom rr = RoomManager.getInstance().FindRoomById((int)roomid);
@@ -441,7 +407,29 @@ namespace WisdomClassroom.ClassRoom
             // 登陆列表移除
             if (allplayerlogin.ContainsKey((int)userid))
             {
+                Console.WriteLine("allplayerlogin 移除用户 " + " uuid:" + allplayerlogin.Count);
                 allplayerlogin.Remove((int)userid);
+            }
+
+            Console.WriteLine("allplayerlogin 剩余数量 " + allplayerlogin.Count);
+        }
+
+        // 还未进入房间
+        public void play_exit_name(string name)
+        {
+            int id = -1;
+            foreach (UserInfor u in allplayerlogin.Values)
+            {
+                if (u.name == name)
+                {
+                    id = u.selfid;
+                    break;
+                }
+            }
+
+            if(id > 0)
+            {
+                allplayerlogin.Remove(id);
             }
         }
     }

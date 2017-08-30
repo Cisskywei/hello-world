@@ -12,6 +12,18 @@ namespace WisdomClassroom.ClassRoom
         public PlayerInScene teacher;
         public Dictionary<int, Team> groups = new Dictionary<int, Team>();
 
+        public override void InitModel(params object[] args)
+        {
+            if (args == null || args.Length <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene t = (PlayerInScene)args[0];
+            Dictionary<int, Team> a = (Dictionary< int, Team>)args[1];
+            InitModel(t, a);
+        }
+
         public void InitModel(PlayerInScene t, Dictionary<int, Team> all)
         {
             teacher = t;
@@ -204,6 +216,12 @@ namespace WisdomClassroom.ClassRoom
 
         public override void StartSynclient()
         {
+            if (_syncstate)
+            {
+                Console.WriteLine("同步已经开启 ");
+                return;
+            }
+
             _syncstate = true;
             SyncClient(0);
         }

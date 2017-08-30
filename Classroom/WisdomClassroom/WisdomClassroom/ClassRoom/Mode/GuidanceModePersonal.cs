@@ -16,8 +16,27 @@ namespace WisdomClassroom.ClassRoom
 
         private ArrayList _uuid_of_player = new ArrayList();
 
-        public void InitModel(PlayerInScene t, PlayerInScene s, Dictionary<int, PlayerInScene> all, Dictionary<int, ObjectInScene> allo)
+        public override void InitModel(params object[] args)
         {
+            if (args == null || args.Length <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene t = (PlayerInScene)args[0];
+            int s = (int)args[1];
+            Dictionary<int, PlayerInScene> a = (Dictionary<int, PlayerInScene>)args[2];
+            Dictionary<int, ObjectInScene> o = (Dictionary<int, ObjectInScene>)args[3];
+            InitModel(t, s, a, o);
+        }
+
+        public void InitModel(PlayerInScene t, int s, Dictionary<int, PlayerInScene> all, Dictionary<int, ObjectInScene> allo)
+        {
+            if (!all.ContainsKey(s))
+            {
+                return;
+            }
+
             // 初始化人物
             if (allstudents.Count <= 0)
             {
@@ -74,7 +93,7 @@ namespace WisdomClassroom.ClassRoom
             }
 
             teacher = t;
-            student = s;
+            student = all[s];
 
             if (!allstudents.ContainsKey(teacher.selfid))
             {
@@ -375,6 +394,12 @@ namespace WisdomClassroom.ClassRoom
 
         public override void StartSynclient()
         {
+            if (_syncstate)
+            {
+                Console.WriteLine("同步已经开启 ");
+                return;
+            }
+
             _syncstate = true;
             SyncClient(0);
         }

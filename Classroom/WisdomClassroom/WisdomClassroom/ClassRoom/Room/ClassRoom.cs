@@ -27,6 +27,15 @@ namespace WisdomClassroom.ClassRoom
         private int _modelindex = 0;
         private BaseModel[] _model;
 
+        // 指令接收分发
+        private CommandReceive _receiver = new CommandReceive();
+
+        // 房间初始化
+        public void InitRoom()
+        {
+            IninCommandListen();
+        }
+
         public int Enter(UserInfor user)
         {
             if (user == null)
@@ -171,7 +180,7 @@ namespace WisdomClassroom.ClassRoom
         }
 
         //模式初始化  在进入课件的时候初始化
-        public void InitModel()
+        private void InitModel()
         {
             if(_model == null)
             {
@@ -191,18 +200,56 @@ namespace WisdomClassroom.ClassRoom
             _model[0].StartSynclient();
         }
 
+        // 初始化指令监听函数  只处理服务器需要处理的消息
+        private void IninCommandListen()
+        {
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.InitScene, InitScene);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Hold, Hold);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Release, Release);
+        }
+
         // 指令操作
         public void Command(Int64 userid, ArrayList msg)
         {
-            // 指令可能只是在大厅操作
+            if(!_receiver.Receive((int)userid,msg))
+            {
+                // 服务器没有需要处理的消息 则直接广播
 
-            // 可能是在vr课件内部使用
+                // 现在根据模式广播
+                if (_modelindex < 0 || _model[_modelindex] == null)
+                {
+                    Console.WriteLine("消息广播给所有玩家");
+                    if (_uuid_of_player.Count > 0)
+                    {
+                        hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (msg));
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("消息传递给当前模式" + _modelindex);
+                    _model[_modelindex].Commond(userid, msg);
+                }
+            }
+            
         }
 
-        // 测试
-        // 测试
-        public void InitScene(Hashtable data)
+        public void ChangeClientAllOnce(int userid, Hashtable data)
         {
+            Console.WriteLine("同步场景数据" + data.Count);
+            _model[_modelindex].CheckChangeObjectAllOnce<string>(userid, data, string.Empty);
+        }
+
+        // 服务器处理函数
+        public void InitScene(int userid, ArrayList msg)
+        {
+            if(teacher == null || userid != teacher.selfid)
+            {
+                return;
+            }
+
+            Hashtable data = (Hashtable)msg[2];
 
             Console.WriteLine("初始化服务器场景数据 InitModel" + data.Count);
 
@@ -229,29 +276,126 @@ namespace WisdomClassroom.ClassRoom
             Console.WriteLine("初始化服务器场景数据完毕");
         }
 
-        public void ChangeModel(int modelid)
+        public void ChangeModel(int userid, ArrayList msg)
         {
-            _modelindex = modelid;
+            Int64 modelid = (Int64)msg[2];
+
+            ArrayList args = null;
+            if (msg.Count > 3)
+            {
+                args = (ArrayList)msg[3];
+            }
+            
+            Enums.TeachingMode tm = (Enums.TeachingMode)modelid;
+
+            if(_modeltype == tm)
+            {
+                return;
+            }
+
+            int oldmodelid = _modelindex;
+
+            switch (tm)
+            {
+                case Enums.TeachingMode.WatchLearnModel_Sync:
+                    _modelindex = 0;
+                    _model[0].InitModel(new Object[] { teacher, _uuid_of_player, allobjects });
+                    _model[0].StartSynclient();
+                    break;
+                case Enums.TeachingMode.WatchLearnModel_Async:
+                    _modelindex = 1;
+                    _model[1].InitModel(new Object[] { teacher, allstudents, allobjects });
+                    _model[1].StartSynclient();
+                    break;
+                case Enums.TeachingMode.GuidanceMode_Personal:
+                    if(args == null)
+                    {
+                        return;
+                    }
+                    Int64 person = (Int64)args[0];
+                    if (!allstudents.ContainsKey((int)person))
+                    {
+                        return;
+                    }
+                    _modelindex = 2;
+                    _model[2].InitModel(new Object[] { teacher, (int)person, allstudents, allobjects });
+                    _model[2].StartSynclient();
+                    break;
+                case Enums.TeachingMode.GuidanceMode_Group:
+                    if (args == null)
+                    {
+                        return;
+                    }
+                    Int64 groupid = (Int64)args[0];
+                    if(groups == null || !groups.ContainsKey((int)groupid))
+                    {
+                        return;
+                    }
+                    _modelindex = 3;
+                    _model[3].InitModel(new Object[] { teacher, groups[(int)groupid].allstudents, allstudents, allobjects });
+                    _model[3].StartSynclient();
+                    break;
+                case Enums.TeachingMode.SelfTrain_Personal:
+                    if (args == null)
+                    {
+                        return;
+                    }
+                    Int64 p = (Int64)args[0];
+                    if(!allstudents.ContainsKey((int)p))
+                    {
+                        return;
+                    }
+                    _modelindex = 4;
+                    _model[4].InitModel(new Object[] { teacher, allstudents[(int)p], allobjects });
+                    _model[4].StartSynclient();
+                    break;
+                case Enums.TeachingMode.SelfTrain_Group:
+                    if (args == null)
+                    {
+                        return;
+                    }
+                    Int64 g = (Int64)args[0];
+                    if (groups == null || !groups.ContainsKey((int)g))
+                    {
+                        return;
+                    }
+                    _modelindex = 5;
+                    _model[5].InitModel(new Object[] { teacher, groups[(int)g]});
+                    _model[5].StartSynclient();
+                    break;
+                case Enums.TeachingMode.SelfTrain_All:
+                    _modelindex = 6;
+                    _model[6].InitModel(new Object[] { teacher, allstudents, allobjects});
+                    _model[6].StartSynclient();
+                    break;
+                default:
+                    break;
+            }
+
+            _model[oldmodelid].StopSynclient();
+
+            _modeltype = tm;
+
+            //hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retOnlinePlayer", (modelid));
 
             Console.WriteLine("切换教学模式" + modelid);
         }
 
-        public void Hold(int userid, int ibjectid)
+        public void Hold(int userid, ArrayList msg)
         {
+            Int64 ibjectid = (Int64)msg[2];
+            _model[_modelindex].CheckOperationHold<string>(userid, (int)ibjectid, string.Empty);
+
             Console.WriteLine("Hold");
-            _model[_modelindex].CheckOperationHold<string>(userid, ibjectid, string.Empty);
         }
 
-        public void Release(int userid, int ibjectid)
+        public void Release(int userid, ArrayList msg)
         {
+            Int64 ibjectid = (Int64)msg[2];
+            _model[_modelindex].CheckOperationRelease<string>(userid, (int)ibjectid, string.Empty);
+
             Console.WriteLine("Release");
-            _model[_modelindex].CheckOperationRelease<string>(userid, ibjectid, string.Empty);
         }
 
-        public void Sync(int userid,Hashtable data)
-        {
-            Console.WriteLine("同步场景数据" + data.Count);
-            _model[_modelindex].CheckChangeObjectAllOnce<string>(userid, data, string.Empty);
-        }
     }
 }

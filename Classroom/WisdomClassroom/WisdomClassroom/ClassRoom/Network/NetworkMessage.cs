@@ -15,6 +15,33 @@ namespace WisdomClassroom.ClassRoom
     {
         public static string selfmodelname = "vrClass";
 
+        // 登陆相关
+        public void PlayerLogin(string name, string password)
+        {
+            Login.getInstance().player_login(name, password);
+        }
+
+        public void PlayerEnterLab(string token, Int64 userid, Int64 duty)
+        {
+            Login.getInstance().EnterLobby(token, userid, duty);
+        }
+
+        public void PlayerEnterCourse(Int64 userid, string uuid, Int64 courseid)
+        {
+            Login.getInstance().EnterCourse(userid, uuid, courseid);
+        }
+
+        public void PlayerExit(Int64 roomid,Int64 userid)
+        {
+            Login.getInstance().player_exit(roomid,userid);
+        }
+
+        //还未进入房间的退出
+        public void PlayerExitByName(string name)
+        {
+            Login.getInstance().play_exit_name(name);
+        }
+
         // 指令消息接口
         public void Command(Int64 roomid, Int64 userid, ArrayList msg)
         {
@@ -22,47 +49,13 @@ namespace WisdomClassroom.ClassRoom
 
             if (cr == null)
             {
-                Console.WriteLine("cr == null --- Command");
                 return;
             }
 
             cr.Command(userid, msg);
         }
 
-        // 测试
-        public void Enter(Int64 roomid, Int64 userid)
-        {
-            var client_uuid = hub.hub.gates.current_client_uuid;
-
-            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
-
-            if (cr == null)
-            {
-                cr = RoomManager.getInstance().CreateRoomById((int)roomid);
-            }
-
-            UserInfor user = new UserInfor();
-            user.selfid = (int)userid;
-            user.uuid = client_uuid;
-            user.roomid = (int)roomid;
-
-            cr.Enter(user);
-        }
-
-        public void InitScene(Int64 roomid, Hashtable data)
-        {
-            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
-
-            if(cr == null)
-            {
-                Console.WriteLine("cr == null --- InitScene");
-                return;
-            }
-            Console.WriteLine("cr != null --- InitScene" + cr.selfid);
-            cr.InitScene(data);
-        }
-
-        public void ChangeModel(Int64 roomid, Int64 model)
+        public void ChangeClientAllOnce(Int64 roomid, Int64 userid, Hashtable data)
         {
             ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
 
@@ -71,43 +64,9 @@ namespace WisdomClassroom.ClassRoom
                 return;
             }
 
-            cr.ChangeModel((int)model);
+            cr.ChangeClientAllOnce((int)userid, data);
         }
 
-        public void Hold(Int64 roomid, Int64 userid, Int64 ibjectid)
-        {
-            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
-
-            if (cr == null)
-            {
-                return;
-            }
-
-            cr.Hold((int)userid,(int)ibjectid);
-        }
-
-        public void Release(Int64 roomid, Int64 userid, Int64 ibjectid)
-        {
-            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
-
-            if (cr == null)
-            {
-                return;
-            }
-
-            cr.Release((int)userid, (int)ibjectid);
-        }
-
-        public void Sync(Int64 roomid, Int64 userid, Hashtable data)
-        {
-            ClassRoom cr = RoomManager.getInstance().FindRoomById((int)roomid);
-
-            if (cr == null)
-            {
-                return;
-            }
-
-            cr.Sync((int)userid, data);
-        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

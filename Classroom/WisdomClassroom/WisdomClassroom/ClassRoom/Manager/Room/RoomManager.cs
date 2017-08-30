@@ -30,12 +30,14 @@ namespace WisdomClassroom.ClassRoom
                 if (allscenesbyid.ContainsKey(id))
                 {
                     ret = allscenesbyid[id];
+            //        ret.InitRoom();
                     break;
                 }
 
                 ClassRoom s = new ClassRoom();
                 int roomid = (int)id;
                 s.selfid = roomid;
+                s.InitRoom();
                 allscenesbyid.Add(id, s);
 
                 ret = s;
@@ -52,7 +54,7 @@ namespace WisdomClassroom.ClassRoom
                 ClassRoom rr = allscenesbyid[id];
                 if (rr != null)
                 {
-            //        rr.ResetClassRoom();
+                    rr.Clear();
                 }
                 allscenesbyid.Remove(id);
             }
@@ -82,7 +84,7 @@ namespace WisdomClassroom.ClassRoom
             {
                 foreach (ClassRoom rr in allscenesbyid.Values)
                 {
-             //       rr.StopSyncClient();
+                    rr.Clear();
                 }
                 allscenesbyid.Clear();
             }

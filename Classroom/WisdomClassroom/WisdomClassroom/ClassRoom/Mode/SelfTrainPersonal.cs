@@ -15,6 +15,19 @@ namespace WisdomClassroom.ClassRoom
 
         private ArrayList _uuid_of_player = new ArrayList();
 
+        public override void InitModel(params object[] args)
+        {
+            if (args == null || args.Length <= 0)
+            {
+                return;
+            }
+
+            PlayerInScene t = (PlayerInScene)args[0];
+            PlayerInScene s = (PlayerInScene)args[1];
+            Dictionary<int, ObjectInScene> o = (Dictionary<int, ObjectInScene>)args[2];
+            InitModel(t, s, o);
+        }
+
         public void InitModel(PlayerInScene t, PlayerInScene s, Dictionary<int, ObjectInScene> allo)
         {
             // 初始化物体
@@ -314,6 +327,12 @@ namespace WisdomClassroom.ClassRoom
 
         public override void StartSynclient()
         {
+            if (_syncstate)
+            {
+                Console.WriteLine("同步已经开启 ");
+                return;
+            }
+
             _syncstate = true;
             SyncClient(0);
         }

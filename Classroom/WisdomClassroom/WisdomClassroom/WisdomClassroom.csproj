@@ -58,6 +58,7 @@
     <Compile Include="ClassRoom\Data\Course\CourseData.cs" />
     <Compile Include="ClassRoom\Data\Scene\SceneData.cs" />
     <Compile Include="ClassRoom\Data\User\UserInfor.cs" />
+    <Compile Include="ClassRoom\Manager\Command\CommandManager.cs" />
     <Compile Include="ClassRoom\Manager\Login\Login.cs" />
     <Compile Include="ClassRoom\Manager\Room\RoomManager.cs" />
     <Compile Include="ClassRoom\Mode\Base\BaseModel.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="ClassRoom\Mode\SelfTrainPersonal.cs" />
     <Compile Include="ClassRoom\Mode\WatchLearnModelAsync.cs" />
     <Compile Include="ClassRoom\Mode\WatchLearnModelSync.cs" />
+    <Compile Include="ClassRoom\Network\Command\CommandDefine.cs" />
+    <Compile Include="ClassRoom\Network\Command\CommandReceive.cs" />
+    <Compile Include="ClassRoom\Network\Command\CommandSend.cs" />
+    <Compile Include="ClassRoom\Network\NetConfig.cs" />
     <Compile Include="ClassRoom\Network\NetworkMessage.cs" />
     <Compile Include="ClassRoom\Object\CommandInScene.cs" />
     <Compile Include="ClassRoom\Object\ObjectInScene.cs" />
