@@ -1,0 +1,239 @@
+fileFormatVersion: 2
+guid: 1e50716b0860c8a4f8c93f9776a9d4b5
+timeCreated: 1492421289
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: 24 Knoll Cyclone table D912
+    100002: Box001
+    100004: Box002
+    100006: Box005
+    100008: Box009
+    100010: Box010
+    100012: Box011
+    100014: Box012
+    100016: Box013
+    100018: Box015
+    100020: Box016
+    100022: Box017
+    100024: Box018
+    100026: Box019
+    100028: Box020
+    100030: Box021
+    100032: Box023
+    100034: Box024
+    100036: Box025
+    100038: Box026
+    100040: Box027
+    100042: Cylinder001
+    100044: xiadele_calligaris_claire026
+    100046: xiadele_calligaris_claire027
+    100048: xiadele_calligaris_claire028
+    100050: xiadele_calligaris_claire029
+    100052: xiadele_calligaris_claire030
+    100054: xiadele_calligaris_claire031
+    100056: xiadele_calligaris_claire032
+    100058: xiadele_calligaris_claire033
+    100060: xiadele_calligaris_claire034
+    100062: xiadele_calligaris_claire035
+    100064: //RootNode
+    400000: 24 Knoll Cyclone table D912
+    400002: Box001
+    400004: Box002
+    400006: Box005
+    400008: Box009
+    400010: Box010
+    400012: Box011
+    400014: Box012
+    400016: Box013
+    400018: Box015
+    400020: Box016
+    400022: Box017
+    400024: Box018
+    400026: Box019
+    400028: Box020
+    400030: Box021
+    400032: Box023
+    400034: Box024
+    400036: Box025
+    400038: Box026
+    400040: Box027
+    400042: Cylinder001
+    400044: xiadele_calligaris_claire026
+    400046: xiadele_calligaris_claire027
+    400048: xiadele_calligaris_claire028
+    400050: xiadele_calligaris_claire029
+    400052: xiadele_calligaris_claire030
+    400054: xiadele_calligaris_claire031
+    400056: xiadele_calligaris_claire032
+    400058: xiadele_calligaris_claire033
+    400060: xiadele_calligaris_claire034
+    400062: xiadele_calligaris_claire035
+    400064: //RootNode
+    2300000: 24 Knoll Cyclone table D912
+    2300002: Box001
+    2300004: Box002
+    2300006: Box005
+    2300008: Box009
+    2300010: Box010
+    2300012: Box011
+    2300014: Box012
+    2300016: Box013
+    2300018: Box015
+    2300020: Box016
+    2300022: Box017
+    2300024: Box018
+    2300026: Box019
+    2300028: Box020
+    2300030: Box021
+    2300032: Box023
+    2300034: Box024
+    2300036: Box025
+    2300038: Box026
+    2300040: Box027
+    2300042: Cylinder001
+    2300044: xiadele_calligaris_claire026
+    2300046: xiadele_calligaris_claire027
+    2300048: xiadele_calligaris_claire028
+    2300050: xiadele_calligaris_claire029
+    2300052: xiadele_calligaris_claire030
+    2300054: xiadele_calligaris_claire031
+    2300056: xiadele_calligaris_claire032
+    2300058: xiadele_calligaris_claire033
+    2300060: xiadele_calligaris_claire034
+    2300062: xiadele_calligaris_claire035
+    3300000: 24 Knoll Cyclone table D912
+    3300002: Box001
+    3300004: Box002
+    3300006: Box005
+    3300008: Box009
+    3300010: Box010
+    3300012: Box011
+    3300014: Box012
+    3300016: Box013
+    3300018: Box015
+    3300020: Box016
+    3300022: Box017
+    3300024: Box018
+    3300026: Box019
+    3300028: Box020
+    3300030: Box021
+    3300032: Box023
+    3300034: Box024
+    3300036: Box025
+    3300038: Box026
+    3300040: Box027
+    3300042: Cylinder001
+    3300044: xiadele_calligaris_claire026
+    3300046: xiadele_calligaris_claire027
+    3300048: xiadele_calligaris_claire028
+    3300050: xiadele_calligaris_claire029
+    3300052: xiadele_calligaris_claire030
+    3300054: xiadele_calligaris_claire031
+    3300056: xiadele_calligaris_claire032
+    3300058: xiadele_calligaris_claire033
+    3300060: xiadele_calligaris_claire034
+    3300062: xiadele_calligaris_claire035
+    4300000: Box021
+    4300002: xiadele_calligaris_claire032
+    4300004: Box025
+    4300006: xiadele_calligaris_claire035
+    4300008: Box020
+    4300010: Box023
+    4300012: Box027
+    4300014: Box024
+    4300016: xiadele_calligaris_claire033
+    4300018: xiadele_calligaris_claire034
+    4300020: Box026
+    4300022: Box019
+    4300024: Cylinder001
+    4300026: xiadele_calligaris_claire031
+    4300028: xiadele_calligaris_claire027
+    4300030: xiadele_calligaris_claire030
+    4300032: Box009
+    4300034: Box010
+    4300036: Box011
+    4300038: Box013
+    4300040: Box015
+    4300042: Box016
+    4300044: Box012
+    4300046: xiadele_calligaris_claire028
+    4300048: Box017
+    4300050: Box018
+    4300052: xiadele_calligaris_claire026
+    4300054: xiadele_calligaris_claire029
+    4300056: Box001
+    4300058: Box002
+    4300060: Box005
+    4300062: 24 Knoll Cyclone table D912
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2.8
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

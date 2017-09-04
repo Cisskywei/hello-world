@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
+    <ProjectGuid>{5A241EEB-1DEE-77AB-EFA4-C539070BB814}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>Assets</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_1;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>D:/programs/Unity3D/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>D:/programs/Unity3D/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\EasyPaint\Scripts\EP_DrawPad.cs" />
+     <Compile Include="Assets\EasyPaint\Scripts\EP_DrawPadRT.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\Controller.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\FPSController.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\JoyStick.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\MouseOrbit.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\SailController.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\UI.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\WaypointCircuit.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\Demo\WaypointProgressTracker.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FAntialiasing.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FBuoyancyBody.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FBuoyancyPart.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FClouds.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FColorCorrection.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FGlareEffect.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FOcean.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FOceanGrid.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FPostEffectsBase.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FReflection.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FScaleScreen.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FSunShafts.cs" />
+     <Compile Include="Assets\FastOcean\Scripts\FUnderWater.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventCaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventData.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ColliderEventInterfaces.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ColliderEvent\ExecuteColliderEvents.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\Pointer3DEventData.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\Pointer3DInputModule.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaySegmentGenerator\Base\BaseRaySegmentGenerator.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaySegmentGenerator\Base\IRaySegmentGenerator.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaySegmentGenerator\DefaultGenerator.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaySegmentGenerator\ProjectileGenerator.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaySegmentGenerator\ProjectionGenerator.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\Base\BaseRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\Base\IRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\CanvasRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\CanvasRaycastTarget.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\GraphicRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\Physics2DRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\RaycastMethod\PhysicsRaycastMethod.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\Raycaster\Base\BaseFallbackCamRaycaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\Raycaster\Base\BaseMultiMethodRaycaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\Raycaster\Pointer3DRaycaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\StandaloneRaycaster\StandaloneEventData.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Pointer3D\StandaloneRaycaster\StandaloneRaycaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Base\BasePoseModifier.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Base\BasePoseTracker.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Base\IPoseModifier.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Base\IPoseTracker.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Pose.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseModifiers\PoseEaser.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseModifiers\PoseFreezer.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseModifiers\PoseStablizer.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseTracker.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\ChangeProp.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\IndexedSet.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\IndexedTable.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\OrderedIndexedSet.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\OrderedIndexedTable.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\DictionaryPool.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\IndexedSetPool.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\ListPool.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\ObjectPool.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\Utility\FlagsFromEnumAttribute.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\2.2DDragDrop\Scripts\DragImage.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\2.2DDragDrop\Scripts\DropImage.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\3.3DDrag\Scripts\Draggable.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\3.3DDrag\Scripts\PlayGroundManager.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\4.Teleport\Scripts\ImageAlphaRaycastFilter.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\5.ColliderEvent\Scripts\GravitySwitch.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\5.ColliderEvent\Scripts\ResetButton.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\6.ControllerManagerSample\Scripts\ChangeMaterialToButtonsColor.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\6.ControllerManagerSample\Scripts\ShowMenuOnClick.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\6.ControllerManagerSample\Scripts\SpawnObjectOnTriggerExit.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\DeviceInfoUIController.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\DeviceScanner.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\MappingItemUIController.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\RoleMapStatusUIController.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\SaveLoadBindingsUIController.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\7.RoleBindingExample\Scripts\ToggleButtonUIController.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\BasicGrabbable.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ControllerManagerSample.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ExternalCameraHook.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\GuideLineDrawer.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\MaterialChanger.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\OverlayKeyboardSample.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\RenderModelHook.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ReticlePoser.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Teleportable.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ViveRoleBindingsHelper.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveColliderEvent\ViveColliderEventCaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveColliderEvent\ViveColliderEventData.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ControllerState.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ViveInput.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ViveInputStatic.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePose.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePoseGet.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePoseTracker.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\ViveRigidPoseTracker.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRaycaster\VivePointerEventData.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRaycaster\ViveRaycaster.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\BodyRole.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\DeviceRole.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\HandRole.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\TrackerRole.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRole.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleEnum.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleMap.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleMapHandler.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleProperty.cs" />
+     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleSetter.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\GraphAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\JointAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\NodeMenuItemAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\OneWayAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\JointType.cs" />
+     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\ScriptableObjectNode.cs" />
+     <Compile Include="Assets\PaintCraft\BrushPack\Advanced\TrailBrush\SetDifferentMaterials.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\BrushColorToggleController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\ExitToGalleryByExitButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\IconButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\LoadSceneButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\LoadingTextController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\MoveScrollContentButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\NextPageIconRotation.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\OpenURLButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\ColoringBook\Scripts\SplitScreenSwitcher.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\DrawOnExistingImage\SwitchRegionsToggleController.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\DrawingObjects\RotateAroundZ.cs" />
+     <Compile Include="Assets\PaintCraft\Demo\OnePlayerBasic\RectToCanvasPosition.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\AnalyticsWrapper.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\AppData.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\Configs\AdvancedPageConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\Configs\BlankPageConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\Configs\ColoringPageConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\Configs\PageConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\Configs\StreamingColoringPageConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\GlitterCameraEffect.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\ICanvasCommand.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\SnapshotCommand.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\SnapshotData.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\SnapshotPool.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Canvas\UndoManager.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\BackLayerController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\CameraMovementController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\CameraSizeHandler.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\CanvasCameraController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\CanvasController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\DrawingGameObjectController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\InputController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\OutlineLayerController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\ScreenCameraController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Controllers\SplitScreenCameraAspectController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\DisableSimulateMouseAsTouch.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\FullScreenWinFixer.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Brush.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\BrushContext.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\BrushFloatProperty.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\AlignAlongPath.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\BindScaleToVelocity.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\CameraControllFilter.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\ConvertAllBasePointsToNormal.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\DrawFirstPoint.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\FilterWithNextNode.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\FloodFillFilter.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\IgnorePositionsCloseThanSpacing.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Interpolators\LinearInterpolator.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Interpolators\SplineInterpolator.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Material\BindTileTexToLineConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Material\BindTileTexToStartImage.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Material\SetMaterial.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Material\SyncTextureRatioWithCanvas.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindColorToDefaultCanvasColor.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindColorToLineConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindColorToScale.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindHueOffsetToVelocity.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindMainTexToLineConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindScaleToLineConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindScaleToVelocity.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\PropertyBinders\BindSizeToSourceTexture.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\JitterPosition.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\JitterScale.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\MoveToRandomOffset.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomClippingMaskOnBegining.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomColor.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomHue.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomRotation.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomScale.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Randomizers\RandomTileTexOffsetOnBegining.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\RemoveAppliedPointsExceptLast.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\RemoveDuplicateLastInputPositions.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Render\RenderSwatch.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Render\RenderSwatchCB.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\Render\RenderSwatchWithPointMaterial.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\SetFixedAlpha.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\SetLastPointReadyToApply.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\SetPointStatus.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Filters\SetReadyAllPointsExceptLast.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\IFilter.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\LineConfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\Point.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\PointColor.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\PointStatus.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Tools\SpacingProperty.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\BrushDropDownController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\ChangeBrushOnClickController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\ChangeColorOnClickController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\ChangeLineTextureOnClickController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\DisableToggleGraphicThenOn.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\FullScreenButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\OpenSceneOnClickController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\RedoActiveButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\SetActivePageconfig.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\Sliders\BrushAlphaSliderController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\Sliders\BrushHueSliderController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\Sliders\BrushSizeSliderController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\Sliders\BrushSpacingSliderController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\Sliders\SliderValueBinder.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\UIControllers\UndoActiveButtonController.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\ColorUtil.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\EnumFlagsAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\GOUtil.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\MaterialCache.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\MathUtil.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\MeshUtil.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\TexturePathAttribute.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\TextureUtil.cs" />
+     <Compile Include="Assets\PaintCraft\Engine\Scripts\Utils\Tween.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Scripts\Drawing3DController.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Scripts\PaintcraftCanvas3DPlane.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Scripts\PaintcraftKeyboardControls.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Scripts\SwitchColorByKeyboardButtons.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Characters\FirstPersonCharacter\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\CurveControlledBob.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\FOVKick.cs" />
+     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\LerpControlledBob.cs" />
+     <Compile Include="Assets\Scripts\Common\Config.cs" />
+     <Compile Include="Assets\Scripts\Common\Enums.cs" />
+     <Compile Include="Assets\Scripts\DebugZero.cs" />
+     <Compile Include="Assets\Scripts\DownLoad\HttpDownLoad.cs" />
+     <Compile Include="Assets\Scripts\EventSystem\EventDispatcher.cs" />
+     <Compile Include="Assets\Scripts\EventSystem\EventManager.cs" />
+     <Compile Include="Assets\Scripts\EventSystem\EventSystemDefine.cs" />
+     <Compile Include="Assets\Scripts\EventSystem\EventSystemTester.cs" />
+     <Compile Include="Assets\Scripts\EventSystem\IEventListener.cs" />
+     <Compile Include="Assets\Scripts\JustTest.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Class\DataDefine\DataType.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Class\UserInfor.cs" />
+     <Compile Include="Assets\Scripts\NetFram\CommonDefine\NetEnums.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Core\MainThreadClient.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Core\MsgModule.cs" />
+     <Compile Include="Assets\Scripts\NetFram\EventSystem\EventsDispatcher.cs" />
+     <Compile Include="Assets\Scripts\NetFram\EventSystem\EventsManager.cs" />
+     <Compile Include="Assets\Scripts\NetFram\EventSystem\EventsSystemDefine.cs" />
+     <Compile Include="Assets\Scripts\NetFram\EventSystem\EventsSystemTester.cs" />
+     <Compile Include="Assets\Scripts\NetFram\EventSystem\IEventsListener.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Handler\LoginHandler.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Help\Singleton.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Help\TimeCountDown.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Http\HttpHelp.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Interface\interfaceF.cs" />
+     <Compile Include="Assets\Scripts\NetFram\NetConfig.cs" />
+     <Compile Include="Assets\Scripts\NetFram\NetWrap\NetBaseBehaviour.cs" />
+     <Compile Include="Assets\Scripts\NetFram\NetWrap\NetMainLoop.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\ClassRoom\ClassRoom.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\ClassRoom\VRDemo.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\CollectionObject.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Login\DefaultLogin.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Login\EnterCourse.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Login\EnterLobby.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Player\PlayerShowManager.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Player\SceneObject.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Player\SceneObjectServer.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Player\ScenePlayer.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\SceneConfig.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\CommondRecive.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\ReciveObjectOnce.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SendObjectOnce.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncManager.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncPlayer.cs" />
+     <Compile Include="Assets\Scripts\NetFram\Tools\JsonDataHelp.cs" />
+     <Compile Include="Assets\Scripts\OutUI\CourseContent\ContentItem.cs" />
+     <Compile Include="Assets\Scripts\OutUI\CourseContent\CourseContent.cs" />
+     <Compile Include="Assets\Scripts\OutUI\CourseContent\Teaching.cs" />
+     <Compile Include="Assets\Scripts\OutUI\CourseList.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\ClassInfor.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\ClassManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\ContentInfor.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\CourseContentManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\DownLoadDataManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Data\DownLoadItemInfor.cs" />
+     <Compile Include="Assets\Scripts\OutUI\DocumentShow\DocumentShow.cs" />
+     <Compile Include="Assets\Scripts\OutUI\DocumentShow\FileDataItem.cs" />
+     <Compile Include="Assets\Scripts\OutUI\DocumentShow\FileDataListUI.cs" />
+     <Compile Include="Assets\Scripts\OutUI\FileManager\FileManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\FileManager\FileOpenWrite.cs" />
+     <Compile Include="Assets\Scripts\OutUI\FileManager\PPTToPicture.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Login.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OpenFile\OpenCourseWare.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OpenFile\OpenFileManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OpenFile\OpenVrExe.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OpenFile\PlayOrdinaryVideo.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OpenFile\PlayPanoramicVideo.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OutUIBase.cs" />
+     <Compile Include="Assets\Scripts\OutUI\OutUiManager.cs" />
+     <Compile Include="Assets\Scripts\OutUI\PPt\PPtShowUI.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Palette\BrushPen.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Palette\Draw3DPad.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Palette\DrawPadRT.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Palette\PlaetteCtrl.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\ChooseData.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\ClassPrepare.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\Member.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\MemberInfor.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\PlayerDownLoadIcon.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\Push.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Prepare\PushInfor.cs" />
+     <Compile Include="Assets\Scripts\OutUI\PushData\PushDataItem.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Student\DownLoadDataUI.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Student\DownLoadItem.cs" />
+     <Compile Include="Assets\Scripts\OutUI\Student\StudentUIManager.cs" />
+     <Compile Include="Assets\Scripts\UI\Data\GroupInfor.cs" />
+     <Compile Include="Assets\Scripts\UI\Data\PlayerBaseInfor.cs" />
+     <Compile Include="Assets\Scripts\UI\Data\PlayerInfor.cs" />
+     <Compile Include="Assets\Scripts\UI\Data\QuestionInfor.cs" />
+     <Compile Include="Assets\Scripts\UI\MessageWindow.cs" />
+     <Compile Include="Assets\Scripts\UI\QuestionManager.cs" />
+     <Compile Include="Assets\Scripts\UI\Tools\DonotFly.cs" />
+     <Compile Include="Assets\Scripts\UI\Tools\FlowUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Tools\Utility.cs" />
+     <Compile Include="Assets\Scripts\UI\UiDataManager.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\AskInClassUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\DrawingBoardUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\FastInClassUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\GroupListUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\MsgTips.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\PPTSwitch.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\PlayerListUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\StateInforShow.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\StateInforTeacher.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\Student\StudentFast.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\Student\StudentFastGet.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\Student\StudentStateInfor.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\Student\StudentTest.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\StudentHandUp.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\SwitchModeUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\TestFeedBackUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\TestFeedBackUpUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\TestInClassUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\ToggleValueChange.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\UIManager.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\WhiteBoardUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\ClassIcon.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\CourseIcon.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\GroupIcon.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\PlayerIcon.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\QuestionItem.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\base\uibase.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\tools\MoveUI.cs" />
+     <Compile Include="Assets\Scripts\UI\Uiview\tools\UIChangeColor.cs" />
+     <Compile Include="Assets\Scripts\setSelfNone.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_Teleporter.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_TestThrow.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_TestTrackedCamera.cs" />
+     <Compile Include="Assets\SteamVR\Extras\SteamVR_TrackedController.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\BodyCollider.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\CircularDrive.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\ComplexThrowable.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\ControllerHoverHighlight.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\CustomEvents.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DebugUI.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DestroyOnDetachedFromHand.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DestroyOnParticleSystemDeath.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DestroyOnTriggerEnter.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DistanceHaptics.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\DontDestroyOnLoad.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\EnumFlags.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\FallbackCameraController.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Hand.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\HapticRack.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\HideOnHandFocusLost.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\IgnoreHovering.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\InputModule.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Interactable.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\InteractableButtonEvents.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\InteractableHoverEvents.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\ItemPackage.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\ItemPackageReference.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\ItemPackageSpawner.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearAnimation.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearAnimator.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearAudioPitch.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearBlendshape.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearDisplacement.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearDrive.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\LinearMapping.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\PlaySound.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Player.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SeeThru.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SleepOnAwake.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SoundDeparent.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SoundPlayOneshot.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SpawnAndAttachAfterControllerIsTracking.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SpawnAndAttachToHand.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\SpawnRenderModel.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Throwable.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\UIElement.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Unparent.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\Util.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Core\Scripts\VelocityEstimator.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Hints\Scripts\ControllerButtonHints.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\ArcheryTarget.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\Arrow.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\ArrowHand.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\ArrowheadRotation.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\Balloon.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\BalloonColliders.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\BalloonHapticBump.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\BalloonSpawner.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\ExplosionWobble.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\FireSource.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\Longbow.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Longbow\Scripts\SoundBowClick.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Samples\Scripts\ControllerHintsExample.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Samples\Scripts\InteractableExample.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\AllowTeleportWhileAttachedToHand.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\ChaperoneInfo.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\IgnoreTeleportTrace.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\Teleport.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\TeleportArc.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\TeleportArea.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\TeleportMarkerBase.cs" />
+     <Compile Include="Assets\SteamVR\InteractionSystem\Teleport\Scripts\TeleportPoint.cs" />
+     <Compile Include="Assets\SteamVR\Plugins\openvr_api.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Camera.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_CameraFlip.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_CameraMask.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Controller.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_ControllerManager.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Ears.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Events.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_ExternalCamera.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Fade.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Frustum.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_GameView.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_IK.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_LoadLevel.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Menu.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Overlay.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_PlayArea.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Render.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_RenderModel.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Skybox.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_SphericalProjection.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Stats.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_TestController.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_TrackedCamera.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_TrackedObject.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_UpdatePoses.cs" />
+     <Compile Include="Assets\SteamVR\Scripts\SteamVR_Utils.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\ARVideoCanvasHelper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\EventsHandlerExample.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\SimpleRotateSphere.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\LibLoaderHelper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Buffers\PlayerBufferSound.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Buffers\PlayerBufferVideo.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Interfaces\IPlayer.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Interfaces\IPlayerAudio.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Interfaces\IPlayerListeners.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Interfaces\IPlayerSpu.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Managers\PlayerManagerAudios.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Managers\PlayerManagerEvents.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\Managers\PlayerManagerLogs.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\MediaPlayerAndroid.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\MediaPlayerHelper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\MediaPlayerIPhone.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\MediaPlayerMobile.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\MediaPlayerStandalone.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Players\PlayerArguments.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\PreloadedSettings.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\Decipherers\DeciphererYoutube.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\Interfaces\IVideoHosting.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\VideoHostingHelper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\VideoHostingInfo.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\VideoHostingJson.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\VideoHostingParser.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Services\VideoHostingYoutube.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfo.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfoAudio.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfoExpanded.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfoSpu.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfoUnknown.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Tracks\MediaTrackInfoVideo.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Enums\LibVLCEnums.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Interfaces\INativeWrapperHelper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Interfaces\IPlayerWrapper.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Interfaces\IPlayerWrapperAudio.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Interfaces\IPlayerWrapperExpanded.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Interfaces\IPlayerWrapperSpu.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\Structs\LibVLCStructs.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\WrapperAndroid.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\WrapperInternal.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\WrapperMobile.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\Sources\Wrappers\WrapperStandalone.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\UMPTextureUpdator.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\UMPUIExample.cs" />
+     <Compile Include="Assets\UniversalMediaPlayer\Scripts\UniversalMediaPlayer.cs" />
+     <Compile Include="Assets\zhi hui jiao shi\_ShowRoom\_Scripts\AnimateTiledTexture.cs" />
+     <None Include="Assets\FastOcean\Core Shaders\FOceanCore.cginc" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedShader.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\UnderWater.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
+     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\ColorCorrectionCurves.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\CullMask.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\SunShaftsComposite.shader" />
+     <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Resources\Unlit-AlphaWithFade.shader" />
+     <None Include="Assets\EasyPaint\Readme.txt" />
+     <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\BlurEffectConeTap.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\FOceanParallax.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\FXAA3.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\FOceanCommon.cginc" />
+     <None Include="Assets\PaintCraft\Pro\3D\Materials\PlaneShader.shader" />
+     <None Include="Assets\EasyPaint\Materials\BrushShader.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\BlendForGlare.shader" />
+     <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\changelog.txt" />
+     <None Include="Assets\FastOcean\Core Shaders\SimpleClear.shader" />
+     <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\readme.txt" />
+     <None Include="Assets\FastOcean\Core Shaders\Clouds.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedRegionShader.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\FOceanInclude.cginc" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+     <None Include="Assets\SteamVR\readme.txt" />
+     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
+     <None Include="Assets\EasyPaint\Materials\CanvasShader.shader" />
+     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-VideoSphericalCanvas.shader" />
+     <None Include="Assets\SteamVR\Resources\SteamVR_ColorOut.shader" />
+     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
+     <None Include="Assets\FastOcean\Core Shaders\Fade.shader" />
+     <None Include="Assets\NVR\Reasources\BackMesh.shader" />
+     <None Include="Assets\UniversalMediaPlayer\Resources\UMP(PreloadSettings).txt" />
+     <None Include="Assets\FastOcean\Core Shaders\CombineForGlare.shader" />
+     <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.TestRunner">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="nunit.framework">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/TestRunner/nunit.framework.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="client">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/client.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Office.Interop.Excel">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.Excel.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Office.Interop.PowerPoint">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.PowerPoint.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Office.Interop.Word">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.Word.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Vbe.Interop">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Vbe.Interop.dll</HintPath>
+ </Reference>
+ <Reference Include="Office">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Office.dll</HintPath>
+ </Reference>
+ <Reference Include="stdole">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/stdole.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ServiceProcess">
+ <HintPath>D:/work/projes/VRClassT/Assets/Plugins/System.ServiceProcess.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.iOS.Extensions.Common">
+ <HintPath>D:/programs/Unity3D/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
+ </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>
