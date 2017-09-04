@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -87,8 +87,8 @@ MonoBehaviour:
     y: 30
     width: 1904
     height: 931
-  m_MinSize: {x: 713, y: 492}
-  m_MaxSize: {x: 18008, y: 14042}
+  m_MinSize: {x: 711, y: 492}
+  m_MaxSize: {x: 18006, y: 14042}
   vertical: 0
   controlID: 21
 --- !u!114 &5
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 46
+  controlID: 70
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,8 +180,8 @@ MonoBehaviour:
     y: 0
     width: 302
     height: 931
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -333,18 +333,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Plugins
+    - Assets/Scripts/NetFrame
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: D:\work\vrClass\NewDelete\NewDelete
+  m_LastProjectPath: D:\work\gitfile\hello-world\NewDelete
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 9c270000
     m_LastClickedID: 10140
-    m_ExpandedIDs: 00000000fc24000066250000782500008225000088250000
+    m_ExpandedIDs: 00000000fe240000a4250000cc250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -372,7 +372,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fc24000088250000f8260000
+    m_ExpandedIDs: 00000000fe2400009a250000a4250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -530,14 +530,14 @@ MonoBehaviour:
     width: 1366
     height: 910
   m_SceneLighting: 1
-  lastFramingTime: 3395.1539038439
+  lastFramingTime: 245.59472857129978
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -5.6320467, y: -11.752106, z: -4.44192}
+    m_Target: {x: -1.213324, y: -0.27370286, z: -1.5620596}
     speed: 2
-    m_Value: {x: -5.6320467, y: -11.752106, z: -4.44192}
+    m_Value: {x: -1.213324, y: -0.27370286, z: -1.5620596}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -560,13 +560,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.010367248, y: 0.81036156, z: -0.5856628, w: -0.014345813}
+    m_Target: {x: 0.039264124, y: 0.93813497, z: -0.32480866, w: 0.11340421}
     speed: 2
-    m_Value: {x: -0.010367248, y: 0.81036156, z: -0.5856628, w: -0.014345813}
+    m_Value: {x: 0.039264124, y: 0.93813497, z: -0.32480866, w: 0.11340421}
   m_Size:
-    m_Target: 22.375263
+    m_Target: 4.9075994
     speed: 2
-    m_Value: 22.375263
+    m_Value: 4.9075994
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -607,21 +607,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: d8a2fdff0ae7fdffbc20ffffe220ffff063cffff0ee5ffff12e5ffff16e5ffff1ae5ffff1ee5ffff34e5ffff3ee5ffff88e5ffffb8e5ffffdcfbffff0000000020260000
+    m_ExpandedIDs: dcfbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: role
-      m_OriginalName: role
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 9760
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
