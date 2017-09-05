@@ -16,9 +16,61 @@ namespace WisdomClassroom.ClassRoom
 
         public static Dictionary<int, UserInfor> allplayerlogin = new Dictionary<int, UserInfor>();
 
-        public void player_login(string name, string password)
+        public void PlayerLogin(string name, string password, Int64 playertype)
         {
             var client_uuid = hub.hub.gates.current_client_uuid;
+
+            Enums.LoginType _logintype = (Enums.LoginType)playertype;
+
+            switch (_logintype)
+            {
+                case Enums.LoginType.Player:
+                    player_login(name, password, client_uuid);
+                    break;
+                case Enums.LoginType.Screen:
+                    break;
+                case Enums.LoginType.NodeServer:
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        // 如果是大屏登陆 name 是自己的标识 password 是要进入的课程id
+        private void screen_login(string name, string password, string uuid)
+        {
+            int roomid = Convert.ToInt32(password);
+            int userid = Convert.ToInt32(name);
+
+            ClassRoom rr = RoomManager.getInstance().CreateRoomById(roomid);
+
+            if (rr == null)
+            {
+                Hashtable h = new Hashtable();
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, "nothing");
+
+                hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
+            }
+            else
+            {
+                UserInfor user = new UserInfor();
+                user.roomid = roomid;
+                user.selfid = userid;
+                user.uuid = uuid;
+                int ret = rr.Enter(user);
+                rr._uuid_of_screen = uuid;   // 大屏显示uuid
+            }
+        }
+
+        private void nodeserver_login(string name, string password, string uuid)
+        {
+
+        }
+
+        public void player_login(string name, string password, string uuid)
+        {
+            var client_uuid = uuid;
 
             Console.WriteLine("login" + name + password);
 

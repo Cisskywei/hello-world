@@ -35,6 +35,8 @@ public class CommandDefine {
         Release,
         ChangeMode,
 
+        BigScreen,   // 大屏显示相关指令
+
         Exit,
     }
 

@@ -16,9 +16,9 @@ namespace WisdomClassroom.ClassRoom
         public static string selfmodelname = "vrClass";
 
         // 登陆相关
-        public void PlayerLogin(string name, string password)
+        public void PlayerLogin(string name, string password, Int64 playertype)
         {
-            Login.getInstance().player_login(name, password);
+            Login.getInstance().PlayerLogin(name, password, playertype);
         }
 
         public void PlayerEnterLab(string token, Int64 userid, Int64 duty)

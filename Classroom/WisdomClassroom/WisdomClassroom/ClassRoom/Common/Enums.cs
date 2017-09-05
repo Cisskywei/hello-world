@@ -9,6 +9,18 @@ namespace WisdomClassroom.ClassRoom
     class Enums
     {
         /// <summary>
+        /// 登陆类型 区分 玩家 大屏 节点服务器
+        /// </summary>
+        public enum LoginType
+        {
+            None = -1,
+
+            Player,
+            Screen,
+            NodeServer,
+        }
+
+        /// <summary>
         /// 权限定义
         /// </summary>
         public enum PermissionEnum

@@ -22,6 +22,10 @@ namespace WisdomClassroom.ClassRoom
         public Dictionary<int, Team> groups = new Dictionary<int, Team>();
         public ArrayList _uuid_of_player = new ArrayList();
 
+        // 这个uuid list 只是保存大屏显示的list  默认一个 
+        // 模式里面不保存这个list 大屏控制操作 首先通过 classroom 过滤处理 
+        public string _uuid_of_screen = string.Empty;
+
         // 模式控制相关
         public Enums.TeachingMode _modeltype = Enums.TeachingMode.WatchLearnModel_Sync;
         private int _modelindex = 0;
@@ -33,7 +37,7 @@ namespace WisdomClassroom.ClassRoom
         // 房间初始化
         public void InitRoom()
         {
-            IninCommandListen();
+            InitCommandListen();
         }
 
         public int Enter(UserInfor user)
@@ -177,6 +181,8 @@ namespace WisdomClassroom.ClassRoom
             allobjects.Clear();
             groups.Clear();
             _uuid_of_player.Clear();
+
+            RemoveCommandListen();
         }
 
         //模式初始化  在进入课件的时候初始化
@@ -201,13 +207,32 @@ namespace WisdomClassroom.ClassRoom
         }
 
         // 初始化指令监听函数  只处理服务器需要处理的消息
-        private void IninCommandListen()
+        private void InitCommandListen()
         {
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.InitScene, InitScene);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Hold, Hold);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Release, Release);
+
+            // 大屏显示 classroom 过滤
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, BigScreen);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
+
+        }
+
+        private void RemoveCommandListen()
+        {
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.ChangeMode, ChangeModel);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.InitScene, InitScene);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Hold, Hold);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Release, Release);
+
+            // 大屏显示 classroom 过滤
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, BigScreen);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
+
         }
 
         // 指令操作
@@ -223,7 +248,7 @@ namespace WisdomClassroom.ClassRoom
                     Console.WriteLine("消息广播给所有玩家");
                     if (_uuid_of_player.Count > 0)
                     {
-                        hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (msg));
+                        hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, userid,(msg));
                     }
                 }
                 else
@@ -395,6 +420,13 @@ namespace WisdomClassroom.ClassRoom
             _model[_modelindex].CheckOperationRelease<string>(userid, (int)ibjectid, string.Empty);
 
             Console.WriteLine("Release");
+        }
+
+        public void BigScreen(int userid, ArrayList msg)
+        {
+            hub.hub.gates.call_client(_uuid_of_screen, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, (msg));
+
+            Console.WriteLine("BigScreen");
         }
 
     }
