@@ -53,6 +53,8 @@
      <Compile Include="Assets\HTC.UnityPlugin\Utility\Editor\FlagsFromEnumAttributeDrawer.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Editor\RenderModelHookEditor.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\Editor\ViveRolePropertyDrawer.cs" />
+     <Compile Include="Assets\HandPlugins\Editor\SpringVr_Edit.cs" />
+     <Compile Include="Assets\HandPlugins\Editor\SpringVr_Manual.cs" />
      <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Connection.cs" />
      <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ConnectionsCollection.cs" />
      <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\GraphData.cs" />
@@ -74,45 +76,67 @@
      <Compile Include="Assets\UniversalMediaPlayer\Editor\UMPPostBuilds.cs" />
      <Compile Include="Assets\UniversalMediaPlayer\Editor\UMPPreference.cs" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanCore.cginc" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\GlitterMixPostprocess.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
      <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\UnderWater.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\SwatchShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\ColorCorrectionCurves.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\TiledShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\CullMask.shader" />
      <None Include="Assets\FastOcean\Core Shaders\SunShaftsComposite.shader" />
+     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-TransparentCanvas.shader" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Resources\Unlit-AlphaWithFade.shader" />
      <None Include="Assets\EasyPaint\Readme.txt" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskColorWithGlitter.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
      <None Include="Assets\FastOcean\Core Shaders\BlurEffectConeTap.shader" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskClippingMaskColor.shader" />
+     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-ARVideoCanvas.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanParallax.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\NormalRegionShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FXAA3.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanCommon.cginc" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitColor.shader" />
      <None Include="Assets\PaintCraft\Pro\3D\Materials\PlaneShader.shader" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskColor.shader" />
      <None Include="Assets\EasyPaint\Materials\BrushShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\BlendForGlare.shader" />
+     <None Include="Assets\PaintCraft\3DParty\NodeInspector\LICENSE.txt" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\UnlitVertexColor.shader" />
+     <None Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\changelog.txt" />
+     <None Include="Assets\PaintCraft\Demo\ColoringBook\Tools\Pencil\NewUnlitShader.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\SwatchRegionShader.shader" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\AlphaToHolesShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\SimpleClear.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\TiledRegionShader.shader" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\readme.txt" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\GlitterPostprocess.shader" />
      <None Include="Assets\FastOcean\Core Shaders\Clouds.shader" />
      <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedRegionShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanInclude.cginc" />
+     <None Include="Assets\PaintCraft\Engine\Shaders\DepthMask.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\NormalShader.shader" />
      <None Include="Assets\SteamVR\readme.txt" />
+     <None Include="Assets\PaintCraft\Pro\3D\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
      <None Include="Assets\EasyPaint\Materials\CanvasShader.shader" />
      <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-VideoSphericalCanvas.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_ColorOut.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
+     <None Include="Assets\UniversalMediaPlayer\Resources\UMPSettings.txt" />
      <None Include="Assets\FastOcean\Core Shaders\Fade.shader" />
      <None Include="Assets\NVR\Reasources\BackMesh.shader" />
-     <None Include="Assets\UniversalMediaPlayer\Resources\UMP(PreloadSettings).txt" />
      <None Include="Assets\FastOcean\Core Shaders\CombineForGlare.shader" />
+     <None Include="Assets\PaintCraft\Demo\PatternBrush\Patterns\license-README-FIRST.txt" />
      <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>D:/work/projes/VRClassT/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>D:/programs/Unity3D/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -178,43 +202,46 @@
  <HintPath>D:/programs/Unity3D/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween43.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween46.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>D:/work/projes/VRClassT/Assets/DOTween/DOTween50.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween50.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>D:/work/projes/VRClassT/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="client">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/client.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/client.dll</HintPath>
  </Reference>
- <Reference Include="Microsoft.Office.Interop.Excel">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.Excel.dll</HintPath>
+ <Reference Include="LitJson">
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/LitJson.dll</HintPath>
+ </Reference>
+ <Reference Include="SpringVr">
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/SpringVr.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="Microsoft.Office.Interop.PowerPoint">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.PowerPoint.dll</HintPath>
- </Reference>
- <Reference Include="Microsoft.Office.Interop.Word">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Office.Interop.Word.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/Microsoft.Office.Interop.PowerPoint.dll</HintPath>
  </Reference>
  <Reference Include="Microsoft.Vbe.Interop">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Microsoft.Vbe.Interop.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/Microsoft.Vbe.Interop.dll</HintPath>
  </Reference>
  <Reference Include="Office">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/Office.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/Office.dll</HintPath>
  </Reference>
  <Reference Include="stdole">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/stdole.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/stdole.dll</HintPath>
  </Reference>
  <Reference Include="System.ServiceProcess">
- <HintPath>D:/work/projes/VRClassT/Assets/Plugins/System.ServiceProcess.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/Win/x86_64/System.ServiceProcess.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>D:/programs/Unity3D/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

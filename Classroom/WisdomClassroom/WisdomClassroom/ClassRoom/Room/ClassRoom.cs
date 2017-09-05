@@ -227,6 +227,12 @@ namespace WisdomClassroom.ClassRoom
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
+
+            // 答题 打开文件 等交互
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrl);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPtCtrl);
+
         }
 
         private void RemoveCommandListen()
@@ -246,6 +252,11 @@ namespace WisdomClassroom.ClassRoom
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
+
+            // 答题 打开文件 等交互
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrl);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPtCtrl);
 
         }
 
@@ -735,7 +746,116 @@ namespace WisdomClassroom.ClassRoom
             hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
+        }
 
+        // 答题 打开文件 等交互
+        public void OpenContent(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            string uuid = teacher.uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
+        }
+
+        //public void EndFastQuestion(int userid, ArrayList msg)
+        //{
+        //    if (this.teacher == null || this.teacher.selfid != userid)
+        //    {
+        //        return;
+        //    }
+
+        //    if(msg == null || msg.Count <= 2)
+        //    {
+        //        return;
+        //    }
+
+        //    Int64 target = (Int64)msg[2];
+        //    int targetid = (int)target;
+
+        //    if (!allstudents.ContainsKey(targetid))
+        //    {
+        //        return;
+        //    }
+
+        //    string targetuuid = allstudents[targetid].uuid;
+
+        //    hub.hub.gates.call_client(targetuuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+        //}
+
+        public void VideoCtrl(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            string uuid = teacher.uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
+        }
+
+        public void PPtCtrl(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            string uuid = teacher.uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
         }
     }
 }

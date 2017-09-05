@@ -42,17 +42,6 @@ public class Teaching : OutUIBase
 
     public ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test;
 
-    //// Use this for initialization
-    //void Start()
-    //{
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
     void OnEnable()
     {
         RegisterEvent();
@@ -62,9 +51,7 @@ public class Teaching : OutUIBase
     {
         UnRegisterEvent();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
@@ -79,9 +66,6 @@ public class Teaching : OutUIBase
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, string>(EventId.StudentFastQuestion, this.StudentFastQuestion);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
@@ -176,15 +160,27 @@ public class Teaching : OutUIBase
                 break;
         }
 
-        MsgModule.getInstance().reqOpenContent(infor.fileid);
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.OpenContent);
+        msg.Add((Int64)infor.fileid);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
     }
 
     private void StartDownLoad(ComonEnums.ContentDataType typ, DownLoadItemInfor dlii)
     {
         // 发送推送消息
+        // 发送推送消息
         if (dlii != null)
         {
-            MsgModule.getInstance().reqDownLoadFileOne(dlii.filename, dlii.filepath, dlii.type, dlii.fileid);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PushDataOne);
+            msg.Add(dlii.filename);
+            msg.Add(dlii.filepath);
+            msg.Add(dlii.type);
+            msg.Add(dlii.fileid.ToString());
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
         }
     }
 
@@ -266,8 +262,8 @@ public class Teaching : OutUIBase
 
     public void OnClickWrite()
     {
-        OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
+        //OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
 
-        MsgModule.getInstance().reqWhiteBoard(1);
+        //MsgModule.getInstance().reqWhiteBoard(1);
     }
 }

@@ -15,16 +15,6 @@ public class CourseContent : OutUIBase
     public bool forceupdate = false;
     private bool isinit = false;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
     public override void ShowSelf(params System.Object[] args)
     {
         InitData();
@@ -46,10 +36,10 @@ public class CourseContent : OutUIBase
 
         Dictionary<int, DownLoadItemInfor> contentlist = DownLoadDataManager.getInstance().GetAllContent();
 
-        if (titleTxt != null)
-        {
-            //titleTxt.text = CourseContentManager.getInstance().coursename;
-        }
+        //if (titleTxt != null)
+        //{
+        //    //titleTxt.text = CourseContentManager.getInstance().coursename;
+        //}
 
         //if (chapterTxt != null)
         //{

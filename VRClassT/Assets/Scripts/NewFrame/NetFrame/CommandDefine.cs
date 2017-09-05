@@ -43,6 +43,11 @@ public class CommandDefine {
         PushDataAll,
         PushDataOne,
 
+        // 答题 打开文件 等交互
+        OpenContent,
+        VideoCtrl,
+        PPtCtrl,
+
         BigScreen,   // 大屏显示相关指令
 
         Exit,

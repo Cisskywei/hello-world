@@ -5,25 +5,15 @@ using UnityEngine;
 
 public class MsgListen : MonoBehaviour {
 
-    //// Use this for initialization
-    //void Start () {
-
+    //void OnEnable()
+    //{
+    //    RegisterEvent();
     //}
 
-    //// Update is called once per frame
-    //void Update () {
-
+    //void OnDisable()
+    //{
+    //    UnRegisterEvent();
     //}
-
-    void OnEnable()
-    {
-        RegisterEvent();
-    }
-
-    void OnDisable()
-    {
-        UnRegisterEvent();
-    }
     /// <summary>
     /// register the target event message, set the call back method with params and event name.
     /// </summary>

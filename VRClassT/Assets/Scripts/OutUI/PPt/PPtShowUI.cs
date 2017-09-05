@@ -1,4 +1,5 @@
 ﻿using ko.NetFram;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TinyFrameWork;
@@ -35,27 +36,58 @@ public class PPtShowUI : OutUIBase {
 
     void OnEnable()
     {
-        RegisterEvent();
+        RegListener();
+  //      RegisterEvent();
     }
 
     void OnDisable()
     {
-        UnRegisterEvent();
+        RemoveListener();
+  //      UnRegisterEvent();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int>(EventId.PPTCtrl, this.PPTCtrl);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int>(EventId.PPTCtrl, this.PPTCtrl);
+    }
+
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPTCtrlListener);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPTCtrlListener);
+    }
+
+    private void PPTCtrlListener(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 3)
+        {
+            return;
+        }
+
+        Int64 typ = (Int64)msg[2];
+        Int64 value = (Int64)msg[3];
+
+        PPTCtrl((int)typ, (int)value);
     }
 
     // ppt 控制相关 typ 1 ppt 翻页控制 value 翻页页数
@@ -124,7 +156,12 @@ public class PPtShowUI : OutUIBase {
 
         if(UserInfor.getInstance().isTeacher)
         {
-            MsgModule.getInstance().reqPPtCtrl(1, currentpptindex);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PPtCtrl);
+            msg.Add((Int64)1);
+            msg.Add((Int64)currentpptindex);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
         }
 
         pptshow.overrideSprite = pptimage[currentpptindex];
@@ -146,7 +183,12 @@ public class PPtShowUI : OutUIBase {
 
         if (UserInfor.getInstance().isTeacher)
         {
-            MsgModule.getInstance().reqPPtCtrl(1, currentpptindex);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PPtCtrl);
+            msg.Add((Int64)1);
+            msg.Add((Int64)currentpptindex);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
         }
 
         pptshow.overrideSprite = pptimage[currentpptindex];

@@ -33,27 +33,58 @@ public class PlayOrdinaryVideo : MonoBehaviour {
 
     void OnEnable()
     {
-        RegisterEvent();
+        RegListener();
+     //   RegisterEvent();
     }
 
     void OnDisable()
     {
-        UnRegisterEvent();
+        RemoveListener();
+   //     UnRegisterEvent();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int>(EventId.VideoCtrl, this.VideoCtrl);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int>(EventId.VideoCtrl, this.VideoCtrl);
+    }
+
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrlListener);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrlListener);
+    }
+
+    private void VideoCtrlListener(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 3)
+        {
+            return;
+        }
+
+        Int64 typ = (Int64)msg[2];
+        Int64 value = (Int64)msg[3];
+
+        VideoCtrl((int)typ, (int)value);
     }
 
     // 视频控制相关 typ 1 开关 2 进度 3 音量 4 亮度 5 value 开关 1 开 0 关 进度*100
@@ -106,11 +137,6 @@ public class PlayOrdinaryVideo : MonoBehaviour {
         if(autoplay)
         {
             ump.Play();
-
-   //         fitSize();
-
-            //float t = ump.Length;
-            //totaltime.text = (int)(t / 60) + ":" + (int)(t % 60);
         }
     }
 
@@ -126,10 +152,7 @@ public class PlayOrdinaryVideo : MonoBehaviour {
         if (gameObject.activeSelf)
         {
             gameObject.SetActive(false);
-        }
-
- //       videopath = string.Empty;
-        
+        }        
     }
 
     public void onUpdateProgress()
@@ -157,8 +180,14 @@ public class PlayOrdinaryVideo : MonoBehaviour {
     {
         if(UserInfor.getInstance().isTeacher)
         {
-            MsgModule.getInstance().reqCtrlVideo(1, 0);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.VideoCtrl);
+            msg.Add((Int64)1);
+            msg.Add((Int64)0);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
         }
+
         Close();
     }
 
@@ -169,7 +198,12 @@ public class PlayOrdinaryVideo : MonoBehaviour {
         if (UserInfor.getInstance().isTeacher)
         {
             //全景普通切换 1 切到全景 2 切到普通
-            MsgModule.getInstance().reqCtrlVideo(5, 1);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.VideoCtrl);
+            msg.Add((Int64)5);
+            msg.Add((Int64)1);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
         }
 
         OpenFileManager.getInstance().OpenPanoramicVideo(videopath);

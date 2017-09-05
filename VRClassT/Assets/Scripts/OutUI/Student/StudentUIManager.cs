@@ -49,15 +49,15 @@ public class StudentUIManager : OutUIBase
     void OnEnable()
     {
         RegisterEvent();
+        RegListener();
     }
 
     void OnDisable()
     {
         UnRegisterEvent();
+        RemoveListener();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
@@ -65,18 +65,9 @@ public class StudentUIManager : OutUIBase
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<string, string, string, int>(EventId.DownLoadFileOne, this.DownLoadFileOne);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Hashtable>(EventId.DownLoadFileAll, this.DownLoadFileAll);
- //       EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.OpenContentStudent, this.OpenContent);
-
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64, int>(EventId.SwitchWhiteBoard, this.SwitchWhiteBoard);
-
-        //OpenContent
-        // student
-        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
@@ -84,11 +75,40 @@ public class StudentUIManager : OutUIBase
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<string, string, string, int>(EventId.DownLoadFileOne, this.DownLoadFileOne);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Hashtable>(EventId.DownLoadFileAll, this.DownLoadFileAll);
-//        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.OpenContentStudent, this.OpenContent);
-
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64, int>(EventId.SwitchWhiteBoard, this.SwitchWhiteBoard);
+    }
 
-        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+    }
+
+    private void OpenContent(int userid, ArrayList msg)
+    {
+        if(msg == null || msg.Count <= 2)
+        {
+            return;
+        }
+
+        Int64 file = (Int64)msg[2];
+
+        OpenContent((int)file);
     }
 
     //0 是关 1是开 
