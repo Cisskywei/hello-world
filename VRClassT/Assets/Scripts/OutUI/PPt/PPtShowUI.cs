@@ -169,7 +169,7 @@ public class PPtShowUI : OutUIBase {
             return;
         }
 
-        filelist.ShowSelf(new System.Object[] { Enums.ContentDataType.PPt });
+        filelist.ShowSelf(new System.Object[] { ComonEnums.ContentDataType.PPt });
 
         // 弹出文件列表界面
         if (filelist.clickfilelisten == null)

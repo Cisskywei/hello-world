@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TinyFrameWork;
 using UnityEngine;
@@ -40,10 +41,7 @@ public class OutUiManager : MonoBehaviour {
     [SerializeField]
     public OutUIBase[] alloutui;
 
-    // 进入对应教室
-    public EnterCourse ec;
-
-    public void ShowUI(UIList id, params Object[] args)
+    public void ShowUI(UIList id, params System.Object[] args)
     {
         if (alloutui == null || alloutui.Length <= 0)
         {
@@ -88,12 +86,16 @@ public class OutUiManager : MonoBehaviour {
     {
         RegisterEvent();
         UiDataManager.getInstance().RegisterEventListener();
+
+        RegListener();
     }
 
     void OnDisable()
     {
         UnRegisterEvent();
         UiDataManager.getInstance().UnRegisterEventListener();
+
+        RemoveListener();
     }
     /// <summary>
     /// register the target event message, set the call back method with params and event name.
@@ -111,22 +113,72 @@ public class OutUiManager : MonoBehaviour {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.ChooseCourse, this.ChooseCourse);
     }
 
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if(UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushDataAll);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushDataOne);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushDataAll);
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushDataOne);
+    }
+
     public void ChooseCourse(int courseid)
     {
         // 
         Debug.Log("选择课程 id : " + courseid);
 
-        if(ec != null)
-        {
-   //         BackFromVrExe.getInstance().InitSaveData(courseid);
+        EnterCourse.getInstance().PlayerEnterCourse(courseid);
+    }
 
-            ec.PlayerEnterCourse(courseid);
+    private void PushDataAll(int userid, ArrayList msg)
+    {
+        if(msg == null || msg.Count<= 2)
+        {
+            return;
         }
+
+        Hashtable files = (Hashtable)msg[2];
+        DownLoadDataUI.getInstance().AddCourseDataAll(files);
+
+        DownLoadDataManager.getInstance().DownLoadAll();
+    }
+
+    private void PushDataOne(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 5)
+        {
+            return;
+        }
+
+        string name, path, typ;
+        int fileid;
+        name = (string)msg[2];
+        path = (string)msg[3];
+        typ = (string)msg[4];
+        fileid = Convert.ToInt32((string)msg[5]);
+        Debug.Log("学生下载资料 " + name + fileid);
+        // 学生端收到老师端在资源推送消息 单个文件下载
+        DownLoadDataUI.getInstance().AddCourseData(name, path, typ, fileid);
+        DownLoadDataManager.getInstance().DownLoadOnce(fileid);
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
             ChooseCourse(227);
         }

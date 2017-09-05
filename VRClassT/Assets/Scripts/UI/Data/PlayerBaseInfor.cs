@@ -10,6 +10,6 @@ public class PlayerBaseInfor {
     public Int64 userid;
     public string sexdesc;
     public string dutydesc;
-    public Enums.SexEnum sex = Enums.SexEnum.None;
-    public Enums.DutyEnum duty = Enums.DutyEnum.None;
+    public ComonEnums.SexEnum sex = ComonEnums.SexEnum.None;
+    public ComonEnums.DutyEnum duty = ComonEnums.DutyEnum.None;
 }

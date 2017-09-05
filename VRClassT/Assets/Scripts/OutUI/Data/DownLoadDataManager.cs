@@ -95,7 +95,7 @@ public class DownLoadDataManager {
     //}
 
     // 根据文件类型获取文件 （仅在线下载了的）
-    public List<DownLoadItemInfor> GetContentsByType(Enums.ContentDataType type)
+    public List<DownLoadItemInfor> GetContentsByType(ComonEnums.ContentDataType type)
     {
         List<DownLoadItemInfor> ret = new List<DownLoadItemInfor>();
 

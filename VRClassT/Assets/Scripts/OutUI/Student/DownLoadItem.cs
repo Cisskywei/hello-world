@@ -165,7 +165,7 @@ public class DownLoadItem : MonoBehaviour {
     //public string scetion;
     public string content;
 
-    public Enums.ContentDataType suffixtype = Enums.ContentDataType.None;
+    public ComonEnums.ContentDataType suffixtype = ComonEnums.ContentDataType.None;
 
     public DownLoadItemInfor infor;
 
@@ -297,7 +297,7 @@ public class DownLoadItem : MonoBehaviour {
             case DownLoadItemInfor.DownLoadState.DownLoading:
                 break;
             case DownLoadItemInfor.DownLoadState.Complete:
-                EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Enums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.suffixtype, this.infor);
+                EventDispatcher.GetInstance().MainEventManager.TriggerEvent<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.suffixtype, this.infor);
                 break;
             default:
                 break;

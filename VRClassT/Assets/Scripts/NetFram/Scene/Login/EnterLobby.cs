@@ -4,42 +4,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnterLobby : MonoBehaviour, msg_req_ret
+public class EnterLobby : MonoBehaviour
 {
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void OnEnable()
+    {
+        CommandReceive.getInstance().AddHashMsgListener(CommandDefine.HashTableMsgType.retEnterLab, ret_msg);
     }
 
-    public void PlayerEnterLobby(string token = null)
+    private void OnDisable()
     {
-        if(token == null)
-        {
-            token = UserInfor.getInstance().UserToken;
-        }
+        CommandReceive.getInstance().RemoveHashMsgListener(CommandDefine.HashTableMsgType.retEnterLab, ret_msg);
+    }
 
-        if (token == null)
+    public void PlayerEnterLobby()
+    {
+        string token = UserInfor.getInstance().UserToken;
+        int userid = (int)UserInfor.getInstance().UserId;
+        int duty = UserInfor.getInstance().UserDutyId;
+
+        if(token == null || userid < 0 || duty < 0)
         {
+            Debug.Log("token == null || userid < 0 || duty < 0");
             return;
         }
 
-        MsgModule.getInstance().registerMsgHandler(this);
+        NetworkCommunicate.getInstance().PlayerEnterLab(token, userid, duty);
 
-        MainThreadClient._client.call_hub("lobby", "WisdomLogin", "EnterLobby", token, UserInfor.getInstance().UserId, (Int64)UserInfor.getInstance().UserDutyId);
-    }
-
-    public void req_msg(Hashtable msg)
-    {
+        //MainThreadClient._client.call_hub("lobby", "WisdomLogin", "EnterLobby", token, UserInfor.getInstance().UserId, (Int64)UserInfor.getInstance().UserDutyId);
     }
 
     public void ret_msg(Hashtable msg)
     {
         string result = (string)msg["result"];
-        Debug.Log(result);
+
+        Debug.Log(result + " -- EnterLobby ");
+
         if (result == "success")
         {
             string jsondata = (string)msg["jsondata"];
@@ -58,19 +57,7 @@ public class EnterLobby : MonoBehaviour, msg_req_ret
                 UserInfor.getInstance().courselist = course.data;
             }
 
-            bool check = false;
-            // 检测是否是从课件返回登陆
-   //         check = BackFromVrExe.getInstance().EnterLobby();
-            if (!check)
-            {
-                //显示课程列表
-                //TODO
-                OutUiManager.getInstance().ShowUI(OutUiManager.UIList.CourseList);
-            }
-            else
-            {
-                // 
-            }
+            OutUiManager.getInstance().ShowUI(OutUiManager.UIList.CourseList);
         }
         else if (result == "failed")
         {

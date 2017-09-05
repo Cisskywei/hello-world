@@ -203,7 +203,7 @@ public class UiDataManager {
     }
 
     // 界面改变当前模式
-    public void SwitchTeachingMode(Enums.TeachingMode mode)
+    public void SwitchTeachingMode(ComonEnums.TeachingMode mode)
     {
         Debug.Log("切换模式 == ==== === ");
         if (!IsTeacher)
@@ -211,7 +211,7 @@ public class UiDataManager {
             return;
         }
 
-        operateattribute = Enums.OperatingAttribute.SwitchMode;
+        operateattribute = ComonEnums.OperatingAttribute.SwitchMode;
 
         if (this.mode != mode)
         {
@@ -220,25 +220,25 @@ public class UiDataManager {
 
         switch (mode)
         {
-            case Enums.TeachingMode.SelfTrain_Group:
+            case ComonEnums.TeachingMode.SelfTrain_Group:
                 MsgModule.getInstance().reqSwitchTeachMode(mode, true, null);
                 break;
-            case Enums.TeachingMode.SelfTrain_Personal:
+            case ComonEnums.TeachingMode.SelfTrain_Personal:
                 MsgModule.getInstance().reqSwitchTeachMode(mode, false, null);
                 break;
-            case Enums.TeachingMode.GuidanceMode_Group:
+            case ComonEnums.TeachingMode.GuidanceMode_Group:
     //            MsgModule.getInstance().reqSwitchTeachMode(mode, true, null);
                 break;
-            case Enums.TeachingMode.GuidanceMode_Personal:
+            case ComonEnums.TeachingMode.GuidanceMode_Personal:
      //           MsgModule.getInstance().reqSwitchTeachMode(mode, false, null);
                 break;
-            case Enums.TeachingMode.WatchLearnModel_Sync:
-            case Enums.TeachingMode.WatchLearnModel_Async:
-            case Enums.TeachingMode.SelfTrain_All:
-            case Enums.TeachingMode.VideoOnDemand_General:
-            case Enums.TeachingMode.VideoOnDemand_Full:
-            case Enums.TeachingMode.VideoOnLive_General:
-            case Enums.TeachingMode.VideoOnLive_Full:
+            case ComonEnums.TeachingMode.WatchLearnModel_Sync:
+            case ComonEnums.TeachingMode.WatchLearnModel_Async:
+            case ComonEnums.TeachingMode.SelfTrain_All:
+            case ComonEnums.TeachingMode.VideoOnDemand_General:
+            case ComonEnums.TeachingMode.VideoOnDemand_Full:
+            case ComonEnums.TeachingMode.VideoOnLive_General:
+            case ComonEnums.TeachingMode.VideoOnLive_Full:
                 MsgModule.getInstance().reqSwitchTeachMode(mode, false, null);
                 break;
             default:
@@ -267,10 +267,10 @@ public class UiDataManager {
 
         switch (operateattribute)
         {
-            case Enums.OperatingAttribute.ResetScene:
-                MsgModule.getInstance().reqResetScene(Enums.ResetSceneType.Group, token);
+            case ComonEnums.OperatingAttribute.ResetScene:
+                MsgModule.getInstance().reqResetScene(ComonEnums.ResetSceneType.Group, token);
                 break;
-            case Enums.OperatingAttribute.SwitchMode:
+            case ComonEnums.OperatingAttribute.SwitchMode:
                 MsgModule.getInstance().reqSwitchTeachMode(this.mode, true, token);
                 break;
             default:
@@ -287,10 +287,10 @@ public class UiDataManager {
 
         switch (operateattribute)
         {
-            case Enums.OperatingAttribute.ResetScene:
-                MsgModule.getInstance().reqResetScene(Enums.ResetSceneType.Student, userid.ToString());
+            case ComonEnums.OperatingAttribute.ResetScene:
+                MsgModule.getInstance().reqResetScene(ComonEnums.ResetSceneType.Student, userid.ToString());
                 break;
-            case Enums.OperatingAttribute.SwitchMode:
+            case ComonEnums.OperatingAttribute.SwitchMode:
                 MsgModule.getInstance().reqSwitchTeachMode(this.mode, false, userid.ToString());
                 break;
             default:
@@ -306,7 +306,7 @@ public class UiDataManager {
             return;
         }
 
-        operateattribute = Enums.OperatingAttribute.ResetScene;
+        operateattribute = ComonEnums.OperatingAttribute.ResetScene;
 
         //switch (id)
         //{
@@ -333,7 +333,7 @@ public class UiDataManager {
         }
 
         // TODO
-        MsgModule.getInstance().reqResetScene(Enums.ResetSceneType.All, null);
+        MsgModule.getInstance().reqResetScene(ComonEnums.ResetSceneType.All, null);
     }
 
     //接收学生点赞 举手
@@ -380,7 +380,7 @@ public class UiDataManager {
     }
 
     // 随堂测试相关  ---- --- -- -随堂测试相关
-    public void TestInClass(Enums.InClassTestType catage, int id)
+    public void TestInClass(ComonEnums.InClassTestType catage, int id)
     {
         if (!IsTeacher)
         {
@@ -418,7 +418,7 @@ public class UiDataManager {
     }
 
     // 学生答题按钮的函数
-    public void AnswerQuestion(Enums.InClassTestType category, Enums.QuestionType typ, int questionid)
+    public void AnswerQuestion(ComonEnums.InClassTestType category, ComonEnums.QuestionType typ, int questionid)
     {
         // TODO
     }
@@ -443,7 +443,7 @@ public class UiDataManager {
     // 注册事件监听函数
     public void RegisterEventListener()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchTeachingMode);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchTeachingMode);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<string, int, int>(EventId.TestFeedBack, this.TestFeedBack);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
@@ -452,13 +452,13 @@ public class UiDataManager {
     // 取消注册事件监听函数
     public void UnRegisterEventListener()
     {
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchTeachingMode);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchTeachingMode);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<string, int, int>(EventId.TestFeedBack, this.TestFeedBack);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
     }
 
-    public Enums.TeachingMode mode;
+    public ComonEnums.TeachingMode mode;
     public Dictionary<string, GroupInfor> grouplist = new Dictionary<string, GroupInfor>(); // 根据名字或者token的字典索引小组列表
     public Dictionary<Int64, PlayerInfor> playerlist = new Dictionary<Int64, PlayerInfor>(); // 所有学生列表
     public int groupcount;
@@ -467,7 +467,7 @@ public class UiDataManager {
     public int likecount;
 
     // 操作状态信息
-    public Enums.OperatingAttribute operateattribute = Enums.OperatingAttribute.None;
+    public ComonEnums.OperatingAttribute operateattribute = ComonEnums.OperatingAttribute.None;
 
     // 控制变量 标记是否是 老师
     private bool _isTecaher = false;
@@ -487,43 +487,43 @@ public class UiDataManager {
     // 分组算法
 
     // 转换模式枚举和文字
-    public static string ConvertModeToString(Enums.TeachingMode mode)
+    public static string ConvertModeToString(ComonEnums.TeachingMode mode)
     {
         string modeTxt = string.Empty;
 
         switch (mode)
         {
-            case Enums.TeachingMode.WatchLearnModel_Sync:
+            case ComonEnums.TeachingMode.WatchLearnModel_Sync:
                 modeTxt = "观学模式-同步";
                 break;
-            case Enums.TeachingMode.WatchLearnModel_Async:
+            case ComonEnums.TeachingMode.WatchLearnModel_Async:
                 modeTxt = "观学模式-异步";
                 break;
-            case Enums.TeachingMode.GuidanceMode_Personal:
+            case ComonEnums.TeachingMode.GuidanceMode_Personal:
                 modeTxt = "指导模式-指导人";
                 break;
-            case Enums.TeachingMode.GuidanceMode_Group:
+            case ComonEnums.TeachingMode.GuidanceMode_Group:
                 modeTxt = "指导模式-指导组";
                 break;
-            case Enums.TeachingMode.SelfTrain_Personal:
+            case ComonEnums.TeachingMode.SelfTrain_Personal:
                 modeTxt = "自主训练模式-独立";
                 break;
-            case Enums.TeachingMode.SelfTrain_Group:
+            case ComonEnums.TeachingMode.SelfTrain_Group:
                 modeTxt = "自主训练模式-小组";
                 break;
-            case Enums.TeachingMode.SelfTrain_All:
+            case ComonEnums.TeachingMode.SelfTrain_All:
                 modeTxt = "自主训练模式-全部";
                 break;
-            case Enums.TeachingMode.VideoOnDemand_General:
+            case ComonEnums.TeachingMode.VideoOnDemand_General:
                 modeTxt = "视频点播-普通";
                 break;
-            case Enums.TeachingMode.VideoOnDemand_Full:
+            case ComonEnums.TeachingMode.VideoOnDemand_Full:
                 modeTxt = "视频点播-全景";
                 break;
-            case Enums.TeachingMode.VideoOnLive_General:
+            case ComonEnums.TeachingMode.VideoOnLive_General:
                 modeTxt = "视频直播-普通";
                 break;
-            case Enums.TeachingMode.VideoOnLive_Full:
+            case ComonEnums.TeachingMode.VideoOnLive_Full:
                 modeTxt = "视频直播-全景";
                 break;
             default:

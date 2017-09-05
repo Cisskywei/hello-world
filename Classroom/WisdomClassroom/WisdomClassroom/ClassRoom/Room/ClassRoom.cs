@@ -22,6 +22,8 @@ namespace WisdomClassroom.ClassRoom
         public Dictionary<int, Team> groups = new Dictionary<int, Team>();
         public ArrayList _uuid_of_player = new ArrayList();
 
+        private ArrayList _uuid_sync_cache = new ArrayList();
+
         // 这个uuid list 只是保存大屏显示的list  默认一个 
         // 模式里面不保存这个list 大屏控制操作 首先通过 classroom 过滤处理 
         public string _uuid_of_screen = string.Empty;
@@ -72,22 +74,6 @@ namespace WisdomClassroom.ClassRoom
                 }
             }
 
-            // 测试
-            if(player.selfid == 1)
-            {
-                player.permission = Enums.PermissionEnum.Teacher;
-            }
-
-            if (player.permission == Enums.PermissionEnum.Teacher)
-            {
-                // 登陆者是老师
-                this.teacher = player;
-            }
-            else
-            {
-                // 登陆者是学生
-            }
-
             int id = player.selfid;
             string uuid = player.uuid;
             if (this.allstudents.ContainsKey(id))
@@ -119,6 +105,23 @@ namespace WisdomClassroom.ClassRoom
                         _uuid_of_player.Add(uuid);
                     }
                 }
+            }
+
+            // 测试
+            if (player.selfid == 1)
+            {
+                player.permission = Enums.PermissionEnum.Teacher;
+            }
+
+            if (player.permission == Enums.PermissionEnum.Teacher)
+            {
+                // 登陆者是老师
+                this.teacher = player;
+            }
+            else
+            {
+                // 登陆者是学生
+                TellTeacherPlayerIn(id);
             }
 
             Console.WriteLine("当前玩家 id : " + id);
@@ -219,6 +222,11 @@ namespace WisdomClassroom.ClassRoom
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, BigScreen);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
 
+            // 课程资料推送 推题相关
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
         }
 
         private void RemoveCommandListen()
@@ -232,6 +240,12 @@ namespace WisdomClassroom.ClassRoom
             // 大屏显示 classroom 过滤
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, BigScreen);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
+
+            // 课程资料推送 推题相关
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
 
         }
 
@@ -429,5 +443,299 @@ namespace WisdomClassroom.ClassRoom
             Console.WriteLine("BigScreen");
         }
 
+        // 课程资料 题目相关
+        // 获取题目数据
+        public void QuestionList(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.uuid == null)
+            {
+                return;
+            }
+
+            if (allstudents.Count <= 0 || !allstudents.ContainsKey(userid))
+            {
+                return;
+            }
+
+            string questiones = string.Empty;
+
+            if(courseinfor != null)
+            {
+                questiones = courseinfor._questioninfor;
+            }
+
+            if(questiones == null || questiones == string.Empty)
+            {
+                BackDataService.getInstance().GetCourseQuestionList(allstudents[userid].token, Question_List_Succeed, Question_List_Failure, userid.ToString());
+            }
+            else
+            {
+                msg.Add(questiones);
+                hub.hub.gates.call_client(allstudents[userid].uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
+        }
+
+        // 暂存题目数据
+        public void Question_List_Succeed(BackDataType.QuestionInforRetData v, string jsondata, string tag, string url)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!allstudents.ContainsKey(id))
+                {
+                    return;
+                }
+
+                PlayerInScene user = allstudents[id];
+
+                // 转换编码格式
+                if(jsondata != null)
+                {
+                    jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
+
+                    if(courseinfor != null && courseinfor._questioninfor == string.Empty)
+                    {
+                        courseinfor._questioninfor = jsondata;
+                    }
+
+                    // 广播 所有学生 测验题信息
+                    if (_uuid_of_player.Count > 0)
+                    {
+                        ArrayList msg = new ArrayList();
+                        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                        msg.Add((Int64)CommandDefine.SecondLayer.QuestionList);
+                        msg.Add(jsondata);
+                        hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void Question_List_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!allstudents.ContainsKey(id))
+                {
+                    return;
+                }
+
+                //PlayerInScene user = sceneplaylistbyid[id];
+
+                //hub.hub.gates.call_client(user.uuid, "cMsgConnect", "retAcquireQuestionList", id, "null");
+            }
+            catch
+            {
+
+            }
+        }
+
+        // 获取课程资料列表
+        public void MaterialItemList(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.uuid == null)
+            {
+                return;
+            }
+
+            if(msg == null || msg.Count <= 2)
+            {
+                return;
+            }
+
+            Int64 courseid = (Int64)msg[2];
+
+            BackDataService.getInstance().GetCourseMaterialList(allstudents[userid].token, (int)courseid, Material_List_Succeed, Material_List_Failure, userid.ToString());
+        }
+
+        // 暂存题目数据
+        public void Material_List_Succeed(BackDataType.MaterialItemInforRetData v, string jsondata, string tag, string url)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!allstudents.ContainsKey(id))
+                {
+                    return;
+                }
+
+                PlayerInScene user = allstudents[id];
+
+                // 转换编码格式
+                if (jsondata != null)
+                {
+                    jsondata = JsonDataHelp.getInstance().EncodeBase64(null, jsondata);
+
+                    if (courseinfor != null && courseinfor._materiallist == string.Empty)
+                    {
+                        courseinfor._materiallist = jsondata;
+                    }
+
+                    ArrayList msg = new ArrayList();
+                    msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                    msg.Add((Int64)CommandDefine.SecondLayer.MaterialList);
+                    msg.Add(jsondata);
+
+                    hub.hub.gates.call_client(user.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void Material_List_Failure(BackDataType.MessageRetHead errormsg, string tag)
+        {
+            if (tag == null)
+            {
+                return;
+            }
+
+            try
+            {
+                int id = Convert.ToInt32(tag);
+                if (!allstudents.ContainsKey(id))
+                {
+                    return;
+                }
+
+                //PlayerInScene user = allstudents[id];
+
+                //hub.hub.gates.call_client(user.uuid, "cMsgConnect", "retMaterialItemList", (Int64)id, "null");
+            }
+            catch
+            {
+
+            }
+        }
+
+        // 在线玩家列表
+        public void OnlinePlayers(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.uuid == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            ArrayList players = new ArrayList();
+            foreach (PlayerInScene p in this.allstudents.Values)
+            {
+                if (p.selfid == userid)
+                {
+                    continue;
+                }
+
+                players.Add((Int64)p.selfid);
+            }
+
+            msg.Add(players);
+            hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+        }
+
+        // 学生上线 告诉老师
+        public void TellTeacherPlayerIn(int userid)
+        {
+            // 告诉老师 学生上线
+            if (this.teacher != null && this.teacher.uuid != null)
+            {
+                ArrayList msg = new ArrayList();
+                msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                msg.Add((Int64)CommandDefine.SecondLayer.OnlineOnePlayer);
+                msg.Add((Int64)userid);
+                hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
+        }
+
+        // 资料推送
+        private void PushCourseDataOne(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            // 保存推送记录  待实现
+            //classinfor.AddMaterialPushed((int)fileid);
+
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            string uuid = this.teacher.uuid;
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
+
+        }
+
+        private void PushCourseDataAll(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            if(msg == null || msg.Count <= 2)
+            {
+                return;
+            }
+
+            // 保存推送全部资料记录
+            //classinfor.AddMaterialPushed((int)fileid);
+
+            string uuid = this.teacher.uuid;
+
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
+
+        }
     }
 }

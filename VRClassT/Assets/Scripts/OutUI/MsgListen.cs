@@ -46,24 +46,24 @@ public class MsgListen : MonoBehaviour {
         Debug.Log("学生端打开文件 " + fileid);
 
         DownLoadItemInfor infor = DownLoadDataManager.getInstance().GetContentById(fileid);
-        Enums.ContentDataType typ = FileManager.getInstance().GetFileContenType(infor.filename, infor.type);
+        ComonEnums.ContentDataType typ = FileManager.getInstance().GetFileContenType(infor.filename, infor.type);
 
         switch (typ)
         {
-            case Enums.ContentDataType.Exe:
+            case ComonEnums.ContentDataType.Exe:
                 OpenFileManager.getInstance().OpenExe(infor.fullfilepath);
                 break;
-            case Enums.ContentDataType.PanoramicVideo:
+            case ComonEnums.ContentDataType.PanoramicVideo:
                 OpenFileManager.getInstance().OpenPanoramicVideo(infor.fullfilepath);
                 break;
-            case Enums.ContentDataType.OrdinaryVideo:
+            case ComonEnums.ContentDataType.OrdinaryVideo:
                 OpenFileManager.getInstance().OpenOrdinaryVideo(infor.fullfilepath, gameObject);
                 break;
-            case Enums.ContentDataType.Panorama:
+            case ComonEnums.ContentDataType.Panorama:
                 break;
-            case Enums.ContentDataType.Picture:
+            case ComonEnums.ContentDataType.Picture:
                 break;
-            case Enums.ContentDataType.PPt:
+            case ComonEnums.ContentDataType.PPt:
                 OpenFileManager.getInstance().OpenPPt(infor.fullfilepath);
                 OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
                 break;

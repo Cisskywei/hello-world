@@ -118,7 +118,6 @@ public class Push : OutUIBase
 
     public void ChooseClass(int id)
     {
-        Debug.Log("ooooooooooo " + id);
         // 查看详细信息
         ClassPrepare.getInstance().ShowUI(ClassPrepare.UIPrepare.ClassDataPushInfor, new System.Object[] { id });
     }

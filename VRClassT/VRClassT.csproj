@@ -94,9 +94,6 @@
     <Reference Include="DOTween50">
       <HintPath>Assets\DOTween\DOTween50.dll</HintPath>
     </Reference>
-    <Reference Include="client">
-      <HintPath>Assets\Plugins\Win\x86_64\client.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Plugins\Win\x86_64\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -114,6 +111,15 @@
     </Reference>
     <Reference Include="System.ServiceProcess">
       <HintPath>Assets\Plugins\Win\x86_64\System.ServiceProcess.dll</HintPath>
+    </Reference>
+    <Reference Include="client">
+      <HintPath>Assets\Plugins\client.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets\Plugins\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="SpringVr">
+      <HintPath>Assets\Plugins\SpringVr.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +235,47 @@
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleMapHandler.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleProperty.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleSetter.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_HandActiveCtrlExtend.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_LeftHandCtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_RightHandCtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandActiveCtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandPositionCtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandShake.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandShakeCtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_Base.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_FuncInvok.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_OnGUI.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_Summary.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_UpdateBase.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\UI\SpringVr_GUICtrl.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\ErrorDisplay.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadDataBase.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadLeftHandData.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadRightHandData.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_SerialPortTool.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\SpringVr_AllUseData.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\WriteDataScripts\SpringVr_WriteDataBase.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\Model\WriteDataScripts\SpringVr_WriteRightHandData.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\Extend\SpringVr_TakeGoods.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_HandActiveView.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_HandPositionView.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_LeftHandActiveView.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_RightHandActiveView.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_FingerMoveGetsturCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GestureCalculateBase.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GestureChoose.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GetGoodsGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_IndexMiddleGetsturCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_LaserGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_OKGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_PalmGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_PlamChangeGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_RockFingerGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ShootGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbGestureCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexCloseTogetherCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexSeparateCalculate.cs" />
+    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\UI\SpringVr_CommandShow.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\GraphAttribute.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\JointAttribute.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\NodeMenuItemAttribute.cs" />
@@ -368,8 +415,8 @@
     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\CurveControlledBob.cs" />
     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\FOVKick.cs" />
     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Utility\LerpControlledBob.cs" />
+    <Compile Include="Assets\Scripts\Common\ComonEnums.cs" />
     <Compile Include="Assets\Scripts\Common\Config.cs" />
-    <Compile Include="Assets\Scripts\Common\Enums.cs" />
     <Compile Include="Assets\Scripts\ConnectVrExe\BackFromVrExe.cs" />
     <Compile Include="Assets\Scripts\DebugZero.cs" />
     <Compile Include="Assets\Scripts\DownLoad\HttpDownLoad.cs" />
@@ -413,9 +460,33 @@
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\ReciveObjectOnce.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SendObjectOnce.cs" />
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncManager.cs" />
-    <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncPlayer.cs" />
+    <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncPlayerOld.cs" />
     <Compile Include="Assets\Scripts\NetFram\Tools\JsonDataHelp.cs" />
     <Compile Include="Assets\Scripts\NetFram\Tools\ZipHelper.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\BigScreen.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\ScreenCameraCtrl.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\Client.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\CommandDefine.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\CommandReceive.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\CommandSend.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\Enums.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\FuncLifeCycle.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetConfig.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetMainLoop.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetworkCommunicate.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\ObjectCollector.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\Singleton.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\SyncObject.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedCommand.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedReceive.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedSend.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\BodyFollow.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\KeepRelativePos.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\PetFlow.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleManager.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\SyncPlayer.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\Draw3DController.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\DrawPaint.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\ContentItem.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\CourseContent.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\Teaching.cs" />
@@ -496,8 +567,6 @@
     <Compile Include="Assets\Scripts\UI\Uiview\base\uibase.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\tools\MoveUI.cs" />
     <Compile Include="Assets\Scripts\UI\Uiview\tools\UIChangeColor.cs" />
-    <Compile Include="Assets\Scripts\WhiteBoard\Draw3DController.cs" />
-    <Compile Include="Assets\Scripts\WhiteBoard\DrawPaint.cs" />
     <Compile Include="Assets\Scripts\setSelfNone.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\SteamVR\Extras\SteamVR_LaserPointer.cs" />

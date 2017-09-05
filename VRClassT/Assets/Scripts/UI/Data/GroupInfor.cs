@@ -12,7 +12,7 @@ public class GroupInfor : PlayerBaseInfor
 
     }
 
-    public GroupInfor(string name, Enums.SexEnum sex = Enums.SexEnum.None, Enums.DutyEnum duty = Enums.DutyEnum.None)
+    public GroupInfor(string name, ComonEnums.SexEnum sex = ComonEnums.SexEnum.None, ComonEnums.DutyEnum duty = ComonEnums.DutyEnum.None)
     {
         this.name = name;
         this.sex = sex;

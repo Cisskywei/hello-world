@@ -142,9 +142,6 @@
     <Reference Include="DOTweenEditor">
       <HintPath>Assets\DOTween\Editor\DOTweenEditor.dll</HintPath>
     </Reference>
-    <Reference Include="client">
-      <HintPath>Assets\Plugins\Win\x86_64\client.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Plugins\Win\x86_64\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -162,6 +159,15 @@
     </Reference>
     <Reference Include="System.ServiceProcess">
       <HintPath>Assets\Plugins\Win\x86_64\System.ServiceProcess.dll</HintPath>
+    </Reference>
+    <Reference Include="client">
+      <HintPath>Assets\Plugins\client.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets\Plugins\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="SpringVr">
+      <HintPath>Assets\Plugins\SpringVr.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-UnityScript">
       <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
@@ -181,6 +187,8 @@
     <Compile Include="Assets\HTC.UnityPlugin\Utility\Editor\FlagsFromEnumAttributeDrawer.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Editor\RenderModelHookEditor.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\Editor\ViveRolePropertyDrawer.cs" />
+    <Compile Include="Assets\HandPlugins\Editor\SpringVr_Edit.cs" />
+    <Compile Include="Assets\HandPlugins\Editor\SpringVr_Manual.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Connection.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ConnectionsCollection.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\GraphData.cs" />

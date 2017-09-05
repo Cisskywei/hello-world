@@ -401,7 +401,7 @@ namespace ko.NetFram
 
         // 具体的 和ui 相关的 向服务器发送消息的接口
         // 模式切换
-        public void reqSwitchTeachMode(Enums.TeachingMode mode, bool isgroup, string target)
+        public void reqSwitchTeachMode(ComonEnums.TeachingMode mode, bool isgroup, string target)
         {
             if(target == null)
             {
@@ -419,7 +419,7 @@ namespace ko.NetFram
             
             EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Int64, Int64, string>(EventId.SwitchModeFeedBack, userid, mode,target);
 
-            UserInfor.getInstance().ChangePlayerModel(userid, (Enums.TeachingMode)mode, target);
+            UserInfor.getInstance().ChangePlayerModel(userid, (ComonEnums.TeachingMode)mode, target);
         }
         // 分组
         public void reqDivideGroup(string rules)
@@ -432,7 +432,7 @@ namespace ko.NetFram
             UiDataManager.getInstance().DivideGroupBack(group);
         }
         //重置场景
-        public void reqResetScene(Enums.ResetSceneType typ, string target)
+        public void reqResetScene(ComonEnums.ResetSceneType typ, string target)
         {
             if (target == null)
             {
@@ -477,7 +477,7 @@ namespace ko.NetFram
         }
 
         // 随堂测试
-        public void reqInClassTest(Enums.InClassTestType typ, Int64 question, string other = null)
+        public void reqInClassTest(ComonEnums.InClassTestType typ, Int64 question, string other = null)
         {
             if(other == null)
             {

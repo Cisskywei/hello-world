@@ -5,6 +5,27 @@ using UnityEngine;
 
 public class DownLoadDataUI : OutUIBase {
 
+    private static GameObject selfgo;
+    private static DownLoadDataUI _instance;
+    public static DownLoadDataUI getInstance()
+    {
+        if (_instance == null)
+        {
+            if (selfgo == null)
+            {
+                selfgo = GameObject.Find("datadownload");
+            }
+
+            if (selfgo != null)
+            {
+                _instance = selfgo.GetComponent<DownLoadDataUI>();
+            }
+        }
+
+        return _instance;
+
+    }
+
     public GameObject iconPrafab;
 
     public Transform leftlistpanel;
@@ -12,16 +33,6 @@ public class DownLoadDataUI : OutUIBase {
 
     public Dictionary<int, DownLoadItemInfor> downlist = new Dictionary<int, DownLoadItemInfor>();
     public Dictionary<int, DownLoadItemInfor> downlistother = new Dictionary<int, DownLoadItemInfor>();
-
-    //   // Use this for initialization
-    //   void Start () {
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 
     public override void ShowSelf(params System.Object[] args)
     {

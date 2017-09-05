@@ -74,8 +74,8 @@ public class OpenFileManager : MonoBehaviour {
     //public void ConvertPPt(string filename, string type, string filefullpath)
     //{
     //    // 如果是ppt执行转换操作
-    //    Enums.ContentDataType suffixtype = FileManager.getInstance().GetFileContenType(filename, type);
-    //    if (suffixtype == Enums.ContentDataType.PPt)
+    //    ComonEnums.ContentDataType suffixtype = FileManager.getInstance().GetFileContenType(filename, type);
+    //    if (suffixtype == ComonEnums.ContentDataType.PPt)
     //    {
     //        string imagepath = FileManager.getInstance().GetPPTImagePath(filename);
 

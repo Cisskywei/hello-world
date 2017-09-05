@@ -14,8 +14,8 @@ public class TestInClassUI : OutUIBase {
     // 提问显示语音
     public GameObject voicepanel;
 
-    // 大厅界面一定要先设置Enums.InClassTestType
-    public Enums.InClassTestType catage = Enums.InClassTestType.Test;
+    // 大厅界面一定要先设置ComonEnums.InClassTestType
+    public ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test;
 
     private bool _isInitQuestion = false;  // 标记是否已经初始化题目
 
@@ -38,7 +38,7 @@ public class TestInClassUI : OutUIBase {
 
         if(args != null && args.Length > 0)
         {
-            this.catage = (Enums.InClassTestType)args[0];
+            this.catage = (ComonEnums.InClassTestType)args[0];
         }
 
         InitQuestionItem(this.catage);
@@ -49,7 +49,7 @@ public class TestInClassUI : OutUIBase {
         }
     }
 
-    public void ShowSelf(Enums.InClassTestType catage = Enums.InClassTestType.Test)
+    public void ShowSelf(ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test)
     {
         if(!transform.parent.gameObject.activeSelf)
         {
@@ -72,7 +72,7 @@ public class TestInClassUI : OutUIBase {
         }
     }
 
-    public void InitQuestionItem(Enums.InClassTestType catage = Enums.InClassTestType.Test)
+    public void InitQuestionItem(ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test)
     {
         if(_isInitQuestion)
         {
@@ -81,7 +81,7 @@ public class TestInClassUI : OutUIBase {
 
         switch(catage)
         {
-            case Enums.InClassTestType.Ask:
+            case ComonEnums.InClassTestType.Ask:
                 if(voicepanel != null && !voicepanel.activeSelf)
                 {
                     voicepanel.SetActive(true);

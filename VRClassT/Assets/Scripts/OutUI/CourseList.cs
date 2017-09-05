@@ -5,23 +5,12 @@ using ko.NetFram;
 
 public class CourseList : OutUIBase
 {
-
     public GameObject iconPrafab;
 
     public Transform listpanel;
 
     public bool forceupdate = false;
     private bool isinit = false;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	//// Update is called once per frame
-	//void Update () {
-		
-	//}
 
     public override void ShowSelf(params System.Object[] args)
     {

@@ -36,6 +36,14 @@ namespace WisdomClassroom.ClassRoom
             Release,
             ChangeMode,
 
+            //课程资料 题目 等的获取
+            QuestionList,
+            OnlinePlayers,
+            OnlineOnePlayer,
+            MaterialList,
+            PushDataAll,
+            PushDataOne,
+
             BigScreen,   // 大屏显示相关指令
 
             Exit,

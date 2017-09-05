@@ -6,7 +6,7 @@ using TinyFrameWork;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Login : OutUIBase, msg_req_ret
+public class Login : OutUIBase
 {
     public InputField nameTxt;
     public InputField passwordTxt;
@@ -17,26 +17,29 @@ public class Login : OutUIBase, msg_req_ret
         EventDispatcher.GetInstance().MainEventManager.AddEventListener(EventId.ConnectedHub, this.connectedhub);
     }
 
-    //// Use this for initialization
-    //void Start()
-    //{
-
-    //}
-
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            //       BackFromVrExe.getInstance().InitSaveData("古风", "123");   // "江燕", "123"  "古风", "123"
-
             MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", "123", "zheng", "cMsgConnect", "ret_msg");
         }
     }
 
     private void connectedhub()
     {
-        MsgModule.getInstance().registerMsgHandler(this);
+        Debug.Log(" connectedhub ");
+    }
+
+    private void OnEnable()
+    {
+        // 注册hashtable msg 监听函数
+        CommandReceive.getInstance().AddHashMsgListener(CommandDefine.HashTableMsgType.retLogin, ret_msg);
+    }
+
+    private void OnDisable()
+    {
+        CommandReceive.getInstance().RemoveHashMsgListener(CommandDefine.HashTableMsgType.retLogin, ret_msg);
     }
 
     public void LoginClick()
@@ -56,19 +59,10 @@ public class Login : OutUIBase, msg_req_ret
         string name = nameTxt.text;
         string password = passwordTxt.text;
 
-        BackFromVrExe.getInstance().InitSaveData(name, password);
+        // 登陆
+        NetworkCommunicate.getInstance().PlayerLogin(password, name, Enums.LoginType.Player);
 
-        MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", password, name, "cMsgConnect", "ret_msg");
-    }
-
-    public void GoToLogin(string name, string password)
-    {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener(EventId.ConnectedHub, this.connectedhub);
-        MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", password, name, "cMsgConnect", "ret_msg");
-    }
-
-    public void req_msg(Hashtable msg)
-    {
+        //MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", password, name, "cMsgConnect", "ret_msg");
     }
 
     public void ret_msg(Hashtable msg)

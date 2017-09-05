@@ -30,7 +30,7 @@ public class DownLoadItemInfor {
     //public int converted;
 
     // 文件枚举类型
-    public Enums.ContentDataType contentype = Enums.ContentDataType.None;
+    public ComonEnums.ContentDataType contentype = ComonEnums.ContentDataType.None;
 
     // 下载过后的完整文件保存路径
     public string fullfilepath;
@@ -104,11 +104,11 @@ public class DownLoadItemInfor {
         progress = 0.99f;
 
         // 如果是ppt执行转换操作
-        Enums.ContentDataType suffixtype = FileManager.getInstance().GetFileContenType(filename, type);
+        ComonEnums.ContentDataType suffixtype = FileManager.getInstance().GetFileContenType(filename, type);
         Debug.Log("ppt suffixtype" + suffixtype);
         switch(suffixtype)
         {
-            case Enums.ContentDataType.PPt:
+            case ComonEnums.ContentDataType.PPt:
                 string imagepath = FileManager.getInstance().GetPPTImagePath(filename);
 
                 fullfilepath = fullfilepath.Replace('/', '\\');
@@ -120,7 +120,7 @@ public class DownLoadItemInfor {
                 fullfilepath = imagepath;
                 Debug.Log("下载完成ppt 并且转换完成 " + imagepath);
                 break;
-            case Enums.ContentDataType.Zip:
+            case ComonEnums.ContentDataType.Zip:
                 string err = string.Empty;
                 Debug.Log("zip文件原先路径" + fullfilepath);
                 ZipHelper.UnZipFile(fullfilepath,string.Empty,out err);

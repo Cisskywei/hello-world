@@ -217,9 +217,9 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void RegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64, Int64, string>(EventId.SwitchModeFeedBack, this.SwitchModeFeedBack);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
 
@@ -240,9 +240,9 @@ public class UIManager : MonoBehaviour {
     /// </summary>
     public void UnRegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64, Int64, string>(EventId.SwitchModeFeedBack, this.SwitchModeFeedBack);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
 
@@ -343,7 +343,7 @@ public class UIManager : MonoBehaviour {
     }
 
     // 监听函数
-    public void SwitchMode(Enums.TeachingMode mode)
+    public void SwitchMode(ComonEnums.TeachingMode mode)
     {
         if(!IsTeacher)
         {
@@ -353,7 +353,7 @@ public class UIManager : MonoBehaviour {
         // 判断弹出对应界面
         switch (mode)
         {
-            case Enums.TeachingMode.GuidanceMode_Personal:
+            case ComonEnums.TeachingMode.GuidanceMode_Personal:
                 //弹出学生列表界面
                 players.ShowSelf();
 
@@ -366,7 +366,7 @@ public class UIManager : MonoBehaviour {
                 ShowFirstUI(false);
 
                 break;
-            case Enums.TeachingMode.GuidanceMode_Group:
+            case ComonEnums.TeachingMode.GuidanceMode_Group:
                 //弹出小组选择界面
                 groups.ShowSelf();
 
@@ -379,7 +379,7 @@ public class UIManager : MonoBehaviour {
                 ShowFirstUI(false);
 
                 break;
-            case Enums.TeachingMode.SelfTrain_Personal:
+            case ComonEnums.TeachingMode.SelfTrain_Personal:
                 //学生各自协同操作
                 //players.ShowSelf();
 
@@ -392,7 +392,7 @@ public class UIManager : MonoBehaviour {
 
 
                 break;
-            case Enums.TeachingMode.SelfTrain_Group:
+            case ComonEnums.TeachingMode.SelfTrain_Group:
                 //小组各自协同操作
                 //groups.ShowSelf();
 
@@ -405,13 +405,13 @@ public class UIManager : MonoBehaviour {
 
 
                 break;
-            case Enums.TeachingMode.WatchLearnModel_Sync:
-            case Enums.TeachingMode.WatchLearnModel_Async:
-            case Enums.TeachingMode.SelfTrain_All:
-            case Enums.TeachingMode.VideoOnDemand_General:
-            case Enums.TeachingMode.VideoOnDemand_Full:
-            case Enums.TeachingMode.VideoOnLive_General:
-            case Enums.TeachingMode.VideoOnLive_Full:
+            case ComonEnums.TeachingMode.WatchLearnModel_Sync:
+            case ComonEnums.TeachingMode.WatchLearnModel_Async:
+            case ComonEnums.TeachingMode.SelfTrain_All:
+            case ComonEnums.TeachingMode.VideoOnDemand_General:
+            case ComonEnums.TeachingMode.VideoOnDemand_Full:
+            case ComonEnums.TeachingMode.VideoOnLive_General:
+            case ComonEnums.TeachingMode.VideoOnLive_Full:
 
                 groups.HideSelf();
                 players.HideSelf();
@@ -430,7 +430,7 @@ public class UIManager : MonoBehaviour {
     // 切换模式返回 更新界面状态
     public void SwitchModeFeedBack(Int64 userid, Int64 modee, string targetid)
     {
-        Enums.TeachingMode mode = (Enums.TeachingMode)modee;
+        ComonEnums.TeachingMode mode = (ComonEnums.TeachingMode)modee;
         Debug.Log(mode + " -- 模式改变");
         // TODO
         string who = string.Empty;
@@ -440,13 +440,13 @@ public class UIManager : MonoBehaviour {
         // 判断弹出对应界面
         switch (mode)
         {
-            case Enums.TeachingMode.WatchLearnModel_Sync:
+            case ComonEnums.TeachingMode.WatchLearnModel_Sync:
                 modeTxt = "观学模式-同步";
                 break;
-            case Enums.TeachingMode.WatchLearnModel_Async:
+            case ComonEnums.TeachingMode.WatchLearnModel_Async:
                 modeTxt = "观学模式-异步";
                 break;
-            case Enums.TeachingMode.GuidanceMode_Personal:
+            case ComonEnums.TeachingMode.GuidanceMode_Personal:
                 pi = UiDataManager.getInstance().GetPlayerById(Convert.ToInt64(targetid));
                 if(pi != null)
                 {
@@ -454,7 +454,7 @@ public class UIManager : MonoBehaviour {
                 }
                 modeTxt = "指导模式-指导人 (" + who + ")";
                 break;
-            case Enums.TeachingMode.GuidanceMode_Group:
+            case ComonEnums.TeachingMode.GuidanceMode_Group:
                 gi = UiDataManager.getInstance().GetGroupByToken(targetid);
                 if (gi != null)
                 {
@@ -462,7 +462,7 @@ public class UIManager : MonoBehaviour {
                 }
                 modeTxt = "指导模式-指导组 (" + who + ")";
                 break;
-            case Enums.TeachingMode.SelfTrain_Personal:
+            case ComonEnums.TeachingMode.SelfTrain_Personal:
              //   pi = UiDataManager.getInstance().GetPlayerById(Convert.ToInt64(targetid));
             //    if (pi != null)
             //    {
@@ -470,7 +470,7 @@ public class UIManager : MonoBehaviour {
             //    }
                 modeTxt = "自主训练模式-独立";
                 break;
-            case Enums.TeachingMode.SelfTrain_Group:
+            case ComonEnums.TeachingMode.SelfTrain_Group:
        //         gi = UiDataManager.getInstance().GetGroupByToken(targetid);
       //          if (gi != null)
      //           {
@@ -478,7 +478,7 @@ public class UIManager : MonoBehaviour {
      //           }
                 modeTxt = "自主训练模式-小组";
                 break;
-            case Enums.TeachingMode.SelfTrain_All:
+            case ComonEnums.TeachingMode.SelfTrain_All:
         //        gi = UiDataManager.getInstance().GetGroupByToken(targetid);
        //         if (gi != null)
         //        {
@@ -486,16 +486,16 @@ public class UIManager : MonoBehaviour {
         //        }
                 modeTxt = "自主训练模式-全部";
                 break;
-            case Enums.TeachingMode.VideoOnDemand_General:
+            case ComonEnums.TeachingMode.VideoOnDemand_General:
                 modeTxt = "视频点播-普通";
                 break;
-            case Enums.TeachingMode.VideoOnDemand_Full:
+            case ComonEnums.TeachingMode.VideoOnDemand_Full:
                 modeTxt = "视频点播-全景";
                 break;
-            case Enums.TeachingMode.VideoOnLive_General:
+            case ComonEnums.TeachingMode.VideoOnLive_General:
                 modeTxt = "视频直播-普通";
                 break;
-            case Enums.TeachingMode.VideoOnLive_Full:
+            case ComonEnums.TeachingMode.VideoOnLive_Full:
                 modeTxt = "视频直播-全景";
                 break;
             default:
@@ -522,7 +522,7 @@ public class UIManager : MonoBehaviour {
     }
 
     // 选择了某个试题对应的弹出相应界面
-    public void ChooseQuestion(Enums.InClassTestType catage, Enums.QuestionType typ, int questionid)
+    public void ChooseQuestion(ComonEnums.InClassTestType catage, ComonEnums.QuestionType typ, int questionid)
     {
         if (!IsTeacher)
         {
@@ -531,7 +531,7 @@ public class UIManager : MonoBehaviour {
 
         switch (catage)
         {
-            case Enums.InClassTestType.Test:
+            case ComonEnums.InClassTestType.Test:
                 //测试反馈
                 questionback.ShowSelf(questionid,typ);
 
@@ -543,7 +543,7 @@ public class UIManager : MonoBehaviour {
 
                 ShowFirstUI(false);
                 break;
-            case Enums.InClassTestType.Ask:
+            case ComonEnums.InClassTestType.Ask:
                 // 学生选择界面
                 // TODO
                 ShowFirstUI(false);
@@ -556,7 +556,7 @@ public class UIManager : MonoBehaviour {
                 fastquestion.HideSelf();
                 questionback.HideSelf();
                 break;
-            case Enums.InClassTestType.Fast:
+            case ComonEnums.InClassTestType.Fast:
                 // 抢答学生界面
                 //TODO
                 fastquestion.ShowSelf(questionid);
@@ -709,7 +709,7 @@ public class UIManager : MonoBehaviour {
             return;
         }
 
-        question.ShowSelf(Enums.InClassTestType.Fast);
+        question.ShowSelf(ComonEnums.InClassTestType.Fast);
 
         fastquestion.HideSelf();
         players.HideSelf();
@@ -733,7 +733,7 @@ public class UIManager : MonoBehaviour {
             return;
         }
 
-        question.ShowSelf(Enums.InClassTestType.Ask);
+        question.ShowSelf(ComonEnums.InClassTestType.Ask);
 
         fastquestion.HideSelf();
         players.HideSelf();
@@ -750,7 +750,7 @@ public class UIManager : MonoBehaviour {
         //if(questionid < 0)
         //{
         //    // 抢答题
-        //    ReciveQuestion((Enums.InClassTestType)questiontyp, (Enums.QuestionType)questiontyp, questionid, other);
+        //    ReciveQuestion((ComonEnums.InClassTestType)questiontyp, (ComonEnums.QuestionType)questiontyp, questionid, other);
         //}
         //else if(questionid == 16)
         //{
@@ -762,12 +762,12 @@ public class UIManager : MonoBehaviour {
         //}
         //else
         //{
-        //    ReciveQuestion(Enums.InClassTestType.Test, Enums.QuestionType.SingleChoice, questionid, other);
+        //    ReciveQuestion(ComonEnums.InClassTestType.Test, ComonEnums.QuestionType.SingleChoice, questionid, other);
         //}
 
-        ReciveQuestion((Enums.InClassTestType)questiontyp, questionid, other);
+        ReciveQuestion((ComonEnums.InClassTestType)questiontyp, questionid, other);
     }
-    public void ReciveQuestion(Enums.InClassTestType catage, int id, string other)
+    public void ReciveQuestion(ComonEnums.InClassTestType catage, int id, string other)
     {
         if(IsTeacher)
         {
@@ -777,14 +777,14 @@ public class UIManager : MonoBehaviour {
         // 学生
         switch(catage)
         {
-            case Enums.InClassTestType.Test:
+            case ComonEnums.InClassTestType.Test:
                 studenttest.ShowSelf(id, other);
 
                 studentfast.HideSelf();
                 break;
-            case Enums.InClassTestType.Ask:
+            case ComonEnums.InClassTestType.Ask:
                 break;
-            case Enums.InClassTestType.Fast:
+            case ComonEnums.InClassTestType.Fast:
                 studentfast.ShowSelf(id, other);
 
                 studenttest.HideSelf();

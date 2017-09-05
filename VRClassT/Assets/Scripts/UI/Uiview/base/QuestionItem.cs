@@ -8,8 +8,8 @@ public class QuestionItem : MonoBehaviour {
 
     public bool isvoice = false;
     public string content;
-    public Enums.QuestionType typ;
-    public Enums.InClassTestType catage = Enums.InClassTestType.Test;
+    public ComonEnums.QuestionType typ;
+    public ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test;
     private int _id = -1;
 
     // UI控件
@@ -25,13 +25,13 @@ public class QuestionItem : MonoBehaviour {
 
     //}
 
-    public void InitQuestion(string content, Enums.QuestionType typ, int id, Enums.InClassTestType catage)
+    public void InitQuestion(string content, ComonEnums.QuestionType typ, int id, ComonEnums.InClassTestType catage)
     {
         this.catage = catage;
         InitQuestion(content, typ, id);
     }
 
-    public void InitQuestion(string content, Enums.QuestionType typ, int id)
+    public void InitQuestion(string content, ComonEnums.QuestionType typ, int id)
     {
         this.content = content;
         this.typ = typ;
@@ -46,7 +46,7 @@ public class QuestionItem : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().anchoredPosition3D = p;
     }
 
-    public void InitQuestion(QuestionInfor q, Enums.InClassTestType catage = Enums.InClassTestType.Test)
+    public void InitQuestion(QuestionInfor q, ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test)
     {
         this.content = q.stem;
         this.typ = q.typ;
@@ -93,7 +93,7 @@ public class QuestionItem : MonoBehaviour {
         if(this.isvoice)
         {
             // 语音
-            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, Enums.InClassTestType.Ask, this.typ, this._id);
+            EventDispatcher.GetInstance().MainEventManager.TriggerEvent<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, ComonEnums.InClassTestType.Ask, this.typ, this._id);
             return;
         }
 
@@ -105,6 +105,6 @@ public class QuestionItem : MonoBehaviour {
         // 调用 发送 随堂测试题
         UiDataManager.getInstance().TestInClass(this.catage,this._id);
         // 通知 uimanager 显示 反馈界面
-        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, this.catage, this.typ, this._id);
+        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.catage, this.typ, this._id);
     }
 }

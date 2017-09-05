@@ -14,6 +14,7 @@ namespace WisdomClassroom.ClassRoom
         public int teamid = -1;
 
         public string uuid = string.Empty;
+        public string token = string.Empty;
 
         public Enums.PermissionEnum permission = Enums.PermissionEnum.Student;
         public Enums.CharacterStatus status = Enums.CharacterStatus.Ordinary;
@@ -35,6 +36,7 @@ namespace WisdomClassroom.ClassRoom
             this.selfid = playerinfor.selfid;
             this.teamid = playerinfor.groupid;
             this.roomid = classid;
+            this.token = playerinfor.access_token;
 
             if (playerinfor.identity == "teacher")
             {

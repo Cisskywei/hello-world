@@ -28,7 +28,7 @@ public class TestFeedBackUI : OutUIBase
 
     // 数据相关
     public int questionid;
-    public Enums.QuestionType questiontyp = Enums.QuestionType.SingleChoice;
+    public ComonEnums.QuestionType questiontyp = ComonEnums.QuestionType.SingleChoice;
     public ArrayList correctoption;
 
     // 控件显示数据
@@ -87,9 +87,9 @@ public class TestFeedBackUI : OutUIBase
     }
 
     // 初始化界面
-    public void ShowSelf(int questionid, Enums.QuestionType typ = Enums.QuestionType.SingleChoice)
+    public void ShowSelf(int questionid, ComonEnums.QuestionType typ = ComonEnums.QuestionType.SingleChoice)
     {
-        if(typ == Enums.QuestionType.ShortAnswer || typ == Enums.QuestionType.TrueOrFalse)
+        if(typ == ComonEnums.QuestionType.ShortAnswer || typ == ComonEnums.QuestionType.TrueOrFalse)
         {
             return;
         }
@@ -113,7 +113,7 @@ public class TestFeedBackUI : OutUIBase
         }
     }
 
-    public void Init(int questionid, Enums.QuestionType typ = Enums.QuestionType.SingleChoice)
+    public void Init(int questionid, ComonEnums.QuestionType typ = ComonEnums.QuestionType.SingleChoice)
     {
         QuestionInfor qi = QuestionManager.getInstance().GetQuestionById(questionid);
 

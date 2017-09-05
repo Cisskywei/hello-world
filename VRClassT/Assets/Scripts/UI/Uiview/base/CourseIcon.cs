@@ -20,11 +20,6 @@ public class CourseIcon : MonoBehaviour {
 
     private Sprite sp;
 
-    //   // Use this for initialization
-    //   void Start () {
-
-    //}
-
     private void OnEnable()
     {
         if(avatar != null)

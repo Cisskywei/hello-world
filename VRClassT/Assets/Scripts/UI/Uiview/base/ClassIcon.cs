@@ -13,16 +13,6 @@ public class ClassIcon : MonoBehaviour {
     private int num;
     private int classid = -1;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	//// Update is called once per frame
-	//void Update () {
-		
-	//}
-
     public void Init(string name, int num)
     {
         this._name = name;

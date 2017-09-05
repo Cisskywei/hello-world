@@ -93,27 +93,27 @@ public class FileManager {
     {
         string path = CourseMaterial;
 
-        Enums.ContentDataType cdt = GetFileContenType(filename, typ);
+        ComonEnums.ContentDataType cdt = GetFileContenType(filename, typ);
 
         switch (cdt)
         {
-            case Enums.ContentDataType.Exe:
+            case ComonEnums.ContentDataType.Exe:
                 path = exepath;
                 break;
-            case Enums.ContentDataType.PanoramicVideo:
+            case ComonEnums.ContentDataType.PanoramicVideo:
                 path = videopath + "\\vr";
                 break;
-            case Enums.ContentDataType.OrdinaryVideo:
+            case ComonEnums.ContentDataType.OrdinaryVideo:
                 path = videopath + "\\normal";
                 break;
-            case Enums.ContentDataType.Panorama:
+            case ComonEnums.ContentDataType.Panorama:
                 break;
-            case Enums.ContentDataType.Picture:
+            case ComonEnums.ContentDataType.Picture:
                 break;
-            case Enums.ContentDataType.PPt:
+            case ComonEnums.ContentDataType.PPt:
                 path = ppt;
                 break;
-            case Enums.ContentDataType.Zip:
+            case ComonEnums.ContentDataType.Zip:
                 path = exepath;
                 break;
             default:
@@ -142,9 +142,9 @@ public class FileManager {
         return suffix;
     }
 
-    public Enums.ContentDataType GetFileContenType(string filename, string typ)
+    public ComonEnums.ContentDataType GetFileContenType(string filename, string typ)
     {
-        Enums.ContentDataType ret = Enums.ContentDataType.None;
+        ComonEnums.ContentDataType ret = ComonEnums.ContentDataType.None;
 
         string suffix = GetFileSuffixName(filename);
 
@@ -158,9 +158,9 @@ public class FileManager {
         return ret;
     }
 
-    public Enums.ContentDataType GetFileContenTypeBySuffix(string suffix, string typ)
+    public ComonEnums.ContentDataType GetFileContenTypeBySuffix(string suffix, string typ)
     {
-        Enums.ContentDataType ret = Enums.ContentDataType.None;
+        ComonEnums.ContentDataType ret = ComonEnums.ContentDataType.None;
 
         if (suffix == string.Empty)
         {
@@ -172,26 +172,26 @@ public class FileManager {
             case ".mp4":
                 if (typ == "vr")
                 {
-                    ret = Enums.ContentDataType.PanoramicVideo;
+                    ret = ComonEnums.ContentDataType.PanoramicVideo;
                 }
                 else if (typ == "video")
                 {
-                    ret = Enums.ContentDataType.OrdinaryVideo;
+                    ret = ComonEnums.ContentDataType.OrdinaryVideo;
                 }
                 else
                 {
-                    ret = Enums.ContentDataType.OrdinaryVideo;
+                    ret = ComonEnums.ContentDataType.OrdinaryVideo;
                 }
                 break;
             case ".ppt":
             case ".pptx":
-                ret = Enums.ContentDataType.PPt;
+                ret = ComonEnums.ContentDataType.PPt;
                 break;
             case ".exe":
-                ret = Enums.ContentDataType.Exe;
+                ret = ComonEnums.ContentDataType.Exe;
                 break;
             case ".zip":
-                ret = Enums.ContentDataType.Zip;
+                ret = ComonEnums.ContentDataType.Zip;
                 break;
             default:
                 break;

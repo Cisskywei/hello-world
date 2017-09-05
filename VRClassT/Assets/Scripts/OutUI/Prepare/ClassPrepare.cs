@@ -22,7 +22,6 @@ public class ClassPrepare : OutUIBase {
         }
 
         return _instance;
-
     }
 
     public enum UIPrepare
@@ -36,16 +35,6 @@ public class ClassPrepare : OutUIBase {
     //界面系列
     [SerializeField]
     public OutUIBase[] uilist;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 
     public override void ShowSelf(params System.Object[] args)
     {

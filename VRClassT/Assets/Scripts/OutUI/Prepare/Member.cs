@@ -32,16 +32,6 @@ public class Member : OutUIBase
     public bool forceupdate = false;
     private bool isinit = false;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
     void OnEnable()
     {
         RegisterEvent();
@@ -51,17 +41,12 @@ public class Member : OutUIBase
     {
         UnRegisterEvent();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.ChooseClass, this.ChooseClass);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.ChooseClass, this.ChooseClass);

@@ -12,7 +12,7 @@ public class PlayerInfor : PlayerBaseInfor
 
     }
 
-    public PlayerInfor(string name, Enums.SexEnum sex, Enums.DutyEnum duty, bool isonline = true)
+    public PlayerInfor(string name, ComonEnums.SexEnum sex, ComonEnums.DutyEnum duty, bool isonline = true)
     {
         this.name = name;
         this.sex = sex;
@@ -26,7 +26,7 @@ public class PlayerInfor : PlayerBaseInfor
     {
         this.name = student.student_name;
         this.sexdesc = student.sex;
-        this.duty = Enums.DutyEnum.Student;
+        this.duty = ComonEnums.DutyEnum.Student;
         this.userid = Convert.ToInt64(student.user_id);
 
         this.avatar = student.avatar;
@@ -38,15 +38,15 @@ public class PlayerInfor : PlayerBaseInfor
 
         switch(duty)
         {
-            case Enums.DutyEnum.Student:
+            case ComonEnums.DutyEnum.Student:
                 ret = this.groupname;
                 break;
-            case Enums.DutyEnum.GroupLeader:
+            case ComonEnums.DutyEnum.GroupLeader:
                 break;
-            case Enums.DutyEnum.Assistant:
+            case ComonEnums.DutyEnum.Assistant:
                 ret = "助教";
                 break;
-            case Enums.DutyEnum.Teacher:
+            case ComonEnums.DutyEnum.Teacher:
                 ret = "老师";
                 break;
             default:

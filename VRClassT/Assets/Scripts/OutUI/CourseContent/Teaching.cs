@@ -40,7 +40,7 @@ public class Teaching : OutUIBase
     [SerializeField]
     public OutUIBase[] uilist;
 
-    public Enums.InClassTestType catage = Enums.InClassTestType.Test;
+    public ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test;
 
     //// Use this for initialization
     //void Start()
@@ -67,10 +67,10 @@ public class Teaching : OutUIBase
     /// </summary>
     public void RegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.ChoosePerson, this.ChoosePerson);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.OpenContent);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Enums.ContentDataType, DownLoadItemInfor>(EventId.DownLoadContent, this.StartDownLoad);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.OpenContent);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.DownLoadContent, this.StartDownLoad);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
 
         //OpenContent
@@ -84,10 +84,10 @@ public class Teaching : OutUIBase
     /// </summary>
     public void UnRegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.InClassTestType, Enums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.ChoosePerson, this.ChoosePerson);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.OpenContent);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Enums.ContentDataType, DownLoadItemInfor>(EventId.DownLoadContent, this.StartDownLoad);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.OpenContent);
+        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.DownLoadContent, this.StartDownLoad);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
 
         //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
@@ -111,24 +111,24 @@ public class Teaching : OutUIBase
         // TODO
     }
 
-    public void ChooseQuestion(Enums.InClassTestType catage, Enums.QuestionType typ, int questionid)
+    public void ChooseQuestion(ComonEnums.InClassTestType catage, ComonEnums.QuestionType typ, int questionid)
     {
         // 选择题目监听
         //TODO
         switch(this.catage)
         {
-            case Enums.InClassTestType.Fast:
+            case ComonEnums.InClassTestType.Fast:
                 FastInClassUI fic = (FastInClassUI)uilist[(int)UITeaching.FastQuestion];
                 fic.questionid = questionid;
                 ShowUI(UITeaching.FastQuestion);
                 break;
-            case Enums.InClassTestType.Test:
+            case ComonEnums.InClassTestType.Test:
                 TestFeedBackUI tb = (TestFeedBackUI)uilist[(int)UITeaching.QuestionBack];
                 tb.questionid = questionid;
                 tb.questiontyp = typ;
                 ShowUI(UITeaching.QuestionBack);
                 break;
-            case Enums.InClassTestType.Ask:
+            case ComonEnums.InClassTestType.Ask:
                 PlayerListUI pl = (PlayerListUI)uilist[(int)UITeaching.GuidePerson];
                 ShowUI(UITeaching.GuidePerson);
                 break;
@@ -139,7 +139,7 @@ public class Teaching : OutUIBase
 
     public void ChoosePerson(Int64 id)
     {
-        if(this.catage != Enums.InClassTestType.Ask)
+        if(this.catage != ComonEnums.InClassTestType.Ask)
         {
             return;
         }
@@ -147,29 +147,29 @@ public class Teaching : OutUIBase
         //TODO
     }
 
-    private void OpenContent(Enums.ContentDataType typ, DownLoadItemInfor infor)
+    private void OpenContent(ComonEnums.ContentDataType typ, DownLoadItemInfor infor)
     {
         Debug.Log("打开文件 " + typ + "    " + infor.fullfilepath);
         switch(typ)
         {
-            case Enums.ContentDataType.Exe:
+            case ComonEnums.ContentDataType.Exe:
                 OpenFileManager.getInstance().OpenExe(infor.fullfilepath);
                 break;
-            case Enums.ContentDataType.PanoramicVideo:
+            case ComonEnums.ContentDataType.PanoramicVideo:
                 OpenFileManager.getInstance().OpenPanoramicVideo(infor.fullfilepath);
                 break;
-            case Enums.ContentDataType.OrdinaryVideo:
+            case ComonEnums.ContentDataType.OrdinaryVideo:
                 OpenFileManager.getInstance().OpenOrdinaryVideo(infor.fullfilepath, gameObject);
                 break;
-            case Enums.ContentDataType.Panorama:
+            case ComonEnums.ContentDataType.Panorama:
                 break;
-            case Enums.ContentDataType.Picture:
+            case ComonEnums.ContentDataType.Picture:
                 break;
-            case Enums.ContentDataType.PPt:
+            case ComonEnums.ContentDataType.PPt:
                 OpenFileManager.getInstance().OpenPPt(infor.fullfilepath);
                 OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
                 break;
-            case Enums.ContentDataType.Zip:
+            case ComonEnums.ContentDataType.Zip:
                 OpenFileManager.getInstance().OpenExe(infor.fullfilepath);
                 break;
             default:
@@ -179,7 +179,7 @@ public class Teaching : OutUIBase
         MsgModule.getInstance().reqOpenContent(infor.fileid);
     }
 
-    private void StartDownLoad(Enums.ContentDataType typ, DownLoadItemInfor dlii)
+    private void StartDownLoad(ComonEnums.ContentDataType typ, DownLoadItemInfor dlii)
     {
         // 发送推送消息
         if (dlii != null)
@@ -243,25 +243,25 @@ public class Teaching : OutUIBase
 
     public void OnClickAllTest()
     {
-        System.Object[] args = new System.Object[] { Enums.InClassTestType.Test };
+        System.Object[] args = new System.Object[] { ComonEnums.InClassTestType.Test };
         ShowUI(UITeaching.QuestionList, args);
-        catage = Enums.InClassTestType.Test;
+        catage = ComonEnums.InClassTestType.Test;
     }
 
     public void OnClickFastTest()
     {
-        System.Object[] args = new System.Object[] { Enums.InClassTestType.Fast };
+        System.Object[] args = new System.Object[] { ComonEnums.InClassTestType.Fast };
 
         ShowUI(UITeaching.QuestionList, args);
-        catage = Enums.InClassTestType.Fast;
+        catage = ComonEnums.InClassTestType.Fast;
     }
 
     public void OnClickChoose()
     {
-        System.Object[] args = new System.Object[] { Enums.InClassTestType.Ask };
+        System.Object[] args = new System.Object[] { ComonEnums.InClassTestType.Ask };
 
         ShowUI(UITeaching.QuestionList, args);
-        catage = Enums.InClassTestType.Ask;
+        catage = ComonEnums.InClassTestType.Ask;
     }
 
     public void OnClickWrite()

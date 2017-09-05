@@ -21,7 +21,7 @@ public class FileDataListUI : OutUIBase {
             }
             else if(args.Length > 0)
             {
-                Enums.ContentDataType type = (Enums.ContentDataType)args[0];
+                ComonEnums.ContentDataType type = (ComonEnums.ContentDataType)args[0];
                 InitData(type);
             }
             
@@ -31,16 +31,16 @@ public class FileDataListUI : OutUIBase {
 
     public void InitData(string suffix, string filetyp)
     {
-        Enums.ContentDataType type = FileManager.getInstance().GetFileContenTypeBySuffix(suffix, filetyp);
+        ComonEnums.ContentDataType type = FileManager.getInstance().GetFileContenTypeBySuffix(suffix, filetyp);
 
         InitData(type);
     }
 
-    public void InitData(Enums.ContentDataType type)
+    public void InitData(ComonEnums.ContentDataType type)
     {
-        if (type == Enums.ContentDataType.None)
+        if (type == ComonEnums.ContentDataType.None)
         {
-            type = Enums.ContentDataType.PPt;
+            type = ComonEnums.ContentDataType.PPt;
         }
 
         List<DownLoadItemInfor> fileitems = DownLoadDataManager.getInstance().GetContentsByType(type);

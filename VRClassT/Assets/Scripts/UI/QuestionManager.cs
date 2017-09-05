@@ -58,7 +58,7 @@ public class QuestionManager {
         return question;
     }
 
-    public List<QuestionInfor> GetQuestionByTyp(Enums.QuestionType typ)
+    public List<QuestionInfor> GetQuestionByTyp(ComonEnums.QuestionType typ)
     {
         List<QuestionInfor> q = new List<QuestionInfor>();
 
@@ -73,27 +73,27 @@ public class QuestionManager {
         return q;
     }
 
-    public static string ConvertQuestionType(Enums.QuestionType typ)
+    public static string ConvertQuestionType(ComonEnums.QuestionType typ)
     {
         string ret = null;
 
-        if(typ == Enums.QuestionType.None)
+        if(typ == ComonEnums.QuestionType.None)
         {
             return ret;
         }
 
         switch(typ)
         {
-            case Enums.QuestionType.TrueOrFalse:
+            case ComonEnums.QuestionType.TrueOrFalse:
                 ret = "判断题";
                 break;
-            case Enums.QuestionType.SingleChoice:
+            case ComonEnums.QuestionType.SingleChoice:
                 ret = "单选题";
                 break;
-            case Enums.QuestionType.MultipleChoice:
+            case ComonEnums.QuestionType.MultipleChoice:
                 ret = "多选题";
                 break;
-            case Enums.QuestionType.ShortAnswer:
+            case ComonEnums.QuestionType.ShortAnswer:
                 ret = "简答题";
                 break;
             default:
@@ -103,9 +103,9 @@ public class QuestionManager {
         return ret;
     }
 
-    public static Enums.QuestionType ConvertQuestionTypeToEnum(string typ)
+    public static ComonEnums.QuestionType ConvertQuestionTypeToEnum(string typ)
     {
-        Enums.QuestionType ret = Enums.QuestionType.None;
+        ComonEnums.QuestionType ret = ComonEnums.QuestionType.None;
 
         if (typ == null)
         {
@@ -115,16 +115,16 @@ public class QuestionManager {
         switch (typ)
         {
             case "select":
-                ret = Enums.QuestionType.SingleChoice;
+                ret = ComonEnums.QuestionType.SingleChoice;
                 break;
             case "multiselect":
-                ret = Enums.QuestionType.MultipleChoice;
+                ret = ComonEnums.QuestionType.MultipleChoice;
                 break;
             case "judge":
-                ret = Enums.QuestionType.TrueOrFalse;
+                ret = ComonEnums.QuestionType.TrueOrFalse;
                 break;
             case "text":
-                ret = Enums.QuestionType.ShortAnswer;
+                ret = ComonEnums.QuestionType.ShortAnswer;
                 break;
             default:
                 break;

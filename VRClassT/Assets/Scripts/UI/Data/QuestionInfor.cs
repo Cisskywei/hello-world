@@ -105,7 +105,7 @@ public class QuestionInfor {
     }
 
     public int question_id = -1;
-    public Enums.QuestionType typ;
+    public ComonEnums.QuestionType typ;
     public string stem;
     public string[] options;
     public string[] anwers;
@@ -113,5 +113,5 @@ public class QuestionInfor {
     public string difficulty;
     public ArrayList correctanswers;
 
-    public Enums.InClassTestType category;
+    public ComonEnums.InClassTestType category;
 }

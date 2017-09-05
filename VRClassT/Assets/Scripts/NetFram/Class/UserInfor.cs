@@ -204,7 +204,7 @@ public class UserInfor {
     // 权限控制相关 
     public string groupname; // 所属小组名称
     public bool isleader = false;  //如果为true 则相应等级需要提升
-    public Enums.TeachingMode model = Enums.TeachingMode.WatchLearnModel_Sync;
+    public ComonEnums.TeachingMode model = ComonEnums.TeachingMode.WatchLearnModel_Sync;
     // 根据模式控制收发状态
     public bool isCanReceive = false;
     public bool isCanSend = false;
@@ -240,7 +240,7 @@ public class UserInfor {
     }
 
     // 接收自身模式改变  默认情况的收、发、操作权限
-    public void ChangePlayerModel(Int64 userid, Enums.TeachingMode tomodel, string target)
+    public void ChangePlayerModel(Int64 userid, ComonEnums.TeachingMode tomodel, string target)
     {
         int selfid = UserInfor.getInstance()._userid;
         int targetid = -1;
@@ -252,48 +252,48 @@ public class UserInfor {
         bool isself = false;
         switch (tomodel)
         {
-            case Enums.TeachingMode.WatchLearnModel_Sync:
+            case ComonEnums.TeachingMode.WatchLearnModel_Sync:
                 isself = (selfid == targetid || userid == selfid) || false;
                 isCanReceive = true;
                 isCanSend = isself;
                 isCanOperate = isself;
                 break;
-            case Enums.TeachingMode.WatchLearnModel_Async:
+            case ComonEnums.TeachingMode.WatchLearnModel_Async:
                 isself = (userid == targetid || userid == selfid) || false;
                 isCanReceive = true;
                 isCanSend = isself;
                 isCanOperate = isself;
                 break;
-            case Enums.TeachingMode.GuidanceMode_Personal:
+            case ComonEnums.TeachingMode.GuidanceMode_Personal:
                 isself = (selfid == targetid || selfid == userid) || false;
                 isCanReceive = isself;
                 isCanSend = isself;
                 isCanOperate = isself;
                 break;
-            case Enums.TeachingMode.GuidanceMode_Group:
+            case ComonEnums.TeachingMode.GuidanceMode_Group:
                 isCanReceive = true;
                 isCanSend = true;
                 isCanOperate = true;
                 break;
-            case Enums.TeachingMode.SelfTrain_Personal:
+            case ComonEnums.TeachingMode.SelfTrain_Personal:
                 isCanReceive = false;
                 isCanSend = false;
                 isCanOperate = true;
                 break;
-            case Enums.TeachingMode.SelfTrain_Group:
+            case ComonEnums.TeachingMode.SelfTrain_Group:
                 isCanReceive = true;
                 isCanSend = true;
                 isCanOperate = true;
                 break;
-            case Enums.TeachingMode.SelfTrain_All:
+            case ComonEnums.TeachingMode.SelfTrain_All:
                 isCanReceive = true;
                 isCanSend = true;
                 isCanOperate = true;
                 break;
-            case Enums.TeachingMode.VideoOnDemand_General:
-            case Enums.TeachingMode.VideoOnDemand_Full:
-            case Enums.TeachingMode.VideoOnLive_General:
-            case Enums.TeachingMode.VideoOnLive_Full:
+            case ComonEnums.TeachingMode.VideoOnDemand_General:
+            case ComonEnums.TeachingMode.VideoOnDemand_Full:
+            case ComonEnums.TeachingMode.VideoOnLive_General:
+            case ComonEnums.TeachingMode.VideoOnLive_Full:
                 break;
             default:
                 break;

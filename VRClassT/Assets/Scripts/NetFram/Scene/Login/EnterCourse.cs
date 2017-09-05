@@ -4,35 +4,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnterCourse : MonoBehaviour, msg_req_ret, msg_req_ret_json
+public class EnterCourse
 {
+    public static EnterCourse getInstance()
+    {
+        return Singleton<EnterCourse>.getInstance();
+    }
 
-    public ClassRoom cr;
+    public EnterCourse()
+    {
+        RegListener();
+    }
 
-    private int courseid;
+    private void RegListener()
+    {
+        CommandReceive.getInstance().AddHashMsgListener(CommandDefine.HashTableMsgType.retEnterCourse, ret_msg);
+    }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	//// Update is called once per frame
-	//void Update () {
-		
-	//}
+    private void RemoveListener()
+    {
+        CommandReceive.getInstance().RemoveHashMsgListener(CommandDefine.HashTableMsgType.retEnterCourse, ret_msg);
+    }
+
+    private int courseid = -1;
 
     public void PlayerEnterCourse(int courseid)
     {
-        MsgModule.getInstance().registerMsgHandler(this);
-
         this.courseid = courseid;
 
         Debug.Log("进入教室" + courseid);
-        MainThreadClient._client.call_hub("lobby", "WisdomLogin", "EnterCourse", UserInfor.getInstance().UserId, UserInfor.getInstance().UserUuid, (Int64)courseid);
-    }
 
-    public void req_msg(Hashtable msg)
-    {
+        NetworkCommunicate.getInstance().PlayerEnterCourse((int)UserInfor.getInstance().UserId, UserInfor.getInstance().UserUuid, courseid);
+
+        //MainThreadClient._client.call_hub("lobby", "WisdomLogin", "EnterCourse", UserInfor.getInstance().UserId, UserInfor.getInstance().UserUuid, (Int64)courseid);
     }
 
     public void ret_msg(Hashtable msg)
@@ -82,10 +86,13 @@ public class EnterCourse : MonoBehaviour, msg_req_ret, msg_req_ret_json
             // 真正的智慧教室开始  进入智慧教室 某个课程的场景里  需有脚本接受消息 接收老师操作 接收指令  (数据同步等操作是具体的vr课件所具有的功能) !!!!!!!!!!!!
             // TODO
             // 
-            if (cr != null)
+            if(courseid < 0)
             {
-                // 多此步骤主要是为了获取课程的题目数据
-                cr.EnterClassRoom(this.courseid);
+                Debug.Log(" 课程id 为空 " + courseid);
+            }
+            else
+            {
+                ClassRoom.getInstance().EnterClassRoom(this.courseid);
             }
         }
         else if (result == "failed")
@@ -94,10 +101,7 @@ public class EnterCourse : MonoBehaviour, msg_req_ret, msg_req_ret_json
 
             Debug.Log("错误信息: " + errormsg);
         }
-    }
 
-    public void ret_msg_json(string msg)
-    {
-        Debug.Log("msg" + msg);
+        RemoveListener();
     }
 }

@@ -113,7 +113,14 @@ public class ChooseData : OutUIBase
         // 发送推送消息
         if(dlii != null)
         {
-            MsgModule.getInstance().reqDownLoadFileOne(dlii.filename, dlii.filepath, dlii.type, dlii.fileid);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PushDataOne);
+            msg.Add(dlii.filename);
+            msg.Add(dlii.filepath);
+            msg.Add(dlii.type);
+            msg.Add(dlii.fileid.ToString());
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
         }
     }
 
@@ -139,7 +146,11 @@ public class ChooseData : OutUIBase
 
             if(files.Count > 0)
             {
-                MsgModule.getInstance().reqDownLoadFileAll(files);
+                ArrayList msg = new ArrayList();
+                msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                msg.Add((Int64)CommandDefine.SecondLayer.PushDataAll);
+                msg.Add(files);
+                CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
             }
         }
 
