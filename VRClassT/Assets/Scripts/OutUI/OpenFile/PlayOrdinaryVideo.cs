@@ -218,7 +218,13 @@ public class PlayOrdinaryVideo : MonoBehaviour {
         {
             if(UserInfor.getInstance().isTeacher)
             {
-                MsgModule.getInstance().reqCtrlVideo(2, (int)(nowv * 100));
+                ArrayList msg = new ArrayList();
+                msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                msg.Add((Int64)CommandDefine.SecondLayer.VideoCtrl);
+                msg.Add((Int64)2);
+                msg.Add((Int64)(nowv * 100));
+                CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
+                //MsgModule.getInstance().reqCtrlVideo(2, (int)(nowv * 100));
             }
             ump.Position = s.value;
         }

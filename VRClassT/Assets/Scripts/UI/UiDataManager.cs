@@ -388,7 +388,12 @@ public class UiDataManager {
         }
 
         // TODO
-        MsgModule.getInstance().reqInClassTest(catage, id, null);
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.TestInClass);
+        msg.Add((Int64)catage);
+        msg.Add((Int64)id);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
     }
 
     public void FastTestInClass(int id)

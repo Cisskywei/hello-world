@@ -16,15 +16,6 @@ public class QuestionItem : MonoBehaviour {
     public Text qstem;
     public Text qtyp;
 
-    // Use this for initialization
-    void Start () {
-    }
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
     public void InitQuestion(string content, ComonEnums.QuestionType typ, int id, ComonEnums.InClassTestType catage)
     {
         this.catage = catage;

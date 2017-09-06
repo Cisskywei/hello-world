@@ -15,41 +15,60 @@ public class FastInClassUI : OutUIBase {
     public int questionid;
     public int chooseuserid = -1;
 
-    //   // Use this for initialization
-    //   void Start () {
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
-
     void OnEnable()
     {
+        RegListener();
         RegisterEvent();
     }
 
     void OnDisable()
     {
+        RemoveListener();
         UnRegisterEvent();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.EndFastQuestion, this.EndFastQuestion);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.EndFastQuestion, this.EndFastQuestion);
     }
 
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    private void TestInClass(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 2)
+        {
+            return;
+        }
+
+        Int64 questionid = (Int64)msg[2];
+
+        SomeOneCome(userid);
+    }
 
     public override void ShowSelf(params System.Object[] args)
     {
@@ -121,7 +140,13 @@ public class FastInClassUI : OutUIBase {
 
         if(chooseuserid != -1)
         {
-            MsgModule.getInstance().reqEndFastQuestion((Int64)chooseuserid);
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PushDataOne);
+            msg.Add((Int64)chooseuserid);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
+
+            //MsgModule.getInstance().reqEndFastQuestion((Int64)chooseuserid);
             chooseuserid = -1;
         }
 
@@ -134,7 +159,7 @@ public class FastInClassUI : OutUIBase {
 
         if (chooseuserid != -1)
         {
-            MsgModule.getInstance().reqEndFastQuestion((Int64)chooseuserid);
+   //         MsgModule.getInstance().reqEndFastQuestion((Int64)chooseuserid);
             chooseuserid = -1;
         }
 

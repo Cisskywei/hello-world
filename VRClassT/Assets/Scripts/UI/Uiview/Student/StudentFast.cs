@@ -1,4 +1,5 @@
 ﻿using ko.NetFram;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TinyFrameWork;
@@ -12,16 +13,6 @@ public class StudentFast : OutUIBase {
     public Text stem;
 
     public int questionid;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 
     public override void ShowSelf(params System.Object[] args)
     {
@@ -77,7 +68,13 @@ public class StudentFast : OutUIBase {
         // 点击答题按钮
         // 显示抢答页面
         //HideSelf();
-        MsgModule.getInstance().reqAnswerFastQuestion(this.questionid);
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.TestInClass);
+        msg.Add((Int64)this.questionid);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
+
+        //MsgModule.getInstance().reqAnswerFastQuestion(this.questionid);
    //     EventDispatcher.GetInstance().MainEventManager.TriggerEvent < int,int>(EventId.StudentFastQuestion, 1, this.questionid);
     }
 
@@ -86,6 +83,58 @@ public class StudentFast : OutUIBase {
         if (flow != null)
         {
             flow.ChangeMove(false);
+        }
+    }
+
+    void OnEnable()
+    {
+        RegListener();
+    }
+
+    void OnDisable()
+    {
+        RemoveListener();
+    }
+
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    private void RemoveListener()
+    {
+        if (UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    private void TestInClass(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 2)
+        {
+            return;
+        }
+
+        Int64 typ = (Int64)msg[2];
+
+        if(typ == 1)
+        {
+            // 得到答题权
+        }
+        else if(typ == 2)
+        {
+            // 答题结束
+            HideSelf();
+            StudentUIManager.getInstance().ShowUI(StudentUIManager.UIStudent.Prepare);
         }
     }
 }

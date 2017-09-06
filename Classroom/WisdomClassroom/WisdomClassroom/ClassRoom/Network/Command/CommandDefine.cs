@@ -46,10 +46,22 @@ namespace WisdomClassroom.ClassRoom
 
             // 答题 打开文件 等交互
             OpenContent,
+            OpenPPt,
             VideoCtrl,
             PPtCtrl,
 
+            TestInClass,
+            AnswerQuestion,
+            EndQuestion,
+
+            // 老师学生交互
+            StudentDoubt,
+            StudentLike,
+
             BigScreen,   // 大屏显示相关指令
+
+            // 返回
+            BackToLobby,
 
             Exit,
         }

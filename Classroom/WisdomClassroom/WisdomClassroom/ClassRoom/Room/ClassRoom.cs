@@ -232,6 +232,8 @@ namespace WisdomClassroom.ClassRoom
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrl);
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPtCtrl);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenPPt, OpenPPt);
 
         }
 
@@ -257,6 +259,8 @@ namespace WisdomClassroom.ClassRoom
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.VideoCtrl, VideoCtrl);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PPtCtrl, PPtCtrl);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenPPt, OpenPPt);
 
         }
 
@@ -831,6 +835,70 @@ namespace WisdomClassroom.ClassRoom
         }
 
         public void PPtCtrl(int userid, ArrayList msg)
+        {
+            if (this.teacher == null || this.teacher.selfid != userid)
+            {
+                return;
+            }
+
+            string uuid = teacher.uuid;
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            for (int i = 0; i < _uuid_of_player.Count; i++)
+            {
+                if ((string)_uuid_of_player[i] == uuid)
+                {
+                    continue;
+                }
+
+                _uuid_sync_cache.Add(_uuid_of_player[i]);
+            }
+
+            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+            _uuid_sync_cache.Clear();
+        }
+
+        private void TestInClass(int userid, ArrayList msg)
+        {
+            if (this.teacher == null)
+            {
+                return;
+            }
+
+            if(userid == teacher.selfid)
+            {
+                string uuid = teacher.uuid;
+                if (_uuid_sync_cache.Count > 0)
+                {
+                    _uuid_sync_cache.Clear();
+                }
+
+                for (int i = 0; i < _uuid_of_player.Count; i++)
+                {
+                    if ((string)_uuid_of_player[i] == uuid)
+                    {
+                        continue;
+                    }
+
+                    _uuid_sync_cache.Add(_uuid_of_player[i]);
+                }
+
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+                _uuid_sync_cache.Clear();
+            }
+            else
+            {
+                hub.hub.gates.call_client(teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
+            
+        }
+
+        private void OpenPPt(int userid, ArrayList msg)
         {
             if (this.teacher == null || this.teacher.selfid != userid)
             {

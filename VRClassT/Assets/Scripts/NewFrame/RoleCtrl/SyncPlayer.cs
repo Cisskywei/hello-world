@@ -41,10 +41,9 @@ public class SyncPlayer : MonoBehaviour {
         lastheadrot = head.rotation;
     }
 
-    private void Start()
-    {
-        RoleManager.getInstance().AddPlayer(67, this);
-    }
+    //private void Start()
+    //{
+    //}
 
     public void Init(int userid)
     {

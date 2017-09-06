@@ -1,6 +1,5 @@
 ﻿//========= Copyright 2016-2017, HTC Corporation. All rights reserved. ===========
 
-using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -27,7 +26,12 @@ namespace HTC.UnityPlugin.Utility
             else
             {
                 position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), new GUIContent(property.displayName));
-                property.intValue = EditorGUI.MaskField(position, property.intValue, Enum.GetNames(ffeAttribute.EnumType));
+
+                var enumInfo = EnumUtils.GetDisplayInfo(ffeAttribute.EnumType);
+                var realMask = property.intValue;
+                var oldDisplayedMask = enumInfo.RealToDisplayedMaskField(realMask);
+                var newDisplayedMask = EditorGUI.MaskField(position, oldDisplayedMask, enumInfo.displayedMaskNames);
+                property.intValue = enumInfo.DisplayedToRealMaskField(newDisplayedMask, (uint)newDisplayedMask > (uint)oldDisplayedMask);
             }
 
             property.serializedObject.ApplyModifiedProperties();

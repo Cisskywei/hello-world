@@ -13,10 +13,17 @@ public class RoleManager {
         return Singleton<RoleManager>.getInstance();
     }
 
+    public RoleManager()
+    {
+        playerPrefab = Resources.Load(rolepath + rolename);
+    }
+
     // 除了自己的其他玩家列表
     private Dictionary<int, SyncPlayer> _allplayers = new Dictionary<int, SyncPlayer>();
     // 人物角色的整体预设
-    public static GameObject playerPrefab;
+    public static string rolepath = "Role/";
+    private string rolename = "role_man";
+    public static UnityEngine.Object playerPrefab;
     public int selfplayerid = -1;
 
     // 被销毁的人物缓存
@@ -87,7 +94,7 @@ public class RoleManager {
         }
         else
         {
-            GameObject go = GameObject.Instantiate(playerPrefab);
+            GameObject go = GameObject.Instantiate(playerPrefab) as GameObject;
             sp = go.GetComponent<SyncPlayer>();
         }
 

@@ -27,7 +27,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT;VIU_PLUGIN;VIU_STEAMVR;VIU_BINDING_INTERFACE_SWITCH;VIU_EXTERNAL_CAMERA_SWITCH</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -37,7 +37,7 @@
     <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT</DefineConstants>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_2;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_WIN;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_EVENT_QUEUE;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;CROSS_PLATFORM_INPUT;VIU_PLUGIN;VIU_STEAMVR;VIU_BINDING_INTERFACE_SWITCH;VIU_EXTERNAL_CAMERA_SWITCH</DefineConstants>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -94,6 +94,12 @@
     <Reference Include="DOTween50">
       <HintPath>Assets\DOTween\DOTween50.dll</HintPath>
     </Reference>
+    <Reference Include="client">
+      <HintPath>Assets\Plugins\client.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Assets\Plugins\LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Plugins\Win\x86_64\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -111,15 +117,6 @@
     </Reference>
     <Reference Include="System.ServiceProcess">
       <HintPath>Assets\Plugins\Win\x86_64\System.ServiceProcess.dll</HintPath>
-    </Reference>
-    <Reference Include="client">
-      <HintPath>Assets\Plugins\client.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>Assets\Plugins\LitJson.dll</HintPath>
-    </Reference>
-    <Reference Include="SpringVr">
-      <HintPath>Assets\Plugins\SpringVr.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +175,7 @@
     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseModifiers\PoseFreezer.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseModifiers\PoseStablizer.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\PoseTracker.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\Utility\Attribute\CustomOrderedEnumAttribute.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\ChangeProp.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\IndexedSet.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\Container\IndexedTable.cs" />
@@ -187,7 +185,21 @@
     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\IndexedSetPool.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\ListPool.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\ContainerPool\ObjectPool.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\Utility\EnumUtils.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\Utility\FlagsFromEnumAttribute.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\Utility\SingletonBehaviour.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\OculusVRModule.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\SteamVRModule.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\UnityEngineVRModule.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\UnityEngineVRModule_2017_1.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\UnityEngineVRModule_2017_2.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\UnityEngineVRModule_5_5.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\Modules\UnityEngineVRModule_5_6.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModule.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleBase.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleDeviceState.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleEvent.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\VRModule\VRModuleManager.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\2.2DDragDrop\Scripts\DragImage.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\2.2DDragDrop\Scripts\DropImage.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Examples\3.3DDrag\Scripts\Draggable.cs" />
@@ -212,19 +224,32 @@
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\OverlayKeyboardSample.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\RenderModelHook.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ReticlePoser.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\SteamVRCameraHook.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\StickyGrabbable.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Teleportable.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\ViveRoleBindingsHelper.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VIUVersion.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveColliderEvent\ViveColliderEventCaster.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveColliderEvent\ViveColliderEventData.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ControllerState.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ViveInput.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ViveInputStatic.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\ViveInputVirtualButton.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePose.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePoseGet.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\VivePoseTracker.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\VivePose\ViveRigidPoseTracker.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRaycaster\VivePointerEventData.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRaycaster\ViveRaycaster.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceConfigPanelController.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceDeviceItem.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceDevicePanelController.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceRoleButtonItem.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceRolePanelController.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceRoleSetBindingItem.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceRoleSetButtonItem.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceRoleSetPanelController.cs" />
+    <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\BindingInterface\BindingInterfaceSpriteManager.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\BodyRole.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\DeviceRole.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\RoleMaps\HandRole.cs" />
@@ -235,47 +260,6 @@
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleMapHandler.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleProperty.cs" />
     <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\ViveRoleSetter.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_HandActiveCtrlExtend.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_LeftHandCtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\Extend\SpringVr_RightHandCtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandActiveCtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandPositionCtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandShake.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\Avtive\SpringVr_HandShakeCtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_Base.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_FuncInvok.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_OnGUI.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_Summary.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\SpringVr_UpdateBase.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Ctrl\HandSDK\UI\SpringVr_GUICtrl.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\ErrorDisplay.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadDataBase.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadLeftHandData.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_ReadRightHandData.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\ReadDataScripts\SpringVr_SerialPortTool.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\SpringVr_AllUseData.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\WriteDataScripts\SpringVr_WriteDataBase.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\Model\WriteDataScripts\SpringVr_WriteRightHandData.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\Extend\SpringVr_TakeGoods.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_HandActiveView.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_HandPositionView.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_LeftHandActiveView.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Active\SpringVr_RightHandActiveView.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_FingerMoveGetsturCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GestureCalculateBase.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GestureChoose.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_GetGoodsGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_IndexMiddleGetsturCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_LaserGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_OKGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_PalmGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_PlamChangeGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_RockFingerGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ShootGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbGestureCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexCloseTogetherCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexSeparateCalculate.cs" />
-    <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\UI\SpringVr_CommandShow.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\GraphAttribute.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\JointAttribute.cs" />
     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Attributes\NodeMenuItemAttribute.cs" />
@@ -481,6 +465,7 @@
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedReceive.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedSend.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\BodyFollow.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\HeadFollow.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\KeepRelativePos.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\PetFlow.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleManager.cs" />

@@ -48,13 +48,13 @@ public class StudentUIManager : OutUIBase
 
     void OnEnable()
     {
-        RegisterEvent();
+ //       RegisterEvent();
         RegListener();
     }
 
     void OnDisable()
     {
-        UnRegisterEvent();
+  //      UnRegisterEvent();
         RemoveListener();
     }
 
@@ -62,7 +62,6 @@ public class StudentUIManager : OutUIBase
     {
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, string>(EventId.StudentFastQuestion, this.StudentFastQuestion);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<string, string, string, int>(EventId.DownLoadFileOne, this.DownLoadFileOne);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Hashtable>(EventId.DownLoadFileAll, this.DownLoadFileAll);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64, int>(EventId.SwitchWhiteBoard, this.SwitchWhiteBoard);
@@ -70,7 +69,6 @@ public class StudentUIManager : OutUIBase
 
     public void UnRegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, string>(EventId.StudentFastQuestion, this.StudentFastQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<string, string, string, int>(EventId.DownLoadFileOne, this.DownLoadFileOne);
@@ -87,6 +85,8 @@ public class StudentUIManager : OutUIBase
         }
 
         CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenPPt, OpenPPt);
     }
 
     private void RemoveListener()
@@ -97,6 +97,8 @@ public class StudentUIManager : OutUIBase
         }
 
         CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenContent, OpenContent);
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OpenPPt, OpenPPt);
     }
 
     private void OpenContent(int userid, ArrayList msg)
@@ -109,6 +111,31 @@ public class StudentUIManager : OutUIBase
         Int64 file = (Int64)msg[2];
 
         OpenContent((int)file);
+    }
+
+    private void TestInClass(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 3)
+        {
+            return;
+        }
+
+        Int64 questiontyp = (Int64)msg[2];
+        Int64 questionid = (Int64)msg[3];
+
+        StudentReciveQuestion(0,(int)questiontyp, (int)questionid,null);
+    }
+
+    private void OpenPPt(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 2)
+        {
+            return;
+        }
+
+        Int64 openclose = (Int64)msg[2];
+
+        SwitchWhiteBoard(0, (int)openclose);
     }
 
     //0 是关 1是开 

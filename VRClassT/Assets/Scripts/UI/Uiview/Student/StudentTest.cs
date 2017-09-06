@@ -1,4 +1,5 @@
 ﻿using ko.NetFram;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TinyFrameWork;
@@ -13,16 +14,6 @@ public class StudentTest : OutUIBase {
     public Text[] options;
 
     public int questionid;
-
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 
     public override void ShowSelf(params System.Object[] args)
     {
@@ -78,9 +69,16 @@ public class StudentTest : OutUIBase {
     {
         // 弹出回答问题界面
         HideSelf();
-        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<int>(EventId.StudentAnswerQuestion, optionid);
+        //EventDispatcher.GetInstance().MainEventManager.TriggerEvent<int>(EventId.StudentAnswerQuestion, optionid);
 
-        MsgModule.getInstance().reqAnswerQuestion(this.questionid, optionid);
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.TestInClass);
+        msg.Add((Int64)this.questionid);
+        msg.Add((Int64)optionid);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
+
+        //MsgModule.getInstance().reqAnswerQuestion(this.questionid, optionid);
 //        UiDataManager.getInstance().AnswerQuestionTest(optionid);
     }
 

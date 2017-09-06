@@ -54,10 +54,11 @@ public class Teaching : OutUIBase
 
     public void RegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.ChoosePerson, this.ChoosePerson);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.OpenContent, this.OpenContent);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.ContentDataType, DownLoadItemInfor>(EventId.DownLoadContent, this.StartDownLoad);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
+
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.ChoosePerson, this.ChoosePerson);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
 
         //OpenContent
@@ -262,7 +263,13 @@ public class Teaching : OutUIBase
 
     public void OnClickWrite()
     {
-        //OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
+        OutUiManager.getInstance().ShowUI(OutUiManager.UIList.DrawingBoardUI);
+
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.OpenPPt);
+        msg.Add((Int64)1);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
 
         //MsgModule.getInstance().reqWhiteBoard(1);
     }

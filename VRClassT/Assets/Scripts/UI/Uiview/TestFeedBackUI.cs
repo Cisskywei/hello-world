@@ -196,12 +196,14 @@ public class TestFeedBackUI : OutUIBase
 
     void OnEnable()
     {
-        RegisterEventListener();
+        RegListener();
+   //     RegisterEventListener();
     }
 
     void OnDisable()
     {
-        UnRegisterEventListener();
+        RemoveListener();
+  //      UnRegisterEventListener();
     }
 
     // 注册事件监听函数
@@ -214,6 +216,41 @@ public class TestFeedBackUI : OutUIBase
     public void UnRegisterEventListener()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, int>(EventId.TestFeedBack, this.TestFeedBack);
+    }
+
+    // 注册 取消 网络消息监听模块
+    private void RegListener()
+    {
+        if (!UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    private void RemoveListener()
+    {
+        if (!UserInfor.getInstance().isTeacher)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.TestInClass, TestInClass);
+    }
+
+    // 学生回答题目
+    private void TestInClass(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 3)
+        {
+            return;
+        }
+
+        Int64 questionid = (Int64)msg[2];
+        Int64 optionid = (Int64)msg[3];
+
+        TestFeedBack(userid, (int)questionid, (int)optionid);
     }
 
     public void TestFeedBack(int userid, int questionid, int optionid)

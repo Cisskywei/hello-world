@@ -1,4 +1,5 @@
 ﻿using PaintCraft.Controllers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -172,6 +173,12 @@ public class DocumentShow : OutUIBase {
 
         if (UserInfor.getInstance().isTeacher)
         {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.OpenPPt);
+            msg.Add((Int64)0);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
+
             OutUiManager.getInstance().ShowUI(OutUiManager.UIList.Teaching);
         }else
         {
