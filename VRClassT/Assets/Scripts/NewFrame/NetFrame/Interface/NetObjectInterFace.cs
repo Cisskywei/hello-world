@@ -12,4 +12,24 @@ public class NetObjectInterFace {
         void ObjectOperate(int userid, ArrayList msg);
         //void RetHoldRelease(int userid, ArrayList msg);
     }
+
+    /// <summary>
+    /// 处理网络游戏物体同步
+    /// </summary>
+	public interface IObjectSync
+    {
+        void ReceiveSync(Hashtable data);
+        void DoSync();
+        void SendSync();
+        Hashtable GetHash();
+    }
+
+    /// <summary>
+    /// 处理网络游戏物体管道方式的同步
+    /// </summary>
+	public interface IObjectPipeSync
+    {
+        void ReceiveSync(int fromid, ArrayList data);
+        void SendSync(System.Object data);
+    }
 }

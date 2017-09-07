@@ -11,6 +11,8 @@ public class DrawPaint : MonoBehaviour {
     {
         None = -1,
 
+        SartPaint,
+        EndPaint,
         ChangColor,
         ChangeSize,
         Clear,

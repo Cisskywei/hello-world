@@ -30,6 +30,7 @@ public class NetConfig {
     public static string InitScene_func = "InitScene";                      // 进入课件里的初始化场景
     public static string ChangeAllOnce_func = "ChangeClientAllOnce";        // 客户端一次发送修改的数据
     public static string Command_func = "Command";                          // 指令传输
+    public static string Pipe_func = "ReceivePipeData";                          // 管道传输
 
     // 其他统一通过指令控制
 

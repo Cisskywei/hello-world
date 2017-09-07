@@ -84,4 +84,15 @@ public class NetworkCommunicate : imodule
         h.Add("player", playerdata);
         UnifiedReceive.getInstance().Receive(h);
     }
+
+    // 管道同步
+    public void ReqPipe(int roomid, int fromid, int toid, Hashtable data)
+    {
+        Client._client.call_hub(NetConfig.lobby_module_name, NetConfig.class_module_name, NetConfig.Pipe_func, (Int64)roomid, (Int64)fromid, (Int64)toid, data);
+    }
+
+    public void RetPipe(Int64 userid, Hashtable data)
+    {
+        ContinuousPipe.getInstance().Receive((int)userid, data);
+    }
 }

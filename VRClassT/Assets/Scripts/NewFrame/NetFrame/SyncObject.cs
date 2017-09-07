@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SyncObject : MonoBehaviour {
-
+public class SyncObject : MonoBehaviour, NetObjectInterFace.IObjectSync
+{
+    [SerializeField]
     private int selfid = -1;
 
     private Queue<Vector3> poscache = new Queue<Vector3>();
@@ -18,7 +19,10 @@ public class SyncObject : MonoBehaviour {
 
     void Awake()
     {
-        selfid = ObjectCollector.getInstance().Add(this);
+        if(selfid > 0)
+        {
+            ObjectCollector.getInstance().Add(selfid, gameObject);
+        }
 
         // 注册update 函数 
         NetMainLoop.Instance().AddUpdate(OnUpdate);
@@ -193,7 +197,7 @@ public class SyncObject : MonoBehaviour {
     }
 
     private float diff = 0.2f;
-    private void DoSync()
+    public void DoSync()
     {
         if(_issyncpos)
         {

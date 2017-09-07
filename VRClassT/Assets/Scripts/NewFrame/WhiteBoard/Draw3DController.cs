@@ -28,12 +28,12 @@ public class Draw3DController : InputController
 
     #endregion
 
+    [SerializeField]
     PaintcraftCanvas3DPlane paintcraftPlane;
     Vector2 paintcraftCoordinates;
     bool drawingStarted = false;
     void Update()
     {
-
         if (_isstartdraw)
         {
             if (DoRaycast(out paintcraftPlane, out paintcraftCoordinates))
@@ -120,5 +120,21 @@ public class Draw3DController : InputController
     public void InitRay()
     {
         _ray = new Ray(penpoint.position, -drawboard.up);
+    }
+
+    // 网络画笔同步
+    public void StartPaint(Vector2 pos)
+    {
+        BeginLine(LineConfig, LineUniqueId, pos);
+    }
+
+    public void EnfPaint(Vector2 pos)
+    {
+        EndLine(LineUniqueId, pos);
+    }
+
+    public void Painting(Vector2 pos)
+    {
+        ContinueLine(LineUniqueId, pos);
     }
 }

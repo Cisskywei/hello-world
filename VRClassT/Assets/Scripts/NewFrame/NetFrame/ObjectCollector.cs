@@ -10,7 +10,7 @@ public class ObjectCollector {
         return Singleton<ObjectCollector>.getInstance();
     }
 
-    public Dictionary<int, SyncObject> collector = new Dictionary<int, SyncObject>();
+    public Dictionary<int, NetObjectInterFace.IObjectSync> collector = new Dictionary<int, NetObjectInterFace.IObjectSync>();
     public Dictionary<int, NetObjectInterFace.IObjectOperate> objectoperate = new Dictionary<int, NetObjectInterFace.IObjectOperate>();
 
     private int _counter = 0;
@@ -21,11 +21,15 @@ public class ObjectCollector {
         return _counter;
     }
 
-    public int Add(SyncObject o)
+    public int Add(GameObject o)
     {
         int id = Counter();
 
-        collector.Add(id, o);
+        NetObjectInterFace.IObjectSync ios = o.GetComponent<NetObjectInterFace.IObjectSync>();
+        if(ios != null)
+        {
+            collector.Add(id, ios);
+        }
 
         NetObjectInterFace.IObjectOperate io = o.gameObject.GetComponent<NetObjectInterFace.IObjectOperate>();
         if(io != null)
@@ -34,6 +38,35 @@ public class ObjectCollector {
         }
 
         return id;
+    }
+
+    public void Add(int id, GameObject o)
+    {
+        NetObjectInterFace.IObjectSync ios = o.GetComponent<NetObjectInterFace.IObjectSync>();
+        if (ios != null)
+        {
+            if(collector.ContainsKey(id))
+            {
+                collector[id] = ios;
+            }
+            else
+            {
+                collector.Add(id, ios);
+            }
+        }
+
+        NetObjectInterFace.IObjectOperate io = o.gameObject.GetComponent<NetObjectInterFace.IObjectOperate>();
+        if (io != null)
+        {
+            if (objectoperate.ContainsKey(id))
+            {
+                objectoperate[id] = io;
+            }
+            else
+            {
+                objectoperate.Add(id, io);
+            }
+        }
     }
 
     public void Remove(int id)
@@ -49,9 +82,9 @@ public class ObjectCollector {
         }
     }
 
-    public SyncObject GetById(int id)
+    public NetObjectInterFace.IObjectSync GetById(int id)
     {
-        SyncObject so = null;
+        NetObjectInterFace.IObjectSync so = null;
 
         if (collector.ContainsKey(id))
         {
@@ -64,10 +97,10 @@ public class ObjectCollector {
     public Hashtable GetHash()
     {
         Hashtable h = new Hashtable();
-        foreach(KeyValuePair<int,SyncObject> so in collector)
+        foreach(KeyValuePair<int, NetObjectInterFace.IObjectSync> so in collector)
         {
             int id = (int)so.Key;
-            SyncObject s = (SyncObject)so.Value;
+            NetObjectInterFace.IObjectSync s = (NetObjectInterFace.IObjectSync)so.Value;
             h.Add(id.ToString(), s.GetHash());
         }
 

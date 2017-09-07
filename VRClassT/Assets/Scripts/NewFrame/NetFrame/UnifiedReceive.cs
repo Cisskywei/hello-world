@@ -24,7 +24,7 @@ public class UnifiedReceive {
             foreach(DictionaryEntry v in o)
             {
                 int id = Convert.ToInt32(v.Key);
-                SyncObject so = ObjectCollector.getInstance().GetById(id);
+                NetObjectInterFace.IObjectSync so = ObjectCollector.getInstance().GetById(id);
 
                 Debug.Log("data o " + v.Key);
 

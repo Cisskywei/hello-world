@@ -78,6 +78,7 @@
     <Compile Include="ClassRoom\Object\ObjectInScene.cs" />
     <Compile Include="ClassRoom\Object\PlayerInScene.cs" />
     <Compile Include="ClassRoom\Room\ClassRoom.cs" />
+    <Compile Include="ClassRoom\Room\ContinuousPipe.cs" />
     <Compile Include="ClassRoom\Room\Team.cs" />
     <Compile Include="ClassRoom\Scene\Scene.cs" />
     <Compile Include="ClassRoom\Utility\Singleton.cs" />

@@ -42,6 +42,38 @@ namespace WisdomClassroom.ClassRoom
             InitCommandListen();
         }
 
+        public string FindUuid(int userid)
+        {
+            if(!allstudents.ContainsKey(userid))
+            {
+                return null;
+            }
+
+            return allstudents[userid].uuid;
+        }
+
+        public ArrayList FindUuidsExcept(int userid)
+        {
+            if (!allstudents.ContainsKey(userid))
+            {
+                return null;
+            }
+
+            ArrayList a = new ArrayList();
+
+            foreach(PlayerInScene p in allstudents.Values)
+            {
+                if(p.selfid == userid)
+                {
+                    continue;
+                }
+
+                a.Add(p.uuid);
+            }
+
+            return a;
+        }
+
         public int Enter(UserInfor user)
         {
             if (user == null)
@@ -180,6 +212,8 @@ namespace WisdomClassroom.ClassRoom
 
         public void Clear()
         {
+            _syncPipeData = false;
+
             allstudents.Clear();
             allobjects.Clear();
             groups.Clear();
@@ -924,6 +958,32 @@ namespace WisdomClassroom.ClassRoom
             hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
+        }
+
+        // 同步管道
+        private ContinuousPipe _pipe = new ContinuousPipe();
+
+        public void ReceivePipeData(int fromid, int toid, Hashtable data)
+        {
+            _pipe.Receive(fromid, toid, data);
+
+            if(!_syncPipeData)
+            {
+                _syncPipeData = true;
+                SyncPipeData(0);
+            }
+        }
+
+        // 教室同步
+        private bool _syncPipeData = false;
+        public void SyncPipeData(long tick)
+        {
+            _pipe.SyncClient();
+
+            if (_syncPipeData)
+            {
+                hub.hub.timer.addticktime(200, SyncPipeData);
+            }
         }
     }
 }
