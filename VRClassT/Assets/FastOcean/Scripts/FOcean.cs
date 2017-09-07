@@ -358,7 +358,7 @@ namespace FastOcean
 
             GenAllMaterial();
 
-            Physics.gravity = Vector3.zero;
+  //          Physics.gravity = Vector3.zero;
 
 #if MOBILE
             mobile = true;

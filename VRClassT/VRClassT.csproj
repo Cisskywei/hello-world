@@ -447,6 +447,9 @@
     <Compile Include="Assets\Scripts\NetFram\Scene\Sync\SyncPlayerOld.cs" />
     <Compile Include="Assets\Scripts\NetFram\Tools\JsonDataHelp.cs" />
     <Compile Include="Assets\Scripts\NetFram\Tools\ZipHelper.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\HtcCtrl\GrabbableListener.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\HtcCtrl\HandCtrl.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\HtcCtrl\interface\GrabbableInterface.cs" />
     <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\BigScreen.cs" />
     <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\ScreenCameraCtrl.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\Client.cs" />
@@ -455,6 +458,7 @@
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\CommandSend.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\Enums.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\FuncLifeCycle.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\NetFrame\Interface\NetObjectInterFace.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetConfig.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetMainLoop.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\NetworkCommunicate.cs" />
@@ -465,6 +469,7 @@
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedReceive.cs" />
     <Compile Include="Assets\Scripts\NewFrame\NetFrame\UnifiedSend.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\BodyFollow.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\ChangeExpression.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\HeadFollow.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\KeepRelativePos.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\PetFlow.cs" />
@@ -472,6 +477,9 @@
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\SyncPlayer.cs" />
     <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\Draw3DController.cs" />
     <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\DrawPaint.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\PaintGrabListener.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\SyncPaint.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\WhiteBoard\UITouch3D.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\ContentItem.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\CourseContent.cs" />
     <Compile Include="Assets\Scripts\OutUI\CourseContent\Teaching.cs" />

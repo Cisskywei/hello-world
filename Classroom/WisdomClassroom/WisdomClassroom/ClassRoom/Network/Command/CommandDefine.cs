@@ -20,6 +20,8 @@ namespace WisdomClassroom.ClassRoom
             Lobby,                          // 教学大厅
             CourseWave,                     // 课件内部
 
+            All,
+
             Exit,
         }
 
@@ -59,6 +61,9 @@ namespace WisdomClassroom.ClassRoom
             StudentLike,
 
             BigScreen,   // 大屏显示相关指令
+
+            // 多人协同下的指令
+            ObjectOperate,   // 物体的操作相关  对应 IObjectOperate 接口的相关函数  arraylist : 一级指令/二级指令/objectid/ObjectOperate类型/userid/操作结果/其他参数
 
             // 返回
             BackToLobby,

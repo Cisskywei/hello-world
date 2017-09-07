@@ -28,7 +28,7 @@ public class BodyFollow : MonoBehaviour {
         _angledir = (target.position - transform.position);
         transform.rotation = Quaternion.FromToRotation(transform.up, _angledir) * transform.rotation;
         _pos.x = target.position.x;
-        _pos.y = target.position.y - 1.32f;
+        _pos.y = target.position.y - 0.6f;
         _pos.z = target.position.z;
         transform.position = Vector3.Slerp(transform.position, _pos,Time.deltaTime* speed);
 

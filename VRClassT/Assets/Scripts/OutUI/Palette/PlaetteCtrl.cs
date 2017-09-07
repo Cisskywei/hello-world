@@ -7,56 +7,44 @@ using UnityEngine.UI;
 public class PlaetteCtrl : MonoBehaviour {
 
     // Store the Pen button
-    public BrushPen pen;
-    public Draw3DPad draw;
+    //public BrushPen pen;
+    //public Draw3DPad draw;
 
-    [SerializeField]
-    public Brush[] brush;
+    public DrawPaint pen;
 
-    //// Use this for initialization
-    //void Start () {
-
-    //}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
+    //[SerializeField]
+    //public Brush[] brush;
 
     public void NewBoard(int id)
     {
-        draw.OnClickClear();
+        pen.Clear();
     }
 
     public void ChangeBrush(int id)
     {
-        if(id < brush.Length && brush[id] != null)
-        {
-            draw.OnClickPen(brush[id]);
-        }
-
-        pen.ChangeToolTo("Pen");
+        //if(id < brush.Length && brush[id] != null)
+        //{
+        //    pen.OnClickPen(brush[id]);
+        //}
     }
 
     public void ChangeBrushSize(float size)
     {
-        draw.ChangeBrushSize(size);
+        pen.ChangeBrushSize(size);
     }
 
     public void ChangeColor(GameObject co)
     {
-        draw.OnClickColor(co);
         pen.ChangeColor(co.GetComponent<Image>().color);
     }
 
     public void Eraser()
     {
-        draw.OnClickEraser();
-        pen.ChangeToolTo("Eraser");
+        //pen.OnClickEraser();
     }
 
     public void Dustbin()
     {
-        draw.OnClickClear();
+        pen.Clear();
     }
 }

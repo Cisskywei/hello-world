@@ -12,16 +12,6 @@ public class DocumentShow : OutUIBase {
     public GameObject writeprefab;
     public GameObject togprefab;
 
-    // 画板
-    public GameObject canvas3dplane;
-    public Transform canvas3dparent;
-    // 笔尖的位置
-    public Transform penpoint;
-
-    // 笔 画板控制页面
-    public GameObject pen;
-    public GameObject penctrl;
-
     public Transform toggroup;
     //public Dropdown grouplist;
 
@@ -62,7 +52,7 @@ public class DocumentShow : OutUIBase {
 
         if (_currentname == _write)
         {
-            AddWrite();
+     //       AddWrite();
         }
         else if (_currentname == _write)
         {
@@ -98,30 +88,30 @@ public class DocumentShow : OutUIBase {
         HideAddBtnList();
     }
 
-    private void AddWrite()
-    {
-        Debug.Log("添加写字板");
-        // 添加画板界面
-        GameObject o = GameObject.Instantiate(writeprefab, panelparent);
-    //    o.SetActive(false);
-        // 添加画板
-        Draw3DPad draw = o.GetComponent<Draw3DPad>();
-        GameObject c = GameObject.Instantiate(canvas3dplane, canvas3dparent);
-        CanvasController cc = c.GetComponent<CanvasController>();
-        draw.dc.Canvas = cc;
-        //draw.dc.penpoint = this.penpoint;
+   // private void AddWrite()
+   // {
+   //     Debug.Log("添加写字板");
+   //     // 添加画板界面
+   //     GameObject o = GameObject.Instantiate(writeprefab, panelparent);
+   // //    o.SetActive(false);
+   //     // 添加画板
+   //     Draw3DPad draw = o.GetComponent<Draw3DPad>();
+   //     GameObject c = GameObject.Instantiate(canvas3dplane, canvas3dparent);
+   //     CanvasController cc = c.GetComponent<CanvasController>();
+   //     draw.dc.Canvas = cc;
+   //     //draw.dc.penpoint = this.penpoint;
 
-        draw.pen = this.pen;
-        draw.penctrl = this.penctrl;
-        draw.ShowPenAndCtrl(true);
+   //     draw.pen = this.pen;
+   //     draw.penctrl = this.penctrl;
+   //     draw.ShowPenAndCtrl(true);
 
-        PaintcraftCanvas3DPlane pcp = o.GetComponentInChildren<PaintcraftCanvas3DPlane>();
-        pcp.PaintcraftCanvas = cc;
-   //     o.SetActive(true);
+   //     PaintcraftCanvas3DPlane pcp = o.GetComponentInChildren<PaintcraftCanvas3DPlane>();
+   //     pcp.PaintcraftCanvas = cc;
+   ////     o.SetActive(true);
 
-        generateTog(togprefab, toggroup, o, "Write");
-        HideAddBtnList();
-    }
+   //     generateTog(togprefab, toggroup, o, "Write");
+   //     HideAddBtnList();
+   // }
 
     // 生成toggle
     private void generateTog(GameObject tog, Transform group, GameObject target, string togtext)

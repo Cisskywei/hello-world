@@ -41,9 +41,9 @@ public class SyncPlayer : MonoBehaviour {
         lastheadrot = head.rotation;
     }
 
-    //private void Start()
-    //{
-    //}
+    private void Start()
+    {
+    }
 
     public void Init(int userid)
     {

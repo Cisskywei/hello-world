@@ -48,4 +48,15 @@ public class Enums {
         CanReceive,
         CanSend,
     }
+
+    /// <summary>
+    /// 指令定义中 ObjectOperate （多人协同下的指令） 的具体操作指令
+    /// </summary>
+    public enum ObjectOperate
+    {
+        None = -1,
+
+        Hold,
+        Release,
+    }
 }

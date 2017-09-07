@@ -41,6 +41,11 @@ namespace TinyFrameWork
         leftGripDown,
         leftGripUp,
 
+        rightTriggerDown,
+        rightTriggerUp,
+        leftTriggerDown,
+        leftTriggerUp,
+
         OpenUI,
 
         beginexpend,

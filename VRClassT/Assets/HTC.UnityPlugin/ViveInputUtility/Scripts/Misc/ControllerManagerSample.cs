@@ -1,6 +1,7 @@
 ﻿using HTC.UnityPlugin.Utility;
 using HTC.UnityPlugin.Vive;
 using System.Collections.Generic;
+using TinyFrameWork;
 using UnityEngine;
 
 public class ControllerManagerSample : MonoBehaviour
@@ -24,6 +25,18 @@ public class ControllerManagerSample : MonoBehaviour
         ActiveOnPadPressed,
         ToggleByPadDoubleClick
     }
+
+    // 开启手柄按钮监听 
+    public enum OpenCloseHandShank
+    {
+        None = -1,
+
+        Open,
+        Close,
+
+    }
+
+    public OpenCloseHandShank handShankListen = OpenCloseHandShank.Open;
 
     // after changing following public fields in playing mode, call UpdateStatus() to apply changes
     [Header("Mode Settings")]
@@ -274,6 +287,54 @@ public class ControllerManagerSample : MonoBehaviour
                     ToggleLeftCustomModel();
                     needUpdate = true;
                 }
+                break;
+        }
+
+        // 手柄按钮监听
+        switch (handShankListen)
+        {
+            case OpenCloseHandShank.Open:
+                if (ViveInput.GetPressDownEx(HandRole.RightHand, ControllerButton.Grip))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.rightGripDown);
+                }
+
+                if (ViveInput.GetPressDownEx(HandRole.LeftHand, ControllerButton.Grip))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.leftGripDown);
+                }
+
+                if (ViveInput.GetPressUpEx(HandRole.RightHand, ControllerButton.Grip))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.rightGripUp);
+                }
+
+                if (ViveInput.GetPressUpEx(HandRole.LeftHand, ControllerButton.Grip))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.leftGripUp);
+                }
+
+                if (ViveInput.GetPressDownEx(HandRole.RightHand, ControllerButton.Trigger))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.rightTriggerDown);
+                }
+
+                if (ViveInput.GetPressUpEx(HandRole.RightHand, ControllerButton.Trigger))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.rightTriggerUp);
+                }
+
+                if (ViveInput.GetPressDownEx(HandRole.LeftHand, ControllerButton.Trigger))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.leftTriggerDown);
+                }
+
+                if (ViveInput.GetPressUpEx(HandRole.LeftHand, ControllerButton.Trigger))
+                {
+                    EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.leftTriggerUp);
+                }
+                break;
+            default:
                 break;
         }
 

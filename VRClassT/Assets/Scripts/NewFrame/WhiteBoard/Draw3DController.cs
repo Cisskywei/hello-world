@@ -109,8 +109,6 @@ public class Draw3DController : InputController
     {
         _isstartdraw = true;
         _isdrawgoing = true;
-
-
     }
 
     public void EndDraw()
