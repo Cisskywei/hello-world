@@ -62,6 +62,6 @@ public class NetMainLoop : MonoBehaviour {
     //游戏退出
     private void OnApplicationQuit()
     {
-        NetworkCommunicate.getInstance().PlayerExit(1, 67);
+        NetworkCommunicate.getInstance().PlayerExit((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId);
     }
 }

@@ -70,20 +70,25 @@ public class NetworkCommunicate : imodule
     }
 
     // 接收服务器的同步数据
-    public void RetChangeClientAllOnce(Hashtable data)
+    //public void RetChangeClientAllOnce(Hashtable data)
+    //{
+    //    UnifiedReceive.getInstance().Receive(data);
+    //}
+
+    public void RetChangeClientAllOnce(Hashtable objectdata, Hashtable playerdata)
     {
-        UnifiedReceive.getInstance().Receive(data);
+        UnifiedReceive.getInstance().Receive(objectdata, playerdata);
     }
 
-    public void SyncClient(Hashtable objectdata, Hashtable playerdata)
-    {
-        Debug.Log("同步数据" + objectdata.Count + " -- " + playerdata.Count);
+    //public void SyncClient(Hashtable objectdata, Hashtable playerdata)
+    //{
+    //    Debug.Log("同步数据" + objectdata.Count + " -- " + playerdata.Count);
 
-        Hashtable h = new Hashtable();
-        h.Add("objects", objectdata);
-        h.Add("player", playerdata);
-        UnifiedReceive.getInstance().Receive(h);
-    }
+    //    Hashtable h = new Hashtable();
+    //    h.Add("objects", objectdata);
+    //    h.Add("player", playerdata);
+    //    UnifiedReceive.getInstance().Receive(h);
+    //}
 
     // 管道同步
     public void ReqPipe(int roomid, int fromid, int toid, Hashtable data)

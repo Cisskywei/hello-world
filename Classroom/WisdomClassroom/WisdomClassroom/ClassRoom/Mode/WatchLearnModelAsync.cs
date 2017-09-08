@@ -150,7 +150,15 @@ namespace WisdomClassroom.ClassRoom
 
             } while (false);
 
-            hub.hub.gates.call_client(teacher.uuid, "cMsgConnect", "ret_operation_permissions", userid, objecid, "hold", ret ? "yes" : "no");
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.CourseWave);
+            msg.Add((Int64)CommandDefine.SecondLayer.ObjectOperate);
+            msg.Add((Int64)objecid);
+            msg.Add((Int64)Enums.ObjectOperate.Hold);
+            msg.Add((Int64)userid);
+            msg.Add((Int64)(ret ? 1 : 0));
+
+            hub.hub.gates.call_client(teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
         }
 
         public override void CheckOperationRelease<T>(long userid, long objecid, T extrainfor, object[] param)
@@ -208,7 +216,15 @@ namespace WisdomClassroom.ClassRoom
 
             } while (false);
 
-            hub.hub.gates.call_client(teacher.uuid, "cMsgConnect", "ret_operation_permissions", userid, objecid, "release", ret ? "yes" : "no");
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.CourseWave);
+            msg.Add((Int64)CommandDefine.SecondLayer.ObjectOperate);
+            msg.Add((Int64)objecid);
+            msg.Add((Int64)Enums.ObjectOperate.Release);
+            msg.Add((Int64)userid);
+            msg.Add((Int64)(ret ? 1 : 0));
+
+            hub.hub.gates.call_client(teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
         }
 
         public override void CheckSyncCommond<T>(long userid, string typ, string commond, T extrainfor, object[] param = null)
@@ -322,7 +338,7 @@ namespace WisdomClassroom.ClassRoom
             {
                 if (_uuid_of_player.Count > 0)
                 {
-                    hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "SyncClient", msgObject, msgPlayer);
+                    hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.ChangeAllOnce_func, msgObject, msgPlayer);
                 }
             }
 

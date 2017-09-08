@@ -22,7 +22,7 @@ public class Login : OutUIBase
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", "123", "zheng", "cMsgConnect", "ret_msg");
+            NetworkCommunicate.getInstance().PlayerLogin("zheng", "123", Enums.LoginType.Player);
         }
     }
 
@@ -60,7 +60,7 @@ public class Login : OutUIBase
         string password = passwordTxt.text;
 
         // 登陆
-        NetworkCommunicate.getInstance().PlayerLogin(password, name, Enums.LoginType.Player);
+        NetworkCommunicate.getInstance().PlayerLogin(name, password, Enums.LoginType.Player);
 
         //MainThreadClient._client.call_hub("lobby", "WisdomLogin", "player_login", password, name, "cMsgConnect", "ret_msg");
     }
@@ -86,6 +86,7 @@ public class Login : OutUIBase
             UserInfor.getInstance().UserId = id;
             UserInfor.getInstance().UserDuty = duty;
             UserInfor.getInstance().avatar = avatar;
+            RoleManager.getInstance().selfplayerid = id;
 
             if (UserInfor.getInstance().UserDuty == "teacher")
             {

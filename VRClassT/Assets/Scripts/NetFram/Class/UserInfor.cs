@@ -37,7 +37,7 @@ public class UserInfor {
         }
     }
 
-    private int _userid;
+    private int _userid = -1;
     public Int64 UserId
     {
         get

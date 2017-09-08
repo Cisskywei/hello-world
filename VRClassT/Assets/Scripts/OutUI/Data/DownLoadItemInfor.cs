@@ -113,7 +113,7 @@ public class DownLoadItemInfor {
 
                 fullfilepath = fullfilepath.Replace('/', '\\');
 
-        //        PPTToPicture.getInstance().ConvertPPT2Image(fullfilepath, imagepath);
+                PPTToPicture.getInstance().ConvertPPT2Image(fullfilepath, imagepath);
 
                 Debug.Log("ppt文件原先路径" + fullfilepath);
 

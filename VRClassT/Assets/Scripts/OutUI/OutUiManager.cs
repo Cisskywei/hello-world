@@ -180,7 +180,7 @@ public class OutUiManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            ChooseCourse(227);
+            ChooseCourse(197);
         }
     }
 }

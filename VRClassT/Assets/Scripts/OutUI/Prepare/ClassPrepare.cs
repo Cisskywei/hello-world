@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -100,5 +101,12 @@ public class ClassPrepare : OutUIBase {
         // 进入教学
         HideSelf();
         OutUiManager.getInstance().ShowUI(OutUiManager.UIList.Teaching);
+
+        // 发送消息 更改服务器教学模式
+        ArrayList msg = new ArrayList();
+        msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        msg.Add((Int64)CommandDefine.SecondLayer.ChangeMode);
+        msg.Add((Int64)Enums.TeachingMode.SelfTrain_All);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
     }
 }

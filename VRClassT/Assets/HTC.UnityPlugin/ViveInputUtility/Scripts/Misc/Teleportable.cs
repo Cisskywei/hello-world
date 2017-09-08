@@ -1,6 +1,7 @@
 ﻿//========= Copyright 2016-2017, HTC Corporation. All rights reserved. ===========
 
 using HTC.UnityPlugin.Vive;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -86,6 +87,9 @@ public class Teleportable : MonoBehaviour
         var targetPos = hitResult.worldPosition - headVector;
 
         teleportCoroutine = StartCoroutine(StartTeleport(targetPos, fadeDuration));
+
+        // 发送指令
+        SendTeleport(targetPos);
     }
 #if VIU_STEAMVR
     private bool m_steamVRFadeInitialized;
@@ -144,4 +148,21 @@ public class Teleportable : MonoBehaviour
         teleportCoroutine = null;
     }
 #endif
+
+    // 发送瞬移数据
+    public void SendTeleport(Vector3 pos)
+    {
+        Hashtable msg = new Hashtable();
+        msg.Add("rx", pos.x);
+        msg.Add("ry", pos.y);
+        msg.Add("rz", pos.z);
+
+        ArrayList a = new ArrayList();
+        a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+        a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+        a.Add((Int64)4);
+        a.Add((Int64)RoleOrder.RoleOrderType.Teleport);
+        a.Add(msg);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+    }
 }

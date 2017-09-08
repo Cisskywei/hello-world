@@ -69,7 +69,7 @@ public class UnifiedSend {
 
         if(senddata.Count > 0)
         {
-            NetworkCommunicate.getInstance().ReqChangeClientAllOnce(227, 67, senddata);
+            NetworkCommunicate.getInstance().ReqChangeClientAllOnce((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, senddata);
 
             foreach(DictionaryEntry v in objectdata)
             {
@@ -81,12 +81,8 @@ public class UnifiedSend {
             {
                 Hashtable h = (Hashtable)v.Value;
 
-                Debug.Log(v.Key + " -- 外部的 ");
-
                 foreach(DictionaryEntry l in h)
                 {
-                    Debug.Log(l.Key + " -- 内部的 ");
-
                     ((Hashtable)l.Value).Clear();
                 }
 

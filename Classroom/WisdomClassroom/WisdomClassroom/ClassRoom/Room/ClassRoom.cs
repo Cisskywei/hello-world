@@ -40,6 +40,7 @@ namespace WisdomClassroom.ClassRoom
         public void InitRoom()
         {
             InitCommandListen();
+            InitModel();
         }
 
         public string FindUuid(int userid)
@@ -238,9 +239,9 @@ namespace WisdomClassroom.ClassRoom
             _model[5] = new SelfTrainGroup();
             _model[6] = new SelfTrainAll();
 
-            _modelindex = 0;
-            _model[0].InitModel(new Object[] { teacher, _uuid_of_player, allobjects });
-            _model[0].StartSynclient();
+            //_modelindex = 0;
+            //_model[0].InitModel(new Object[] { teacher, _uuid_of_player, allobjects });
+            //_model[0].StartSynclient();
         }
 
         // 初始化指令监听函数  只处理服务器需要处理的消息
@@ -257,6 +258,11 @@ namespace WisdomClassroom.ClassRoom
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
 
             // 课程资料推送 推题相关
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.QuestionList, QuestionList);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.MaterialList, MaterialItemList);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OnlineOnePlayer, OnlineOnePlayer);
+            _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OnlinePlayers, OnlinePlayers);
+
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
@@ -284,6 +290,11 @@ namespace WisdomClassroom.ClassRoom
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, BigScreen);
 
             // 课程资料推送 推题相关
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.QuestionList, QuestionList);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.MaterialList, MaterialItemList);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OnlineOnePlayer, OnlineOnePlayer);
+            _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.OnlinePlayers, OnlinePlayers);
+
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PushDataAll, PushCourseDataAll);
             _receiver.RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PushDataOne, PushCourseDataOne);
@@ -339,9 +350,9 @@ namespace WisdomClassroom.ClassRoom
 
             Hashtable data = (Hashtable)msg[2];
 
-            Console.WriteLine("初始化服务器场景数据 InitModel" + data.Count);
+            //Console.WriteLine("初始化服务器场景数据 InitModel" + data.Count);
 
-            InitModel();
+            //InitModel();
 
             Console.WriteLine("初始化服务器场景数据" + data.Count);
 
@@ -464,7 +475,7 @@ namespace WisdomClassroom.ClassRoom
 
             _modeltype = tm;
 
-            //hub.hub.gates.call_group_client(_uuid_of_player, "cMsgConnect", "retOnlinePlayer", (modelid));
+            hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             Console.WriteLine("切换教学模式" + modelid);
         }
@@ -520,6 +531,9 @@ namespace WisdomClassroom.ClassRoom
             else
             {
                 msg.Add(questiones);
+                //ArrayList a = new ArrayList(msg);
+                //a.Add(questiones);
+                //Console.WriteLine(questiones);
                 hub.hub.gates.call_client(allstudents[userid].uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
         }
@@ -700,6 +714,28 @@ namespace WisdomClassroom.ClassRoom
 
             msg.Add(players);
             hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+        }
+
+        public void OnlineOnePlayer(int userid, ArrayList msg)
+        {
+            //if (this.teacher == null || this.teacher.uuid == null || this.teacher.selfid != userid)
+            //{
+            //    return;
+            //}
+
+            //ArrayList players = new ArrayList();
+            //foreach (PlayerInScene p in this.allstudents.Values)
+            //{
+            //    if (p.selfid == userid)
+            //    {
+            //        continue;
+            //    }
+
+            //    players.Add((Int64)p.selfid);
+            //}
+
+            //msg.Add(players);
+            //hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
         }
 
         // 学生上线 告诉老师

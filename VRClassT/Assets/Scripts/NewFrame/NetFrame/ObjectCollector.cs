@@ -112,12 +112,20 @@ public class ObjectCollector {
     {
         CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.ObjectOperate, ObjectOperate);
         CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.ObjectOperate, ObjectOperate);
+        //CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.Hold, Hold);
+        //CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.Release, Release);
+        //CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Hold, Hold);
+        //CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Release, Release);
     }
 
     private void RemoveListener()
     {
         CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.ObjectOperate, ObjectOperate);
         CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.ObjectOperate, ObjectOperate);
+        //CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.Hold, Hold);
+        //CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.Release, Release);
+        //CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Hold, Hold);
+        //CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.Release, Release);
     }
 
     private void ObjectOperate(int userid, ArrayList msg)
@@ -133,5 +141,15 @@ public class ObjectCollector {
         {
             objectoperate[(int)objectid].ObjectOperate(userid, msg);
         }
+    }
+
+    private void Hold(int userid, ArrayList msg)
+    {
+
+    }
+
+    private void Release(int userid, ArrayList msg)
+    {
+
     }
 }

@@ -42,4 +42,29 @@ public class UnifiedReceive {
         Hashtable p = (Hashtable)data["player"];
         RoleManager.getInstance().RecivePlayerInfor(p);
     }
+
+    public void Receive(Hashtable objectdata, Hashtable playerdata)
+    {
+        if (objectdata != null && objectdata.Count > 0)
+        {
+            foreach (DictionaryEntry v in objectdata)
+            {
+                int id = Convert.ToInt32(v.Key);
+                NetObjectInterFace.IObjectSync so = ObjectCollector.getInstance().GetById(id);
+
+                Debug.Log("data o " + v.Key);
+
+                if (so != null)
+                {
+                    so.ReceiveSync((Hashtable)v.Value);
+                }
+                else
+                {
+                    Debug.Log("so == null" + v.Key);
+                }
+            }
+        }
+
+        RoleManager.getInstance().RecivePlayerInfor(playerdata);
+    }
 }

@@ -23,6 +23,8 @@ public class HandCtrl : MonoBehaviour {
         Right,
     }
 
+    public bool isSubject = false;
+
     public Animator anima;
     private HandCtrlType _state = HandCtrlType.Palm;
 
@@ -47,13 +49,11 @@ public class HandCtrl : MonoBehaviour {
 
     private void OnEnable()
     {
-        RegCommandListener();
         RegEventListener();
     }
 
     private void OnDisable()
     {
-        UnRegCommandListener();
         UnRegEventListener();
     }
 
@@ -99,15 +99,15 @@ public class HandCtrl : MonoBehaviour {
         }
     }
 
-    private void GripDown()
+    public void GripDown()
     {
     }
 
-    private void GripUp()
+    public void GripUp()
     {
     }
 
-    private void TriggerDown()
+    public void TriggerDown()
     {
         if(anima == null)
         {
@@ -115,26 +115,79 @@ public class HandCtrl : MonoBehaviour {
         }
 
         anima.SetTrigger("Power");
+
+        if(isSubject)
+        {
+            ArrayList a = new ArrayList();
+            a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+            a.Add((Int64)_leftRight);
+            a.Add((Int64)HandCtrlType.Power);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+        }
     }
 
-    private void TriggerUp()
+    public void TriggerUp()
     {
         if (anima == null)
         {
             return;
         }
 
-        anima.SetTrigger("PowerBack");
+        anima.SetTrigger("Palm");
+
+        if (isSubject)
+        {
+            ArrayList a = new ArrayList();
+            a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+            a.Add((Int64)_leftRight);
+            a.Add((Int64)HandCtrlType.Palm);
+            CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+        }
     }
 
-    private void RegCommandListener()
+    public void Palm()
     {
+        if (anima == null)
+        {
+            return;
+        }
 
+        anima.SetTrigger("Palm");
     }
 
-    private void UnRegCommandListener()
+    public void Power()
     {
+        if (anima == null)
+        {
+            return;
+        }
 
+        anima.SetTrigger("Power");
+    }
+
+    public void PointTo()
+    {
+        if (anima == null)
+        {
+            return;
+        }
+
+        anima.SetTrigger("PointTo");
+    }
+
+    public void ShowHideSkin(bool isshow = false)
+    {
+        if(skin == null)
+        {
+            return;
+        }
+
+        if(skin.enabled != isshow)
+        {
+            skin.enabled = isshow;
+        }
     }
 
     private HashSet<GameObject> rightGrabbingSet = new HashSet<GameObject>();
@@ -150,6 +203,16 @@ public class HandCtrl : MonoBehaviour {
                 if (_leftRight == LeftRight.Right && rightGrabbingSet.Add(grabbedObj.gameObject) && rightGrabbingSet.Count == 1)
                 {
                     skin.enabled = false;
+                    if (isSubject)
+                    {
+                        ArrayList a = new ArrayList();
+                        a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                        a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+                        a.Add((Int64)_leftRight);
+                        a.Add((Int64)HandCtrlType.HideSkin);
+                        a.Add((Int64)0);
+                        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+                    }
                 }
                 break;
 
@@ -157,6 +220,16 @@ public class HandCtrl : MonoBehaviour {
                 if (_leftRight == LeftRight.Left && leftGrabbingSet.Add(grabbedObj.gameObject) && leftGrabbingSet.Count == 1)
                 {
                     skin.enabled = false;
+                    if (isSubject)
+                    {
+                        ArrayList a = new ArrayList();
+                        a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                        a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+                        a.Add((Int64)_leftRight);
+                        a.Add((Int64)HandCtrlType.HideSkin);
+                        a.Add((Int64)0);
+                        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+                    }
                 }
                 break;
         }
@@ -173,6 +246,16 @@ public class HandCtrl : MonoBehaviour {
                 if (_leftRight == LeftRight.Right && rightGrabbingSet.Remove(releasedObj.gameObject) && rightGrabbingSet.Count == 0)
                 {
                     skin.enabled = true;
+                    if (isSubject)
+                    {
+                        ArrayList a = new ArrayList();
+                        a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                        a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+                        a.Add((Int64)_leftRight);
+                        a.Add((Int64)HandCtrlType.HideSkin);
+                        a.Add((Int64)1);
+                        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+                    }
                 }
                 break;
 
@@ -180,6 +263,16 @@ public class HandCtrl : MonoBehaviour {
                 if (_leftRight == LeftRight.Left && leftGrabbingSet.Remove(releasedObj.gameObject) && leftGrabbingSet.Count == 0)
                 {
                     skin.enabled = true;
+                    if (isSubject)
+                    {
+                        ArrayList a = new ArrayList();
+                        a.Add((Int64)CommandDefine.FirstLayer.Lobby);
+                        a.Add((Int64)CommandDefine.SecondLayer.PlayerOrder);
+                        a.Add((Int64)_leftRight);
+                        a.Add((Int64)HandCtrlType.HideSkin);
+                        a.Add((Int64)1);
+                        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, a);
+                    }
                 }
                 break;
         }

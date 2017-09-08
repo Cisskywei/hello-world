@@ -393,7 +393,7 @@ public class UiDataManager {
         msg.Add((Int64)CommandDefine.SecondLayer.TestInClass);
         msg.Add((Int64)catage);
         msg.Add((Int64)id);
-        CommandSend.getInstance().Send((int)UserInfor.getInstance().UserId, (int)UserInfor.getInstance().RoomId, msg);
+        CommandSend.getInstance().Send((int)UserInfor.getInstance().RoomId, (int)UserInfor.getInstance().UserId, msg);
     }
 
     public void FastTestInClass(int id)

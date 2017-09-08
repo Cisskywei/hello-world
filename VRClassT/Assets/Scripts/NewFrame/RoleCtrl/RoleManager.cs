@@ -20,6 +20,8 @@ public class RoleManager {
 
     // 除了自己的其他玩家列表
     private Dictionary<int, SyncPlayer> _allplayers = new Dictionary<int, SyncPlayer>();
+    public Dictionary<int, NetPlayerInterFace.IPlayerOrder> playerorder = new Dictionary<int, NetPlayerInterFace.IPlayerOrder>();
+
     // 人物角色的整体预设
     public static string rolepath = "Role/";
     private string rolename = "role_man";
@@ -68,13 +70,26 @@ public class RoleManager {
 
     public void AddPlayer(int userid, SyncPlayer sp)
     {
-        if(_allplayers.Count <= 0 || _allplayers.ContainsKey(userid))
+        if(_allplayers.ContainsKey(userid))
         {
             _allplayers[userid] = sp;
         }
         else
         {
             _allplayers.Add(userid, sp);
+        }
+
+        NetPlayerInterFace.IPlayerOrder ipo = sp.gameObject.GetComponent<NetPlayerInterFace.IPlayerOrder>();
+        if(ipo != null)
+        {
+            if (playerorder.ContainsKey(userid))
+            {
+                playerorder[userid] = ipo;
+            }
+            else
+            {
+                playerorder.Add(userid, ipo);
+            }
         }
     }
 
@@ -86,16 +101,19 @@ public class RoleManager {
         }
 
         SyncPlayer sp = null;
+        NetPlayerInterFace.IPlayerOrder ipo = null;
         if (_cacheplayers.Count > 0)
         {
             sp = _cacheplayers[0];
             _cacheplayers.RemoveAt(0);
             sp.gameObject.SetActive(true);
+            ipo = sp.gameObject.GetComponent<NetPlayerInterFace.IPlayerOrder>();
         }
         else
         {
             GameObject go = GameObject.Instantiate(playerPrefab) as GameObject;
             sp = go.GetComponent<SyncPlayer>();
+            ipo = go.GetComponent<NetPlayerInterFace.IPlayerOrder>();
         }
 
         if(sp != null)
@@ -103,7 +121,26 @@ public class RoleManager {
             sp.Init(userid);
             sp.ReceiveSync(data);
 
-            _allplayers.Add(userid, sp);
+            if (_allplayers.ContainsKey(userid))
+            {
+                _allplayers[userid] = sp;
+            }
+            else
+            {
+                _allplayers.Add(userid, sp);
+            }
+        }
+
+        if(ipo != null)
+        {
+            if (playerorder.ContainsKey(userid))
+            {
+                playerorder[userid] = ipo;
+            }
+            else
+            {
+                playerorder.Add(userid, ipo);
+            }
         }
     }
 
@@ -123,6 +160,39 @@ public class RoleManager {
             _cacheplayers.Add(sp);
 
      //       GameObject.Destroy(sp.gameObject);
+        }
+
+        if(playerorder.ContainsKey(userid))
+        {
+            playerorder.Remove(userid);
+        }
+    }
+
+    // 对于人物的操作指令解析
+    private void RegListener()
+    {
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PlayerOrder, PlayerOrder);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PlayerOrder, PlayerOrder);
+    }
+
+    private void RemoveListener()
+    {
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.PlayerOrder, PlayerOrder);
+        CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.PlayerOrder, PlayerOrder);
+    }
+
+    private void PlayerOrder(int userid, ArrayList msg)
+    {
+        if (msg == null || msg.Count <= 2)
+        {
+            return;
+        }
+
+        Int64 playerid = (Int64)msg[2];
+
+        if (playerorder.ContainsKey((int)playerid))
+        {
+            playerorder[(int)playerid].PlayerOrder(userid, msg);
         }
     }
 }

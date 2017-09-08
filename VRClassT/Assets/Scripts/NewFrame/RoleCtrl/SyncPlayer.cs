@@ -6,9 +6,28 @@ using UnityEngine;
 /// <summary>
 /// 实现玩家网络同步 头 左右手 手指数据同步
 /// </summary>
-public class SyncPlayer : MonoBehaviour {
+public class SyncPlayer : MonoBehaviour, NetPlayerInterFace.IPlayerSync
+{
+    private int _userid = -1;
+    public int userid
+    {
+        get
+        {
+            if(_userid < 0)
+            {
+                return (int)UserInfor.getInstance().UserId;
+            }
 
-    public int userid = -1;
+            return _userid;
+        }
+
+        set
+        {
+            _userid = value;
+        }
+    }
+    // 角色父类
+    public Transform allhead;
 
     public Transform head;
     public Transform lefthand;
@@ -121,7 +140,7 @@ public class SyncPlayer : MonoBehaviour {
         }
     }
 
-    private void DoSync()
+    public void DoSync()
     {
         syncHead();
         syncLeftHand();
@@ -755,21 +774,63 @@ public class SyncPlayer : MonoBehaviour {
 
     private void receive(Hashtable data, Queue<Vector3> pos, Queue<float> t, Queue<Quaternion> rot)
     {
-        float px = (float)Convert.ToDouble(data["px"]);
-        float py = (float)Convert.ToDouble(data["py"]);
-        float pz = (float)Convert.ToDouble(data["pz"]);
-        Vector3 p = new Vector3(px, py, pz);
-        pos.Enqueue(p);
+        Vector3 p = transform.position;
+        bool ischange = false;
+        if (data.ContainsKey("px"))
+        {
+            ischange = true;
+            p.x = (float)Convert.ToDouble(data["px"]);
+        }
+        if (data.ContainsKey("py"))
+        {
+            ischange = true;
+            p.y = (float)Convert.ToDouble(data["py"]);
+        }
+        if(data.ContainsKey("pz"))
+        {
+            ischange = true;
+            p.z = (float)Convert.ToDouble(data["pz"]);
+        }
 
-        float tp = (float)Convert.ToDouble(data["tp"]);
-        t.Enqueue(tp);
+        if(ischange)
+        {
+            pos.Enqueue(p);
+        }
 
-        float rx = (float)Convert.ToDouble(data["rx"]);
-        float ry = (float)Convert.ToDouble(data["ry"]);
-        float rz = (float)Convert.ToDouble(data["rz"]);
-        float rw = (float)Convert.ToDouble(data["rw"]);
-        Quaternion r = new Quaternion(rx, ry, rz, rw);
-        rot.Enqueue(r);
+        float tp = Time.deltaTime;
+        if (data.ContainsKey("tp"))
+        {
+            tp = (float)Convert.ToDouble(data["tp"]);
+            t.Enqueue(tp);
+        }
+
+        ischange = false;
+        Quaternion r = transform.rotation;
+        if (data.ContainsKey("rx"))
+        {
+            ischange = true;
+            r.x = (float)Convert.ToDouble(data["rx"]);
+        }
+        if (data.ContainsKey("ry"))
+        {
+            ischange = true;
+            r.y = (float)Convert.ToDouble(data["ry"]);
+        }
+        if (data.ContainsKey("rz"))
+        {
+            ischange = true;
+            r.z = (float)Convert.ToDouble(data["rz"]);
+        }
+        if (data.ContainsKey("rw"))
+        {
+            ischange = true;
+            r.w = (float)Convert.ToDouble(data["rw"]);
+        }
+
+        if(ischange)
+        {
+            rot.Enqueue(r);
+        }
     }
 
     // 网络控制相关
@@ -780,5 +841,89 @@ public class SyncPlayer : MonoBehaviour {
     public void ChangeObjectState(Enums.ObjectState state)
     {
         this._syncstate = state;
+    }
+
+    // 处理瞬间移动
+    public void TeleportManHead(ArrayList data)
+    {
+        if (data.Count <= 0)
+        {
+            return;
+        }
+
+        Hashtable head = (Hashtable)data[0];
+        float px = (float)Convert.ToDouble(head["px"]);
+        float py = (float)Convert.ToDouble(head["py"]);
+        float pz = (float)Convert.ToDouble(head["pz"]);
+        Vector3 headpos = new Vector3(px, py, pz);
+        allhead.position = headpos;
+
+        poshcache.Clear();
+        poshtimecache.Clear();
+        rothcache.Clear();
+
+        poslcache.Clear();
+        posltimecache.Clear();
+        rotlcache.Clear();
+
+        posrcache.Clear();
+        posrtimecache.Clear();
+        rotrcache.Clear();
+    }
+
+    public void TeleportMan(ArrayList data)
+    {
+        if(data.Count < 3)
+        {
+            return;
+        }
+
+        Hashtable head = (Hashtable)data[0];
+        Hashtable left = (Hashtable)data[1];
+        Hashtable right = (Hashtable)data[2];
+
+        Vector3 headpos;
+        Quaternion headrot;
+        receive(head, out headpos, out headrot);
+        this.head.position = headpos;
+        this.head.rotation = headrot;
+
+        Vector3 leftpos;
+        Quaternion leftrot;
+        receive(left, out leftpos, out leftrot);
+        this.lefthand.position = leftpos;
+        this.lefthand.rotation = leftrot;
+
+        Vector3 righrpos;
+        Quaternion rigthrot;
+        receive(right, out righrpos, out rigthrot);
+        this.righthand.position = righrpos;
+        this.righthand.rotation = rigthrot;
+
+        poshcache.Clear();
+        poshtimecache.Clear();
+        rothcache.Clear();
+
+        poslcache.Clear();
+        posltimecache.Clear();
+        rotlcache.Clear();
+
+        posrcache.Clear();
+        posrtimecache.Clear();
+        rotrcache.Clear();
+    }
+
+    private void receive(Hashtable data, out Vector3 pos, out Quaternion rot)
+    {
+        float px = (float)Convert.ToDouble(data["px"]);
+        float py = (float)Convert.ToDouble(data["py"]);
+        float pz = (float)Convert.ToDouble(data["pz"]);
+        pos = new Vector3(px, py, pz);
+
+        float rx = (float)Convert.ToDouble(data["rx"]);
+        float ry = (float)Convert.ToDouble(data["ry"]);
+        float rz = (float)Convert.ToDouble(data["rz"]);
+        float rw = (float)Convert.ToDouble(data["rw"]);
+        rot = new Quaternion(rx, ry, rz, rw);
     }
 }
