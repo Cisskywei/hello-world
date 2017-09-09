@@ -20,6 +20,20 @@ namespace WisdomClassroom.ClassRoom
             NodeServer,
         }
 
+        // 身份
+        public enum DutyEnum
+        {
+            None = 0,
+            Student,
+            GroupLeader,
+            Assistant,
+            Teacher,
+
+            // 大屏和节点服务器
+            BigScreen,
+            NodeServer,
+        }
+
         /// <summary>
         /// 权限定义
         /// </summary>

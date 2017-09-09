@@ -183,6 +183,7 @@ namespace WisdomClassroom.ClassRoom
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Id, user.id);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, user.identity);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Avatar, user.avatar);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, BackServerConfig.HD_Url);
 
                 hub.hub.gates.call_client(tag, NetConfig.client_module_name, NetConfig.Login_func, h);
             }
@@ -214,13 +215,16 @@ namespace WisdomClassroom.ClassRoom
         public void EnterLobby(string token, Int64 userid, Int64 duty)
         {
             Console.WriteLine("EnterLobby " + token + userid + duty);
-            switch (duty)
+
+            Enums.DutyEnum _d = (Enums.DutyEnum)duty;
+            switch (_d)
             {
-                case 1:
+                case Enums.DutyEnum.Student:
                     // 获取学生课程
                     BackDataService.getInstance().GetStudentCourseList(token, Enter_Lobby_Succeed, Enter_Lobby_Failure, userid.ToString());
                     break;
-                case 2:
+                case Enums.DutyEnum.BigScreen:
+                case Enums.DutyEnum.Teacher:
                     // 获取老师课程
                     BackDataService.getInstance().GetTeacherCourseList(token, "expe", Enter_Lobby_Succeed, Enter_Lobby_Failure, userid.ToString());
                     break;
@@ -335,7 +339,7 @@ namespace WisdomClassroom.ClassRoom
                 user.roomid = ret;
 
                 // 如果是老师 要返回给老师 当前课程的学生列表信息
-                if (user.identity == "teacher")
+                if (user.identity == Enums.DutyEnum.Teacher || user.identity == Enums.DutyEnum.BigScreen)
                 {
                     // 老师 返回学生列表数据
                     BackDataService.getInstance().GetCourseStudentList(user.access_token, courseid.ToString(), Student_List_Succeed, Student_List_Failure, userid.ToString());
@@ -352,8 +356,8 @@ namespace WisdomClassroom.ClassRoom
                     Hashtable h = new Hashtable();
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, rr.selfid.ToString());
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, rr._modeltype.ToString());
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, (Int64)rr._modeltype);
+                    //h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
 
                     hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Enter_Course_func, h);
                 }
@@ -395,7 +399,7 @@ namespace WisdomClassroom.ClassRoom
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, url);
                 }
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, v.data.course_id);
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
+                //h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
 
                 // 登陆列表移除

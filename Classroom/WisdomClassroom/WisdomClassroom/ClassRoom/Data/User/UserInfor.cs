@@ -26,9 +26,12 @@ namespace WisdomClassroom.ClassRoom
         public BackDataType.PlayerBaseInforRetData.TeacherInfor teacher = null;
         public BackDataType.PlayerBaseInforRetData.StudentInfor student = null;
         // 延伸字段
-        public string identity = string.Empty;
+        public Enums.DutyEnum identity = Enums.DutyEnum.Student;
 
         public string studentname = string.Empty;
+        public BackDataType.StudentInfor.Classes user_class;
+        public BackDataType.StudentInfor.College user_college;
+        public BackDataType.StudentInfor.School user_school;
 
         // 后台服务器返回数据jsondata 保存
         public string _login_json = string.Empty;
@@ -64,12 +67,12 @@ namespace WisdomClassroom.ClassRoom
 
             if (this.teacher != null)
             {
-                identity = "teacher";
+                identity = Enums.DutyEnum.Teacher;
             }
 
             if (this.student != null)
             {
-                identity = "student";
+                identity = Enums.DutyEnum.Student;
             }
 
             if (jsondata != null)
@@ -85,7 +88,11 @@ namespace WisdomClassroom.ClassRoom
             this.sex = studentinfor.sex;
             this.studentname = studentinfor.student_name;
 
-            identity = "student";
+            this.user_class = studentinfor.classes;
+            this.user_college = studentinfor.college;
+            this.user_school = studentinfor.school;
+
+            identity = Enums.DutyEnum.Student;
 
             if (jsondata != null)
             {

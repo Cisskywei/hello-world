@@ -68,7 +68,7 @@ public class RoleOrder : MonoBehaviour, NetPlayerInterFace.IPlayerOrder
                 break;
             case RoleOrderType.Teleport:
                 // 瞬移
-                sp.TeleportManHead(msg.GetRange(4, msg.Count));
+                sp.TeleportManHead(msg.GetRange(4, msg.Count-4));
                 break;
             default:
                 break;

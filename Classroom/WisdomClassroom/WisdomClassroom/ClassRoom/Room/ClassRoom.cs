@@ -82,15 +82,6 @@ namespace WisdomClassroom.ClassRoom
                 return -1;
             }
 
-            //if (user.isentercourse)
-            //{
-            //    // 重复进入房间
-            //    // TODO
-            //    //进行场景指令同步
-
-            //    return false;
-            //}
-
             user.islogin = true;
             user.isenterlobby = true;
             user = courseinfor.AddUserInfor(user);
@@ -123,21 +114,11 @@ namespace WisdomClassroom.ClassRoom
                     }
                 }
 
-                _uuid_of_player.Add(uuid);
-
                 this.allstudents[id] = player;
             }
             else
             {
                 this.allstudents.Add(id, player);
-
-                if (uuid != null)
-                {
-                    if (!_uuid_of_player.Contains(uuid))
-                    {
-                        _uuid_of_player.Add(uuid);
-                    }
-                }
             }
 
             // 测试
@@ -154,7 +135,25 @@ namespace WisdomClassroom.ClassRoom
             else
             {
                 // 登陆者是学生
-                TellTeacherPlayerIn(id);
+                //      TellTeacherPlayerIn(id);
+            }
+
+            // 玩家上线广播 arraylist: userid/name/duty/sex/avator/classid
+            ArrayList data = new ArrayList();
+            data.Add((Int64)id);
+            data.Add(user.studentname);
+            data.Add((Int64)user.identity);
+            data.Add(user.sex);
+            data.Add(user.avatar);
+            data.Add(player.classid);
+            BroadcastPlayerOnline(id,data);
+
+            if (uuid != null)
+            {
+                if (!_uuid_of_player.Contains(uuid))
+                {
+                    _uuid_of_player.Add(uuid);
+                }
             }
 
             Console.WriteLine("当前玩家 id : " + id);
@@ -221,6 +220,33 @@ namespace WisdomClassroom.ClassRoom
             _uuid_of_player.Clear();
 
             RemoveCommandListen();
+        }
+
+        // 玩家上线广播 arraylist: userid/name/duty/sex/avator/classid
+        private void BroadcastPlayerOnline(int userid, ArrayList data)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.OnlineOnePlayer);
+            msg.Add(data);
+
+            if (_uuid_of_player.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
+        }
+
+        private void BroadcastPlayerOffline(int userid, ArrayList data)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.OnlineOnePlayer);
+            msg.Add(data);
+
+            if (_uuid_of_player.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, (msg));
+            }
         }
 
         //模式初始化  在进入课件的时候初始化
@@ -345,6 +371,8 @@ namespace WisdomClassroom.ClassRoom
         {
             if(teacher == null || userid != teacher.selfid)
             {
+                hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
                 return;
             }
 

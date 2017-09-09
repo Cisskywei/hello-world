@@ -41,6 +41,7 @@ public class CommandDefine {
         QuestionList,
         OnlinePlayers,
         OnlineOnePlayer,
+        OfflineOnePlayer,
         MaterialList,
         PushDataAll,
         PushDataOne,

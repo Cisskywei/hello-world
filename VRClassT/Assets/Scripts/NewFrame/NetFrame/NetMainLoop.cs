@@ -41,6 +41,8 @@ public class NetMainLoop : MonoBehaviour {
 
         _client.InitNet();
 
+        DontDestroyOnLoad(gameObject);
+
     }
 
     // Update is called once per frame

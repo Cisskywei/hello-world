@@ -7,9 +7,9 @@ using System.IO;
 using TinyFrameWork;
 using UnityEngine;
 
-public class BackFromVrExe : MonoBehaviour, msg_req_ret
+public class BackFromVrExe : MonoBehaviour  //, msg_req_ret
 {
-
+/*
     private static GameObject selfgo;
     private static BackFromVrExe _instance;
     public static BackFromVrExe getInstance()
@@ -392,5 +392,5 @@ public class BackFromVrExe : MonoBehaviour, msg_req_ret
             // 开启学生ui界面
             OutUiManager.getInstance().ShowUI(OutUiManager.UIList.StudentUI);
         }
-    }
+    }*/
 }

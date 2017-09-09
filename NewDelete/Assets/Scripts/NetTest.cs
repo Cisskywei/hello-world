@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetTest : MonoBehaviour {
 
@@ -89,6 +90,9 @@ public class NetTest : MonoBehaviour {
 
         classid = Convert.ToInt32(msg["classid"]);
 
+        DataCache.getInstance().classid = classid;
+        DataCache.getInstance().userid = userid;
+
         InitScene();
 
         a.Add((Int64)CommandDefine.FirstLayer.CourseWave);
@@ -160,6 +164,11 @@ public class NetTest : MonoBehaviour {
             a2.Add((Int64)CommandDefine.SecondLayer.Release);
             a2.Add(1);
             NetworkCommunicate.getInstance().ReqCommand(227, 67, a2);
+        }
+        else if(Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("加载场景");
+            SceneManager.LoadScene("Test1");
         }
     }
 }

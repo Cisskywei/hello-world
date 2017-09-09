@@ -146,6 +146,7 @@
     <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexCloseTogetherCalculate.cs" />
     <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\GestureRecognition\SpringVr_ThumbIndexSeparateCalculate.cs" />
     <Compile Include="Assets\HandPlugins\Scripts\View\Active\Data\Extend\UI\SpringVr_CommandShow.cs" />
+    <Compile Include="Assets\Scripts\DataCache.cs" />
     <Compile Include="Assets\Scripts\NetTest.cs" />
     <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\BigScreen.cs" />
     <Compile Include="Assets\Scripts\NewFrame\IndependentScreen\ScreenCameraCtrl.cs" />
@@ -174,6 +175,7 @@
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\PetFlow.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleManager.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\SyncPlayer.cs" />
+    <Compile Include="Assets\Scripts\SceneLoadTest.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\Scripts\TestCommand.cs" />
     <Compile Include="Assets\Scripts\TestEvent.cs" />

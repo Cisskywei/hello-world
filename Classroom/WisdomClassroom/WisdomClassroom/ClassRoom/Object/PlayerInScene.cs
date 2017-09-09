@@ -12,6 +12,7 @@ namespace WisdomClassroom.ClassRoom
         public int selfid = -1;
         public int roomid = -1;
         public int teamid = -1;
+        public int classid = -1;
 
         public string uuid = string.Empty;
         public string token = string.Empty;
@@ -37,8 +38,9 @@ namespace WisdomClassroom.ClassRoom
             this.teamid = playerinfor.groupid;
             this.roomid = classid;
             this.token = playerinfor.access_token;
+            this.classid = Convert.ToInt32(playerinfor.user_class.class_id);
 
-            if (playerinfor.identity == "teacher")
+            if (playerinfor.identity == Enums.DutyEnum.Teacher)
             {
                 this.permission = Enums.PermissionEnum.Teacher;
             }

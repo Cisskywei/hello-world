@@ -16,7 +16,7 @@ public class NetworkCommunicate : imodule
 
     public void PlayerLogin(string name, string password)
     {
-        Client._client.call_hub(NetConfig.lobby_module_name, NetConfig.class_module_name, NetConfig.Login_func, name, password);
+        Client._client.call_hub(NetConfig.lobby_module_name, NetConfig.class_module_name, NetConfig.Login_func, name, password, 0);
     }
 
     public void retPlayerLogin(Hashtable msg)

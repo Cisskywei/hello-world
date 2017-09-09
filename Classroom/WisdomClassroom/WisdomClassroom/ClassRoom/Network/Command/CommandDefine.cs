@@ -42,6 +42,7 @@ namespace WisdomClassroom.ClassRoom
             QuestionList,
             OnlinePlayers,
             OnlineOnePlayer,
+            OfflineOnePlayer,
             MaterialList,
             PushDataAll,
             PushDataOne,
