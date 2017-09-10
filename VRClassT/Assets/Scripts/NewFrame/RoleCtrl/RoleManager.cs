@@ -93,7 +93,7 @@ public class RoleManager {
         }
     }
 
-    private void GeneratePlayer(int userid, Hashtable data)
+    public void GeneratePlayer(int userid, Hashtable data)
     {
         if(playerPrefab == null)
         {
@@ -108,12 +108,22 @@ public class RoleManager {
             _cacheplayers.RemoveAt(0);
             sp.gameObject.SetActive(true);
             ipo = sp.gameObject.GetComponent<NetPlayerInterFace.IPlayerOrder>();
+            RoleCtrl rc = sp.gameObject.GetComponent<RoleCtrl>();
+            if(rc != null)
+            {
+                rc.Init(userid);
+            }
         }
         else
         {
             GameObject go = GameObject.Instantiate(playerPrefab) as GameObject;
             sp = go.GetComponent<SyncPlayer>();
             ipo = go.GetComponent<NetPlayerInterFace.IPlayerOrder>();
+            RoleCtrl rc = sp.gameObject.GetComponent<RoleCtrl>();
+            if (rc != null)
+            {
+                rc.Init(userid);
+            }
         }
 
         if(sp != null)
@@ -166,6 +176,16 @@ public class RoleManager {
         {
             playerorder.Remove(userid);
         }
+    }
+
+    public GameObject GetPlayerById(int userid)
+    {
+        if (_allplayers == null || _allplayers.Count <= 0 || !_allplayers.ContainsKey(userid))
+        {
+            return null;
+        }
+
+        return _allplayers[userid].gameObject;
     }
 
     // 对于人物的操作指令解析

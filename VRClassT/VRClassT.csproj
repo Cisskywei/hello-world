@@ -82,6 +82,18 @@
     <Reference Include="UnityEditor.iOS.Extensions.Common">
       <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>Assets\ExternalLibraries\DOTween\DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>Assets\ExternalLibraries\DOTween\DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>Assets\ExternalLibraries\DOTween\DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>Assets\ExternalLibraries\DOTween\DOTween50.dll</HintPath>
+    </Reference>
     <Reference Include="client">
       <HintPath>Assets\Plugins\client.dll</HintPath>
     </Reference>
@@ -105,18 +117,6 @@
     </Reference>
     <Reference Include="System.ServiceProcess">
       <HintPath>Assets\Plugins\Win\x86_64\System.ServiceProcess.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>Assets\ExternalLibraries\DOTween\DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>Assets\ExternalLibraries\DOTween\DOTween50.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>Assets\ExternalLibraries\DOTween\DOTween43.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>Assets\ExternalLibraries\DOTween\DOTween46.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -520,6 +520,7 @@
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\Interface\NetPlayerInterFace.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\KeepRelativePos.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\PetFlow.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleCtrl.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleManager.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\RoleOrder.cs" />
     <Compile Include="Assets\Scripts\NewFrame\RoleCtrl\SyncPlayer.cs" />
@@ -536,10 +537,12 @@
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\AskInClassUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\DrawingBoardUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\FastInClassUI.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\FirstUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\GroupListUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\MsgTips.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\PPTSwitch.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\PlayerListUI.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\SecondUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\StateInforShow.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\StateInforTeacher.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\StudentHandUp.cs" />
@@ -548,7 +551,7 @@
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\TestFeedBackUpUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\TestInClassUI.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\ToggleValueChange.cs" />
-    <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\Teacher\UIManager.cs" />
+    <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\UIManager.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\UiDataManager.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\base\ClassIcon.cs" />
     <Compile Include="Assets\Scripts\NewFrame\UI\InsideUI\base\CourseIcon.cs" />

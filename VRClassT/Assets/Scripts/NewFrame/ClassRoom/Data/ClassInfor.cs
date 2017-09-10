@@ -1,4 +1,5 @@
 ﻿using ko.NetFram;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,16 @@ public class ClassInfor {
         }
     }
 
+    public PlayerInfor FindPlayerById(int userid)
+    {
+        if(playerlist == null || playerlist.Count <= 0 || !playerlist.ContainsKey(userid))
+        {
+            return null;
+        }
+
+        return playerlist[userid];
+    }
+
     public void AddStudent(PlayerInfor player)
     {
         if(playerlist.ContainsKey(player.userid))
@@ -40,6 +51,32 @@ public class ClassInfor {
         else
         {
             playerlist.Add(player.userid, player);
+        }
+    }
+
+    public void Playeronline(int userid)
+    {
+        PlayerInfor pi = FindPlayerById(userid);
+        if(pi == null)
+        {
+            return;
+        }
+
+        pi.isonline = true;
+    }
+
+    public void Playersonline(ArrayList userids)
+    {
+        for(int i=0;i<userids.Count;i++)
+        {
+            Int64 id = (Int64)userids[i];
+            PlayerInfor pi = FindPlayerById((int)id);
+            if (pi == null)
+            {
+                return;
+            }
+
+            pi.isonline = true;
         }
     }
 }

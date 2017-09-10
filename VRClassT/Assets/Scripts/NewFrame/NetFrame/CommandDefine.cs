@@ -65,6 +65,7 @@ public class CommandDefine {
         // 多人协同下的指令
         ObjectOperate,   // 物体的操作相关  对应 IObjectOperate 接口的相关函数  arraylist : 一级指令/二级指令/objectid/ObjectOperate类型/userid/操作结果/其他参数
         PlayerOrder, // 玩家模型的操作指令
+        PlayerList,
 
         // 返回
         BackToLobby,

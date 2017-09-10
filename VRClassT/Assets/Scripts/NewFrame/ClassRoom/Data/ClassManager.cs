@@ -29,6 +29,9 @@ public class ClassManager {
 
     public Dictionary<int, ClassInfor> classlist = new Dictionary<int, ClassInfor>();
 
+    // 为学生用户·保存当前玩家信息
+    private ArrayList _playeronline;
+
     // 初始化所有班级
     public void InitClass(DataType.CourseInfor courseinfor = null)
     {
@@ -105,14 +108,98 @@ public class ClassManager {
         string sex = (string)playerinfor[3];
         string ava = (string)playerinfor[4];
         Int64 classid = (Int64)playerinfor[5];
-        PlayerInfor p = new PlayerInfor();
-        ClassInfor ci = findClassById(Convert.ToInt32(p.classes.class_id));
-        ci.AddStudent(p);
+  //      PlayerInfor p = new PlayerInfor();
+        ClassInfor ci = findClassById((int)classid);
+        if(ci == null)
+        {
+            // TODO
+        }
+        else
+        {
+            ci.Playeronline((int)userid);
+        }
     }
 
     // arraylist: {userid/name/duty/sex/avator/classid}
     public void Playersonline(ArrayList playersinfor)
     {
+        for(int i=0;i<playersinfor.Count;i++)
+        {
+            ArrayList playerinfor = (ArrayList)playersinfor[i];
+            Int64 userid = (Int64)playerinfor[0];
+            string name = (string)playerinfor[1];
+            Int64 duty = (Int64)playerinfor[2];
+            string sex = (string)playerinfor[3];
+            string ava = (string)playerinfor[4];
+            Int64 classid = (Int64)playerinfor[5];
+            ClassInfor ci = findClassById((int)classid);
+            if (ci == null)
+            {
+                // TODO
+            }
+            else
+            {
+                ci.Playeronline((int)userid);
+            }
+        }
+    }
 
+    public PlayerInfor FindPlayerById(int userid)
+    {
+        if(classlist == null || classlist.Count <= 0)
+        {
+            return null;
+        }
+
+        PlayerInfor p = null;
+
+        foreach(ClassInfor ci in classlist.Values)
+        {
+            if(ci.Count <= 0)
+            {
+                continue;
+            }
+
+            p = ci.FindPlayerById(userid);
+
+            if(p != null)
+            {
+                break;
+            }
+        }
+
+        return p;
+    }
+
+    // 初始化在线玩家列表
+    public void InitOnlinePlayer(ArrayList users)
+    {
+        _playeronline = users;
+
+        if(classlist == null || classlist.Count <= 0)
+        {
+            return;
+        }
+
+        for(int i=0; i<users.Count; i++)
+        {
+            Int64 id = (Int64)users[i];
+            PlayerInfor pi = FindPlayerById((int)id);
+            if(pi != null)
+            {
+                pi.isonline = true;
+            }
+
+            // 修改名字显示
+            GameObject go = RoleManager.getInstance().GetPlayerById((int)id);
+            if(go != null)
+            {
+                RoleCtrl rc = go.GetComponent<RoleCtrl>();
+                if(rc != null)
+                {
+                    rc.Init((int)id,pi.student_name);
+                }
+            }
+        }
     }
 }

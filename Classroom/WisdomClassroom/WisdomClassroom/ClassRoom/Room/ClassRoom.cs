@@ -100,6 +100,43 @@ namespace WisdomClassroom.ClassRoom
 
             int id = player.selfid;
             string uuid = player.uuid;
+
+            // 测试
+            if (player.selfid == 1)
+            {
+                player.permission = Enums.PermissionEnum.Teacher;
+            }
+            // 测试结束
+
+            ArrayList msg = new ArrayList();
+            msg.Add(getOnlinePlayers());
+            if (courseinfor != null && courseinfor._courseinfor != null)
+            {
+                msg.Add(courseinfor._courseinfor);
+            }
+
+            if (player.permission == Enums.PermissionEnum.Teacher)
+            {
+                // 登陆者是老师
+                this.teacher = player;
+                BroadcastPlayerList(id, _uuid_of_player, msg);
+            }
+            else
+            {
+                // 登陆者是学生
+                BroadcastPlayerList(id, uuid, msg);
+            }
+
+            // 玩家上线广播 arraylist: userid/name/duty/sex/avator/classid
+            ArrayList data = new ArrayList();
+            data.Add((Int64)id);
+            data.Add(user.studentname);
+            data.Add((Int64)user.identity);
+            data.Add(user.sex);
+            data.Add(user.avatar);
+            data.Add(player.classid);
+            BroadcastPlayerOnline(id, data);
+            
             if (this.allstudents.ContainsKey(id))
             {
                 // 重复登陆  可能是掉线重登
@@ -121,33 +158,6 @@ namespace WisdomClassroom.ClassRoom
                 this.allstudents.Add(id, player);
             }
 
-            // 测试
-            if (player.selfid == 1)
-            {
-                player.permission = Enums.PermissionEnum.Teacher;
-            }
-
-            if (player.permission == Enums.PermissionEnum.Teacher)
-            {
-                // 登陆者是老师
-                this.teacher = player;
-            }
-            else
-            {
-                // 登陆者是学生
-                //      TellTeacherPlayerIn(id);
-            }
-
-            // 玩家上线广播 arraylist: userid/name/duty/sex/avator/classid
-            ArrayList data = new ArrayList();
-            data.Add((Int64)id);
-            data.Add(user.studentname);
-            data.Add((Int64)user.identity);
-            data.Add(user.sex);
-            data.Add(user.avatar);
-            data.Add(player.classid);
-            BroadcastPlayerOnline(id,data);
-
             if (uuid != null)
             {
                 if (!_uuid_of_player.Contains(uuid))
@@ -160,6 +170,23 @@ namespace WisdomClassroom.ClassRoom
             Console.WriteLine("当前玩家数 : " + allstudents.Count + " _uuid_of_player " + _uuid_of_player.Count);
 
             return selfid;
+        }
+
+        private ArrayList getOnlinePlayers()
+        {
+            if(allstudents == null || allstudents.Count <= 0)
+            {
+                return null;
+            }
+
+            ArrayList a = new ArrayList();
+
+            foreach(int i in allstudents.Keys)
+            {
+                a.Add((Int64)i);
+            }
+
+            return a;
         }
 
         public void Leave(int userid)
@@ -247,6 +274,30 @@ namespace WisdomClassroom.ClassRoom
             {
                 hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, (msg));
             }
+        }
+
+        // 广播学生列表 当前在线玩家列表
+        private void BroadcastPlayerList(int userid, ArrayList uuids, ArrayList data)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PlayerList);
+            msg.Add(data);
+
+            if (uuids.Count > 0)
+            {
+                hub.hub.gates.call_group_client(uuids, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
+        }
+
+        private void BroadcastPlayerList(int userid, string uuid, ArrayList data)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            msg.Add((Int64)CommandDefine.SecondLayer.PlayerList);
+            msg.Add(data);
+
+            hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
         }
 
         //模式初始化  在进入课件的时候初始化
