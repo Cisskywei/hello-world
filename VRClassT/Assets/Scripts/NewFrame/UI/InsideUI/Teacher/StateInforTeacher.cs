@@ -13,7 +13,9 @@ public class StateInforTeacher : OutUIBase {
     public Text rateTxt;
     public Text likeTxt;
 
-    private int likecount;
+    private int likecount = 0;
+
+    public MsgTips msgShow;
 
     // Use this for initialization
     void Start () {
@@ -31,9 +33,42 @@ public class StateInforTeacher : OutUIBase {
         }
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         InitData();
+        RegisterListener();
+    }
+
+    void OnDisable()
+    {
+        UnRegisterListener();
+    }
+
+    private bool _isreglistener = false;
+    public void RegisterListener()
+    {
+        if (_isreglistener)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.StudentLike, ReceiveLike);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.StudentDoubt, ReceiveDoubt);
+
+        _isreglistener = true;
+    }
+
+    public void UnRegisterListener()
+    {
+        if (!_isreglistener)
+        {
+            return;
+        }
+
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.StudentLike, ReceiveLike);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.StudentDoubt, ReceiveDoubt);
+
+        _isreglistener = false;
     }
 
     public void InitData()
@@ -89,7 +124,7 @@ public class StateInforTeacher : OutUIBase {
 
     public void AddDoubtPerson(int userid)
     {
-        PlayerInfor p = UiDataManager.getInstance().GetPlayerById(userid);
+        PlayerInfor p = ClassManager.getInstance().FindPlayerById(userid);
 
         if (p == null)
         {
@@ -130,6 +165,47 @@ public class StateInforTeacher : OutUIBase {
                 icon.gameObject.SetActive(true);
             }
         }
+    }
+
+    //接收学生点赞 举手
+    public void ReceiveLike(int userid, ArrayList msg)
+    {
+        PlayerInfor p = ClassManager.getInstance().FindPlayerById(userid);
+        if (p != null)
+        {
+            string modeTxt = p.name + "给您点了赞";
+            if (msgShow != null)
+            {
+                msgShow.ShowMessage(modeTxt);
+            }
+        }
+
+        ChangeLikeCount(++likecount);
+    }
+
+    public void ReceiveDoubt(int userid, ArrayList msg)
+    {
+        //// 显示有疑问图标
+        //if (flashing != null && !flashing.activeSelf)
+        //{
+        //    flashing.SetActive(true);
+        //}
+
+        // 添加有疑问的学生进入列表
+        // TODO !!!
+        AddDoubtPerson((int)userid);
+
+        //// 添加举手回答问题的学生
+        //if (handuplist != null && handuplist.gameObject.activeInHierarchy)
+        //{
+        //    handuplist.AddStudent((int)userid);
+        //}
+
+    }
+
+    // 举手之类的信息提醒： ui闪烁
+    public void FlashingState()
+    {
     }
 
     //public void ShowInfor()

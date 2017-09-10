@@ -1,2 +1,78 @@
-Base path: D:/Unity3d5.6/Editor/Data
+Base path: D:/programs/Unity3D/Unity/Editor/Data
 Cmd: initializeCompiler
+Cmd: preprocess
+  insize=1206 outsize=451 ok=1
+Cmd: preprocess
+  insize=7416 outsize=2318 ok=1
+Cmd: preprocess
+  insize=1606 outsize=320 ok=1
+Cmd: preprocess
+  insize=2072 outsize=625 ok=1
+Cmd: preprocess
+  insize=660 outsize=338 ok=1
+Cmd: preprocess
+  insize=1736 outsize=563 ok=1
+Cmd: preprocess
+  insize=1758 outsize=601 ok=1
+Cmd: preprocess
+  insize=1951 outsize=638 ok=1
+Cmd: preprocess
+  insize=600 outsize=192 ok=1
+Cmd: preprocess
+  insize=4705 outsize=341 ok=1
+Cmd: preprocess
+  insize=2030 outsize=682 ok=1
+Cmd: preprocess
+  insize=1293 outsize=458 ok=1
+Cmd: preprocess
+  insize=2103 outsize=768 ok=1
+Cmd: preprocess
+  insize=1163 outsize=278 ok=1
+Cmd: preprocess
+  insize=3645 outsize=469 ok=1
+Cmd: preprocess
+  insize=1352 outsize=549 ok=1
+Cmd: preprocess
+  insize=5784 outsize=1008 ok=1
+Cmd: preprocess
+  insize=1312 outsize=461 ok=1
+Cmd: preprocess
+  insize=209 outsize=206 ok=1
+Cmd: preprocess
+  insize=665 outsize=665 ok=1
+Cmd: preprocess
+  insize=2012 outsize=603 ok=1
+Cmd: preprocess
+  insize=9474 outsize=4832 ok=1
+Cmd: preprocess
+  insize=1271 outsize=344 ok=1
+Cmd: preprocess
+  insize=1432 outsize=486 ok=1
+Cmd: preprocess
+  insize=1222 outsize=449 ok=1
+Cmd: preprocess
+  insize=2430 outsize=694 ok=1
+Cmd: preprocess
+  insize=3516 outsize=529 ok=1
+Cmd: preprocess
+  insize=1819 outsize=607 ok=1
+Cmd: preprocess
+  insize=717 outsize=190 ok=1
+Cmd: preprocess
+  insize=1088 outsize=315 ok=1
+Cmd: preprocess
+  insize=5554 outsize=1832 ok=1
+Cmd: preprocess
+  insize=1599 outsize=548 ok=1
+Cmd: preprocess
+  insize=1064 outsize=388 ok=1
+Cmd: preprocess
+  insize=2709 outsize=447 ok=1
+Cmd: preprocess
+  insize=2118 outsize=668 ok=1
+Cmd: preprocess
+  insize=996 outsize=411 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=13211 outsize=5478 kw=_SUNDISK_SIMPLE pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=13211 outsize=930 kw=_SUNDISK_SIMPLE pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_COLORSPACE_GAMMA ok=1

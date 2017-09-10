@@ -46,6 +46,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Connection.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ConnectionsCollection.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\GraphData.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Joint.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Node.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\NodeInspector.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ObjectConnector.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\Engine\Scripts\Editor\EnumFlagsAttributeDrawer.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\Engine\Scripts\Editor\PointColorPropertyDrawer.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\Engine\Scripts\Editor\TexturePathPropertyDrawer.cs" />
+     <Compile Include="Assets\ExternalLibraries\PaintCraft\Pro\3D\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
+     <Compile Include="Assets\ExternalLibraries\UniversalMediaPlayer\Editor\UMPEditor.cs" />
+     <Compile Include="Assets\ExternalLibraries\UniversalMediaPlayer\Editor\UMPPostBuilds.cs" />
+     <Compile Include="Assets\ExternalLibraries\UniversalMediaPlayer\Editor\UMPPreference.cs" />
      <Compile Include="Assets\FastOcean\Editor\FOceanEditor.cs" />
      <Compile Include="Assets\FastOcean\Editor\FOceanGridEditor.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\PoseTracker\Editor\PoseEaserEditor.cs" />
@@ -59,85 +73,67 @@
      <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveInput\Editor\ViveInputVirtualButtonEditor.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\Editor\ViveRolePropertyDrawer.cs" />
      <Compile Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\ViveRole\Editor\ViveRoleSetterEditor.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Connection.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ConnectionsCollection.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\GraphData.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Joint.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\Node.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\NodeInspector.cs" />
-     <Compile Include="Assets\PaintCraft\3DParty\NodeInspector\Assets\NodeInspector\Scripts\Editor\ObjectConnector.cs" />
-     <Compile Include="Assets\PaintCraft\Engine\Scripts\Editor\EnumFlagsAttributeDrawer.cs" />
-     <Compile Include="Assets\PaintCraft\Engine\Scripts\Editor\PointColorPropertyDrawer.cs" />
-     <Compile Include="Assets\PaintCraft\Engine\Scripts\Editor\TexturePathPropertyDrawer.cs" />
-     <Compile Include="Assets\PaintCraft\Pro\3D\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_Editor.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_Preferences.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_RenderModelEditor.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_Settings.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_SkyboxEditor.cs" />
      <Compile Include="Assets\SteamVR\Editor\SteamVR_Update.cs" />
-     <Compile Include="Assets\UniversalMediaPlayer\Editor\UMPEditor.cs" />
-     <Compile Include="Assets\UniversalMediaPlayer\Editor\UMPPostBuilds.cs" />
-     <Compile Include="Assets\UniversalMediaPlayer\Editor\UMPPreference.cs" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanCore.cginc" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\GlitterMixPostprocess.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\Effects\GlitterMixPostprocess.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_Fade.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Basic\Common\MaskedShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\UnderWater.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_ClearAll.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\SwatchShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Advanced\Common\SwatchShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\ColorCorrectionCurves.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\TiledShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Advanced\Common\TiledShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\CullMask.shader" />
      <None Include="Assets\FastOcean\Core Shaders\SunShaftsComposite.shader" />
-     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-TransparentCanvas.shader" />
+     <None Include="Assets\ExternalLibraries\UniversalMediaPlayer\Shaders\UMP-TransparentCanvas.shader" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\Scripts\Misc\Resources\Unlit-AlphaWithFade.shader" />
-     <None Include="Assets\EasyPaint\Readme.txt" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskColorWithGlitter.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\AlphaUnlitMaskColorWithGlitter.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
      <None Include="Assets\FastOcean\Core Shaders\BlurEffectConeTap.shader" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskClippingMaskColor.shader" />
-     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-ARVideoCanvas.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\AlphaUnlitMaskClippingMaskColor.shader" />
+     <None Include="Assets\ExternalLibraries\UniversalMediaPlayer\Shaders\UMP-ARVideoCanvas.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanParallax.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\NormalRegionShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Basic\Common\NormalRegionShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FXAA3.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanCommon.cginc" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitColor.shader" />
-     <None Include="Assets\PaintCraft\Pro\3D\Materials\PlaneShader.shader" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\AlphaUnlitMaskColor.shader" />
-     <None Include="Assets\EasyPaint\Materials\BrushShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\AlphaUnlitColor.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Pro\3D\Materials\PlaneShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\AlphaUnlitMaskColor.shader" />
      <None Include="Assets\FastOcean\Core Shaders\BlendForGlare.shader" />
-     <None Include="Assets\PaintCraft\3DParty\NodeInspector\LICENSE.txt" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\UnlitVertexColor.shader" />
-     <None Include="Assets\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\3DParty\NodeInspector\LICENSE.txt" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\UnlitVertexColor.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Pro\3D\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\changelog.txt" />
-     <None Include="Assets\PaintCraft\Demo\ColoringBook\Tools\Pencil\NewUnlitShader.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\SwatchRegionShader.shader" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\AlphaToHolesShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Demo\ColoringBook\Tools\Pencil\NewUnlitShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Advanced\Common\SwatchRegionShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\Effects\AlphaToHolesShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\SimpleClear.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Advanced\Common\TiledRegionShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Advanced\Common\TiledRegionShader.shader" />
      <None Include="Assets\HTC.UnityPlugin\ViveInputUtility\readme.txt" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\Effects\GlitterPostprocess.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\Effects\GlitterPostprocess.shader" />
      <None Include="Assets\FastOcean\Core Shaders\Clouds.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\MaskedRegionShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Basic\Common\MaskedRegionShader.shader" />
      <None Include="Assets\FastOcean\Core Shaders\FOceanInclude.cginc" />
-     <None Include="Assets\PaintCraft\Engine\Shaders\DepthMask.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Engine\Shaders\DepthMask.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_AlphaOut.shader" />
-     <None Include="Assets\PaintCraft\BrushPack\Basic\Common\NormalShader.shader" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\BrushPack\Basic\Common\NormalShader.shader" />
      <None Include="Assets\SteamVR\readme.txt" />
-     <None Include="Assets\PaintCraft\Pro\3D\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Pro\3D\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
-     <None Include="Assets\EasyPaint\Materials\CanvasShader.shader" />
-     <None Include="Assets\UniversalMediaPlayer\Shaders\UMP-VideoSphericalCanvas.shader" />
+     <None Include="Assets\ExternalLibraries\UniversalMediaPlayer\Shaders\UMP-VideoSphericalCanvas.shader" />
      <None Include="Assets\SteamVR\Resources\SteamVR_ColorOut.shader" />
      <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
-     <None Include="Assets\UniversalMediaPlayer\Resources\UMPSettings.txt" />
+     <None Include="Assets\ExternalLibraries\UniversalMediaPlayer\Resources\UMPSettings.txt" />
      <None Include="Assets\FastOcean\Core Shaders\Fade.shader" />
-     <None Include="Assets\NVR\Reasources\BackMesh.shader" />
      <None Include="Assets\FastOcean\Core Shaders\CombineForGlare.shader" />
-     <None Include="Assets\PaintCraft\Demo\PatternBrush\Patterns\license-README-FIRST.txt" />
+     <None Include="Assets\ExternalLibraries\PaintCraft\Demo\PatternBrush\Patterns\license-README-FIRST.txt" />
      <None Include="Assets\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
  <Reference Include="Assembly-UnityScript">
  <HintPath>D:/work/gitfile/hello-world/VRClassT/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
@@ -206,19 +202,19 @@
  <HintPath>D:/programs/Unity3D/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="DOTween">
- <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/ExternalLibraries/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="DOTween43">
- <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween43.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/ExternalLibraries/DOTween/DOTween43.dll</HintPath>
  </Reference>
  <Reference Include="DOTween46">
- <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween46.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/ExternalLibraries/DOTween/DOTween46.dll</HintPath>
  </Reference>
  <Reference Include="DOTween50">
- <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/DOTween50.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/ExternalLibraries/DOTween/DOTween50.dll</HintPath>
  </Reference>
  <Reference Include="DOTweenEditor">
- <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/ExternalLibraries/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="client">
  <HintPath>D:/work/gitfile/hello-world/VRClassT/Assets/Plugins/client.dll</HintPath>

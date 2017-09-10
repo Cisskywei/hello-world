@@ -55,6 +55,11 @@ public class MsgTips : OutUIBase {
             return;
         }
 
+        if(!gameObject.activeSelf)
+        {
+            gameObject.SetActive(true);
+        }
+
         msgTxt.text = msg;
 
         if(img == null)
