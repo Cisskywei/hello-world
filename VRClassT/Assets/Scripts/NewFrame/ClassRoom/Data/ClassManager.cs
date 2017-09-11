@@ -202,4 +202,45 @@ public class ClassManager {
             }
         }
     }
+
+    // 获取所有玩家
+    public Dictionary<int, PlayerInfor> GetAllPlayers()
+    {
+        if(classlist == null || classlist.Count <= 0)
+        {
+            return null;
+        }
+
+        Dictionary<int, PlayerInfor> players = new Dictionary<int, PlayerInfor>();
+
+        foreach (ClassInfor ci in classlist.Values)
+        {
+            ci.GetAllPlayers(ref players);
+        }
+
+        return players;
+    }
+
+    private Dictionary<string, GroupInfor> groups = new Dictionary<string, GroupInfor>();
+    public Dictionary<string, GroupInfor> GetAllGroups()
+    {
+        if(groups.Count <= 0)
+        {
+            GroupInfor gi = new GroupInfor("组1");
+            gi.members = GetAllPlayers();
+            groups.Add("组1", gi);
+        }
+        return null;
+    }
+
+    public Dictionary<int, PlayerInfor> GetMembersOfGroup(string groupname)
+    {
+        if (groups.Count <= 0)
+        {
+            GroupInfor gi = new GroupInfor("组1");
+            gi.members = GetAllPlayers();
+            groups.Add("组1", gi);
+        }
+        return null;
+    }
 }

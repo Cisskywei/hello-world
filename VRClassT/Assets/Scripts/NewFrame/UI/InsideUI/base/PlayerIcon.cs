@@ -92,7 +92,7 @@ public class PlayerIcon : MonoBehaviour {
             InitHeadIcon(this.avatar);
         }
 
-        this.name = name;
+        this._name = name;
         this.nameTxt.text = name;
     }
 

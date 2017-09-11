@@ -1,0 +1,161 @@
+fileFormatVersion: 2
+guid: e357cd8cede753f4fa43ee945bfe57c8
+timeCreated: 1497514932
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: 2.5inch_HDD.005
+    100002: B_05
+    100004: CPU
+    100006: //RootNode
+    100008: PC
+    100010: PC_DY
+    100012: PC_K
+    100014: PC_K01
+    100016: PC_K02
+    100018: PC_K_L
+    100020: PC_L
+    100022: PC_X
+    100024: PC_ZB
+    100026: PC_ZB_FS
+    100028: PC_ZB_MeshPart0
+    100030: PC_ZB_MeshPart1
+    100032: RAM.003
+    100034: Tube_3_2
+    100036: xianka
+    100038: ZB
+    100040: "\u5BF9\u8C61002"
+    400000: 2.5inch_HDD.005
+    400002: B_05
+    400004: CPU
+    400006: PC
+    400008: //RootNode
+    400010: PC_DY
+    400012: PC_K
+    400014: PC_K01
+    400016: PC_K02
+    400018: PC_K_L
+    400020: PC_L
+    400022: PC_X
+    400024: PC_ZB
+    400026: PC_ZB_FS
+    400028: PC_ZB_MeshPart0
+    400030: PC_ZB_MeshPart1
+    400032: RAM.003
+    400034: Tube_3_2
+    400036: xianka
+    400038: ZB
+    400040: "\u5BF9\u8C61002"
+    2300000: 2.5inch_HDD.005
+    2300002: CPU
+    2300004: PC_DY
+    2300006: PC_K
+    2300008: PC_K01
+    2300010: PC_K02
+    2300012: PC_K_L
+    2300014: PC_L
+    2300016: PC_X
+    2300018: PC_ZB_FS
+    2300020: PC_ZB_MeshPart0
+    2300022: PC_ZB_MeshPart1
+    2300024: RAM.003
+    2300026: xianka
+    3300000: 2.5inch_HDD.005
+    3300002: CPU
+    3300004: PC_DY
+    3300006: PC_K
+    3300008: PC_K01
+    3300010: PC_K02
+    3300012: PC_K_L
+    3300014: PC_L
+    3300016: PC_X
+    3300018: PC_ZB_FS
+    3300020: PC_ZB_MeshPart0
+    3300022: PC_ZB_MeshPart1
+    3300024: RAM.003
+    3300026: xianka
+    4300000: PC_K
+    4300002: PC_X
+    4300004: PC_K02
+    4300006: PC_K01
+    4300008: 2.5inch_HDD.005
+    4300010: PC_DY
+    4300012: PC_L
+    4300014: PC_K_L
+    4300016: PC_ZB_FS
+    4300018: PC_ZB_MeshPart0
+    4300020: PC_ZB_MeshPart1
+    4300022: RAM.003
+    4300024: xianka
+    4300026: CPU
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

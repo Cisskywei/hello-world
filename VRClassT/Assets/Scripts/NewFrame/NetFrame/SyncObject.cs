@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class SyncObject : MonoBehaviour, NetObjectInterFace.IObjectSync
 {
-    [SerializeField]
-    private int selfid = -1;
+    public int selfid = -1;
 
     private Queue<Vector3> poscache = new Queue<Vector3>();
     private Queue<float> postimecache = new Queue<float>();
@@ -37,9 +36,14 @@ public class SyncObject : MonoBehaviour, NetObjectInterFace.IObjectSync
 
         Debug.Log(selfid + gameObject.name);
     }
-	
-	// Update is called once per frame
-	void OnUpdate () {
+
+    private void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void OnUpdate () {
 
         if(_syncstate == Enums.ObjectState.CanSend)
         {

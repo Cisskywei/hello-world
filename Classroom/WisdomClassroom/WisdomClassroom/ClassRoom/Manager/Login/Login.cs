@@ -181,7 +181,7 @@ namespace WisdomClassroom.ClassRoom
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, user.name);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, user.uuid);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Id, user.id);
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, user.identity);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, (Int64)user.identity);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Avatar, user.avatar);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, BackServerConfig.HD_Url);
 
@@ -356,7 +356,7 @@ namespace WisdomClassroom.ClassRoom
                     Hashtable h = new Hashtable();
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, rr.selfid.ToString());
-                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, (Int64)rr._modeltype);
+                    h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, (Int64)(rr._modeltype));
                     //h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
 
                     hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Enter_Course_func, h);
@@ -399,6 +399,7 @@ namespace WisdomClassroom.ClassRoom
                     h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, url);
                 }
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Class_id, v.data.course_id);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Teacher_model, (Int64)(rr._modeltype));
                 //h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Connector, NetworkMessage.selfmodelname);
                 h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_JsonData, jsondata);
 

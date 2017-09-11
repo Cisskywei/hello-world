@@ -6,6 +6,26 @@ using UnityEngine;
 
 public class TeacherUI : OutUIBase {
 
+    private static GameObject selfgo;
+    private static TeacherUI _instance;
+    public static TeacherUI getInstance()
+    {
+        if (_instance == null)
+        {
+            if (selfgo == null)
+            {
+                selfgo = GameObject.Find("TeacherUI");
+            }
+
+            if (selfgo != null)
+            {
+                _instance = selfgo.GetComponent<TeacherUI>();
+            }
+        }
+
+        return _instance;
+    }
+
     public enum UILeft
     {
         None = -1,

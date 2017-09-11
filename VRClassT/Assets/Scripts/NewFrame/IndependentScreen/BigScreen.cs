@@ -18,15 +18,21 @@ public class BigScreen {
     public void Init(ScreenCameraCtrl screenctrl)
     {
         this.screenctrl = screenctrl;
-
-        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, Receiver);
-        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, Receiver);
     }
 
     public void Clear()
     {
         screenctrl = null;
+    }
 
+    public void AddListener()
+    {
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, Receiver);
+        CommandReceive.getInstance().AddReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, Receiver);
+    }
+
+    public void RemoveListener()
+    {
         CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.Lobby, CommandDefine.SecondLayer.BigScreen, Receiver);
         CommandReceive.getInstance().RemoveReceiver(CommandDefine.FirstLayer.CourseWave, CommandDefine.SecondLayer.BigScreen, Receiver);
     }
@@ -34,45 +40,62 @@ public class BigScreen {
     // 大屏显示指令分发
     private void Receiver(int userid, ArrayList msg)
     {
-        if(msg == null || msg.Count <= 2)
+        if (msg == null || msg.Count <= 2)
         {
             return;
         }
 
         Int64 orderid = (Int64)msg[2];
-        //ScreenOrder order = (ScreenOrder)orderid;
+        ScreenOrder order = (ScreenOrder)orderid;
 
-        if(screenctrl != null)
+        switch (order)
         {
-            screenctrl.ChangePlace((int)orderid);
-        }
+            case ScreenOrder.WhiteBoard:
+            case ScreenOrder.VideoView:
+            case ScreenOrder.ImageView:
+            case ScreenOrder.PPTView:
+            case ScreenOrder.PushShow:
+                if (screenctrl != null)
+                {
+                    screenctrl.ChangePlace((int)orderid);
+                }
+                break;
 
-        //switch(order)
-        //{
-        //    case ScreenOrder.TeacherView:
-        //        break;
-        //    case ScreenOrder.StudentView:
-        //        break;
-        //    case ScreenOrder.TeamView:
-        //        break;
-        //    case ScreenOrder.PPTView:
-        //        break;
-        //    case ScreenOrder.WhiteBoard:
-        //        break;
-        //    case ScreenOrder.VideoView:
-        //        break;
-        //    case ScreenOrder.ImageView:
-        //        break;
-        //    case ScreenOrder.PushShow:
-        //        break;
-        //    case ScreenOrder.ScreenPos:
-        //        break;
-        //    default:
-        //        break;
-        //}
+            case ScreenOrder.TeacherView:
+            case ScreenOrder.StudentView:
+                Int64 targetid = (Int64)msg[3];
+                if (screenctrl != null)
+                {
+                    screenctrl.ChangeView((int)targetid);
+                }
+                break;
+
+            case ScreenOrder.TeamView:
+                break;
+
+            case ScreenOrder.ScreenPos:
+                break;
+            default:
+                break;
+        }
     }
 
     // 大屏显示发送指令
+    private ArrayList sendorder = new ArrayList();
+    public void MoveBigScreen(ScreenOrder moveto)
+    {
+        if(sendorder == null)
+        {
+            sendorder = new ArrayList();
+            sendorder.Add((Int64)CommandDefine.FirstLayer.Lobby);
+            sendorder.Add((Int64)CommandDefine.SecondLayer.BigScreen);
+            sendorder.Add((Int64)ScreenOrder.None);
+        }
+
+        sendorder[2] = (Int64)moveto;
+
+        CommandSend.getInstance().Send(UserInfor.getInstance().RoomId, UserInfor.getInstance().UserId, sendorder);
+    }
 
     // 大屏显示接受指令
 

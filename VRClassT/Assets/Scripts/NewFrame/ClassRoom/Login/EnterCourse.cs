@@ -35,8 +35,6 @@ public class EnterCourse
         Debug.Log("进入教室" + courseid);
 
         NetworkCommunicate.getInstance().PlayerEnterCourse((int)UserInfor.getInstance().UserId, UserInfor.getInstance().UserUuid, courseid);
-
-        //MainThreadClient._client.call_hub("lobby", "WisdomLogin", "EnterCourse", UserInfor.getInstance().UserId, UserInfor.getInstance().UserUuid, (Int64)courseid);
     }
 
     public void ret_msg(Hashtable msg)

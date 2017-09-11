@@ -53,7 +53,10 @@ public class EnterLobby : MonoBehaviour
                 ClassDataManager.getInstance().courselist = course.data;
             }
 
-            OutUiManager.getInstance().ShowUI(OutUiManager.UIList.CourseList);
+            if(OutUiManager.getInstance() != null)
+            {
+                OutUiManager.getInstance().ShowUI(OutUiManager.UIList.CourseList);
+            }
         }
         else if (result == "failed")
         {

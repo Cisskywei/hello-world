@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/test_delete.unity
+- path: Assets/Scenes/lobby.unity
   isLoaded: 1
   isActive: 1

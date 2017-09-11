@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerListUI : OutUIBase {
 
-    public Dictionary<Int64, PlayerInfor> playerlist;
+    public Dictionary<int, PlayerInfor> playerlist;
     public List<string> groupnamelist = null;
 
     public Toggle[] switchgroupall; // 0 all 1 group
@@ -136,7 +136,7 @@ public class PlayerListUI : OutUIBase {
     public void InitAllList()
     {
         // 获取小组信息
-        playerlist = UiDataManager.getInstance().GetAllPlayerList();
+        playerlist = ClassManager.getInstance().GetAllPlayers();
 
         int count = 0;
         int tip = 0;
@@ -204,7 +204,7 @@ public class PlayerListUI : OutUIBase {
             groupname = "组1";
         }
         // 获取小组信息
-        playerlist = UiDataManager.getInstance().GetGroupMemeber(groupname);
+        playerlist = ClassManager.getInstance().GetMembersOfGroup(groupname);
 
         int count = 0;
         int tip = 0;
@@ -364,13 +364,13 @@ public class PlayerListUI : OutUIBase {
         UiDataManager.getInstance().ChoosePerson(this._personid);
         HideSelf();
 
- //       UIManager.getInstance().ShowFirstUI(true);
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 
     public void No()
     {
         HideSelf();
 
- //       UIManager.getInstance().ShowFirstUI(true);
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 }

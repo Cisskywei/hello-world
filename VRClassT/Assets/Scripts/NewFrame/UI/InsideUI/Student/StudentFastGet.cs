@@ -54,7 +54,15 @@ public class StudentFastGet : OutUIBase {
             return;
         }
 
-        StudentUIManager.getInstance().ShowUI(StudentUIManager.UIStudent.Prepare);
+        if (StudentUI.getInstance() != null)
+        {
+            StudentUI.getInstance().HideSelf();
+        }
+
+        if (StudentUIManager.getInstance() != null)
+        {
+            StudentUIManager.getInstance().ShowUI(StudentUIManager.UIStudent.Prepare);
+        }
     }
 
     public override void ShowSelf(params System.Object[] args)

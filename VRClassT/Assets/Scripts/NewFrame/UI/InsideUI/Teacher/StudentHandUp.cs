@@ -35,7 +35,7 @@ public class StudentHandUp : OutUIBase {
 
     public void AddStudent(int userid)
     {
-        PlayerInfor p = UiDataManager.getInstance().GetPlayerById(userid);
+        PlayerInfor p = ClassManager.getInstance().FindPlayerById(userid);
 
         if(p == null)
         {
