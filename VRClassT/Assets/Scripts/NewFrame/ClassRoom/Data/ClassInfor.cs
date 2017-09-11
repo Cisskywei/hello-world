@@ -79,4 +79,17 @@ public class ClassInfor {
             pi.isonline = true;
         }
     }
+
+    public void GetAllPlayers(ref Dictionary<int, PlayerInfor> players)
+    {
+        if(players == null)
+        {
+            players = new Dictionary<int, PlayerInfor>();
+        }
+
+        foreach(KeyValuePair<int,PlayerInfor> pi in playerlist)
+        {
+            players.Add((int)pi.Key, (PlayerInfor)pi.Value);
+        }
+    }
 }

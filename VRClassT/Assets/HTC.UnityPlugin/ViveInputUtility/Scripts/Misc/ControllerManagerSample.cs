@@ -231,8 +231,15 @@ public class ControllerManagerSample : MonoBehaviour
 
                 if (ViveInput.GetPressUpEx(HandRole.LeftHand, ControllerButton.Menu))
                 {
-                    ToggleLeftLaserPointer();
-                    needUpdate = true;
+                    if (UserInfor.getInstance().isincourse)
+                    {
+                        EventDispatcher.GetInstance().MainEventManager.TriggerEvent(EventId.OpenUI);
+                    }
+                    else
+                    {
+                        ToggleLeftLaserPointer();
+                        needUpdate = true;
+                    }
                 }
                 break;
         }

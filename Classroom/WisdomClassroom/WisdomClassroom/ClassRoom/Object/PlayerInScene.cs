@@ -38,7 +38,7 @@ namespace WisdomClassroom.ClassRoom
             this.teamid = playerinfor.groupid;
             this.roomid = classid;
             this.token = playerinfor.access_token;
-            this.classid = Convert.ToInt32(playerinfor.user_class.class_id);
+            this.classid = 1;// Convert.ToInt32(playerinfor.user_class.class_id);
 
             if (playerinfor.identity == Enums.DutyEnum.Teacher)
             {

@@ -42,7 +42,7 @@ public class GroupInfor : PlayerBaseInfor
         EventDispatcher.GetInstance().MainEventManager.TriggerEvent<string>(EventId.ChooseGroup, this.token);
     }
 
-    public Dictionary<Int64, PlayerInfor> members = new Dictionary<Int64, PlayerInfor>();
+    public Dictionary<int, PlayerInfor> members = new Dictionary<int, PlayerInfor>();
     private int _count;
     public int count
     {

@@ -134,7 +134,16 @@ public class StudentFast : OutUIBase {
         {
             // 答题结束
             HideSelf();
-            StudentUIManager.getInstance().ShowUI(StudentUIManager.UIStudent.Prepare);
+            
+            if(StudentUI.getInstance()!=null)
+            {
+                StudentUI.getInstance().HideSelf();
+            }
+
+            if (StudentUIManager.getInstance() != null)
+            {
+                StudentUIManager.getInstance().ShowUI(StudentUIManager.UIStudent.Prepare);
+            }
         }
     }
 }

@@ -82,6 +82,12 @@ public class TestFeedBackUI : OutUIBase
 
     public override void ShowSelf(params System.Object[] args)
     {
+        if(args != null && args.Length > 1)
+        {
+            this.questionid = (int)args[0];
+            this.questiontyp = (ComonEnums.QuestionType)args[1];
+        }
+
         ShowSelf(this.questionid, this.questiontyp);
 
     }
@@ -283,17 +289,31 @@ public class TestFeedBackUI : OutUIBase
     {
         HideSelf();
 
-        Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        if(Teaching.getInstance() != null)
+        {
+            Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        }
 
-   //     UIManager.getInstance().ShowFirstUI(true);
+        if(TeacherUI.getInstance() != null)
+        {
+            TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
+        }
+
+        //     UIManager.getInstance().ShowFirstUI(true);
     }
 
     public void No()
     {
         HideSelf();
 
-        Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        if (Teaching.getInstance() != null)
+        {
+            Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        }
 
-        //     UIManager.getInstance().ShowFirstUI(true);
+        if (TeacherUI.getInstance() != null)
+        {
+            TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
+        }
     }
 }

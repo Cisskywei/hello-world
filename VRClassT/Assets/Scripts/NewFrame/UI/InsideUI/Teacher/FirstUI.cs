@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TinyFrameWork;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class FirstUI : OutUIBase
 {
@@ -28,6 +30,10 @@ public class FirstUI : OutUIBase
         {
             UIListType f = (UIListType)args[0];
             ShowUI(f);
+        }
+        else
+        {
+            ShowUI(UIListType.Model);
         }
         base.ShowSelf(args);
     }
@@ -61,50 +67,44 @@ public class FirstUI : OutUIBase
     void OnEnable()
     {
         RegisterEvent();
-        UiDataManager.getInstance().RegisterEventListener();
     }
 
     void OnDisable()
     {
         UnRegisterEvent();
-        UiDataManager.getInstance().UnRegisterEventListener();
     }
-    /// <summary>
-    /// register the target event message, set the call back method with params and event name.
-    /// </summary>
+
     public void RegisterEvent()
     {
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64, Int64, string>(EventId.SwitchModeFeedBack, this.SwitchModeFeedBack);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+
+
+        EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64, Int64, string>(EventId.SwitchModeFeedBack, this.SwitchModeFeedBack);
+        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
+        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
 
         // student
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int>(EventId.StudentFastQuestion, this.StudentFastQuestion);
-        EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int>(EventId.StudentFastQuestion, this.StudentFastQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.AddEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
 
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.BackToLobby, this.BackToLobby);
         EventDispatcher.GetInstance().MainEventManager.AddEventListener<Int64>(EventId.ResetScene, this.ResetSceneBack);
     }
 
-    /// <summary>
-    /// unregister the target event message.
-    /// </summary>
     public void UnRegisterEvent()
     {
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.TeachingMode>(EventId.SwitchMode, this.SwitchMode);
+
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64, Int64, string>(EventId.SwitchModeFeedBack, this.SwitchModeFeedBack);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<ComonEnums.InClassTestType, ComonEnums.QuestionType, int>(EventId.ChooseQuestion, this.ChooseQuestion);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
+        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.DoubtFeedBack, this.ReceiveDoubt);
+        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.LikeFeedBack, this.ReceiveLike);
 
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener(EventId.OpenUI, this.OpenUI);
-
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int>(EventId.StudentFastQuestion, this.StudentFastQuestion);
-        EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int>(EventId.StudentAnswerQuestion, this.StudentAnswerQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int>(EventId.StudentFastQuestion, this.StudentFastQuestion);
+        //EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<int, int, int, string>(EventId.StudentReciveQuestion, this.StudentReciveQuestion);
 
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.BackToLobby, this.BackToLobby);
         EventDispatcher.GetInstance().MainEventManager.RemoveEventListener<Int64>(EventId.ResetScene, this.ResetSceneBack);
@@ -114,64 +114,27 @@ public class FirstUI : OutUIBase
     // 监听函数
     public void SwitchMode(ComonEnums.TeachingMode mode)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         // 判断弹出对应界面
         switch (mode)
         {
             case ComonEnums.TeachingMode.GuidanceMode_Personal:
                 //弹出学生列表界面
-                players.ShowSelf();
-
-                groups.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
+                ShowUI(UIListType.GuidePerson);
 
                 break;
             case ComonEnums.TeachingMode.GuidanceMode_Group:
                 //弹出小组选择界面
-                groups.ShowSelf();
-
-                players.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
+                ShowUI(UIListType.GuideTeam);
 
                 break;
             case ComonEnums.TeachingMode.SelfTrain_Personal:
                 //学生各自协同操作
-                //players.ShowSelf();
-
-                //groups.HideSelf();
-                //question.HideSelf();
-                //questionback.HideSelf();
-                //fastquestion.HideSelf();
-
-                //ShowFirstUI(false);
-
+                ShowUI(UIListType.Model);
 
                 break;
             case ComonEnums.TeachingMode.SelfTrain_Group:
                 //小组各自协同操作
-                //groups.ShowSelf();
-
-                //players.HideSelf();
-                //question.HideSelf();
-                //questionback.HideSelf();
-                //fastquestion.HideSelf();
-
-                //ShowFirstUI(false);
-
+                ShowUI(UIListType.GuideTeam);
 
                 break;
             case ComonEnums.TeachingMode.WatchLearnModel_Sync:
@@ -182,13 +145,6 @@ public class FirstUI : OutUIBase
             case ComonEnums.TeachingMode.VideoOnLive_General:
             case ComonEnums.TeachingMode.VideoOnLive_Full:
 
-                groups.HideSelf();
-                players.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
                 break;
             default:
                 break;
@@ -196,6 +152,10 @@ public class FirstUI : OutUIBase
 
     }
 
+    // 信息
+    public MsgTips msgShow;
+    // 模式文字
+    public string modeTxt = "观学模式-同步";
     // 切换模式返回 更新界面状态
     public void SwitchModeFeedBack(Int64 userid, Int64 modee, string targetid)
     {
@@ -276,16 +236,16 @@ public class FirstUI : OutUIBase
             msgShow.ShowMessage(modeTxt);
         }
 
-        if (IsTeacher)
-        {
-            // 老师界面 状态改变 
-            stateinfor.GetComponent<StateInforShow>().SetModeText(modeTxt);
-        }
-        else
-        {
-            // 学生状态改变 
-            studentstate.ChangeState(modeTxt);
-        }
+        //if (IsTeacher)
+        //{
+        //    // 老师界面 状态改变 
+        //    stateinfor.GetComponent<StateInforShow>().SetModeText(modeTxt);
+        //}
+        //else
+        //{
+        //    // 学生状态改变 
+        //    studentstate.ChangeState(modeTxt);
+        //}
 
         Debug.Log(modeTxt + " -- 模式改变");
     }
@@ -293,50 +253,21 @@ public class FirstUI : OutUIBase
     // 选择了某个试题对应的弹出相应界面
     public void ChooseQuestion(ComonEnums.InClassTestType catage, ComonEnums.QuestionType typ, int questionid)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         switch (catage)
         {
             case ComonEnums.InClassTestType.Test:
                 //测试反馈
-                questionback.ShowSelf(questionid, typ);
+                ShowUI(UIListType.QuestionBack, new System.Object[] { questionid, typ });
 
-                groups.HideSelf();
-                players.HideSelf();
-                question.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
                 break;
             case ComonEnums.InClassTestType.Ask:
                 // 学生选择界面
-                // TODO
-                ShowFirstUI(false);
+                ShowUI(UIListType.GuidePerson,new System.Object[] { "请选择你要提问的学生:" });
 
-                players.ShowSelf(null, "请选择你要提问的学生:");
-                handuplist.ShowSelf();
-
-                groups.HideSelf();
-                question.HideSelf();
-                fastquestion.HideSelf();
-                questionback.HideSelf();
                 break;
             case ComonEnums.InClassTestType.Fast:
                 // 抢答学生界面
-                //TODO
-                fastquestion.ShowSelf(questionid);
-
-                groups.HideSelf();
-                players.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
+                ShowUI(UIListType.FastQuestion);
 
                 break;
             default:
@@ -344,143 +275,65 @@ public class FirstUI : OutUIBase
         }
     }
 
-
-
-    // 学生点赞 举手
-    public void SendLike()
-    {
-        if (IsTeacher)
-        {
-            return;
-        }
-        // TODO
-        UiDataManager.getInstance().SendLike();
-    }
-
-    public void SendDoubt()
-    {
-        if (IsTeacher)
-        {
-            return;
-        }
-        // TODO
-        UiDataManager.getInstance().SendDoubt();
-    }
-
     // 中间的按钮模块
     // 测试按钮
     public void TestBtn(Toggle go)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         if (!go.isOn)
         {
             return;
         }
 
-        question.ShowSelf();
-
-        players.HideSelf();
-        groups.HideSelf();
-        questionback.HideSelf();
-        fastquestion.HideSelf();
-        handuplist.HideSelf();
-
-        ShowFirstUI(false);
+        ShowUI(UIListType.Question);
     }
 
     public void TestBtn(bool isopen = true)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         if (!isopen)
         {
             return;
         }
 
-        question.ShowSelf();
-
-        players.HideSelf();
-        groups.HideSelf();
-        questionback.HideSelf();
-        fastquestion.HideSelf();
-        handuplist.HideSelf();
-
-        ShowFirstUI(false);
+        ShowUI(UIListType.Question);
     }
     // 抢答按钮
     public void FastBtn(Toggle go)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         if (!go.isOn)
         {
             return;
         }
 
-        question.ShowSelf(ComonEnums.InClassTestType.Fast);
-
-        fastquestion.HideSelf();
-        players.HideSelf();
-        groups.HideSelf();
-        questionback.HideSelf();
-        handuplist.HideSelf();
-        ShowFirstUI(false);
-
+        ShowUI(UIListType.Question, new System.Object[] { ComonEnums.InClassTestType.Fast });
     }
 
     //提问按钮
     public void AskBtn(Toggle go)
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         if (!go.isOn)
         {
             return;
         }
 
-        question.ShowSelf(ComonEnums.InClassTestType.Ask);
-
-        fastquestion.HideSelf();
-        players.HideSelf();
-        groups.HideSelf();
-        questionback.HideSelf();
-        handuplist.HideSelf();
-        ShowFirstUI(false);
+        ShowUI(UIListType.Question, new System.Object[] { ComonEnums.InClassTestType.Ask });
     }
 
     //返回大厅 按钮点击监听
     public void BackLobby()
     {
         // 返回大厅
+        SceneManager.LoadScene("lobby");
     }
 
     public void BackToLobby(Int64 userid)
     {
-        Application.Quit();
+        SceneManager.LoadScene("lobby");
     }
 
     // 重置场景
     public Dropdown reset;
     public void ResetScene()
     {
-        if (!IsTeacher)
-        {
-            return;
-        }
-
         if (reset == null)
         {
             return;
@@ -492,48 +345,41 @@ public class FirstUI : OutUIBase
                 // 重置全部
                 UiDataManager.getInstance().ResetSceneAll();
 
-                players.HideSelf();
-                groups.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
+                HideSelf();
 
-                ShowFirstUI(false);
                 break;
             case 1:
                 // 重置组
                 // 显示组选择界面
                 UiDataManager.getInstance().ResetScene(1);
 
-                groups.ShowSelf();
+                ShowUI(UIListType.GuideTeam);
 
-                players.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
                 break;
             case 2:
                 // 重置学生
                 // 显示所有学生界面
                 UiDataManager.getInstance().ResetScene(2);
 
-                players.ShowSelf();
+                ShowUI(UIListType.GuidePerson);
 
-                groups.HideSelf();
-                question.HideSelf();
-                questionback.HideSelf();
-                fastquestion.HideSelf();
-                handuplist.HideSelf();
-
-                ShowFirstUI(false);
                 break;
             default:
                 break;
         }
+    }
+
+    // 学生点赞 举手
+    public void SendLike()
+    {
+        // TODO
+        UiDataManager.getInstance().SendLike();
+    }
+
+    public void SendDoubt()
+    {
+        // TODO
+        UiDataManager.getInstance().SendDoubt();
     }
 
     public void ResetSceneBack(Int64 userid)

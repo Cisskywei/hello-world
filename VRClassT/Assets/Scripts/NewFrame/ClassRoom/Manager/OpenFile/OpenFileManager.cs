@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OpenFileManager : MonoBehaviour {
 
@@ -183,11 +184,13 @@ public class OpenFileManager : MonoBehaviour {
 
     public void OpenExe(string path)
     {
-        if(openexe == null)
-        {
-            return;
-        }
+        // 只为演示测试
+        SceneManager.LoadScene("jisuanji");
+        //if(openexe == null)
+        //{
+        //    return;
+        //}
 
-        openexe.Open(path);
+        //openexe.Open(path);
     }
 }

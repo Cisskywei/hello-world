@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NetConfig {
 
-    public static string service_ip = "192.168.0.112";//"127.0.0.1";//"221.226.219.155";//"192.168.0.101";//"58.213.74.230"; // 192.168.157.162
+    public static string service_ip = "192.168.0.120";//"127.0.0.1";//"221.226.219.155";//"192.168.0.101";//"58.213.74.230"; // 192.168.157.162
     public static short service_port = 3236;//1800;
 
-    public static string udp_ip = "192.168.0.112";//"127.0.0.1";
+    public static string udp_ip = "192.168.0.120";//"127.0.0.1";
     public static short udp_port = 3237;
 
     // rpc 调用相关

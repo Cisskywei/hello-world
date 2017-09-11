@@ -1,12 +1,24 @@
 ﻿using HTC.UnityPlugin.Vive;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GrabbableListener : MonoBehaviour {
 
+    public int selfid = -1;
+
     private HashSet<GameObject> rightGrabbingSet = new HashSet<GameObject>();
     private HashSet<GameObject> leftGrabbingSet = new HashSet<GameObject>();
+
+    private void Start()
+    {
+        SyncObject so = gameObject.GetComponent<SyncObject>();
+        if(so != null)
+        {
+            this.selfid = so.selfid;
+        }
+    }
 
     public void OnGrabbed(BasicGrabbable grabbedObj)
     {
@@ -26,6 +38,16 @@ public class GrabbableListener : MonoBehaviour {
                 {
                 }
                 break;
+        }
+
+        // 网络消息相关
+        if(selfid>=0)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Course);
+            msg.Add((Int64)CommandDefine.SecondLayer.Hold);
+            msg.Add((Int64)selfid);
+            NetworkCommunicate.getInstance().ReqCommand(UserInfor.getInstance().RoomId,UserInfor.getInstance().UserId,msg);
         }
     }
 
@@ -47,6 +69,16 @@ public class GrabbableListener : MonoBehaviour {
                 {
                 }
                 break;
+        }
+
+        // 网络消息相关
+        if (selfid >= 0)
+        {
+            ArrayList msg = new ArrayList();
+            msg.Add((Int64)CommandDefine.FirstLayer.Course);
+            msg.Add((Int64)CommandDefine.SecondLayer.Release);
+            msg.Add((Int64)selfid);
+            NetworkCommunicate.getInstance().ReqCommand(UserInfor.getInstance().RoomId, UserInfor.getInstance().UserId, msg);
         }
     }
 

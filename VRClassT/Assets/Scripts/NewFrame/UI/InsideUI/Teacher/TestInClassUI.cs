@@ -17,17 +17,10 @@ public class TestInClassUI : OutUIBase {
     // 大厅界面一定要先设置ComonEnums.InClassTestType
     public ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test;
 
-    private bool _isInitQuestion = false;  // 标记是否已经初始化题目
-
     // Use this for initialization
     void Start () {
 		
 	}
-
-    //// Update is called once per frame
-    //void Update () {
-
-    //}
 
     public override void ShowSelf(params System.Object[] args)
     {
@@ -39,6 +32,10 @@ public class TestInClassUI : OutUIBase {
         if(args != null && args.Length > 0)
         {
             this.catage = (ComonEnums.InClassTestType)args[0];
+        }
+        else
+        {
+            catage = ComonEnums.InClassTestType.Test;
         }
 
         InitQuestionItem(this.catage);
@@ -74,11 +71,6 @@ public class TestInClassUI : OutUIBase {
 
     public void InitQuestionItem(ComonEnums.InClassTestType catage = ComonEnums.InClassTestType.Test)
     {
-        if(_isInitQuestion)
-        {
-            return;
-        }
-
         switch(catage)
         {
             case ComonEnums.InClassTestType.Ask:
@@ -94,6 +86,8 @@ public class TestInClassUI : OutUIBase {
                 }
                 break;
         }
+
+        this.catage = catage;
 
         // 获取试题信息
         questionlist = QuestionManager.getInstance().GetQuestionList();
@@ -152,20 +146,20 @@ public class TestInClassUI : OutUIBase {
                 }
             }
         }
-        
-//        _isInitQuestion = true;
     }
 
     // 确认返回
     public void Yes()
     {
         HideSelf();
- //       UIManager.getInstance().ShowFirstUI(true);
+
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 
     public void No()
     {
         HideSelf();
- //       UIManager.getInstance().ShowFirstUI(true);
+
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 }

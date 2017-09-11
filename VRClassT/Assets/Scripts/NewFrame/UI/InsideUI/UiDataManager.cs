@@ -164,7 +164,7 @@ public class UiDataManager {
     }
 
     // 获取小组成员信息
-    public Dictionary<Int64, PlayerInfor> GetGroupMemeber(string groupname)
+    public Dictionary<int, PlayerInfor> GetGroupMemeber(string groupname)
     {
         if(grouplist.Count <= 0 || !grouplist.ContainsKey(groupname))
         {

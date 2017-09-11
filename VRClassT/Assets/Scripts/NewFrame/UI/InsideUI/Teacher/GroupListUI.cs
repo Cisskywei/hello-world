@@ -59,13 +59,23 @@ public class GroupListUI : OutUIBase {
     public void InitUI()
     {
         // 获取小组信息
-        grouplist = UiDataManager.getInstance().GetGroupList();
+        grouplist = ClassManager.getInstance().GetAllGroups();
 
         int count = 0;
         int tip = 0;
         if(grouplistpanel != null)
         {
             count = grouplistpanel.childCount;
+        }
+
+        if(grouplist == null || grouplist.Count <= 0)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                grouplistpanel.GetChild(i).gameObject.SetActive(false);
+            }
+
+            return;
         }
 
         ToggleGroup tog = grouplistpanel.GetComponent<ToggleGroup>();
@@ -115,12 +125,12 @@ public class GroupListUI : OutUIBase {
     {
         UiDataManager.getInstance().ChooseGroup(this._name);
         HideSelf();
-        UIManager.getInstance().ShowFirstUI(true);
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 
     public void No()
     {
         HideSelf();
-        UIManager.getInstance().ShowFirstUI(true);
+        TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
     }
 }

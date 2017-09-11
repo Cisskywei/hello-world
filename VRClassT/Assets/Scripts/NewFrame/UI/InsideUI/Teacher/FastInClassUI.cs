@@ -110,7 +110,7 @@ public class FastInClassUI : OutUIBase {
 
     public void SomeOneCome(int userid)
     {
-        PlayerInfor p = UiDataManager.getInstance().GetPlayerById(userid);
+        PlayerInfor p = ClassManager.getInstance().FindPlayerById(userid);
 
         if(p != null)
         {
@@ -124,7 +124,15 @@ public class FastInClassUI : OutUIBase {
     {
         if(UserInfor.getInstance().isTeacher)
         {
-            Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+            if (Teaching.getInstance() != null)
+            {
+                Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+            }
+
+            if (TeacherUI.getInstance() != null)
+            {
+                TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
+            }
         }
         else
         {
@@ -150,7 +158,15 @@ public class FastInClassUI : OutUIBase {
             chooseuserid = -1;
         }
 
-        //       UIManager.getInstance().ShowFirstUI(true);
+        if (Teaching.getInstance() != null)
+        {
+            Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        }
+
+        if (TeacherUI.getInstance() != null)
+        {
+            TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
+        }
     }
 
     public void No()
@@ -163,6 +179,14 @@ public class FastInClassUI : OutUIBase {
             chooseuserid = -1;
         }
 
-        //      UIManager.getInstance().ShowFirstUI(true);
+        if (Teaching.getInstance() != null)
+        {
+            Teaching.getInstance().ShowUI(Teaching.UITeaching.CourseContent);
+        }
+
+        if (TeacherUI.getInstance() != null)
+        {
+            TeacherUI.getInstance().ShowUILeft(TeacherUI.UILeft.First);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class SwitchModeUI : OutUIBase {
 
     public void SwitchMode(int m)
     {
-        Enums.TeachingMode mode = (Enums.TeachingMode)m;
-        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<Enums.TeachingMode>(EventId.SwitchMode, mode);
+        ComonEnums.TeachingMode mode = (ComonEnums.TeachingMode)m;
+        EventDispatcher.GetInstance().MainEventManager.TriggerEvent<ComonEnums.TeachingMode>(EventId.SwitchMode, mode);
     }
 }
