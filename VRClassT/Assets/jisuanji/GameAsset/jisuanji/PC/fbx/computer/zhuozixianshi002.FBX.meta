@@ -1,0 +1,126 @@
+fileFormatVersion: 2
+guid: a4d995fd7a08aee4db1f36fc7c12258a
+timeCreated: 1496909318
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Cloner_1_006
+    100002: Extrude_NURBS_005
+    100004: Extrude_NURBS_1_009
+    100006: Extrude_NURBS_3_005
+    100008: jianpan
+    100010: jianpan1
+    100012: wq001
+    100014: zhuozi
+    100016: zhuozi_MeshPart0
+    100018: zhuozi_MeshPart1
+    100020: zhuozi_MeshPart2
+    100022: //RootNode
+    400000: Cloner_1_006
+    400002: Extrude_NURBS_005
+    400004: Extrude_NURBS_1_009
+    400006: Extrude_NURBS_3_005
+    400008: jianpan
+    400010: jianpan1
+    400012: wq001
+    400014: zhuozi
+    400016: zhuozi_MeshPart0
+    400018: zhuozi_MeshPart1
+    400020: zhuozi_MeshPart2
+    400022: //RootNode
+    2300000: Cloner_1_006
+    2300002: Extrude_NURBS_005
+    2300004: Extrude_NURBS_1_009
+    2300006: Extrude_NURBS_3_005
+    2300008: jianpan
+    2300010: jianpan1
+    2300012: zhuozi_MeshPart0
+    2300014: zhuozi_MeshPart1
+    2300016: zhuozi_MeshPart2
+    3300000: Cloner_1_006
+    3300002: Extrude_NURBS_005
+    3300004: Extrude_NURBS_1_009
+    3300006: Extrude_NURBS_3_005
+    3300008: jianpan
+    3300010: jianpan1
+    3300012: zhuozi_MeshPart0
+    3300014: zhuozi_MeshPart1
+    3300016: zhuozi_MeshPart2
+    4300000: zhuozi_MeshPart0
+    4300002: zhuozi_MeshPart1
+    4300004: zhuozi_MeshPart2
+    4300006: jianpan1
+    4300008: jianpan
+    4300010: Extrude_NURBS_1_009
+    4300012: Extrude_NURBS_3_005
+    4300014: Cloner_1_006
+    4300016: Extrude_NURBS_005
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
