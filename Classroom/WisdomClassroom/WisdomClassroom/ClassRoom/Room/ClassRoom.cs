@@ -358,6 +358,32 @@ namespace WisdomClassroom.ClassRoom
             }
         }
 
+        private void getScreenAndTeacherUuid(string nouuid = null)
+        {
+            if (_uuid_sync_cache.Count > 0)
+            {
+                _uuid_sync_cache.Clear();
+            }
+
+            if (_uuid_of_screen.Count > 0)
+            {
+                for (int i = 0; i < _uuid_of_screen.Count; i++)
+                {
+                    if ((string)_uuid_of_screen[i] == nouuid)
+                    {
+                        continue;
+                    }
+
+                    _uuid_sync_cache.Add(_uuid_of_screen[i]);
+                }
+            }
+
+            if(teacher != null && teacher.uuid != nouuid)
+            {
+                _uuid_sync_cache.Add(teacher.uuid);
+            }
+        }
+
         public void Clear()
         {
             _syncPipeData = false;
@@ -719,7 +745,20 @@ namespace WisdomClassroom.ClassRoom
                 return;
             }
 
-            if (allstudents.Count <= 0 || !allstudents.ContainsKey(userid))
+            string uuid = null;
+            string token = null;
+            if (allstudents.ContainsKey(userid))
+            {
+                uuid = allstudents[userid].uuid;
+                token = allstudents[userid].token;
+            }
+            else if(_bigscreens.ContainsKey(userid))
+            {
+                uuid = _bigscreens[userid].uuid;
+                token = _bigscreens[userid].token;
+            }
+
+            if(uuid == null)
             {
                 return;
             }
@@ -731,17 +770,14 @@ namespace WisdomClassroom.ClassRoom
                 questiones = courseinfor._questioninfor;
             }
 
-            if(questiones == null || questiones == string.Empty)
+            if((questiones == null || questiones == string.Empty) && token != null)
             {
-                BackDataService.getInstance().GetCourseQuestionList(allstudents[userid].token, Question_List_Succeed, Question_List_Failure, userid.ToString());
+                BackDataService.getInstance().GetCourseQuestionList(token, Question_List_Succeed, Question_List_Failure, userid.ToString());
             }
             else
             {
                 msg.Add(questiones);
-                //ArrayList a = new ArrayList(msg);
-                //a.Add(questiones);
-                //Console.WriteLine(questiones);
-                hub.hub.gates.call_client(allstudents[userid].uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+                hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
         }
 
@@ -756,12 +792,12 @@ namespace WisdomClassroom.ClassRoom
             try
             {
                 int id = Convert.ToInt32(tag);
-                if (!allstudents.ContainsKey(id))
+                if (!allstudents.ContainsKey(id) && !_bigscreens.ContainsKey(id))
                 {
                     return;
                 }
 
-                PlayerInScene user = allstudents[id];
+                //PlayerInScene user = allstudents[id];
 
                 // 转换编码格式
                 if(jsondata != null)
@@ -780,7 +816,9 @@ namespace WisdomClassroom.ClassRoom
                         msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
                         msg.Add((Int64)CommandDefine.SecondLayer.QuestionList);
                         msg.Add(jsondata);
-                        hub.hub.gates.call_group_client(_uuid_of_player, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                        getScreenAndPlayerUuid();
+                        hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                        _uuid_sync_cache.Clear();
                     }
                 }
             }
@@ -828,9 +866,27 @@ namespace WisdomClassroom.ClassRoom
                 return;
             }
 
+            string uuid = null;
+            string token = null;
+            if (allstudents.ContainsKey(userid))
+            {
+                uuid = allstudents[userid].uuid;
+                token = allstudents[userid].token;
+            }
+            else if (_bigscreens.ContainsKey(userid))
+            {
+                uuid = _bigscreens[userid].uuid;
+                token = _bigscreens[userid].token;
+            }
+
+            if (uuid == null)
+            {
+                return;
+            }
+
             Int64 courseid = (Int64)msg[2];
 
-            BackDataService.getInstance().GetCourseMaterialList(allstudents[userid].token, (int)courseid, Material_List_Succeed, Material_List_Failure, userid.ToString());
+            BackDataService.getInstance().GetCourseMaterialList(token, (int)courseid, Material_List_Succeed, Material_List_Failure, userid.ToString());
         }
 
         // 暂存题目数据
@@ -844,12 +900,12 @@ namespace WisdomClassroom.ClassRoom
             try
             {
                 int id = Convert.ToInt32(tag);
-                if (!allstudents.ContainsKey(id))
+                if (!allstudents.ContainsKey(id) && !_bigscreens.ContainsKey(id))
                 {
                     return;
                 }
 
-                PlayerInScene user = allstudents[id];
+                //PlayerInScene user = allstudents[id];
 
                 // 转换编码格式
                 if (jsondata != null)
@@ -866,7 +922,12 @@ namespace WisdomClassroom.ClassRoom
                     msg.Add((Int64)CommandDefine.SecondLayer.MaterialList);
                     msg.Add(jsondata);
 
-                    hub.hub.gates.call_client(user.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                    getScreenAndTeacherUuid();
+
+                    if(_uuid_sync_cache.Count > 0)
+                    {
+                        hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)id, msg);
+                    }
                 }
             }
             catch
@@ -903,11 +964,6 @@ namespace WisdomClassroom.ClassRoom
         // 在线玩家列表
         public void OnlinePlayers(int userid, ArrayList msg)
         {
-            if (this.teacher == null || this.teacher.uuid == null || this.teacher.selfid != userid)
-            {
-                return;
-            }
-
             ArrayList players = new ArrayList();
             foreach (PlayerInScene p in this.allstudents.Values)
             {
@@ -919,8 +975,23 @@ namespace WisdomClassroom.ClassRoom
                 players.Add((Int64)p.selfid);
             }
 
+            string uuid = null;
+            if(allstudents.ContainsKey(userid))
+            {
+                uuid = allstudents[userid].uuid;
+            }
+            else if(_bigscreens.ContainsKey(userid))
+            {
+                uuid = _bigscreens[userid].uuid;
+            }
+
+            if(uuid == null)
+            {
+                return;
+            }
+
             msg.Add(players);
-            hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            hub.hub.gates.call_client(uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
         }
 
         public void OnlineOnePlayer(int userid, ArrayList msg)
@@ -955,7 +1026,13 @@ namespace WisdomClassroom.ClassRoom
                 msg.Add((Int64)CommandDefine.FirstLayer.Lobby);
                 msg.Add((Int64)CommandDefine.SecondLayer.OnlineOnePlayer);
                 msg.Add((Int64)userid);
-                hub.hub.gates.call_client(this.teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+
+                getScreenAndTeacherUuid();
+
+                if(_uuid_sync_cache.Count > 0)
+                {
+                    hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+                }
             }
         }
 
@@ -970,23 +1047,13 @@ namespace WisdomClassroom.ClassRoom
             // 保存推送记录  待实现
             //classinfor.AddMaterialPushed((int)fileid);
 
-            if (_uuid_sync_cache.Count > 0)
-            {
-                _uuid_sync_cache.Clear();
-            }
-
             string uuid = this.teacher.uuid;
-            for (int i = 0; i < _uuid_of_player.Count; i++)
+            getScreenAndPlayerUuid(uuid);
+
+            if(_uuid_sync_cache.Count > 0)
             {
-                if ((string)_uuid_of_player[i] == uuid)
-                {
-                    continue;
-                }
-
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
-
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
 
@@ -1009,22 +1076,12 @@ namespace WisdomClassroom.ClassRoom
 
             string uuid = this.teacher.uuid;
 
+            getScreenAndPlayerUuid(uuid);
+
             if (_uuid_sync_cache.Count > 0)
             {
-                _uuid_sync_cache.Clear();
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
-
-            for (int i = 0; i < _uuid_of_player.Count; i++)
-            {
-                if ((string)_uuid_of_player[i] == uuid)
-                {
-                    continue;
-                }
-
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
-            }
-
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
         }
@@ -1038,22 +1095,12 @@ namespace WisdomClassroom.ClassRoom
             }
 
             string uuid = teacher.uuid;
+            getScreenAndPlayerUuid(uuid);
+
             if (_uuid_sync_cache.Count > 0)
             {
-                _uuid_sync_cache.Clear();
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
-
-            for (int i = 0; i < _uuid_of_player.Count; i++)
-            {
-                if ((string)_uuid_of_player[i] == uuid)
-                {
-                    continue;
-                }
-
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
-            }
-
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
         }
@@ -1091,22 +1138,12 @@ namespace WisdomClassroom.ClassRoom
             }
 
             string uuid = teacher.uuid;
-            if (_uuid_sync_cache.Count > 0)
+            getScreenAndPlayerUuid(uuid);
+
+            if(_uuid_sync_cache.Count > 0)
             {
-                _uuid_sync_cache.Clear();
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
-
-            for (int i = 0; i < _uuid_of_player.Count; i++)
-            {
-                if ((string)_uuid_of_player[i] == uuid)
-                {
-                    continue;
-                }
-
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
-            }
-
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
         }
@@ -1119,22 +1156,12 @@ namespace WisdomClassroom.ClassRoom
             }
 
             string uuid = teacher.uuid;
+            getScreenAndPlayerUuid(uuid);
+
             if (_uuid_sync_cache.Count > 0)
             {
-                _uuid_sync_cache.Clear();
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
-
-            for (int i = 0; i < _uuid_of_player.Count; i++)
-            {
-                if ((string)_uuid_of_player[i] == uuid)
-                {
-                    continue;
-                }
-
-                _uuid_sync_cache.Add(_uuid_of_player[i]);
-            }
-
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
             _uuid_sync_cache.Clear();
         }
@@ -1149,28 +1176,19 @@ namespace WisdomClassroom.ClassRoom
             if(userid == teacher.selfid)
             {
                 string uuid = teacher.uuid;
+                getScreenAndPlayerUuid(uuid);
+
                 if (_uuid_sync_cache.Count > 0)
                 {
-                    _uuid_sync_cache.Clear();
+                    hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
                 }
-
-                for (int i = 0; i < _uuid_of_player.Count; i++)
-                {
-                    if ((string)_uuid_of_player[i] == uuid)
-                    {
-                        continue;
-                    }
-
-                    _uuid_sync_cache.Add(_uuid_of_player[i]);
-                }
-
-                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
 
                 _uuid_sync_cache.Clear();
             }
             else
             {
-                hub.hub.gates.call_client(teacher.uuid, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+                getScreenAndTeacherUuid();
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
             }
             
         }
@@ -1186,7 +1204,10 @@ namespace WisdomClassroom.ClassRoom
 
             getScreenAndPlayerUuid(uuid);
 
-            hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            if (_uuid_sync_cache.Count > 0)
+            {
+                hub.hub.gates.call_group_client(_uuid_sync_cache, NetConfig.client_module_name, NetConfig.Command_func, (Int64)userid, msg);
+            }
 
             _uuid_sync_cache.Clear();
         }
