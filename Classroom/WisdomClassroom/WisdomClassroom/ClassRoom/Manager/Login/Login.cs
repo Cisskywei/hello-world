@@ -28,6 +28,7 @@ namespace WisdomClassroom.ClassRoom
                     player_login(name, password, client_uuid);
                     break;
                 case Enums.LoginType.Screen:
+                    screen_login(name, password, client_uuid);
                     break;
                 case Enums.LoginType.NodeServer:
                     break;
@@ -39,27 +40,20 @@ namespace WisdomClassroom.ClassRoom
         // 如果是大屏登陆 name 是自己的标识 password 是要进入的课程id
         private void screen_login(string name, string password, string uuid)
         {
-            int roomid = Convert.ToInt32(password);
-            int userid = Convert.ToInt32(name);
+            BigScreen b = BigScreenManager.getInstance().AddBigScreen(name, password, uuid);
 
-            ClassRoom rr = RoomManager.getInstance().CreateRoomById(roomid);
-
-            if (rr == null)
+            if(b != null && b.classid >= 0 && b.token != null)
             {
                 Hashtable h = new Hashtable();
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "failed");
-                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_ErrorMsg, "nothing");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Result, "success");
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Token, b.token);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Name, b.name);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Uuid, b.uuid);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Id, b.selfid.ToString());
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_Duty, (Int64)Enums.DutyEnum.BigScreen);
+                h.Add(ConstantsDefine.HashTableKeyEnum.Net_Ret_RootUrl, BackServerConfig.HD_Url);
 
-                hub.hub.gates.call_client(uuid, "cMsgConnect", "ret_msg", h);
-            }
-            else
-            {
-                UserInfor user = new UserInfor();
-                user.roomid = roomid;
-                user.selfid = userid;
-                user.uuid = uuid;
-                int ret = rr.Enter(user);
-                rr._uuid_of_screen = uuid;   // 大屏显示uuid
+                hub.hub.gates.call_client(b.uuid, NetConfig.client_module_name, NetConfig.Login_func, h);
             }
         }
 

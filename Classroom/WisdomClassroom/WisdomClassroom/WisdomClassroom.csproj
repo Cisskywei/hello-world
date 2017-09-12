@@ -77,6 +77,8 @@
     <Compile Include="ClassRoom\Object\CommandInScene.cs" />
     <Compile Include="ClassRoom\Object\ObjectInScene.cs" />
     <Compile Include="ClassRoom\Object\PlayerInScene.cs" />
+    <Compile Include="ClassRoom\Room\BigScreen\BigScreen.cs" />
+    <Compile Include="ClassRoom\Room\BigScreen\BigScreenManager.cs" />
     <Compile Include="ClassRoom\Room\ClassRoom.cs" />
     <Compile Include="ClassRoom\Room\ContinuousPipe.cs" />
     <Compile Include="ClassRoom\Room\Team.cs" />
